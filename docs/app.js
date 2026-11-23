@@ -22,9 +22,10 @@ const SOURCES = [
   ["Grover and Helliwell, How's Life at Home?", "https://www.nber.org/papers/20794"],
   ["KFF, The Hyde Amendment and Medicaid coverage", "https://www.kff.org/womens-health-policy/issue-brief/the-hyde-amendment-and-coverage-for-abortion-services/"],
   ["KFF, State policies on abortion coverage", "https://www.kff.org/womens-health-policy/issue-brief/interactive-how-state-policies-shape-access-to-abortion-coverage/"],
-  ["ACGME, OB/GYN requirement impact statement, 2022", "https://prep.acgme.org/globalassets/pfassets/reviewandcomment/220_obstetricsandgynecology_2022-06-24_impact.pdf"],
-  ["Vinekar et al. 2024, residency training after Dobbs", "https://works.bepress.com/callie-coxbauer/20"],
+  ["ACGME, OB/GYN program requirements, 2026", "https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf"],
+  ["Vinekar et al. 2024, residency training after Dobbs", "https://institutionalrepository.aah.org/auroragme/329"],
   ["Biggs et al. 2013, reasons for seeking abortion", "https://bmcwomenshealth.biomedcentral.com/articles/10.1186/1472-6874-13-29"],
+  ["National Abortion Federation, violence and disruption statistics (self-reported)", "https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/"],
   ["Taylor, Decimatio: Myth, Discipline and Death", "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf"],
   ["Livius.org, Decimation", "https://livius.org/articles/concept/decimation"],
   ["Archaeology Magazine, Carthage 2014", "https://archaeology.org/news/2014/01/23/140123-carthage-tophet-sacrifice"],
@@ -141,7 +142,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     worldG.style("display", "none"); usG.style("display", null).attr("transform", null);
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
-    setBanner("United States", fmt(usLatest.abortions), `estimated in ${usLatest.year}. #WeCount counted 1,126,760 in 2025.`, short(usTotal), `recorded from 1973 to ${usLatest.year}, the span of the national series`);
+    setBanner("United States", fmt(usLatest.abortions), `estimated in ${usLatest.year}. #WeCount estimated 1,126,760 in 2025.`, short(usTotal), `recorded from 1973 to ${usLatest.year}, the span of the national series`);
     usPanel(); crumbs(); paint();
   }
   function leaveUS() {
@@ -156,7 +157,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     usG.attr("transform", `translate(${W / 2 - k * (x0 + x1) / 2},${H / 2 - k * (y0 + y1) / 2}) scale(${k})`);
     stateLabels.style("display", "none");
     setBanner(d.name, fmt(d.abortions), `estimated in ${d.year}`, short(d.total2005to2020), "estimated from 2005 to 2020, the longest unbroken state series");
-    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.")}<p class="small">County figures are not shown. There is no national county dataset, and small-county counts can expose individual patients.</p>`;
+    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.")}<p class="small">County figures are not shown. We found no national county dataset, and small-county counts can expose individual patients.</p>`;
     crumbs(); paint();
   }
 

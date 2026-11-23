@@ -39,7 +39,7 @@
     "status": "saved",
     "file": "open/bearak-2022-bmj-gh.html",
     "bytes": 206742,
-    "sha256": "fd0befb6bf5997ae4824fff8487dff6bf494267c19101631b84fb64fe9313d1d"
+    "sha256": "647ce0acff1d5c05012de2cd71d72a789b35aa77dad4ddb651b7b02a2e7c7c8f"
   },
   {
     "id": "guttmacher-worldwide-factsheet",
@@ -50,7 +50,7 @@
     "status": "saved",
     "file": "private/guttmacher-worldwide-factsheet.html",
     "bytes": 80507,
-    "sha256": "80fab3dca86d90a16f311c8d2e32fc0ee4dea2a4138d888ecafc6ac94fc217fd"
+    "sha256": "a7cee54f09bc3fcaee99bff686804d53a69f6292fa461ad95258455d4696aac1"
   },
   {
     "id": "guttmacher-country-explainer",
@@ -126,8 +126,8 @@
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "private/npr-2026-us-abortions.html",
-    "bytes": 177762,
-    "sha256": "5ff44960ea9500c381ec1221ddb0fd287a140fb8ef62980a5a3382a2a960f45f"
+    "bytes": 177761,
+    "sha256": "76b1030e97c17476b3f0a21d4d827bf220817ec7c8e65dbb4922cc5fc4b7b766"
   },
   {
     "id": "nchs-db541",
@@ -189,7 +189,7 @@
     "status": "saved",
     "file": "private/helliwell-grover-marriage.html",
     "bytes": 93555,
-    "sha256": "597021261a7467b126a609c81844743cca07a409f845265742b231932af4bcc2"
+    "sha256": "c52d658036b907c71320f861acd0e2764252977e3d6db89eb7f572f3a84e427f"
   },
   {
     "id": "taylor-decimatio",
@@ -199,8 +199,8 @@
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "private/taylor-decimatio.html",
-    "bytes": 1076716,
-    "sha256": "45c3725edfd957fd92f7cc434df93cc6a67209330a67928b3d6439e245b0610a"
+    "bytes": 1076717,
+    "sha256": "ad55046dca2e0339626c3d4cb1a87839147750aa22de34bba975bae9c4601ad8"
   },
   {
     "id": "livius-decimation",
@@ -211,7 +211,7 @@
     "status": "saved",
     "file": "private/livius-decimation.html",
     "bytes": 10542,
-    "sha256": "fcd2887196054a707ac2f0ff32daf9bb72fe5e2c1dbc91f2d9f2a5cb8572d5bd"
+    "sha256": "44b4d1373b5e1d9aae10336ee5811f977bd3b9f4b849899653089ede86662bc1"
   },
   {
     "id": "archaeology-carthage-2014",
@@ -275,7 +275,7 @@
     "status": "saved",
     "file": "private/kff-hyde-medicaid.html",
     "bytes": 204565,
-    "sha256": "e6378496d25d3a73a098ad092148f94db1e10561a7daeedbb33f69aec7e9c762"
+    "sha256": "57f9e09c7606e1a2c5a74f729f1300140c175237e80616b6bb2de359b1dc52eb"
   },
   {
     "id": "kff-state-coverage",
@@ -289,24 +289,26 @@
     "sha256": "95bf900257942772a1090a4cee3fd889da7a9f0882bb98c7934afdd251f816c4"
   },
   {
-    "id": "acgme-obgyn-2022",
+    "id": "acgme-obgyn-2026",
     "access": "private",
-    "title": "ACGME, OB/GYN program requirement impact statement 2022",
-    "url": "https://prep.acgme.org/globalassets/pfassets/reviewandcomment/220_obstetricsandgynecology_2022-06-24_impact.pdf",
+    "title": "ACGME, OB/GYN program requirements 2026",
+    "url": "https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf",
     "retrieved": "2026-11-23",
-    "status": "failed",
-    "error": "HTTP Error 404: Not Found"
+    "status": "saved",
+    "file": "private/acgme-obgyn-2026.pdf",
+    "bytes": 518175,
+    "sha256": "e1ecd2842ecbd784a28b963df42781112cb1f2a9fbf9783353aa4e64313e9084"
   },
   {
     "id": "vinekar-residency-training",
     "access": "private",
     "title": "Vinekar et al. 2024, abortion training in OB/GYN residencies",
-    "url": "https://works.bepress.com/callie-coxbauer/20",
+    "url": "https://institutionalrepository.aah.org/auroragme/329",
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "private/vinekar-residency-training.html",
-    "bytes": 61456,
-    "sha256": "e8dd8d3207900e675a4e45257c4b2910f4ba179ddfe97fa28b804318c6d68080"
+    "bytes": 43634,
+    "sha256": "44b4b3ce62a6f5507fb800fad0b2e3aa611ad0639561b7cdb32a79b4022985ae"
   },
   {
     "id": "biggs-2013-reasons",
@@ -318,5 +320,16 @@
     "file": "open/biggs-2013-reasons.pdf",
     "bytes": 342633,
     "sha256": "aa8dd25728f2620f4a99a60357afb6a7c9963c569e57006f90c546aa077d570a"
+  },
+  {
+    "id": "naf-violence-2024",
+    "access": "private",
+    "title": "National Abortion Federation, 2024 violence and disruption statistics",
+    "url": "https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/naf-violence-2024.html",
+    "bytes": 175556,
+    "sha256": "df17eebb51e62d97d317e352d6eb9cc8b04e97e971fee7b52a36d3a189d327fe"
   }
 ]
