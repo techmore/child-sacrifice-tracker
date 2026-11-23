@@ -86,6 +86,10 @@ for (const width of [1280, 390]) {
       await page.getByRole("button", { name: "Adams, 1994: 28" }).waitFor();
       assert.equal(await page.locator("#county-table tbody tr").count(), 72);
       assert.match(await page.getByRole("link", { name: "Source report" }).getAttribute("href"), /p45360-98\.pdf$/);
+      await page.goto(origin + "/?state=IN&year=1998#county-panel");
+      await page.getByRole("button", { name: "Adams, 1998: 14" }).waitFor();
+      assert.equal(await page.locator("#county-table tbody tr").count(), 92);
+      assert.match(await page.getByRole("link", { name: "Source report" }).getAttribute("href"), /itp_tbl_14\.html$/);
     });
   });
 }

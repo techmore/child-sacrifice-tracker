@@ -698,6 +698,36 @@ def geography():
     return json.loads(path.read_text())["objects"]["counties"]["geometries"]
 
 
+def indiana():
+    names = {locality_key(f["properties"]["name"]): f["properties"]["name"]
+             for f in geography() if f["id"].startswith("18")}
+    years, sources = {}, {}
+    for year in range(1998, 2014):
+        source = f"in-abortion-counties-{year}"
+        text = (ARCHIVE / f"{source}.html").read_text(encoding="latin-1")
+        if year <= 2001:
+            pattern = r"<td\b[^>]*>\s*([A-Za-z. ]+)\s*</td>\s*<td\b[^>]*>([^<]*)</td>"
+        else:
+            pattern = (r"<div\b[^>]*>\s*([A-Za-z. ]+)\s*</div>\s*</td>\s*</tr>\s*"
+                       r"(?:</tbody>\s*)?</table>\s*</td>\s*<td\b[^>]*>([^<]*)</td>")
+        rows = []
+        for label, cell in re.findall(pattern, text, re.I):
+            name = names.get(locality_key(label))
+            if name is None:
+                continue
+            value = html.unescape(cell).strip()
+            if value != "**" and not re.fullmatch(COUNT, value):
+                raise ValueError(f"Unrecognized Indiana count for {year} {name}: {value!r}")
+            rows.append((name, None if value == "**" else count(value)))
+        years[year] = counties(rows, 92)
+        sources[year] = source
+    return {
+        "source": sources[max(years)], "sourceByYear": sources, "years": years,
+        "scope": ("Indiana Department of Health, Table 14, total induced terminations among Indiana residents "
+                  "by county of residence. Unknown counties are excluded and source suppression is preserved."),
+    }
+
+
 def wisconsin():
     names = sorted(
         (f["properties"]["name"] for f in geography() if f["id"].startswith("55")),
@@ -883,6 +913,7 @@ def main():
     data["36"] = new_york_city()
     data["37"] = north_carolina()
     data["42"] = pennsylvania()
+    data["18"] = indiana()
     data["51"] = virginia()
     data["55"] = wisconsin()
     occurrence_sources = {
