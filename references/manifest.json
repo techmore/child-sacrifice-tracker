@@ -6865,5 +6865,58 @@
     "file": "open/usaspending-hd000836-subawards.json",
     "bytes": 294,
     "sha256": "03572427a09f8afc8d1b5fdcade6bf23e64d67c3869d28341bdc920c00d2a6b6"
+  },
+  {
+    "id": "california-campus-abortion-report-2023",
+    "access": "open",
+    "title": "California Commission on the Status of Women and Girls, College Student Right to Access Act FY 2022–23 report",
+    "url": "https://women.ca.gov/wp-content/uploads/sites/96/2024/01/2023-College-Student-Right-to-Access-Act-Grant-FINAL.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-campus-abortion-report-2023.pdf",
+    "bytes": 926860,
+    "sha256": "3edb074a2ad710a3bee16ade68a054e9f082e4938df8f45bb0532ab2ee2dba4f"
+  },
+  {
+    "id": "california-campus-abortion-report-2024",
+    "access": "open",
+    "title": "California Commission on the Status of Women and Girls, College Student Right to Access Act FY 2023–24 report",
+    "url": "https://women.ca.gov/wp-content/uploads/sites/96/2024/12/2024-College-Student-Right-to-Access-Act-FINAL.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-campus-abortion-report-2024.pdf",
+    "bytes": 4183321,
+    "sha256": "3ff11af8cea22dd7a2e49cb95ca61453db931bf476a5bcb5a60ceb6be75d06c0"
+  },
+  {
+    "id": "california-ab2540-signing-2026",
+    "access": "open",
+    "title": "Office of the Governor of California, AB 2540 signing announcement",
+    "url": "https://www.gov.ca.gov/2026/09/27/governor-newsom-signs-new-laws-expanding-californias-nation-leading-reproductive-freedom-and-care/?output=1",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-ab2540-signing-2026.html",
+    "bytes": 298297,
+    "sha256": "e48f75f84baafe3bf85f3a0d8f965a2e12e94c2e6ed62a750216600153701fff"
+  },
+  {
+    "id": "california-ab2540-chaptered-2026",
+    "access": "open",
+    "title": "California AB 2540, Chapter 490, Statutes of 2026 (chaptered text mirrored by LegiScan)",
+    "url": "https://legiscan.com/CA/text/AB2540/id/3460394/California-2025-AB2540-Chaptered.html",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "california-ab2540-status-2026",
+    "access": "open",
+    "title": "California AB 2540, official legislative history mirrored by OpenCalAccess",
+    "url": "https://opencalaccess.org/leginfo/bill_info/20250AB254091CHP",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-ab2540-status-2026.html",
+    "bytes": 21467,
+    "sha256": "f7406f1537d9a89c58a13d5487486d5b9e44a9de172405ea3ca017d933b03c2e"
   }
 ]
