@@ -90,6 +90,9 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #state-total strong span{margin-inline-start:6px;font-size:21px;font-variant-numeric:tabular-nums}
 .state.context{fill:var(--surface);stroke:var(--line)}
 .state-context-label{font:600 13px system-ui,sans-serif;fill:var(--ink2);stroke:var(--surface);stroke-width:3px;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.county-outlines{fill:none;stroke:var(--ink2);stroke-opacity:.55;pointer-events:none}
+.county-outlines path{stroke-width:1;vector-effect:non-scaling-stroke}
+.state-focus-label{font:750 21px system-ui,sans-serif;fill:var(--ink);stroke:var(--bg);stroke-width:6px;stroke-linejoin:round;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
 #legend .context-key{flex-basis:100%}
 .county{stroke:var(--ink);stroke-opacity:.77;stroke-width:1.4;vector-effect:non-scaling-stroke;cursor:pointer}
 .county:focus,.county.sel{stroke:var(--sel);stroke-opacity:1;stroke-width:3.5;outline:none}
@@ -105,6 +108,9 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 .county-filters{display:flex;flex-wrap:wrap;gap:0 20px}
 #county-panel .pick{margin:6px 0}
 #county-panel .table-scroll{max-height:min(420px,55vh)}
+#county-concentration-list{margin:6px 0 2px;padding-left:0;list-style:none;display:grid;gap:3px}
+#county-concentration-list li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:2px}
+#county-concentration-list .share{font-variant-numeric:tabular-nums;white-space:nowrap}
 #county-table tbody th{position:static;background:transparent;font-weight:500}
 #county-table tbody tr{cursor:pointer}
 #county-table tbody tr:hover{background:var(--surface)}

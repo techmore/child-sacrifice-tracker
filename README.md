@@ -26,6 +26,7 @@ Pennsylvania's official reports cover all 67 counties for 1995–2024 and statew
 Zooming into a Pennsylvania county shows its township, borough, and city boundaries from the 2025 U.S. Census cartographic files. The abortion figures remain county totals. Rebuild the boundary layer with `python3 scripts/build_pa_municipalities.py` and `pyshp` installed.
 
 Minnesota's residence series covers all 87 counties for 2018–2024 and preserves source suppression. New York's residence series covers the five New York City boroughs. North Carolina's county reports cover 2000–2023, with 2005 missing and underreporting in 2011–2014. Washington's procedure series uses the published county totals for 2002 and 2005.
+- **Geographic detail:** Counts are reported where the procedure occurred or where the patient lived, whichever basis the source publishes, and both are labeled. The county is the smallest unit any of these agencies publish; no public dataset gives counts per municipality, township or facility. Pennsylvania's township, borough and city boundaries are drawn for navigation only, and its published figures remain county totals. Each county panel also states how concentrated the selected year is: how many counties supply half and four-fifths of the reported total. In Pennsylvania's 2024 procedure figures, half the total came from 2 counties and four-fifths from 6. The panel also lists the five counties with the largest reported counts and their share of the total.
 - **Economic context:** World Bank GDP per capita, 2023.
 
 A fresh checkout includes the static site and the snapshots used for the offline SQLite build. To rebuild the snapshots from original reports, first restore the full reference archive and install `openpyxl` and `pdftotext`. Then run these commands offline.
@@ -37,6 +38,16 @@ python3 scripts/build_us_history.py
 python3 scripts/build_counties.py
 python3 scripts/fetch_references.py --index-only
 ```
+
+## Public funding
+
+The site's "Public money and public conscience" section reports how public funds reach abortion provision at the policy level. It documents funding flows and state rules, not individual providers or facilities.
+
+- **Hyde Amendment:** Since fiscal year 1977 federal Medicaid funds have generally not paid for abortion, with exceptions for rape, incest and danger to the patient's life; Congress restored the rape and incest exceptions in 1993. States may use their own revenue for broader coverage. [Congressional Research Service, RL33467](https://www.congress.gov/crs_external_products/RL/PDF/RL33467/RL33467.53.pdf).
+- **State policy:** As of July 24, 2026, KFF counts 21 states that use their own funds for broader Medicaid abortion coverage, 16 states and D.C. that follow the Hyde limits (some with narrow additional exceptions), and 13 that ban abortion subject to exceptions. [KFF state policy analysis](https://www.kff.org/medicaid/state-indicator/abortion-under-medicaid/).
+- **Medical training:** Accredited OB/GYN residencies must provide clinical experience in abortion care or access to it, including out-of-state training where local law prevents it; residents may opt out. Before *Dobbs*, 140 of 286 programs (49%) offered routine abortion training. [ACGME program requirements](https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf), [Vinekar and colleagues](https://institutionalrepository.aah.org/auroragme/329).
+
+The underlying records are `kff-hyde-medicaid`, `kff-medicaid-state-table`, `kff-state-coverage` and `crs-abortion-history` in `references/sources.tsv`. Figures carry the date and publisher of the policy snapshot they came from.
 
 ## SQLite
 

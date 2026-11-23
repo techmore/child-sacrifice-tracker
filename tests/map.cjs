@@ -46,6 +46,8 @@ for (const width of [1280, 390]) {
       await page.goto(origin + "/?state=PA&basis=occurrence&year=2024#county-panel");
       await page.getByRole("button", { name: "Bucks, 2024: 1,014" }).waitFor();
       assert.equal(await page.locator("#county-table tbody tr").count(), 67);
+      assert.match(await page.locator("#county-concentration").innerText(), /Half of the total came from 2 counties/);
+      assert.match(await page.locator("#county-concentration-list li").first().innerText(), /Philadelphia\s+12,466 · 38%/);
       await page.getByRole("button", { name: "Bucks", exact: true }).click();
       await page.locator(".municipal-boundary").first().waitFor();
       assert.equal(await page.locator(".county-count-badge.focused text").textContent(), "1,014");
