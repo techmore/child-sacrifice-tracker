@@ -4646,5 +4646,60 @@
       "date": "2026-11-23",
       "sha256": "584acbb834f5870ab3ccc02ba7d26e3fcf1e971762fb1df39c4cb55d1c652469"
     }
+  },
+  {
+    "id": "nih-reporter-hd000836",
+    "title": "NIH RePORTER, University of Washington R24HD000836 award records (API export)",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "archive": {
+      "status": "public",
+      "date": "2026-11-23",
+      "sha256": "4d2c47879ee51b0e5fe57215c7a51be35e2b278d81f3d629a9fb4f882ceff7d9",
+      "path": "references/open/nih-reporter-hd000836.json"
+    }
+  },
+  {
+    "id": "bearak-2025-undesired-births",
+    "title": "Bearak et al., modeled trends in undesired births, contraception and abortion, 1975–2024 (CC BY)",
+    "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12205728.1/PMC12205728.1.pdf",
+    "archive": {
+      "status": "public",
+      "date": "2026-11-23",
+      "sha256": "2c80e6eea9469ea8508aaefa5d597a4f17af79004d015f2d1b11706987db69ca",
+      "path": "references/open/bearak-2025-undesired-births.pdf"
+    }
+  },
+  {
+    "id": "bearak-2025-undesired-births-tables",
+    "title": "Bearak et al., supporting tables for modeled undesired births and abortion ratios (CC BY)",
+    "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC12205728.1/SIFP-56-274-s001.xlsx",
+    "archive": {
+      "status": "public",
+      "date": "2026-11-23",
+      "sha256": "41b81cd0d9f108098082db410e53cdfe72ccb75ef533c2fc1281852e20c5424c",
+      "path": "references/open/bearak-2025-undesired-births-tables.xlsx"
+    }
+  },
+  {
+    "id": "usaspending-hd000836-prime",
+    "title": "USAspending, R24HD000836 University of Washington prime award data",
+    "url": "https://api.usaspending.gov/api/v2/awards/ASST_NON_R24HD000836_075/",
+    "archive": {
+      "status": "public",
+      "date": "2026-11-23",
+      "sha256": "a65a2a7cdbc24b251bdf136fc807f4ae6809116c772496e04153556e54b76089",
+      "path": "references/open/usaspending-hd000836-prime.json"
+    }
+  },
+  {
+    "id": "usaspending-hd000836-subawards",
+    "title": "USAspending, R24HD000836 reported subawards (API export)",
+    "url": "https://api.usaspending.gov/api/v2/subawards/",
+    "archive": {
+      "status": "public",
+      "date": "2026-11-23",
+      "sha256": "03572427a09f8afc8d1b5fdcade6bf23e64d67c3869d28341bdc920c00d2a6b6",
+      "path": "references/open/usaspending-hd000836-subawards.json"
+    }
   }
 ]

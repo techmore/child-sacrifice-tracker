@@ -39,8 +39,27 @@ def file_record(path, retrieved):
     }
 
 
+POST_QUERIES = {
+    "nih-reporter-hd000836": {
+        "criteria": {"project_nums": ["R24HD000836"]},
+        "include_fields": ["ApplId", "FiscalYear", "ProjectNum", "ProjectTitle",
+                           "Organization", "AwardAmount"],
+        "limit": 100,
+    },
+    "usaspending-hd000836-subawards": {
+        "award_id": "ASST_NON_R24HD000836_075",
+        "page": 1, "limit": 100, "sort": "action_date", "order": "desc",
+    },
+}
+
+
 def download(source, folder, expected_sha256):
-    request = urllib.request.Request(source["url"], headers={"User-Agent": UA})
+    headers = {"User-Agent": UA}
+    query = POST_QUERIES.get(source["id"])
+    if query is not None:
+        headers["Content-Type"] = "application/json"
+    payload = json.dumps(query).encode() if query is not None else None
+    request = urllib.request.Request(source["url"], headers=headers, data=payload)
     with urllib.request.urlopen(request, timeout=35) as response:
         body = response.read()
         content_type = response.headers.get_content_type()
