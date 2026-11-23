@@ -46,18 +46,18 @@ def download(source, folder, expected_sha256):
     if identifier == "bearak-2022-supp-tables":
         with zipfile.ZipFile(io.BytesIO(body)) as archive:
             body = archive.read("bmjgh-2021-007151supp001.xlsx")
+    expected = pathlib.PurePosixPath(source.get("filename", urllib.parse.urlparse(source["url"]).path)).suffix
     if body.startswith(b"%PDF"):
         extension = ".pdf"
     elif body.startswith(b"PK"):
-        extension = ".xlsx"
+        extension = ".zip" if expected == ".zip" else ".xlsx"
     elif identifier.endswith("-csv"):
         if content_type == "text/html":
             raise ValueError("Expected CSV but the server returned HTML")
         extension = ".csv"
     else:
         extension = EXT.get(content_type) or mimetypes.guess_extension(content_type) or ".bin"
-    expected = pathlib.PurePosixPath(source.get("filename", urllib.parse.urlparse(source["url"]).path)).suffix
-    if expected in {".pdf", ".xlsx"} and expected != extension:
+    if expected in {".pdf", ".xlsx", ".zip"} and expected != extension:
         raise ValueError(f"Expected {expected} but the server returned {extension}")
     if expected_sha256 and hashlib.sha256(body).hexdigest() != expected_sha256:
         raise ValueError("Download differs from the archived checksum. Use --refresh to accept a newer copy.")

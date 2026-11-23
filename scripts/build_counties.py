@@ -171,15 +171,67 @@ def nebraska(source):
     return {2025: counties(rows, 20)}
 
 
-def north_carolina(source):
-    rows = [
-        (name, count(residents))
-        for name, residents in re.findall(rf"^\s*\d+\s*:\s*(.+?) +{COUNT} +({COUNT}) *$", pdf_text(source), re.M)
-        if name != "Unknown"
-    ]
-    # 27,146 resident reports, including 337 with unknown county.
-    verify_total(rows, 26809)
-    return {2023: counties(rows, 100)}
+NYC_BOROUGHS = {
+    "BRONX": "Bronx",
+    "BROOKLYN": "Kings",
+    "MANHATTAN": "New York",
+    "QUEENS": "Queens",
+    "STATEN ISLAND": "Richmond",
+}
+NYC_GROUP = re.compile(
+    r"^\s*(NEW YORK CITY|MANHATTAN|BRONX|BROOKLYN|QUEENS|STATEN ISLAND|RICHMOND|"
+    r"NON[- ]RESIDENTS|RESIDENCE UNKNOWN)(?![A-Z])"
+)
+NYC_INDUCED = re.compile(r"^\s*Induced Terminations[ .\t]+([\d,]+|[-—–])", re.I)
+
+
+def new_york_city_rows(source, year):
+    text = pdf_text(source)
+    totals = {}
+    for page in text.split("\f"):
+        if not re.search(r"(?:Table\s*(?:26|PO[ .]*13)\b|Overall and by Borough of Residence and Age of Woman)", page, re.I):
+            continue
+        group = None
+        values = {}
+        for line in page.splitlines():
+            header = NYC_GROUP.match(line)
+            if header:
+                group = {"NON RESIDENTS": "NON-RESIDENTS", "RICHMOND": "STATEN ISLAND"}.get(header[1], header[1])
+                continue
+            result = NYC_INDUCED.match(line)
+            if group and result:
+                value = result[1]
+                if group in values:
+                    raise ValueError(f"Duplicate county in {year} report")
+                values[group] = int(value.replace(",", "")) if value[0].isdigit() else None
+                group = None
+        if all(name in values for name in NYC_BOROUGHS):
+            if totals:
+                raise ValueError(f"Found multiple candidate tables in {year} report")
+            totals = values
+    if not totals:
+        raise ValueError(f"Failed to find all five boroughs in {year} report")
+    citywide = totals.pop("NEW YORK CITY")
+    if all(totals[borough] is not None for borough in NYC_BOROUGHS):
+        computed = sum(value for value in totals.values() if value is not None)
+        if computed != citywide:
+            raise ValueError(f"NYC {year} county groups {computed} do not reconcile to {citywide}: {totals}")
+    return counties([(county, totals[borough]) for borough, county in NYC_BOROUGHS.items()], 5)
+
+
+def new_york_city():
+    years = {}
+    sources = {}
+    for year in range(2000, 2024):
+        source = f"nyc-abortion-counties-{year}"
+        years[year] = new_york_city_rows(source, year)
+        sources[year] = source
+    return {
+        "source": sources[max(years)],
+        "sourceByYear": sources,
+        "scope": "Reported induced terminations by borough of residence in New York City health department records. Coverage is limited to the city's five boroughs, which are equivalent to five New York counties. The city report excludes procedures outside New York City.",
+        "years": years,
+    }
 
 
 def ohio(source):
@@ -237,34 +289,91 @@ def ohio_occurrence():
     }
 
 
-def north_carolina_occurrence():
-    years = {}
-    source_by_year = {}
-    for year in range(2013, 2024):
-        source = f"nc-abortion-counties-{year}"
-        text = pdf_text(source)
-        title = f"{year} North Carolina Reported Induced Abortions by County of Occurrence and Residence"
-        if not text.lstrip().startswith(title):
-            raise ValueError(f"Unexpected county of occurrence table for North Carolina {year}")
-        total, = re.findall(rf"^ *NC TOTAL +({COUNT}) +{COUNT} *$", text, re.M)
-        rows = [
-            (name, count(value))
-            for name, value in re.findall(rf"^ *\d+ *: *(.+?) +({COUNT}) +{COUNT} *$", text, re.M)
-        ]
-        unknown, = (value for name, value in rows if name == "Unknown")
-        named_rows = [(name, value) for name, value in rows if name != "Unknown"]
-        verify_total(named_rows, count(total) - unknown)
-        years[year] = counties(named_rows, 100)
-        source_by_year[year] = source
-    return {
-        "source": source_by_year[max(source_by_year)],
-        "sourceByYear": source_by_year,
-        "scope": (
-            "Induced abortions reported in North Carolina, grouped by the county of the procedure. "
-            "North Carolina Reported Pregnancies, Table 6, Total Occurrences column."
-        ),
-        "years": years,
+def north_carolina_legacy_rows(text, county_names, year):
+    """Read the side-by-side county columns in the 2000–2004 reports."""
+    if f"North Carolina, {year}" not in text:
+        raise ValueError(f"Unexpected North Carolina legacy occurrence report for {year}")
+    expected_names = set(county_names) | {"Unknown"}
+    name_pattern = "|".join(re.escape(name) for name in sorted(expected_names, key=lambda n: (-len(n), n)))
+    row_pattern = re.compile(rf"(?<!\S)({name_pattern})(?= {{2,}})")
+    parsed = {}
+    for line in text.splitlines():
+        matches = list(row_pattern.finditer(line))
+        for index, match in enumerate(matches):
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(line)
+            values = line[match.end():end].split()
+            if len(values) not in (1, 2) or any(not re.fullmatch(rf"{COUNT}|-", value) for value in values):
+                continue
+            name = match[0]
+            if name in parsed:
+                raise ValueError(f"Duplicate North Carolina county for {year}: {name}")
+            if len(values) == 1:
+                if year != 2004 or name not in {"Burke", "Moore"}:
+                    raise ValueError(f"Unexpected incomplete North Carolina county row for {year}: {name}")
+                values.insert(0, "-")  # Both 2004 blanks align under occurrence.
+            parsed[name] = [None if value == "-" else count(value) for value in values]
+    if set(parsed) != expected_names:
+        raise ValueError(f"Unexpected set of published North Carolina counties for {year}")
+    occurrence_total, residence_total = re.search(rf"^Total +({COUNT}) +({COUNT}) ", text, re.M).groups()
+    unknown_occurrence, unknown_residence = parsed.pop("Unknown")
+    occurrence = [(name, values[0]) for name, values in parsed.items() if values[0] is not None]
+    residence = [(name, values[1]) for name, values in parsed.items() if values[1] is not None]
+    # In 2001 the occurrence headline equals the named subtotal even though
+    # the table separately prints 785 cases with unknown county.
+    unknown_in_total = 0 if year == 2001 else (unknown_occurrence or 0)
+    verify_total(occurrence, count(occurrence_total) - unknown_in_total)
+    verify_total(residence, count(residence_total) - (unknown_residence or 0))
+    return occurrence, residence
+
+
+def north_carolina_modern_rows(text, year):
+    title = f"{year} North Carolina Reported Induced Abortions by County of Occurrence and Residence"
+    if not text.lstrip().startswith(title):
+        raise ValueError(f"Unexpected North Carolina county report for {year}")
+    totals = re.search(rf"^ *NC TOTAL +({COUNT}) +({COUNT}) *$", text, re.M)
+    rows = [
+        (name, count(occurrence), count(residence))
+        for name, occurrence, residence in re.findall(rf"^ *\d+ *: *(.+?) +({COUNT}) +({COUNT}) *$", text, re.M)
+    ]
+    unknown, = (values for values in rows if values[0] == "Unknown")
+    by_basis = []
+    for column in (1, 2):
+        county_values = [(row[0], row[column]) for row in rows if row[0] != "Unknown"]
+        verify_total(county_values, count(totals[column]) - unknown[column])
+        by_basis.append(county_values)
+    return tuple(by_basis)
+
+
+def north_carolina():
+    sources = {year: f"nc-abortion-counties-{year}" for year in (*range(2000, 2005), *range(2006, 2024))}
+    modern = north_carolina_modern_rows(pdf_text(sources[2023]), 2023)
+    county_names = {name for name, _ in modern[0]}
+    occurrence, residence = {}, {}
+    legacy_counts = {2000: 18, 2001: 16, 2002: 17, 2003: 17, 2004: 15}
+    for year, source in sources.items():
+        if year in legacy_counts:
+            procedures, residents = north_carolina_legacy_rows(pdf_text(source), county_names, year)
+        else:
+            procedures, residents = modern if year == 2023 else north_carolina_modern_rows(pdf_text(source), year)
+        occurrence[year] = counties(procedures, legacy_counts.get(year, 100))
+        residence[year] = counties(residents, 99 if year == 2000 else 100)
+    metadata = {
+        "source": sources[2023],
+        "sourceByYear": sources,
+        "scopeSource": "nc-abortion-coverage-notes",
     }
+    underreporting = " North Carolina reports that abortion forms were underreported from 2011 to 2014."
+    return {
+        **metadata,
+        "scope": "Reports by county of patient residence in North Carolina. Dashes and blanks in the early source tables have no numeric counts." + underreporting,
+        "years": residence,
+        "occurrence": {
+            **metadata,
+            "scope": "Reports by county of procedure in North Carolina. Dashes and blanks in the 2000 to 2004 tables have no numeric counts. The 2001 state headline equals the named county total, with 785 additional reports printed under unknown county." + underreporting,
+            "years": occurrence,
+        },
+    }
+
 
 def oregon(source):
     workbook = load_workbook(ARCHIVE / f"{source}.xlsx", read_only=True, data_only=True)
@@ -449,6 +558,31 @@ def washington(source):
     return years
 
 
+def washington_occurrence():
+    columns = {
+        2002: (("King", "Pierce", "Spokane", "Thurston", "Yakima", "Snohomish", "Whatcom", "Clark"), 25148),
+        2005: (("King", "Pierce", "Spokane", "Thurston", "Yakima", "Snohomish", "Clark"), 24108),
+    }
+    years, sources = {}, {}
+    for year, (names, statewide) in columns.items():
+        source = f"wa-abortion-counties-{year}"
+        page, = (p for p in pdf_text(source).split("\f") if p.lstrip().startswith("Table 26a."))
+        line, = re.findall(rf"^Total +({COUNT}(?: +{COUNT})+) *$", page, re.M)
+        totals = [count(value) for value in line.split()]
+        # The final columns are "Other Counties" and occurrences outside Washington.
+        if len(totals) != len(names) + 2:
+            raise ValueError(f"Unexpected Washington occurrence columns for {year}")
+        verify_total(list(zip((*names, "Other Counties"), totals[:-1])), statewide)
+        years[year] = counties(list(zip(names, totals[:-2], strict=True)), len(names))
+        sources[year] = source
+    return {
+        "source": sources[max(sources)],
+        "sourceByYear": sources,
+        "scope": "Reported procedures within Washington, Table 26a occurrence totals. The tracker shows counties with separately published totals. The source combines other counties.",
+        "years": years,
+    }
+
+
 def florida_occurrence():
     years = {}
     source_by_year = {}
@@ -582,10 +716,6 @@ SOURCES = {
         "ne-abortion-counties-2025", nebraska,
         "Nebraska residents with abortions reported in Nebraska. The state publishes county figures only where it recorded at least six cases.",
     ),
-    "37": (
-        "nc-abortion-counties-2023", north_carolina,
-        "North Carolina's reported induced abortions, using the resident column of Table 6.",
-    ),
     "39": (
         "oh-abortion-counties-2025", ohio,
         "Ohio residents with induced abortions reported in Ohio, Table 5. In 2020 and 2021 the published county sums differ by one from the state total after excluding unknown residence.",
@@ -615,15 +745,17 @@ def main():
         if fips == "53":
             data[fips]["sourceByYear"] = {year: f"wa-abortion-counties-{year}" for year in years}
         print(f"{source}: {min(years)}–{max(years)}, {len(years[max(years)])} counties")
+    data["36"] = new_york_city()
+    data["37"] = north_carolina()
     data["42"] = pennsylvania()
     occurrence_sources = {
         "04": arizona_occurrence,
         "12": florida_occurrence,
         "26": michigan_occurrence,
         "31": nebraska_occurrence,
-        "37": north_carolina_occurrence,
         "39": ohio_occurrence,
         "45": south_carolina_occurrence,
+        "53": washington_occurrence,
     }
     for fips, parse in occurrence_sources.items():
         data.setdefault(fips, {})["occurrence"] = parse()

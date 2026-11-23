@@ -90,6 +90,10 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 .county{stroke:var(--bg);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer}
 .county:focus,.county.sel{stroke:var(--sel);stroke-width:3;outline:none}
 .county-label{font:700 13px system-ui,sans-serif;fill:var(--ink);stroke:var(--halo);stroke-width:3px;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.municipal-boundary{fill:none;stroke:var(--ink2);stroke-opacity:.75;stroke-width:.9;vector-effect:non-scaling-stroke}
+.municipal-label{font:600 11px system-ui,sans-serif;fill:var(--ink);stroke:var(--halo);stroke-width:3px;paint-order:stroke;text-anchor:middle;dominant-baseline:central}
+#municipality-notes details{margin-inline:0}
+#municipality-notes ul{columns:3 15rem;padding-left:20px}
 #county-panel{margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:16px}
 .county-filters{display:flex;flex-wrap:wrap;gap:0 20px}
 #county-panel .pick{margin:6px 0}
@@ -99,8 +103,24 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #county-table tbody tr:hover{background:var(--surface)}
 #county-table .county-table-link{min-height:0;padding:3px 0;border:0;border-radius:0;font:inherit;text-decoration:underline;text-underline-offset:.15em;color:var(--accent)}
 #county-detail{font-size:14px;font-weight:600;margin-block:8px}
+#county-history{max-width:640px;margin:12px 0 18px}
+#county-history h4{margin:0}
+#county-history .small{margin:2px 0}
+#county-history details{margin-inline:0}
+#county-history tbody th{position:static;background:transparent}
 #us-legend{display:flex;flex-wrap:wrap;gap:6px 20px;font:13px system-ui,sans-serif;color:var(--ink2)}
 #us-legend span::before{content:"";display:inline-block;width:20px;margin-right:6px;border-top:3px solid var(--series-color);vertical-align:middle}
 #us-legend .dashed::before{border-top-style:dashed}
 .chart-tip{position:absolute;top:8px;pointer-events:none;background:var(--ink);color:var(--bg);font:13px system-ui,sans-serif;padding:6px 8px;border-radius:5px}
 #us-table tbody th{position:static;background:transparent}
+
+#county-coverage .coverage-summary{margin-block:0 10px}
+#county-coverage .table-scroll{max-height:min(540px,65vh)}
+#county-coverage table{min-width:34rem;font-size:14px;line-height:1.4}
+#county-coverage th,#county-coverage td{padding:9px 12px;text-align:left;vertical-align:top;white-space:normal}
+#county-coverage th:first-child{width:22%}
+#county-coverage th:not(:first-child){width:39%}
+#county-coverage tbody th{position:static;background:transparent}
+#county-coverage .coverage-years{display:block;font-weight:700;font-variant-numeric:tabular-nums}
+#county-coverage .coverage-scope{display:block;margin-top:3px}
+#county-coverage .coverage-scope,#county-coverage .coverage-missing{color:var(--ink2)}

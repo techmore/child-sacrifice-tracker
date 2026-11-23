@@ -25,7 +25,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json"), d3.json("data/counties.json"), d3.json("data/sources.json"),
+  d3.json("data/us-history.json"), d3.json("data/counties.json?v=municipalities"), d3.json("data/sources.json?v=municipalities"),
 ]).then(([data, world, us, stateData, usMap, history, counties, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
@@ -61,8 +61,11 @@ Promise.all([
   const color = v => STEPS[d3.bisect(bins(), v)];
   const worldG = svg.append("g"), usG = svg.append("g").style("display", "none");
   const countyG = svg.append("g").style("display", "none");
+  const municipalBoundaries = svg.append("g").attr("aria-hidden", "true").attr("pointer-events", "none");
   const stateContextLabels = svg.append("g").attr("aria-hidden", "true");
   const countyLabels = svg.append("g").attr("aria-hidden", "true");
+  const municipalLabels = svg.append("g").attr("aria-hidden", "true").attr("pointer-events", "none");
+  let municipalities, municipalityFocus;
   const stateFeatures = topojson.feature(usMap, usMap.objects.states).features.filter(f => stateById.has(f.id));
   const stateEstimateYear = d3.max(stateData, d => d.year);
   const albers = d3.geoAlbersUsa().fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: stateFeatures });
@@ -157,7 +160,7 @@ Promise.all([
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
-    if (countyView) parts.push('<strong id="focused-county" hidden></strong><a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
+    if (countyView) parts.push('<strong id="focused-county" hidden></strong><span id="focused-count" hidden></span><a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
@@ -215,6 +218,7 @@ Promise.all([
       <details><summary>View annual state estimates</summary><div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Estimated abortions</th></tr></thead><tbody>
       ${d.reported.map(([year, count]) => `<tr><th scope="row">${year}</th><td>${fmt(count)}</td></tr>`).join("")}</tbody></table></div></details>
       ${reports?.statewide ? statewideTable(reports.statewide) : ""}`;
+    clearMunicipalities();
     crumbs(); paint();
     reveal(stateShapes.filter(x => x === f).node());
     showCounties(d);
@@ -254,21 +258,27 @@ Promise.all([
       <p class="small"><span id="county-scope"></span> <span id="county-source"></span></p>
       ${state.abbr === "PA" ? `<p class="small">Pennsylvania publishes these figures at the state and county levels. ${cite("pa-vital-statistics-geography", "Reporting geography")}.</p>` : ""}
       <div id="county-detail" role="status"></div>
+      <div id="county-history" hidden></div>
       <p id="county-status" class="small" role="status" hidden></p>
       <div class="table-scroll" role="region" aria-label="County counts" tabindex="0"><table id="county-table"></table></div>`;
     const yearPick = document.getElementById("county-year");
     const modePick = document.getElementById("county-mode");
     const reset = document.getElementById("all-counties");
     const focusedCountyLabel = document.getElementById("focused-county");
+    const focusedCount = document.getElementById("focused-count");
     const countyFeatures = new Map();
     let pendingCounty;
     if (modePick) modePick.value = countyMode;
     const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
     const description = feature => `${rowFor(feature)?.name ?? feature.properties.name}, ${countyYear}: ${countyCount(rowFor(feature))}`;
+    const series = () => countyMode === "occurrence" ? countyData.occurrence : countyData;
     const showCountyDetail = () => {
       const feature = countyG.selectAll("path").data().find(f => f.id === activeCounty);
       document.getElementById("county-detail").textContent = feature
         ? description(feature) : "Select a county on the map for its reported count.";
+      focusedCount.hidden = !feature;
+      focusedCount.textContent = feature ? `· ${countyCount(rowFor(feature))} (${countyYear})` : "";
+      paintCountyHistory(feature, series());
     };
     const focusCounty = (feature, showMap = false) => {
       activeCounty = feature?.id ?? null;
@@ -281,6 +291,7 @@ Promise.all([
         : stateShapeById.get(state.id));
       tip.attr("hidden", true);
       showCountyDetail();
+      showMunicipalities();
       paint();
       saveView({ showMap });
       if (showMap) mapWrap.scrollIntoView({ block: "start" });
@@ -298,6 +309,9 @@ Promise.all([
       document.getElementById("county-source").innerHTML = series.report
         ? `${cite(series.report, "Source report")} · ${cite(source, "Data file")}`
         : cite(source, "Source report");
+      if (series.scopeSource) {
+        document.getElementById("county-source").insertAdjacentHTML("beforeend", ` · ${cite(series.scopeSource, "Reporting notes")}`);
+      }
       countyRows = new Map(series.years[countyYear].map(row => [countyKey(row.name), row]));
       const heading = countyMode === "occurrence" ? "County of procedure" : "County of residence";
       const rows = d3.select("#county-table").html(`<thead><tr><th scope="col">${heading}</th><th scope="col">Reported abortions · ${countyYear}</th></tr></thead>`)
@@ -316,7 +330,6 @@ Promise.all([
       tip.attr("hidden", true);
       saveView();
     };
-    const series = () => countyMode === "occurrence" ? countyData.occurrence : countyData;
     yearPick.addEventListener("change", () => update(series()));
     modePick?.addEventListener("change", () => {
       countyMode = modePick.value;
@@ -363,6 +376,99 @@ Promise.all([
   function countyCount(row) {
     if (!row) return "No published figure";
     return row.count == null ? "Suppressed" : fmt(row.count);
+  }
+
+  function clearMunicipalities() {
+    const notes = document.getElementById("municipality-notes");
+    municipalityFocus = null;
+    municipalBoundaries.selectAll("path").remove();
+    municipalLabels.selectAll("text").remove();
+    notes.hidden = true;
+    return notes;
+  }
+
+  function showMunicipalities() {
+    const notes = clearMunicipalities();
+    if (view !== "state" || activeState.abbr !== "PA" || !activeCounty) return;
+    const id = activeCounty;
+    municipalities ??= d3.json("data/pa-municipalities.json").then(data => d3.group(data.features, f => f.id.slice(0, 5)));
+    municipalities.then(byCounty => {
+      if (view !== "state" || activeState.abbr !== "PA" || activeCounty !== id) return;
+      const features = byCounty.get(id);
+      if (!features?.length) return;
+      municipalityFocus = id;
+      municipalBoundaries.attr("transform", countyTransform).selectAll("path").data(features, f => f.id)
+        .join("path").attr("class", "municipal-boundary").attr("d", usPath);
+      const placed = [];
+      for (const feature of [...features].sort((a, b) => usPath.area(b) - usPath.area(a))) {
+        const [x, y] = countyTransform.apply(usPath.centroid(feature));
+        const name = feature.properties.name.replace(/ (Township|Borough|City|Town)$/, "");
+        const width = name.length * 6;
+        const [[left], [right]] = usPath.bounds(feature);
+        if (width > (right - left) * countyTransform.k || x - width / 2 < 0 || x + width / 2 > W || y < 12 || y > H - 12) continue;
+        if (placed.some(label => Math.abs(label.x - x) < (label.width + width) / 2 + 5 && Math.abs(label.y - y) < 15)) continue;
+        placed.push({ x, y, width, name });
+      }
+      municipalLabels.selectAll("text").data(placed).join("text").attr("class", "municipal-label")
+        .attr("x", d => d.x).attr("y", d => d.y).text(d => d.name);
+      const list = features.map(f => f.properties.name).sort((a, b) => a.localeCompare(b));
+      notes.innerHTML = `<p>Municipal boundaries reflect 2025 geography. Abortion totals are reported for the county. ${cite("census-pa-county-subdivisions-2025", "U.S. Census boundaries")}.</p>
+        <details><summary>View all ${list.length} municipalities</summary><ul>${list.map(name => `<li>${name}</li>`).join("")}</ul></details>`;
+      notes.hidden = false;
+      paint();
+    }).catch(() => {
+      municipalities = null;
+      if (view === "state" && activeState.abbr === "PA" && activeCounty === id) {
+        notes.textContent = "Municipal boundaries could not load.";
+        notes.hidden = false;
+      }
+    });
+  }
+
+  function paintCountyHistory(feature, report) {
+    const container = document.getElementById("county-history");
+    container.hidden = !feature;
+    if (!feature) {
+      container.replaceChildren();
+      return;
+    }
+    const wasOpen = !!container.querySelector("details[open]");
+    const name = feature.properties.name;
+    const key = countyKey(name);
+    const years = Object.keys(report.years).map(Number).sort((a, b) => a - b);
+    const first = years[0], last = years.at(-1);
+    const rows = d3.range(first, last + 1).map(year => ({
+      year, row: report.years[year]?.find(r => countyKey(r.name) === key),
+      source: report.years[year] ? report.sourceByYear?.[year] ?? report.source : null,
+    }));
+    const points = rows.filter(d => d.row?.count != null);
+    const basis = countyMode === "occurrence" ? "Procedure location" : "Patient residence";
+    container.innerHTML = `<h4>${name} history</h4><p class="small">${basis} · ${first === last ? first : `${first}–${last}`}</p>
+      <div class="chart county-trend"></div>
+      <details ${wasOpen ? "open" : ""}><summary>View annual county counts and sources</summary>
+        <div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Reported abortions</th><th scope="col">Source</th></tr></thead><tbody>
+        ${[...rows].reverse().map(d => `<tr><th scope="row">${d.year}</th><td>${countyCount(d.row)}</td><td>${d.source ? cite(d.source, "Report") : "—"}</td></tr>`).join("")}
+        </tbody></table></div>
+      </details>`;
+    if (points.length < 2) return;
+    const width = 520, height = 160, left = 46, bottom = 130;
+    const x = d3.scaleLinear([first, last], [left, width - 23]);
+    const y = d3.scaleLinear([0, d3.max(points, d => d.row.count) || 1], [bottom, 12]).nice(3);
+    const chart = d3.select(container).select(".county-trend").append("svg")
+      .attr("viewBox", `0 0 ${width} ${height}`).attr("role", "img")
+      .attr("aria-label", `${name}, reported abortions by ${basis.toLowerCase()}, ${first} to ${last}. See the annual table for exact counts.`);
+    for (const tick of y.ticks(3).filter(Number.isInteger)) {
+      chart.append("line").attr("x1", left).attr("x2", width - 23).attr("y1", y(tick)).attr("y2", y(tick)).attr("stroke", "var(--line)");
+      chart.append("text").attr("x", left - 6).attr("y", y(tick) + 4).attr("text-anchor", "end").text(fmt(tick));
+    }
+    const ticks = last - first > 5 ? [first, Math.round((first + last) / 2), last] : years;
+    chart.selectAll(".county-year-tick").data(ticks).join("text").attr("class", "county-year-tick")
+      .attr("x", x).attr("y", height - 8).attr("text-anchor", "middle").text(d => d);
+    const line = d3.line().defined(d => d.row?.count != null).x(d => x(d.year)).y(d => y(d.row.count));
+    chart.append("path").datum(rows).attr("d", line).attr("fill", "none").attr("stroke", "var(--accent)").attr("stroke-width", 2);
+    chart.selectAll("circle").data(points).join("circle").attr("cx", d => x(d.year)).attr("cy", d => y(d.row.count))
+      .attr("r", d => d.year === Number(countyYear) ? 4 : 2).attr("fill", d => d.year === Number(countyYear) ? "var(--sel)" : "var(--accent)")
+      .append("title").text(d => `${d.year} · ${fmt(d.row.count)}`);
   }
 
   function paintCountyLabels(features, rowFor) {
@@ -431,6 +537,7 @@ Promise.all([
     return path.centroid(f);
   }
   function paint() {
+    if (view !== "state" && !document.getElementById("municipality-notes").hidden) clearMunicipalities();
     shapes.filter(f => rec(f)).attr("fill", f => color(rec(f)[metric]));
     shapes.classed("sel", f => picked && rec(f) === selected);
     shapes.filter(".sel").raise();
@@ -448,7 +555,7 @@ Promise.all([
         return n == null ? "var(--nodata)" : STEPS[d3.bisect(COUNTY_BINS, n)];
       }).attr("aria-label", f => `${f.properties.name}, ${countyYear}: ${countyCount(rowFor(f))}`)
         .classed("sel", f => f.id === activeCounty);
-      paintCountyLabels(countyShapes.data(), rowFor);
+      paintCountyLabels(countyShapes.data().filter(f => f.id !== municipalityFocus), rowFor);
     } else countyLabels.selectAll("text").remove();
     paintStateContext();
     const b = countyView ? COUNTY_BINS : bins(), s = countyView ? fmt : METRICS[metric].show;
@@ -542,6 +649,7 @@ Promise.all([
     worldBanner();
     crumbs();
   }
+  renderCountyCoverage(stateData, counties);
   usChart(us, history);
 }).catch(err => {
   console.error(err);

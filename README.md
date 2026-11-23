@@ -16,11 +16,15 @@ Open http://127.0.0.1:8000. Citation links open the original publications. The a
 - **U.S. historical estimates:** Guttmacher national estimates for 1973 to 2020 and selected state years from 1988 to 2020. State figures use patient residence.
 - **U.S. surveillance:** CDC counts from participating jurisdictions for 1969 to 2022. Participation varies.
 - **Recent U.S. estimates:** Guttmacher Monthly Abortion Provision Study estimates for 2023 to 2025, including 90% uncertainty intervals. The chart keeps these estimates separate from the historical series and CDC reports.
-- **County reports:** Select United States, then a state. For states with verified public tables, the map and table show reported counts by patient county of residence. Arizona, Florida, Michigan, Nebraska, North Carolina, Ohio, Pennsylvania, and South Carolina also have procedure-location series. Dates and coverage vary by state. Each panel gives the reporting scope and source. Reported zero, source suppression, and missing data have distinct labels.
+- **County reports:** Select United States, then a state. Click a county on the map or in the table to zoom in and see its annual history with links to the reports. The U.S. county data coverage table lists the available years and reporting basis for all 50 states and D.C. Each panel gives the reporting scope and source. Reported zero, source suppression, and missing data have distinct labels.
 
 The URL keeps your map selection when you refresh or share it. For example, [Pennsylvania procedure counts for 2024](https://techmore.github.io/child-sacrifice-tracker/?state=PA&basis=occurrence&year=2024#county-panel).
 
 Pennsylvania's official reports cover all 67 counties for 1995–2024 and statewide totals for 1975–2024. County views show the reporting basis and cite the selected year's report. Statewide reported counts also appear in SQLite under `pa-state-reported` and `pa-state-occurrence`.
+
+Zooming into a Pennsylvania county shows its township, borough, and city boundaries from the 2025 U.S. Census cartographic files. The abortion figures remain county totals. Rebuild the boundary layer with `python3 scripts/build_pa_municipalities.py` and `pyshp` installed.
+
+New York's residence series covers the five New York City boroughs. North Carolina's county reports cover 2000–2023, with 2005 missing and underreporting in 2011–2014. Washington's procedure series uses the published county totals for 2002 and 2005.
 - **Economic context:** World Bank GDP per capita, 2023.
 
 Rebuild the data without a network connection after setting up the local reference archive and installing `openpyxl` and `pdftotext`.

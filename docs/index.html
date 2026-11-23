@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=county-table-zoom">
+<link rel="stylesheet" href="style.css?v=municipalities">
 </head>
 <body>
 <section id="map-section" class="wide">
@@ -25,12 +25,14 @@
       <div id="zoom" role="group" aria-label="Map zoom"><button data-z="in" aria-label="Zoom in">+</button><button data-z="out" aria-label="Zoom out">&minus;</button><button data-z="reset">Reset</button></div>
       <div class="map-scroll"><svg id="map" role="img" aria-label="World map of estimated abortions by country"></svg></div>
       <div id="legend"></div>
+      <div id="municipality-notes" class="note" hidden></div>
       <div id="tip" hidden></div>
     </div>
     <aside id="panel" aria-live="polite"></aside>
   </div>
   <p class="note">Choose the United States, then a state, to see its history and available county counts. The U.S. map uses <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. County tables use state health agency reports. Where a report provides both measures, select patient residence or procedure location. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
   <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
+  <details id="county-coverage-section"><summary>View U.S. county data coverage by state</summary><div id="county-coverage"></div></details>
 </section>
 <header class="hero">
   <p class="eyebrow">A social and philosophical inquiry</p>
@@ -203,6 +205,7 @@
 <footer><p>An independent inquiry. It offers no medical or legal advice.</p></footer>
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
-<script src="app.js?v=county-table-zoom"></script>
+<script src="coverage.js?v=county-history"></script>
+<script src="app.js?v=municipalities"></script>
 </body>
 </html>
