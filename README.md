@@ -14,6 +14,7 @@ Open http://127.0.0.1:8000. Citation links open the original publications. The a
 
 - **Country estimates:** Bearak et al. 2022, BMJ Global Health, annual averages for 2015 to 2019 (CC BY-NC 4.0).
 - **Reported country history:** Official single-year counts marked complete and explicitly excluding spontaneous abortions. Years with conflicting eligible counts are omitted. Each retained observation records the contributing publishers named in the archived dataset.
+- **Historical records by continent:** The explorer combines dated observations from the UN Demographic Yearbook, Eurostat, Stats NZ, the New Zealand Ministry of Health, the South African Health Review, CDC, and Guttmacher. The coverage table counts each country or territory and year once. The series retain their individual counts, source links and reporting notes. Overlapping measurements can differ. The UN series uses the latest archived edition with a numeric observation and excludes explicit alternative measures, such as applications or counts including miscarriages. South African public-sector totals use financial years. Four older UN scans are archived for verification and transcription. The 2015 and 2016 editions have PDF tables in the archive.
 - **U.S. historical estimates:** Guttmacher national estimates for 1973 to 2020 and selected state years from 1988 to 2020. State figures use patient residence.
 - **U.S. surveillance:** CDC counts from participating jurisdictions for 1969 to 2022. Participation varies.
 - **Recent U.S. estimates:** Guttmacher Monthly Abortion Provision Study estimates for 2023 to 2025 for the U.S., all 50 states and D.C., including 90% uncertainty intervals. These count clinician-provided abortions by state of procedure or pill receipt and appear separately from historical residence estimates and CDC reports.
@@ -31,12 +32,13 @@ Indiana has published residence counts for all 92 counties for 1998–2013. Virg
 - **Geographic detail:** Counts are reported where the procedure occurred or where the patient lived, whichever basis the source publishes, and both are labeled. The county is the smallest unit any of these agencies publish; no public dataset gives counts per municipality, township or facility. Pennsylvania's township, borough and city boundaries are drawn for navigation only, and its published figures remain county totals. Each county panel also states how concentrated the selected year is: how many counties supply half and four-fifths of the reported total. In Pennsylvania's 2024 procedure figures, half the total came from 2 counties and four-fifths from 6. The panel also lists the five counties with the largest reported counts and their share of the total.
 - **Economic context:** World Bank GDP per capita, 2023.
 
-A fresh checkout includes the static site and the snapshots used for the offline SQLite build. To rebuild the snapshots from original reports, first restore the full reference archive and install `openpyxl` and `pdftotext`. Then run these commands offline.
+A fresh checkout includes the static site and the snapshots used for the offline SQLite build. To rebuild the snapshots from original reports, first restore the full reference archive and install `openpyxl`, `xlrd` and `pdftotext`. Then run these commands offline.
 
 ```sh
 python3 scripts/fetch_references.py --verify
 python3 scripts/build_data.py
 python3 scripts/build_us_history.py
+python3 scripts/build_international_history.py
 python3 scripts/build_counties.py
 python3 scripts/fetch_references.py --index-only
 ```
@@ -57,7 +59,7 @@ The underlying records are `kff-hyde-medicaid`, `kff-medicaid-state-table`, `kff
 
 `county_observation` and `county_release` show the county-of-residence series. To query both geographic bases, use `county_series_observation` and `county_series_release` and join on `state_fips, year, series_id`. The `county-reported` series uses patient residence, and `county-occurrence` uses the county where the procedure was reported.
 
-Use `state_observation` with series ID `state-recent` for the 2023–2025 clinician-provided estimates and their uncertainty intervals. `country_reported_publisher` gives the publisher names for each retained country-year observation.
+Use `state_observation` with series ID `state-recent` for the 2023–2025 clinician-provided estimates and their uncertainty intervals. `country_reported_publisher` gives the publisher names for each retained country-year observation. Join `international_observation` to `international_geography` and `source` to query the continent explorer’s counts, years, status flags and citations offline.
 
 ```sh
 sqlite3 -header -column data/tracker.sqlite3 "
@@ -72,6 +74,8 @@ ORDER BY o.year DESC;"
 ## References
 
 `references/sources.tsv` is the bibliography, `references/country-profiles.tsv` indexes the 150 country profile PDFs, and `references/manifest.json` records filenames, retrieval dates, and SHA-256 checksums. Redistributable documents are stored in `references/open/`. Other downloads are stored in the git-ignored `references/private/`. Copy that directory along with the checkout to use the complete archive on another offline machine.
+
+The [Eurostat source](https://ec.europa.eu/eurostat/databrowser/product/view/demo_fabort) is the `demo_fabort` release for all ages, in counts. The explorer normalizes geography codes and omits overlapping geographic variants. Eurostat is not responsible for these modifications. Some countries in the snapshot are available for noncommercial reuse only under [Eurostat’s terms](https://ec.europa.eu/eurostat/help/copyright-notice). The Guttmacher originals follow its [public-use dataset terms](https://www.guttmacher.org/public-use-datasets). Stats NZ and the New Zealand Ministry of Health publish their source data under CC BY 4.0.
 
 Run `python3 scripts/fetch_references.py` online to fill in missing downloads. The script reuses local copies whose checksums match the manifest. If a publisher changed a file, use `--refresh` to accept a newer copy. Read the saved report or dataset version when comparing published figures. Restoring the 2017 fetal-tissue judgment excerpt from its source filing requires `qpdf`.
 

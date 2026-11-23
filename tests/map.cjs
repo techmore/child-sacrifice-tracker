@@ -123,3 +123,27 @@ test("county data failure leaves the statewide view and U.S. chart usable", asyn
     assert.match(await page.locator("#state-total").innerText(), /Pennsylvania/);
   }, { failCounties: true });
 });
+
+test("international history lists continent coverage and preserves the selected reporting series", async () => {
+  await checkMap({ width: 1280, height: 850 }, async page => {
+    await page.goto(origin + "/?history=NZL&historySource=new-zealand#international-history");
+    const controls = page.locator("#international-controls");
+    await controls.waitFor();
+    assert.equal(await page.locator("#international-coverage tbody tr").count(), 6);
+    assert.equal(await page.locator("#history-continent").inputValue(), "Oceania");
+    assert.equal(await page.locator("#history-geography").inputValue(), "NZL");
+    assert.equal(await page.locator("#history-series").inputValue(), "new-zealand");
+    const observations = page.locator("#international-observations tbody tr");
+    assert.equal(await observations.count(), 45);
+    assert.match(await observations.first().innerText(), /2024\s+17,785/);
+    assert.match(await observations.filter({ hasText: "Revised Ministry total" }).innerText(), /2019\s+12,948/);
+    await page.selectOption("#history-continent", "Africa");
+    await page.selectOption("#history-geography", "ZAF");
+    await page.selectOption("#history-series", "south-africa");
+    assert.match(await observations.first().innerText(), /2025\s+140,737.*Financial year 2024\/25/);
+    await page.reload();
+    await controls.waitFor();
+    assert.equal(await page.locator("#history-series").inputValue(), "south-africa");
+    assert.equal(await observations.count(), 6);
+  });
+});

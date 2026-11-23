@@ -17,7 +17,7 @@ SCHEMA = Path("scripts/tracker_schema.sql")
 MANIFEST = Path("references/manifest.json")
 SNAPSHOTS = {
     name: Path(f"docs/data/{name}.json")
-    for name in ("countries", "us", "us-history", "states", "counties")
+    for name in ("countries", "us", "us-history", "states", "counties", "international-history")
 }
 INPUTS = (SCHEMA, MANIFEST, *SNAPSHOTS.values())
 CDC_SOURCE_YEARS = {
@@ -112,6 +112,27 @@ def insert_countries(db, countries, manifest):
         """INSERT INTO country_gdp (country_id, series_id, year, gdp_per_capita_usd)
            VALUES (?, 'country-gdp', 2023, ?)""",
         ((r["id"], r["gdpPerCapita2023"]) for r in countries if r["gdpPerCapita2023"] is not None),
+    )
+
+
+def insert_international_history(db, archive):
+    db.executemany(
+        "INSERT INTO series (id, label, scope, geography) VALUES (?, ?, ?, 'country')",
+        ((f"international-{key}", series["label"], series["scope"])
+         for key, series in archive["series"].items()),
+    )
+    rows = archive["rows"]
+    places = {row["geography"]: (row["name"], row["continent"]) for row in rows}
+    db.executemany(
+        "INSERT INTO international_geography (id, name, continent) VALUES (?, ?, ?)",
+        ((identifier, name, continent) for identifier, (name, continent) in places.items()),
+    )
+    db.executemany(
+        """INSERT INTO international_observation (
+                geography_id, series_id, year, abortions, status, notes, source_id
+           ) VALUES (?, ?, ?, ?, ?, ?, ?)""",
+        ((row["geography"], f"international-{row['series']}", row["year"], row["count"],
+          row["status"], row["notes"], row["source"]) for row in rows),
     )
 
 
@@ -265,6 +286,7 @@ def populate(db, files):
             ],
         )
         insert_countries(db, data["countries"], manifest)
+        insert_international_history(db, data["international-history"])
         insert_us(db, data["us"], data["us-history"])
         insert_states(db, data["states"])
         insert_recent_states(db, data["states"], data["us-history"]["recent"])

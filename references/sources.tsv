@@ -6,9 +6,9 @@ bearak-2022-bmj-gh	open	Bearak et al. 2022, BMJ Global Health, full text (CC BY-
 guttmacher-worldwide-factsheet	private	Guttmacher, Induced Abortion Worldwide	https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide
 guttmacher-country-explainer	private	Guttmacher, Country-Level Estimates Explained	https://www.guttmacher.org/node/33475/printable/print
 osf-aww-data-tables	private	Guttmacher/WHO, Basis of 1990-2019 estimates, data tables	https://osf.io/download/a8jq5/
-osf-global-incidence-csv	private	Guttmacher, Global Abortion Incidence Dataset	https://osf.io/download/6t4eh/
+osf-global-incidence-csv	open	Guttmacher, Global Abortion Incidence Dataset	https://osf.io/download/6t4eh/
 osf-global-incidence-codebook	private	Guttmacher, Global Abortion Incidence Codebook	https://osf.io/download/skzvu/
-osf-us-pregnancy-csv	private	Guttmacher, US National and State Pregnancy Trends	https://osf.io/download/duj6a/
+osf-us-pregnancy-csv	open	Guttmacher, US National and State Pregnancy Trends	https://osf.io/download/duj6a/
 wecount-dec-2025	private	Society of Family Planning, #WeCount December 2025	https://societyfp.org/research/wecount/wecount-december-2025-data/
 npr-2026-us-abortions	private	NPR, US abortion numbers hold steady, March 2026	https://www.npr.org/2026/03/24/nx-s1-5757550/abortion-telemedicine-travel-mifepristone-misoprostol
 nchs-db541	open	NCHS Data Brief 541, suicide rates 2022 to 2023 (US government)	https://stacks.cdc.gov/view/cdc/174625/cdc_174625_DS1.pdf?download=1
@@ -282,3 +282,60 @@ fda-mmr-ii-label	private	FDA, M-M-R II prescribing information	https://www.fda.g
 fda-varivax-label	private	FDA, Varivax prescribing information	https://www.fda.gov/media/76000/download
 ca-school-vaccine-regulations	private	California Code of Regulations, school immunization requirements	https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/Immunization/IMM-1080.pdf
 uk-channel-4-pregnancy-remains-2014	private	Channel 4 Dispatches, records on pregnancy remains deposited with UK Parliament	https://data.parliament.uk/DepositedPapers/Files/DEP2014-0569/PQ194504_-_Library_Doc_-_Report.pdf
+eurostat-legally-induced-abortions	open	Eurostat, legally induced abortions by age, all ages and number, demo_fabort	https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/demo_fabort?lang=EN&age=TOTAL&unit=NR
+stats-nz-abortions-1980-2019	open	Stats NZ, registered induced abortions through 2019 (CC BY 4.0)	https://www.stats.govt.nz/assets/Uploads/Abortion-statistics/Abortion-statistics-Year-ended-December-2019/Download-data/Abortion-statistics-year-ended-december-2019-csv.zip
+nz-ministry-abortions-2012-2024	open	New Zealand Ministry of Health, abortion services report source workbook, via Figure.NZ (CC BY 4.0)	https://figure.nz/table/ZuXj8brhldPVDRFy/download-source-dataset
+nz-ministry-abortion-report-2025	open	New Zealand Ministry of Health, abortion services annual report 2025 (CC BY 4.0)	https://www.health.govt.nz/system/files/2025-12/abortion-services-annual-report-2025.pdf
+un-dyb-index-2025	private	United Nations, Demographic Yearbook historical index, 2025	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2025/Index-En.pdf
+un-dyb-abortions-2000	private	UN Demographic Yearbook 2000, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/DYB2000/Table13.xls
+un-dyb-notes-2000	private	UN Demographic Yearbook 2000, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/DYB2000/NoteTable13.pdf
+un-dyb-abortions-2001	private	UN Demographic Yearbook 2001, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/DYB2001/Table13.xls
+un-dyb-abortions-2002	private	UN Demographic Yearbook 2002, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2002/Table13.xls
+un-dyb-abortions-2003	private	UN Demographic Yearbook 2003, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/DYB2003/table13.xls
+un-dyb-abortions-2004	private	UN Demographic Yearbook 2004, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/DYB2004/table13.xls
+un-dyb-abortions-2005	private	UN Demographic Yearbook 2005, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2005/table13.xls
+un-dyb-abortions-2006	private	UN Demographic Yearbook 2006, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2006/Table13.xls
+un-dyb-abortions-2007	private	UN Demographic Yearbook 2007, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2007/Table13.xls
+un-dyb-abortions-2008	private	UN Demographic Yearbook 2008, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2008/Table13.xls
+un-dyb-abortions-2009-2010	private	UN Demographic Yearbook 2009-2010, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2009-2010/Table13.xls
+un-dyb-notes-2009-2010	private	UN Demographic Yearbook 2009-2010, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/dyb2009-2010/notes/notes13.pdf
+un-dyb-abortions-2011	private	UN Demographic Yearbook 2011, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2011/Table13.xls
+un-dyb-notes-2011	private	UN Demographic Yearbook 2011, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/dyb2011/notes/notes13.pdf
+un-dyb-abortions-2012	private	UN Demographic Yearbook 2012, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2012/Table13.xls
+un-dyb-notes-2012	private	UN Demographic Yearbook 2012, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/dyb2012/notes/notes13.pdf
+un-dyb-abortions-2013	private	UN Demographic Yearbook 2013, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2013/Table13.xls
+un-dyb-notes-2013	private	UN Demographic Yearbook 2013, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/dyb2013/notes/notes13.pdf
+un-dyb-abortions-2014	private	UN Demographic Yearbook 2014, Table 13 workbook	https://unstats.un.org/unsd/demographic/products/dyb/dyb2014/Table13.xls
+un-dyb-notes-2014	private	UN Demographic Yearbook 2014, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic/products/dyb/dyb2014/notes/notes13.pdf
+un-dyb-table-2015	private	UN Demographic Yearbook 2015, Table 13 PDF	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2015/table13.pdf
+un-dyb-notes-2015	private	UN Demographic Yearbook 2015, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2015/Notes13.pdf
+un-dyb-table-2016	private	UN Demographic Yearbook 2016, Table 13 PDF	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2016/table13.pdf
+un-dyb-archived-workbook-2016	private	UN Demographic Yearbook 2016, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2016/table13.xls
+un-dyb-notes-2016	private	UN Demographic Yearbook 2016, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2016/Notes13.pdf
+un-dyb-abortions-2017	private	UN Demographic Yearbook 2017, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2017/table13.xls
+un-dyb-notes-2017	private	UN Demographic Yearbook 2017, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2017/Notes13.pdf
+un-dyb-abortions-2018	private	UN Demographic Yearbook 2018, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2018/table13.xls
+un-dyb-notes-2018	private	UN Demographic Yearbook 2018, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2018/Notes13.pdf
+un-dyb-abortions-2019	private	UN Demographic Yearbook 2019, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2019/table13.xls
+un-dyb-notes-2019	private	UN Demographic Yearbook 2019, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2019/Notes13.pdf
+un-dyb-abortions-2020	private	UN Demographic Yearbook 2020, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2020/table13.xls
+un-dyb-notes-2020	private	UN Demographic Yearbook 2020, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2020/Notes13.pdf
+un-dyb-abortions-2021	private	UN Demographic Yearbook 2021, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2021/table13.xls
+un-dyb-notes-2021	private	UN Demographic Yearbook 2021, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2021/Notes13.pdf
+un-dyb-abortions-2022	private	UN Demographic Yearbook 2022, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2022/table13.xls
+un-dyb-notes-2022	private	UN Demographic Yearbook 2022, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2022/Notes13.pdf
+un-dyb-abortions-2023	private	UN Demographic Yearbook 2023, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/table13.xls
+un-dyb-notes-2023	private	UN Demographic Yearbook 2023, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/Notes13.pdf
+un-dyb-abortions-2024	private	UN Demographic Yearbook 2024, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2024/table13.xls
+un-dyb-notes-2024	private	UN Demographic Yearbook 2024, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2024/Notes13_2024.pdf
+un-dyb-abortions-2025	private	UN Demographic Yearbook 2025, Table 13 workbook	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2025/table13.xls
+un-dyb-notes-2025	private	UN Demographic Yearbook 2025, Table 13 explanatory notes	https://unstats.un.org/unsd/demographic-social/products/dyb/documents/DYB2025/Notes13_2025.pdf
+za-dhis-terminations-2022	private	South African Health Review 2022, public-sector terminations of pregnancy, 2019/20–2021/22	https://sahr.hst.org.za/api/v1/articles/82026-health-and-related-indicators-2022.pdf
+za-dhis-terminations-2023	private	South African Health Review 2023, public-sector terminations of pregnancy, 2022/23	https://sahr.hst.org.za/article/122768-health-and-related-indicators-2023.pdf
+za-dhis-terminations-2024	private	South African Health Review 2024, public-sector terminations of pregnancy, 2023/24	https://sahr.hst.org.za/article/143759.pdf
+za-dhis-terminations-2025	private	South African Health Review 2025, public-sector terminations of pregnancy, 2024/25	https://sahr.hst.org.za/article/172681.pdf
+un-dyb-scan-1972	private	UN Demographic Yearbook 1972, scanned full edition	https://unstats.un.org/unsd/demographic-social/products/dyb/dybsets/1972%20DYB.pdf
+un-dyb-scan-1981	private	UN Demographic Yearbook 1981, scanned full edition	https://unstats.un.org/unsd/demographic-social/products/dyb/dybsets/1981%20DYB.pdf
+un-dyb-scan-1991	private	UN Demographic Yearbook 1991, scanned full edition	https://unstats.un.org/unsd/demographic-social/products/dyb/dybsets/1991%20DYB.pdf
+un-dyb-table-2006	private	UN Demographic Yearbook 2006, Table 13 PDF	https://unstats.un.org/unsd/demographic/products/dyb/dyb2006/Table13.pdf
+un-dyb-scan-1982	private	UN Demographic Yearbook 1982, scanned full edition	https://unstats.un.org/unsd/demographic-social/products/dyb/dybsets/1982%20DYB.pdf

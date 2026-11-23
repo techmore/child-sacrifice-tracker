@@ -7,6 +7,7 @@ import openpyxl
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 REF = ROOT / "references" / "private"
 RAW = ROOT / "data" / "raw"
+OPEN = ROOT / "references" / "open"
 
 def key(name):
     n = unicodedata.normalize("NFKD", str(name)).encode("ascii", "ignore").decode().lower()
@@ -72,7 +73,7 @@ def reported_counts(path):
     return reported, sources
 
 
-reported, reported_sources = reported_counts(REF / "osf-global-incidence-csv.csv")
+reported, reported_sources = reported_counts(OPEN / "osf-global-incidence-csv.csv")
 
 countries, unmatched = [], []
 SUMMARY_ROWS = {"first quartile", "median country", "population average", "third quartile"}
@@ -111,14 +112,14 @@ for n in ("United States", "China", "India", "Brazil", "Russia", "Nigeria"):
     c = next((c for c in countries if c["name"] == n), None)
     print(n, c and {k: c[k] for k in ("rate", "rateLow", "rateHigh", "abortions", "births", "shareOfBirthsPlusAbortions", "gdpPerCapita2023")}, c and len(c["reported"]))
 
-us = [r for r in csv.DictReader(open(REF / "osf-us-pregnancy-csv.csv", encoding="latin-1")) if r["state"] == "US"]
+us = [r for r in csv.DictReader(open(OPEN / "osf-us-pregnancy-csv.csv", encoding="latin-1")) if r["state"] == "US"]
 series = [{"year": int(r["year"]), "abortions": int(r["abortionstotal"]), "rate": float(r["abortionratetotal"])}
           for r in us if r["abortionstotal"] and r["abortionratetotal"]]
 (ROOT / "docs/data/us.json").write_text(json.dumps(series, separators=(",", ":")))
 print("us years", series[0]["year"], series[-1]["year"], len(series))
 
 FIPS = {"AL":("01","Alabama"),"AK":("02","Alaska"),"AZ":("04","Arizona"),"AR":("05","Arkansas"),"CA":("06","California"),"CO":("08","Colorado"),"CT":("09","Connecticut"),"DE":("10","Delaware"),"DC":("11","District of Columbia"),"FL":("12","Florida"),"GA":("13","Georgia"),"HI":("15","Hawaii"),"ID":("16","Idaho"),"IL":("17","Illinois"),"IN":("18","Indiana"),"IA":("19","Iowa"),"KS":("20","Kansas"),"KY":("21","Kentucky"),"LA":("22","Louisiana"),"ME":("23","Maine"),"MD":("24","Maryland"),"MA":("25","Massachusetts"),"MI":("26","Michigan"),"MN":("27","Minnesota"),"MS":("28","Mississippi"),"MO":("29","Missouri"),"MT":("30","Montana"),"NE":("31","Nebraska"),"NV":("32","Nevada"),"NH":("33","New Hampshire"),"NJ":("34","New Jersey"),"NM":("35","New Mexico"),"NY":("36","New York"),"NC":("37","North Carolina"),"ND":("38","North Dakota"),"OH":("39","Ohio"),"OK":("40","Oklahoma"),"OR":("41","Oregon"),"PA":("42","Pennsylvania"),"RI":("44","Rhode Island"),"SC":("45","South Carolina"),"SD":("46","South Dakota"),"TN":("47","Tennessee"),"TX":("48","Texas"),"UT":("49","Utah"),"VT":("50","Vermont"),"VA":("51","Virginia"),"WA":("53","Washington"),"WV":("54","West Virginia"),"WI":("55","Wisconsin"),"WY":("56","Wyoming")}
-rows = [r for r in csv.DictReader(open(REF / "osf-us-pregnancy-csv.csv", encoding="latin-1")) if r["state"] in FIPS and r["abortionstotal"]]
+rows = [r for r in csv.DictReader(open(OPEN / "osf-us-pregnancy-csv.csv", encoding="latin-1")) if r["state"] in FIPS and r["abortionstotal"]]
 states = []
 for abbr, (fips, name) in FIPS.items():
     s = sorted((r for r in rows if r["state"] == abbr), key=lambda r: int(r["year"]))

@@ -37,6 +37,7 @@
   </div>
   <p class="note">Choose the United States, then a state, to see its history and available county counts. State map colors use <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. Selected states also show <a href="#guttmacher-full-year-2025-appendix">2023–2025 estimates by state of procedure or pill receipt</a>. County tables use state health agency reports. Where a report provides both measures, select patient residence or procedure location. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
   <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
+  <p class="note"><a href="#international-history">Explore historical records by continent</a></p>
   <details id="county-coverage-section"><summary>View U.S. county data coverage by state</summary><div id="county-coverage"></div></details>
 </section>
 <header class="hero">
@@ -104,6 +105,20 @@
   <details id="us-annual-data"><summary>View the annual U.S. data</summary><div class="table-scroll"><table id="us-table"><thead><tr><th scope="col">Year</th><th scope="col">CDC reported</th><th scope="col">CDC reporting areas</th><th scope="col">Guttmacher historical estimate</th><th scope="col">Historical rate per 1,000 women aged 15 to 44</th><th scope="col">Guttmacher monthly study estimate</th><th scope="col">Monthly study 90% interval</th></tr></thead></table></div></details>
   <p>The Guttmacher historical count peaked in 1990, generally fell until 2017, and then rose through 2020. The newer study shows roughly steady counts in 2024 and 2025. Worldwide, the estimated abortion rate among women aged 15 to 49 dipped in the early 2000s before returning to near its early-1990s level by 2015 to 2019. The estimated share of unintended pregnancies ending in abortion rose from 51% to 61%. <a href="#bearak-2020-lancet-gh">Global estimates</a>.</p>
   <div class="limit">For 2015 to 2019, researchers estimated 40 abortions per 1,000 women aged 15 to 49 where abortion was broadly legal and 36 where it was restricted. Excluding China and India brought the broadly legal estimate to 26. Groups also differed in rates of unintended pregnancy. <a href="#bearak-2020-lancet-gh">Study by legal status</a>.</div>
+</section>
+
+<section id="international-history">
+  <h2>Historical abortion records by continent</h2>
+  <p>Coverage varies by country, year and reporting system. The table measures coverage in the archive. Countries and territories may appear in more than one series, and a year absent from a source has no count in that series.</p>
+  <div id="international-coverage" class="table-scroll" role="region" aria-label="Historical coverage by continent" tabindex="0">Loading historical coverage…</div>
+  <p class="note">Central America and the Caribbean are grouped with North America. Some jurisdictions report legal procedures only, and some returns include different geography, categories or coverage. Read the source notes before comparing counts. <a href="data/international-history.json" download>Download the data (JSON)</a></p>
+  <div id="international-controls" class="picks controls" hidden>
+    <label class="pick">Continent <select id="history-continent"></select></label>
+    <label class="pick">Country or territory <select id="history-geography"></select></label>
+    <label class="pick">Series <select id="history-series"></select></label>
+  </div>
+  <div id="international-chart" class="chart"></div>
+  <div id="international-observations"></div>
 </section>
 
 <section>
@@ -262,6 +277,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=funding-structure"></script>
+<script src="app.js?v=international-history"></script>
 </body>
 </html>

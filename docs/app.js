@@ -28,7 +28,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=funding-structure"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=international-history"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
@@ -39,6 +39,7 @@ Promise.all([
   let counties = {}, countyStatus = "loading", pendingStateOptions;
   let countyYear, countyMode, countyTransform, countyRows = new Map(), activeCounty, countyGeometry;
   const byId = new Map(data.map(d => [d.id, d]));
+  let archivedPlaces = new Set();
   let metric = Object.hasOwn(METRICS, params.get("metric")) ? params.get("metric") : "abortions";
   let selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
@@ -725,10 +726,12 @@ Promise.all([
       ${d.shareUnintendedAborted != null ? `<dt>Unintended pregnancies aborted</dt><dd>${d.shareUnintendedAborted}%</dd>` : ""}
       ${gdp ? `<dt>Abortions × GDP per capita</dt><dd>${money(gdp)}</dd>` : ""}</dl>
       ${gdp ? `<p class="small">This arithmetic applies 2023 GDP per person to one year’s estimated abortions. It leaves out population change, the timing of work and earnings, and the costs of raising children.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
+      <p id="country-history-link" class="small" hidden><a href="?country=${d.id}&history=${d.iso3}#international-history">Explore international historical records</a></p>
       ${spark(d, "Eligible official counts exclude spontaneous abortions and omit years with conflicting eligible values.", true)}
       ${d.reported.length ? `<details id="country-reported"><summary>View annual reported counts and sources</summary>
         <p class="small">Published in the ${cite("osf-global-incidence-csv", "incidence dataset")}.</p>
         <div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Reported abortions</th><th scope="col">Source in dataset</th></tr></thead><tbody></tbody></table></div></details>` : ""}`;
+    d3.select("#country-history-link").property("hidden", !archivedPlaces.has(d.iso3));
     const reportedRows = d3.select("#country-reported tbody").selectAll("tr").data([...d.reported].reverse()).join("tr");
     reportedRows.append("th").attr("scope", "row").text(([year]) => year);
     reportedRows.append("td").text(([, count]) => fmt(count));
@@ -781,6 +784,14 @@ Promise.all([
     crumbs();
   }
   usChart(us, history);
+  d3.json("data/international-history.json").then(
+    archive => {
+      archivedPlaces = new Set(archive.rows.map(row => row.geography));
+      d3.select("#country-history-link").property("hidden", !archivedPlaces.has(selected.iso3));
+      internationalHistory(archive, sources);
+    },
+    () => d3.select("#international-coverage").text("Historical data could not load. Refresh to try again."),
+  );
   d3.json("data/counties.json?v=indiana-history").then(data => {
     counties = data;
     countyStatus = "ready";
@@ -798,6 +809,97 @@ Promise.all([
   console.error(err);
   document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";
 });
+
+function internationalHistory(archive, sources) {
+  const { rows, coverage, series } = archive;
+  const countRows = d3.max(coverage, d => d.countryYears);
+  const table = d3.select("#international-coverage").text("").append("table");
+  table.append("thead").append("tr").selectAll("th").data([
+    "Continent", "Countries and territories", "Country-years", "Earliest to latest",
+  ]).join("th").attr("scope", "col").text(d => d);
+  const summary = table.append("tbody").selectAll("tr").data(coverage).join("tr");
+  summary.append("th").attr("scope", "row").text(d => d.continent);
+  summary.append("td").text(d => fmt(d.geographies));
+  const years = summary.append("td");
+  years.append("meter").attr("aria-hidden", "true").attr("max", countRows).attr("value", d => d.countryYears);
+  years.append("span").text(d => " " + fmt(d.countryYears));
+  summary.append("td").text(d => `${d.firstYear}–${d.lastYear}`);
+
+  const continent = d3.select("#history-continent");
+  const geography = d3.select("#history-geography");
+  const source = d3.select("#history-series");
+  const byGeography = d3.group(rows, d => d.geography);
+  const params = new URLSearchParams(location.search);
+  const initialRow = byGeography.get(params.get("history"))?.[0];
+  const options = (element, data, value, text) => element.selectAll("option").data(data)
+    .join("option").attr("value", value).text(text);
+  options(continent, coverage, d => d.continent, d => d.continent);
+  if (initialRow) continent.property("value", initialRow.continent);
+  d3.select("#international-controls").property("hidden", false);
+  continent.on("change", () => { selectContinent(); save(); });
+  geography.on("change", () => { selectGeography(); save(); });
+  source.on("change", () => { render(); save(); });
+  selectContinent(initialRow?.geography, params.get("historySource"));
+
+  function save() {
+    const url = new URL(location.href);
+    url.searchParams.set("history", geography.property("value"));
+    url.searchParams.set("historySource", source.property("value"));
+    window.history.replaceState(window.history.state, "", url);
+  }
+
+  function selectContinent(selected, selectedSource) {
+    const places = Array.from(byGeography.values(), values => values[0])
+      .filter(d => d.continent === continent.property("value"))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    options(geography, places, d => d.geography, d => d.name);
+    if (selected) geography.property("value", selected);
+    selectGeography(selectedSource);
+  }
+
+  function selectGeography(selectedSource) {
+    const available = new Set(byGeography.get(geography.property("value")).map(d => d.series));
+    const keys = Object.keys(series).filter(key => available.has(key));
+    options(source, keys, d => d, d => series[d].label);
+    if (available.has(selectedSource)) source.property("value", selectedSource);
+    render();
+  }
+
+  function render() {
+    const id = source.property("value");
+    const records = byGeography.get(geography.property("value"))
+      .filter(d => d.series === id).sort((a, b) => a.year - b.year);
+    const target = d3.select("#international-observations").text("");
+    const description = target.append("p").attr("class", "note").text(series[id].scope);
+    const docs = series[id].documentation;
+    if (docs) description.append("a").attr("href", docs).text(" Source definitions and flags");
+    const chart = d3.select("#international-chart").text("");
+    if (records.length >= 2) {
+      const x = d3.scaleLinear(d3.extent(records, d => d.year), [62, 694]);
+      const y = d3.scaleLinear([0, d3.max(records, d => d.count) || 1], [205, 12]).nice();
+      const svg = chart.append("svg").attr("viewBox", "0 0 720 238").attr("role", "img")
+        .attr("aria-label", `Reported abortions in ${records[0].name}. Exact counts and source notes follow.`);
+      svg.append("g").attr("transform", "translate(0,205)").call(d3.axisBottom(x).ticks(8).tickFormat(d3.format("d")));
+      svg.append("g").attr("transform", "translate(62,0)").call(d3.axisLeft(y).ticks(5).tickFormat(d3.format("~s")));
+      const points = records.flatMap((d, i) => i && d.year > records[i - 1].year + 1 ? [null, d] : [d]);
+      svg.append("path").attr("d", d3.line().defined(d => d !== null).x(d => x(d.year)).y(d => y(d.count))(points))
+        .attr("stroke", "var(--mark)").attr("stroke-width", 2).attr("fill", "none");
+      svg.selectAll("circle").data(records).join("circle").attr("cx", d => x(d.year)).attr("cy", d => y(d.count))
+        .attr("r", 2.4).attr("fill", "var(--mark)").append("title").text(d => `${d.year} · ${fmt(d.count)}`);
+    }
+    const scroll = target.append("div").attr("class", "table-scroll").attr("tabindex", 0)
+      .attr("role", "region").attr("aria-label", "Annual historical counts");
+    const dataTable = scroll.append("table");
+    dataTable.append("thead").append("tr").selectAll("th").data(["Year", "Reported count", "Status or notes", "Source"])
+      .join("th").attr("scope", "col").text(d => d);
+    const entries = dataTable.append("tbody").selectAll("tr").data([...records].reverse()).join("tr");
+    entries.append("th").attr("scope", "row").text(d => d.year);
+    entries.append("td").text(d => fmt(d.count));
+    entries.append("td").text(d => [d.status, d.notes].filter(Boolean).join(" · ") || "—");
+    entries.append("td").append("a").attr("href", d => sources.get(d.source).url)
+      .text(d => sources.get(d.source).title);
+  }
+}
 
 function usHistoricalBreakdown(rows, total, recent) {
   const periods = d3.groups(rows, row => Math.floor(row.year / 10));

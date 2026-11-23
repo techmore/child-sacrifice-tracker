@@ -1,4 +1,4 @@
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;
 
 CREATE TABLE build_input (
     path TEXT PRIMARY KEY NOT NULL,
@@ -93,6 +93,23 @@ CREATE TABLE country_reported_publisher (
     publisher TEXT NOT NULL,
     PRIMARY KEY (country_id, series_id, year, publisher),
     FOREIGN KEY (country_id, series_id, year) REFERENCES country_reported(country_id, series_id, year)
+) WITHOUT ROWID;
+
+CREATE TABLE international_geography (
+    id TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    continent TEXT NOT NULL
+) WITHOUT ROWID;
+
+CREATE TABLE international_observation (
+    geography_id TEXT NOT NULL REFERENCES international_geography(id),
+    series_id TEXT NOT NULL REFERENCES series(id),
+    year INTEGER NOT NULL,
+    abortions INTEGER NOT NULL CHECK (abortions >= 0),
+    status TEXT,
+    notes TEXT,
+    source_id TEXT NOT NULL REFERENCES source(id),
+    PRIMARY KEY (geography_id, series_id, year)
 ) WITHOUT ROWID;
 
 CREATE TABLE us_observation (
