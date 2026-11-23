@@ -33,10 +33,16 @@ for (const width of [1280, 390]) {
   test(`state totals, Pennsylvania county counts and reload at ${width}px`, async () => {
     await checkMap({ width, height: 850 }, async page => {
       await page.goto(origin);
+      await page.locator("#open-us").waitFor();
+      assert.match(await page.locator("#banner").innerText(), /73\.3M.*worldwide, averaged over 2015–2019/s);
+      assert.match(await page.locator("#banner").innerText(), /gives no worldwide count for 2025/);
+      assert.match(await page.locator("#ytd + span").innerText(), /projection using the 2015–2019 average/);
       await page.locator("#open-us").click();
       const breakdown = page.locator("#us-total-breakdown");
       await breakdown.locator("summary").click();
-      assert.match(await page.locator("#banner").innerText(), /60\.9M/);
+      assert.match(await page.locator("#banner").innerText(), /60\.9M.*U\.S\. total across 48 years, 1973–2020/s);
+      assert.match(await breakdown.innerText(), /2025 is 1,125,930 clinician-provided abortions/);
+      assert.match(await breakdown.innerText(), /73\.3M is an annual average for 2015–2019/);
       const rows = await breakdown.locator("tbody tr").evaluateAll(elements => elements.map(row => Array.from(row.cells, cell => cell.textContent)));
       assert.deepEqual(rows, [
         ["1973–1979", "7", "8,080,620"], ["1980–1989", "10", "15,736,610"],

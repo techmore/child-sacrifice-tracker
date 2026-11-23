@@ -44,7 +44,7 @@ Promise.all([
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
   const usTotalBreakdown = document.getElementById("us-total-breakdown");
-  document.getElementById("us-total-calculation").innerHTML = usHistoricalBreakdown(us, usTotal);
+  document.getElementById("us-total-calculation").innerHTML = usHistoricalBreakdown(us, usTotal, newUS);
   usTotalBreakdown.open = location.hash === "#us-total-breakdown";
   document.getElementById("us-annual-link").addEventListener("click", () => {
     document.getElementById("us-annual-data").open = true;
@@ -146,7 +146,7 @@ Promise.all([
     document.getElementById("banner").innerHTML = `<div><b>${place}</b><span>Selected area</span></div><div><b>${annual}</b><span>${annualNote}</span></div><div><b>${total}</b><span>${totalNote}</span></div>`;
   }
   function worldBanner() {
-    setBanner("World", "73.3M", "estimated per year, 2015 to 2019", "No reliable total", "No source measures a worldwide cumulative count. Records begin in the 20th century and remain incomplete.");
+    setBanner("World", "73.3M", "estimated abortions per year worldwide, averaged over 2015–2019", "No reliable cumulative total", "The worldwide study covers 2015–2019 for this estimate and gives no worldwide count for 2025.");
   }
   function saveView({ showMap = false } = {}) {
     const url = new URL(location.href);
@@ -218,7 +218,7 @@ Promise.all([
     worldG.style("display", "none"); usG.style("display", null).attr("transform", null);
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
-    setBanner("United States", fmt(newUS.abortions), `clinician-provided estimate in ${newUS.year}`, short(usTotal), `estimated from ${us[0].year} to ${usLatest.year} in the historical series`);
+    setBanner("United States", fmt(newUS.abortions), `estimated clinician-provided abortions in the U.S. in ${newUS.year}`, short(usTotal), `estimated U.S. total across ${us.length} years, ${us[0].year}–${usLatest.year}`);
     usPanel(); crumbs(); paint(); saveView();
   }
   function leaveUS() {
@@ -799,14 +799,14 @@ Promise.all([
   document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";
 });
 
-function usHistoricalBreakdown(rows, total) {
+function usHistoricalBreakdown(rows, total, recent) {
   const periods = d3.groups(rows, row => Math.floor(row.year / 10));
   const subtotals = periods.map(([, years]) => {
     const first = years[0].year, last = years.at(-1).year;
     const label = first === last ? first : `${first}–${last}`;
     return `<tr><th scope="row">${label}</th><td>${years.length}</td><td>${fmt(d3.sum(years, row => row.abortions))}</td></tr>`;
   }).join("");
-  return `<p class="note">Add Guttmacher’s ${rows.length} annual national estimates from ${rows[0].year} through ${rows.at(-1).year}. The sum is ${fmt(total)}, shown as ${short(total)} in the banner. The CDC counts and newer clinician-provided estimates appear in separate series.</p>
+  return `<p class="note">Add Guttmacher’s ${rows.length} annual national estimates from ${rows[0].year} through ${rows.at(-1).year}. The sum is ${fmt(total)}, shown as ${short(total)} in the banner. The U.S. estimate for ${recent.year} is ${fmt(recent.abortions)} clinician-provided abortions from a separate study. The worldwide figure of 73.3M is an annual average for 2015–2019. <a href="#guttmacher-full-year-2025-appendix">Recent U.S. source</a> · <a href="#bearak-2020-lancet-gh">Worldwide source</a></p>
     <div class="table-scroll"><table><thead><tr><th scope="col">Period</th><th scope="col">Years included</th><th scope="col">Estimated abortions</th></tr></thead>
     <tbody>${subtotals}</tbody><tfoot><tr><th scope="row">Total</th><td>${rows.length}</td><td>${fmt(total)}</td></tr></tfoot></table></div>
     <p class="note"><a id="us-annual-link" href="#us-annual-data">View the annual estimates</a> · <a href="data/us.json">Download the historical series (JSON)</a> · <a href="#osf-us-pregnancy-csv">Guttmacher source</a></p>`;
