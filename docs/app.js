@@ -157,6 +157,13 @@ Promise.all([
   function crumbs() {
     const c = document.getElementById("crumbs");
     const countyView = view === "state" && !!counties[activeState.id];
+    const stateTotal = document.getElementById("state-total");
+    stateTotal.hidden = view !== "state";
+    stateTotal.innerHTML = activeState
+      ? `<strong>${activeState.name} <span>${fmt(activeState.abortions)}</span></strong>
+        <span>Estimated abortions in ${activeState.year} by state of residence · <a href="#osf-us-pregnancy-csv">Source</a></span>
+        ${countyView ? "" : "<span>County counts unavailable in this tracker</span>"}`
+      : "";
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
@@ -245,7 +252,7 @@ Promise.all([
     const panel = document.getElementById("county-panel");
     const countyData = counties[state.id];
     if (!countyData) {
-      panel.innerHTML = "<h3>County counts</h3><p class='small'>No county-of-residence series is available for this state in this tracker.</p>";
+      panel.innerHTML = "<h3>County counts</h3><p class='small'>County counts unavailable in this tracker.</p>";
       return;
     }
     panel.innerHTML = `<h3>Reported abortions by county</h3>

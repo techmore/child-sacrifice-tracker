@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=county-counts">
+<link rel="stylesheet" href="style.css?v=state-totals">
 </head>
 <body>
 <section id="map-section" class="wide">
@@ -22,6 +22,7 @@
   <div class="picks"><label class="pick">Choose a country <select id="country"></select></label><label class="pick" id="state-pick" hidden>Choose a state <select id="state"></select></label></div>
   <div class="map-layout">
     <div class="map-wrap">
+      <div id="state-total" role="status" hidden></div>
       <div id="zoom" role="group" aria-label="Map zoom"><button data-z="in" aria-label="Zoom in">+</button><button data-z="out" aria-label="Zoom out">&minus;</button><button data-z="reset">Reset</button></div>
       <div class="map-scroll"><svg id="map" role="img" aria-label="World map of estimated abortions by country"></svg></div>
       <div id="legend"></div>
@@ -206,6 +207,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=county-counts"></script>
+<script src="app.js?v=state-totals"></script>
 </body>
 </html>

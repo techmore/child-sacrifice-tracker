@@ -84,6 +84,10 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 .hero{padding-top:48px}
 
 .controls[hidden]{display:none}
+#state-total{position:sticky;top:0;z-index:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:8px 16px;background:var(--surface);border-block:1px solid var(--line);color:var(--ink2);font-size:13px}
+#state-total[hidden]{display:none}
+#state-total strong{color:var(--ink);font-size:16px}
+#state-total strong span{margin-inline-start:6px;font-size:21px;font-variant-numeric:tabular-nums}
 .state.context{fill:var(--surface);stroke:var(--line)}
 .state-context-label{font:600 13px system-ui,sans-serif;fill:var(--ink2);stroke:var(--surface);stroke-width:3px;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
 #legend .context-key{flex-basis:100%}
