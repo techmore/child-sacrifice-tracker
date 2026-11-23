@@ -28,7 +28,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=medication-economics"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=abortion-tools"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));

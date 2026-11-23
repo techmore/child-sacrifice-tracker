@@ -5587,17 +5587,6 @@
     "sha256": "1e6c4258a77add226c736ecef8413962c37af70733cd77d1935e8f6d7f2e9d8d"
   },
   {
-    "id": "merck-10k-2025",
-    "access": "private",
-    "title": "Merck fiscal 2025 Form 10-K, SEC filing and product sales",
-    "url": "https://www.merck.com/wp-content/uploads/sites/124/2026/05/MRK-12.31.2025-10K-FINAL.pdf",
-    "retrieved": "2026-11-23",
-    "status": "saved",
-    "file": "private/merck-10k-2025.pdf",
-    "bytes": 1423877,
-    "sha256": "79f49f7214b396168ef5da16c211715a447360bf6329f3a5f6caf20cad457bfc"
-  },
-  {
     "id": "medication-abortion-pricing-2023",
     "access": "private",
     "title": "Upadhyay et al., Pricing of medication abortion in the United States, 2021–2023",
@@ -5651,5 +5640,93 @@
     "file": "private/fda-mifepristone-environmental-assessment.pdf",
     "bytes": 2177901,
     "sha256": "7b216bf4ff9cc054284f5a7810eed91725c3e524ed13f4f3a1a30bfb384316b6"
+  },
+  {
+    "id": "who-abortion-equipment-handbook",
+    "access": "private",
+    "title": "WHO clinical practice handbook for quality abortion care, equipment and supplies annex",
+    "url": "https://cdn.who.int/media/docs/default-source/reproductive-health/clinical-practice-handbook-for-quality-abortion-care.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/who-abortion-equipment-handbook.pdf",
+    "bytes": 2533101,
+    "sha256": "20dcce888a55149352edfcc32bf74f39de6434884a4225928049b408f0caa8aa"
+  },
+  {
+    "id": "dkt-womancare-ipas-aspirators",
+    "access": "private",
+    "title": "DKT WomanCare, Ipas manual vacuum aspiration product line and legal manufacturer",
+    "url": "https://dktwomancare.org/manual-vacuum-aspiration/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/dkt-womancare-ipas-aspirators.html",
+    "bytes": 199260,
+    "sha256": "fe00458fcf7248e80b1f634533ab02152effb6d1fc9de836a865c319b4c7fe70"
+  },
+  {
+    "id": "gudid-ipas-mva-plus",
+    "access": "private",
+    "title": "AccessGUDID, WomanCare Global Ipas MVA Plus aspirator",
+    "url": "https://accessgudid.nlm.nih.gov/devices/00853615006260",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/gudid-ipas-mva-plus.html",
+    "bytes": 52127,
+    "sha256": "54f273d486b6cdf97ab145e0d03740d0f69530433aa4afe286d47eb534068abf"
+  },
+  {
+    "id": "dkt-2025-sales-financials",
+    "access": "private",
+    "title": "DKT International, 2025 audited financials summary",
+    "url": "https://www.dktinternational.org/news/dkts-2025-audited-financials/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/dkt-2025-sales-financials.html",
+    "bytes": 153651,
+    "sha256": "0c385aa4aee712bfec2fd870605be39a6c7e151914d844d175f3372424ac5a72"
+  },
+  {
+    "id": "fda-berkeley-vc10-clearance",
+    "access": "private",
+    "title": "FDA 510(k) K171440, Berkeley VC-10 vacuum curettage system",
+    "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf17/K171440.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/fda-berkeley-vc10-clearance.pdf",
+    "bytes": 350747,
+    "sha256": "d664c2a4900e58f51f316bd4bebfba20490bad04bdf245b5ec993aaa3198f403"
+  },
+  {
+    "id": "olympus-berkeley-vc10-catalog",
+    "access": "private",
+    "title": "Olympus America Berkeley VC-10 product catalog",
+    "url": "https://medical.olympusamerica.com/products/vacuum-system/berkeley-system-vc-10",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/olympus-berkeley-vc10-catalog.html",
+    "bytes": 115328,
+    "sha256": "8311d4c702328f26a1f1a8d4a7e98cb6f3d143cf36bdd6af9514890e56bb53ef"
+  },
+  {
+    "id": "olympus-consolidated-results-2026",
+    "access": "private",
+    "title": "Olympus consolidated financial results, fiscal year ended March 31, 2026",
+    "url": "https://www.olympus-global.com/ir/data/brief/pdf/01_tanshin_Q4FY2026_en.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/olympus-consolidated-results-2026.pdf",
+    "bytes": 737584,
+    "sha256": "7ffb4fd28113d387c23fccc093570b9ff9aa1814c5736009c4fe390092860ca0"
+  },
+  {
+    "id": "gudid-hayden-bierer-forceps",
+    "access": "private",
+    "title": "AccessGUDID, Hayden Medical Bierer ovum forceps",
+    "url": "https://accessgudid.nlm.nih.gov/devices/00840319724392",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/gudid-hayden-bierer-forceps.html",
+    "bytes": 50221,
+    "sha256": "10e105236e03a007b42501b2272f96b363c36b3e38efacd24555062bacbee847"
   }
 ]

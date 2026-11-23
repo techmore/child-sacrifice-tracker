@@ -1725,11 +1725,6 @@
     "url": "https://www.annualreports.com/HostedData/AnnualReports/PDF/NYSE_PFE_2025.pdf"
   },
   {
-    "id": "merck-10k-2025",
-    "title": "Merck fiscal 2025 Form 10-K, SEC filing and product sales",
-    "url": "https://www.merck.com/wp-content/uploads/sites/124/2026/05/MRK-12.31.2025-10K-FINAL.pdf"
-  },
-  {
     "id": "medication-abortion-pricing-2023",
     "title": "Upadhyay et al., Pricing of medication abortion in the United States, 2021–2023",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11606000/"
@@ -1753,5 +1748,45 @@
     "id": "fda-mifepristone-environmental-assessment",
     "title": "FDA original mifepristone environmental assessment and finding of no significant impact",
     "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/20687_Mifepristone_EA.pdf"
+  },
+  {
+    "id": "who-abortion-equipment-handbook",
+    "title": "WHO clinical practice handbook for quality abortion care, equipment and supplies annex",
+    "url": "https://cdn.who.int/media/docs/default-source/reproductive-health/clinical-practice-handbook-for-quality-abortion-care.pdf"
+  },
+  {
+    "id": "dkt-womancare-ipas-aspirators",
+    "title": "DKT WomanCare, Ipas manual vacuum aspiration product line and legal manufacturer",
+    "url": "https://dktwomancare.org/manual-vacuum-aspiration/"
+  },
+  {
+    "id": "gudid-ipas-mva-plus",
+    "title": "AccessGUDID, WomanCare Global Ipas MVA Plus aspirator",
+    "url": "https://accessgudid.nlm.nih.gov/devices/00853615006260"
+  },
+  {
+    "id": "dkt-2025-sales-financials",
+    "title": "DKT International, 2025 audited financials summary",
+    "url": "https://www.dktinternational.org/news/dkts-2025-audited-financials/"
+  },
+  {
+    "id": "fda-berkeley-vc10-clearance",
+    "title": "FDA 510(k) K171440, Berkeley VC-10 vacuum curettage system",
+    "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf17/K171440.pdf"
+  },
+  {
+    "id": "olympus-berkeley-vc10-catalog",
+    "title": "Olympus America Berkeley VC-10 product catalog",
+    "url": "https://medical.olympusamerica.com/products/vacuum-system/berkeley-system-vc-10"
+  },
+  {
+    "id": "olympus-consolidated-results-2026",
+    "title": "Olympus consolidated financial results, fiscal year ended March 31, 2026",
+    "url": "https://www.olympus-global.com/ir/data/brief/pdf/01_tanshin_Q4FY2026_en.pdf"
+  },
+  {
+    "id": "gudid-hayden-bierer-forceps",
+    "title": "AccessGUDID, Hayden Medical Bierer ovum forceps",
+    "url": "https://accessgudid.nlm.nih.gov/devices/00840319724392"
   }
 ]
