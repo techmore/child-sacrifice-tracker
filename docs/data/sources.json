@@ -498,5 +498,230 @@
     "id": "pa-abortion-occurrence-2024",
     "title": "Pennsylvania Department of Health, 2024 Vital Statistics, Table D-7",
     "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/pa_vital_statistics_abortion_2024.pdf"
+  },
+  {
+    "id": "mi-abortion-occurrence-2023",
+    "title": "Michigan Department of Health and Human Services, 2023 county of facility, Table 29",
+    "url": "https://vitalstats.michigan.gov/osr/abortion/FacilityCounty.asp"
+  },
+  {
+    "id": "nc-abortion-counties-2013",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2013",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2013/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2014",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2014",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2014/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2015",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2015",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2015/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2016",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2016",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2016/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2017",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2017",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2017/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2018",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2018",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2018/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2019",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2019",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2019/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2020",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2020",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2020/reportedabortionscounty.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2021",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2021",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2021/Table6-2021-AbortionCountyResidence.pdf"
+  },
+  {
+    "id": "nc-abortion-counties-2022",
+    "title": "North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2022",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2022/Table6-2022-AbortionCountyResidence.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2000",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2000",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/2000VMS.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2001",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2001",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/VMS2001book.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2002",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2002",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/2002VMS.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2003",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2003",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/2003SOUTHCAROLINAVMS.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2004",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2004",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2004.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2005",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2005",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2005.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2006",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2006",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms_2006.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2007",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2007",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2007.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2008",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2008",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2008.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2009",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2009",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2009.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2010",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2010",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2010.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2011",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2011",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2011.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2012",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2012",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2012.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2013",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2013",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/vms2013.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2014",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2014",
+    "url": "https://dph.sc.gov/sites/scdph/files/docs/Health/docs/BiostatisticsPubs/VitalMorbidStat/VMS%202014.pdf"
+  },
+  {
+    "id": "sc-vital-statistics-2024",
+    "title": "South Carolina DPH, Vital and Morbidity Statistics 2024",
+    "url": "https://dph.sc.gov/sites/scdph/files/2026-08/VMS_2024.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2001",
+    "title": "Florida Department of Health, 2001 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2001.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2002",
+    "title": "Florida Department of Health, 2002 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2002.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2003",
+    "title": "Florida Department of Health, 2003 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2003.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2004",
+    "title": "Florida Department of Health, 2004 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2004.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2005",
+    "title": "Florida Department of Health, 2005 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2005.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2006",
+    "title": "Florida Department of Health, 2006 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2006.pdf"
+  },
+  {
+    "id": "fl-abortion-occurrence-2007",
+    "title": "Florida Department of Health, 2007 Vital Statistics Annual Report, county of occurrence Table T-1",
+    "url": "https://www.flhealthcharts.gov/Charts/Documents/VSBookAnnualReports/VSAnnualReport_2007.pdf"
+  },
+  {
+    "id": "az-abortion-occurrence-2008",
+    "title": "Arizona Department of Health Services, 2008 Vital Statistics, county of occurrence Table 5D-3",
+    "url": "https://pub.azdhs.gov/health-stats/report/ahs/ahs2008/pdf/chptr5.pdf"
+  },
+  {
+    "id": "az-abortion-occurrence-2009",
+    "title": "Arizona Department of Health Services, 2009 Vital Statistics, county of occurrence Table 5D-3",
+    "url": "https://pub.azdhs.gov/health-stats/report/ahs/ahs2009/pdf/chptr5.pdf"
+  },
+  {
+    "id": "az-abortion-occurrence-2010",
+    "title": "Arizona Department of Health Services, 2010 Vital Statistics, county of occurrence Table 5D-3",
+    "url": "https://pub.azdhs.gov/health-stats/report/ahs/ahs2010/pdf/chptr5.pdf"
+  },
+  {
+    "id": "az-abortion-occurrence-2011",
+    "title": "Arizona Department of Health Services, 2011 Vital Statistics, county of occurrence Table 5D-3",
+    "url": "https://pub.azdhs.gov/health-stats/report/ahs/ahs2011/pdf/chptr5.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2018",
+    "title": "Nebraska DHHS, 2018 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2018%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2019",
+    "title": "Nebraska DHHS, 2019 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2019%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2020",
+    "title": "Nebraska DHHS, 2020 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2020%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2021",
+    "title": "Nebraska DHHS, 2021 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2021%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2022",
+    "title": "Nebraska DHHS, 2022 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2022%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-2023",
+    "title": "Nebraska DHHS, 2023 Statistical Report of Abortions, county of occurrence Table 10",
+    "url": "https://dhhs.ne.gov/Abortion%20Reports/2023%20Statistical%20Report%20of%20Abortions.pdf"
+  },
+  {
+    "id": "ne-abortion-occurrence-dashboard-2024",
+    "title": "Nebraska DHHS, 2024 Abortion Dashboard Annual Summary, Geographic Distribution",
+    "url": "https://dhhs.ne.gov/Documents/Nebraska-Abortion-Dashboard-Summary-2024.pdf"
   }
 ]

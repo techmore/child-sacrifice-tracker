@@ -163,7 +163,7 @@ def insert_states(db, states):
 
 def insert_counties(db, states):
     for fips, state in sorted(states.items()):
-        reports = {"county-reported": state}
+        reports = {"county-reported": state} if "years" in state else {}
         if "occurrence" in state:
             reports["county-occurrence"] = state["occurrence"]
         names = {row["name"] for report in reports.values() for rows in report["years"].values() for row in rows}

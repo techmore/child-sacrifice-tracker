@@ -27,6 +27,7 @@ Promise.all([
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
   d3.json("data/us-history.json"), d3.json("data/counties.json"), d3.json("data/sources.json"),
 ]).then(([data, world, us, stateData, usMap, history, counties, bibliography]) => {
+  const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
   d3.select("#source-list").selectAll("li").data(bibliography).join("li")
     .attr("id", source => source.id).append("a").attr("href", source => source.url).text(source => source.title);
@@ -34,7 +35,8 @@ Promise.all([
   const newUS = history.recent.rows.at(-1);
   let countyYear, countyMode, countyTransform, countyRows = new Map(), activeCounty, countyGeometry;
   const byId = new Map(data.map(d => [d.id, d]));
-  let metric = "abortions", selected = byId.get(840), view = "world", activeState = null, picked = false;
+  let metric = Object.hasOwn(METRICS, params.get("metric")) ? params.get("metric") : "abortions";
+  let selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
   const STATE_BINS = { abortions: [3000, 10000, 25000, 60000], rate: [5, 10, 15, 20], shareOfBirthsPlusAbortions: [10, 15, 20, 25] };
@@ -124,12 +126,31 @@ Promise.all([
   function worldBanner() {
     setBanner("World", "73.3M", "estimated per year, 2015 to 2019", "No reliable total", "No source measures a worldwide cumulative count. Records begin in the 20th century and remain incomplete.");
   }
+  function saveView() {
+    const url = new URL(location.href);
+    for (const key of ["view", "state", "basis", "year", "county", "country", "metric"]) url.searchParams.delete(key);
+    if (view === "state") {
+      url.searchParams.set("state", activeState.abbr);
+      if (countyYear) {
+        url.searchParams.set("basis", countyMode);
+        url.searchParams.set("year", countyYear);
+        if (activeCounty) url.searchParams.set("county", activeCounty);
+      }
+    } else {
+      if (view === "us") url.searchParams.set("view", "us");
+      else if (picked) url.searchParams.set("country", selected.id);
+      if (url.hash === "#county-panel") url.hash = "";
+    }
+    if (metric !== "abortions") url.searchParams.set("metric", metric);
+    if (url.href !== location.href) window.history.replaceState(window.history.state, "", url);
+  }
   function crumbs() {
     const c = document.getElementById("crumbs");
     const countyView = view === "state" && !!counties[activeState.id];
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
+    if (countyView) parts.push('<a class="county-jump" href="#county-panel">County numbers</a>');
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
@@ -156,7 +177,7 @@ Promise.all([
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
     setBanner("United States", fmt(newUS.abortions), `clinician-provided estimate in ${newUS.year}`, short(usTotal), `estimated from 1973 to ${usLatest.year} in the historical series`);
-    usPanel(); crumbs(); paint();
+    usPanel(); crumbs(); paint(); saveView();
   }
   function leaveUS() {
     view = "world"; activeState = null;
@@ -165,10 +186,15 @@ Promise.all([
     usG.style("display", "none"); worldG.style("display", null);
     worldBanner(); crumbs(); select(byId.get(840), true);
   }
-  function selectState(d) {
-    view = "state"; activeState = d; activeCounty = null;
-    countyYear = ""; countyMode = "residence"; countyRows = new Map();
+  function selectState(d, { basis, year, county } = {}) {
+    view = "state"; activeState = d;
+    activeCounty = county?.startsWith(d.id) && /^\d{5}$/.test(county) ? county : null;
+    const reports = counties[d.id];
+    countyYear = year ?? "";
+    countyMode = reports?.occurrence && (basis === "occurrence" || !reports.years) ? "occurrence" : "residence";
+    countyRows = new Map();
     worldG.style("display", "none"); usG.style("display", null);
+    document.getElementById("country").value = 840;
     countyG.style("display", "none").selectAll("path").remove();
     tip.attr("hidden", true);
     document.getElementById("map-heading").textContent = d.name;
@@ -186,6 +212,7 @@ Promise.all([
     crumbs(); paint();
     reveal(stateShapes.filter(x => x === f).node());
     showCounties(d);
+    saveView();
   }
 
   function showCounties(state) {
@@ -197,7 +224,7 @@ Promise.all([
     }
     panel.innerHTML = `<h3>Reported abortions by county</h3>
       <div class="county-filters">
-        ${countyData.occurrence ? `<label class="pick">Count by <select id="county-mode">
+        ${countyData.occurrence && countyData.years ? `<label class="pick">Count by <select id="county-mode">
           <option value="residence">Patient residence</option><option value="occurrence">Procedure location</option>
         </select></label>` : ""}
         <label class="pick">Year <select id="county-year"></select></label>
@@ -208,6 +235,14 @@ Promise.all([
       <div class="table-scroll" role="region" aria-label="County counts" tabindex="0"><table id="county-table"></table></div>`;
     const yearPick = document.getElementById("county-year");
     const modePick = document.getElementById("county-mode");
+    if (modePick) modePick.value = countyMode;
+    const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
+    const description = feature => `${rowFor(feature)?.name ?? feature.properties.name}, ${countyYear}: ${countyCount(rowFor(feature))}`;
+    const showCountyDetail = () => {
+      const feature = countyG.selectAll("path").data().find(f => f.id === activeCounty);
+      document.getElementById("county-detail").textContent = feature
+        ? description(feature) : "Select a county on the map for its reported count.";
+    };
     const update = (series = countyData, refreshYears = false) => {
       if (refreshYears) {
         const years = Object.keys(series.years).sort((a, b) => b - a);
@@ -215,7 +250,6 @@ Promise.all([
         yearPick.value = years.includes(countyYear) ? countyYear : years[0];
       }
       countyYear = yearPick.value;
-      activeCounty = null;
       const source = series.sourceByYear?.[countyYear] ?? series.source;
       document.getElementById("county-scope").textContent = series.scope;
       document.getElementById("county-source").innerHTML = series.report
@@ -227,9 +261,10 @@ Promise.all([
         .append("tbody").selectAll("tr").data([...countyRows.values()].sort((a, b) => a.name.localeCompare(b.name))).join("tr");
       rows.append("th").attr("scope", "row").text(row => row.name);
       rows.append("td").text(countyCount);
-      document.getElementById("county-detail").textContent = "Select a county on the map for its reported count.";
+      showCountyDetail();
       paint();
       tip.attr("hidden", true);
+      saveView();
     };
     const series = () => countyMode === "occurrence" ? countyData.occurrence : countyData;
     yearPick.addEventListener("change", () => update(series()));
@@ -245,13 +280,11 @@ Promise.all([
       .then(topology => topojson.feature(topology, topology.objects.counties).features);
     countyGeometry.then(features => {
       if (view !== "state" || state !== activeState || !panel.isConnected) return;
-      const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
-      const nameFor = feature => rowFor(feature)?.name ?? feature.properties.name;
-      const description = feature => `${nameFor(feature)}, ${countyYear}: ${countyCount(rowFor(feature))}`;
       const pickCounty = feature => {
-        activeCounty = feature;
-        countyG.selectAll("path").classed("sel", f => f === feature);
-        document.getElementById("county-detail").textContent = description(feature);
+        activeCounty = feature.id;
+        countyG.selectAll("path").classed("sel", f => f.id === activeCounty);
+        showCountyDetail();
+        saveView();
       };
       countyG.style("display", null).selectAll("path")
         .data(features.filter(f => f.id.startsWith(state.id))).join("path")
@@ -270,6 +303,7 @@ Promise.all([
           }
         });
       status.hidden = true;
+      showCountyDetail();
       paint();
     }).catch(() => {
       countyGeometry = null;
@@ -331,7 +365,7 @@ Promise.all([
         const n = rowFor(f)?.count;
         return n == null ? "var(--nodata)" : STEPS[d3.bisect(COUNTY_BINS, n)];
       }).attr("aria-label", f => `${f.properties.name}, ${countyYear}: ${countyCount(rowFor(f))}`)
-        .classed("sel", f => f === activeCounty);
+        .classed("sel", f => f.id === activeCounty);
       paintCountyLabels(countyShapes.data(), rowFor);
     } else countyLabels.selectAll("text").remove();
     const b = countyView ? COUNTY_BINS : bins(), s = countyView ? fmt : METRICS[metric].show;
@@ -382,14 +416,25 @@ Promise.all([
     paint();
     if (picked) {
       const f = features.find(x => rec(x) === d);
-      if (d3.zoomTransform(svg.node()).k > 1) svg.call(zoom.translateTo, ...labelPoint(f));
-      reveal(shapes.filter(x => x === f).node());
+      if (f) {
+        if (d3.zoomTransform(svg.node()).k > 1) svg.call(zoom.translateTo, ...labelPoint(f));
+        reveal(shapes.filter(x => x === f).node());
+      }
     }
+    saveView();
   }
-  document.querySelectorAll("[data-metric]").forEach(b => b.addEventListener("click", () => {
+  const metricButtons = document.querySelectorAll("[data-metric]");
+  function paintMetricButtons() {
+    metricButtons.forEach(button => {
+      const on = button.dataset.metric === metric;
+      button.classList.toggle("on", on);
+      button.setAttribute("aria-pressed", on);
+    });
+  }
+  paintMetricButtons();
+  metricButtons.forEach(b => b.addEventListener("click", () => {
     metric = b.dataset.metric;
-    document.querySelectorAll("[data-metric]").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); });
-    paint();
+    paintMetricButtons(); paint(); saveView();
   }));
   const pick = document.getElementById("country");
   pick.innerHTML = [...data].sort((a, b) => a.name.localeCompare(b.name)).map(d => `<option value="${d.id}">${d.name}</option>`).join("");
@@ -399,9 +444,20 @@ Promise.all([
   pick.addEventListener("change", () => +pick.value === 840 ? enterUS() : select(byId.get(+pick.value)));
   document.getElementById("table").innerHTML = `<thead><tr><th>Country</th><th>Abortions/yr</th><th>80% interval</th><th>Rate</th><th>Births/yr</th><th>Share</th></tr></thead><tbody>` +
     [...data].sort((a, b) => b.abortions - a.abortions).map(d => `<tr><td>${d.name}</td><td>${fmt(d.abortions)}</td><td>${exact(d.abortionsLow)} to ${exact(d.abortionsHigh)}</td><td>${d.rate}</td><td>${fmt(d.births)}</td><td>${d.shareOfBirthsPlusAbortions}%</td></tr>`).join("") + `</tbody>`;
-  select(selected, true);
-  worldBanner();
-  crumbs();
+  const state = stateData.find(d => d.abbr === params.get("state")?.toUpperCase());
+  const savedCountry = byId.get(Number(params.get("country")));
+  if (state) {
+    selectState(state, { basis: params.get("basis"), year: params.get("year"), county: params.get("county") });
+    if (location.hash === "#county-panel") document.getElementById("county-panel").scrollIntoView();
+  } else if (params.get("view") === "us") {
+    enterUS();
+  } else if (savedCountry) {
+    crumbs(); select(savedCountry);
+  } else {
+    select(selected, true);
+    worldBanner();
+    crumbs();
+  }
   usChart(us, history);
 }).catch(err => {
   console.error(err);
