@@ -29,6 +29,8 @@
       <button data-metric="shareOfBirthsPlusAbortions">Share of births + abortions</button>
     </div>
   </div>
+  <div id="banner" aria-live="polite"></div>
+  <nav id="crumbs" aria-label="Map level"></nav>
   <div class="map-layout">
     <div class="map-wrap">
       <svg id="map" role="img" aria-label="World map of estimated abortions by country"></svg>
@@ -38,7 +40,7 @@
     <aside id="panel" aria-live="polite"></aside>
   </div>
   <label class="pick">Choose a country <select id="country"></select></label>
-  <p class="note">Map values are modeled annual averages for 2015 to 2019, the latest country estimates published. They cover 150 countries and total about 62.6 million. The publishers withheld 45 countries, mostly in North Africa and the Middle East, for lack of reliable data. Those appear in gray and account for the gap to the 73.3 million global estimate.</p>
+  <p class="note">Click the United States to open its states, then click a state for its history. State figures are Guttmacher estimates for 2020. No national county dataset exists, so the map stops at the state level rather than inventing county numbers. World map values are modeled annual averages for 2015 to 2019, the latest country estimates published. They cover 150 countries and total about 62.6 million. The publishers withheld 45 countries, mostly in North Africa and the Middle East, for lack of reliable data. Those appear in gray and account for the gap to the 73.3 million global estimate.</p>
   <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
 </section>
 
