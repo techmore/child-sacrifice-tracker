@@ -723,5 +723,10 @@
     "id": "ne-abortion-occurrence-dashboard-2024",
     "title": "Nebraska DHHS, 2024 Abortion Dashboard Annual Summary, Geographic Distribution",
     "url": "https://dhhs.ne.gov/Documents/Nebraska-Abortion-Dashboard-Summary-2024.pdf"
+  },
+  {
+    "id": "pa-vital-statistics-geography",
+    "title": "Pennsylvania Department of Health, Vital Statistics Annual Report geography",
+    "url": "https://www.pa.gov/agencies/health/health-statistics/birth-death-and-other-vital-statistics/vital-statistics-annual-report"
   }
 ]

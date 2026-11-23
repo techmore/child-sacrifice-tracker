@@ -1595,6 +1595,17 @@
     "sha256": "abd457d5754019abbc1036ac5f9c164faa1ec8765396bca56e251cff416f939f"
   },
   {
+    "id": "pa-vital-statistics-geography",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, Vital Statistics Annual Report geography",
+    "url": "https://www.pa.gov/agencies/health/health-statistics/birth-death-and-other-vital-statistics/vital-statistics-annual-report",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-vital-statistics-geography.html",
+    "bytes": 724831,
+    "sha256": "042f5db37f623d862a221a12f440d139cdfd64af8ab0ae1613271fc7290f63dd"
+  },
+  {
     "id": "osf-country-profile-albania",
     "access": "private",
     "title": "Guttmacher and WHO, country data profile for Albania",

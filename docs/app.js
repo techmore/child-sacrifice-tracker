@@ -61,8 +61,10 @@ Promise.all([
   const color = v => STEPS[d3.bisect(bins(), v)];
   const worldG = svg.append("g"), usG = svg.append("g").style("display", "none");
   const countyG = svg.append("g").style("display", "none");
+  const stateContextLabels = svg.append("g").attr("aria-hidden", "true");
   const countyLabels = svg.append("g").attr("aria-hidden", "true");
   const stateFeatures = topojson.feature(usMap, usMap.objects.states).features.filter(f => stateById.has(f.id));
+  const stateEstimateYear = d3.max(stateData, d => d.year);
   const albers = d3.geoAlbersUsa().fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: stateFeatures });
   const usPath = d3.geoPath(albers);
 
@@ -111,11 +113,15 @@ Promise.all([
   const stateShapes = usG.append("g").selectAll("path").data(stateFeatures).join("path").attr("class", "state").attr("d", usPath)
     .on("mousemove", (e, f) => {
       const d = stateById.get(f.id), wrap = document.querySelector(".map-wrap"), [x, y] = d3.pointer(e, wrap);
+      const context = view === "state" && d !== activeState;
+      const value = context ? `Estimated abortions: ${fmt(d.abortions)}`
+        : `${metric === "rate" ? "Per 1,000 women aged 15 to 44" : METRICS[metric].label}: ${METRICS[metric].show(d[metric])}`;
       tip.attr("hidden", null).style("left", Math.min(x + 12, wrap.clientWidth - 200) + "px").style("top", y + 12 + "px")
-        .html(`<b>${d.name}</b><br>${metric === "rate" ? "Per 1,000 women aged 15 to 44" : METRICS[metric].label}: ${METRICS[metric].show(d[metric])} (${d.year}, by state of residence)`);
+        .html(`<b>${d.name}</b><br>${value} (${d.year}, by state of residence)`);
     })
     .on("mouseleave", () => tip.attr("hidden", true))
     .on("click", (e, f) => selectState(stateById.get(f.id)));
+  const stateShapeById = new Map(stateShapes.nodes().map(shape => [shape.__data__.id, shape]));
   const SMALL = new Set(["CT", "DC", "DE", "MA", "MD", "NH", "NJ", "RI", "VT", "HI"]);
   const stateLabels = usG.append("g").selectAll("text").data(stateFeatures.filter(f => !SMALL.has(stateById.get(f.id).abbr))).join("text")
     .attr("class", "state-label").attr("x", f => usPath.centroid(f)[0]).attr("y", f => usPath.centroid(f)[1] + 3);
@@ -230,6 +236,7 @@ Promise.all([
         <label class="pick">Year <select id="county-year"></select></label>
       </div>
       <p class="small"><span id="county-scope"></span> <span id="county-source"></span></p>
+      ${state.abbr === "PA" ? `<p class="small">Pennsylvania publishes these figures at the state and county levels. ${cite("pa-vital-statistics-geography", "Reporting geography")}.</p>` : ""}
       <div id="county-detail" role="status"></div>
       <p id="county-status" class="small" role="status" hidden></p>
       <div class="table-scroll" role="region" aria-label="County counts" tabindex="0"><table id="county-table"></table></div>`;
@@ -338,6 +345,40 @@ Promise.all([
       .attr("x", label => label.x).attr("y", label => label.y).text(label => fmt(label.count));
   }
 
+  function paintStateContext() {
+    const labels = [];
+    if (view === "state") {
+      // Measure the portion inside the viewport so cropped states retain labels.
+      const t = countyTransform;
+      const clip = d3.geoIdentity().scale(t.k).translate([t.x, t.y]).clipExtent([[0, 0], [W, H]]);
+      const visiblePath = d3.geoPath({ stream: output => albers.stream(clip.stream(output)) });
+      for (const feature of stateFeatures) {
+        if (feature.id === activeState.id || visiblePath.area(feature) < 450) continue;
+        const [[left, top], [right, bottom]] = visiblePath.bounds(feature);
+        const state = stateById.get(feature.id);
+        const text = `${state.abbr} ${fmt(state.abortions)}`;
+        const halfWidth = text.length * 3.8 + 3;
+        const candidates = [visiblePath.centroid(feature)];
+        for (const u of [0.5, 0.25, 0.75]) {
+          for (const v of [0.5, 0.25, 0.75]) {
+            candidates.push([left + (right - left) * u, top + (bottom - top) * v]);
+          }
+        }
+        const shape = stateShapeById.get(feature.id);
+        const point = candidates.find(([x, y]) => {
+          if (x - halfWidth < left || x + halfWidth > right || y - 8 < top || y + 8 > bottom) return false;
+          if (labels.some(label => Math.abs(label.x - x) < label.halfWidth + halfWidth && Math.abs(label.y - y) < 18)) return false;
+          return shape.isPointInFill(new DOMPoint(...t.invert([x, y])));
+        });
+        if (!point) continue;
+        const [x, y] = point;
+        labels.push({ id: feature.id, x, y, text, halfWidth });
+      }
+    }
+    stateContextLabels.selectAll("text").data(labels, d => d.id).join("text")
+      .attr("class", "state-context-label").attr("x", d => d.x).attr("y", d => d.y).text(d => d.text);
+  }
+
   function reveal(n) {
     const s = document.querySelector(".map-scroll"), r = n.getBoundingClientRect(), v = s.getBoundingClientRect();
     s.scrollLeft += (r.left + r.right - v.left - v.right) / 2;
@@ -354,7 +395,9 @@ Promise.all([
     shapes.filter(f => rec(f)).attr("fill", f => color(rec(f)[metric]));
     shapes.classed("sel", f => picked && rec(f) === selected);
     shapes.filter(".sel").raise();
-    stateShapes.attr("fill", f => color(stateById.get(f.id)[metric])).classed("sel", f => stateById.get(f.id) === activeState);
+    stateShapes.attr("fill", f => color(stateById.get(f.id)[metric]))
+      .classed("sel", f => stateById.get(f.id) === activeState)
+      .classed("context", f => view === "state" && f.id !== activeState.id);
     stateShapes.filter(".sel").raise();
     stateLabels.text(f => `${stateById.get(f.id).abbr} ${METRICS[metric].show(stateById.get(f.id)[metric])}`);
     labelValues.text(l => METRICS[metric].show(l.d[metric]));
@@ -368,13 +411,15 @@ Promise.all([
         .classed("sel", f => f.id === activeCounty);
       paintCountyLabels(countyShapes.data(), rowFor);
     } else countyLabels.selectAll("text").remove();
+    paintStateContext();
     const b = countyView ? COUNTY_BINS : bins(), s = countyView ? fmt : METRICS[metric].show;
     const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1] - (countyView ? 1 : 0))}`), `${s(b.at(-1))} or more`];
     const countyBasis = countyMode === "occurrence" ? "by procedure location" : "by patient residence";
     document.getElementById("legend").innerHTML = (countyView ? `<strong>${countyYear} reported abortions ${countyBasis}</strong>` : "") +
       names.map((n, i) => `<span><i style="background:${STEPS[i]}"></i>${n}</span>`).join("") +
       `<span><i style="background:var(--nodata)"></i>${countyView ? "suppressed or unavailable" : "no estimate"}</span>` +
-      (countyView ? '<a href="#county-panel">County counts table</a>' : "");
+      (countyView ? '<a href="#county-panel">County counts table</a>' : "") +
+      (view === "state" ? `<span class="context-key">Surrounding states · ${stateEstimateYear} estimates by residence</span>` : "");
   }
   function spark(d, caption = "Reported counts for the years in this series. Coverage varies, and these may differ from modeled estimates.", showGaps = false) {
     if (d.reported.length < 3) return `<p class="small">Too few annual counts to chart a trend for this country.</p>`;
