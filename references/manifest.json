@@ -4722,5 +4722,91 @@
     "file": "private/ocda-fetal-tissue-judgment-2017.pdf",
     "bytes": 254497,
     "sha256": "0bd1bc085445f3ecb262c00adfa9fcb14c0317408e133c2ee4fb4c892f91d786"
+  },
+  {
+    "id": "dobbs-2022",
+    "access": "open",
+    "title": "U.S. Supreme Court, Dobbs v. Jackson Women’s Health Organization (2022)",
+    "url": "https://www.supremecourt.gov/opinions/21pdf/19-1392_6j37.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/dobbs-2022.pdf",
+    "bytes": 1222520,
+    "sha256": "24e1b14e521fd6cc653ddbe1fbb0c41bcdd7fda6c8f32d0867d23b4415a1e8b0"
+  },
+  {
+    "id": "harris-mcrae-1980",
+    "access": "open",
+    "title": "U.S. Supreme Court, Harris v. McRae, 448 U.S. 297 (1980)",
+    "url": "https://tile.loc.gov/storage-services/service/ll/usrep/usrep448/usrep448297/usrep448297.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/harris-mcrae-1980.pdf",
+    "bytes": 2066153,
+    "sha256": "8ee789067beb0c5b70c7f80562ea78a7e68877bffb480d14bb4587b5444c4bbb"
+  },
+  {
+    "id": "medina-medicaid-2025",
+    "access": "open",
+    "title": "U.S. Supreme Court, Medina v. Planned Parenthood South Atlantic (2025)",
+    "url": "https://www.supremecourt.gov/opinions/24pdf/23-1275_e2pg.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/medina-medicaid-2025.pdf",
+    "bytes": 361681,
+    "sha256": "1f631d749ad4e91688192c16c97c73121dacc99de511bc4517dd62e7403fd40f"
+  },
+  {
+    "id": "title-x-abortion-statute",
+    "access": "open",
+    "title": "U.S. Code, Title X funding restriction, 42 U.S.C. § 300a-6",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title42/pdf/USCODE-2024-title42-chap6A-subchapVIII-sec300a-6.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/title-x-abortion-statute.pdf",
+    "bytes": 135326,
+    "sha256": "dfb85924f586088e87b1cb8934fc8ca2651cbffe9efe01ed89237b0d840c466c"
+  },
+  {
+    "id": "public-law-119-21",
+    "access": "open",
+    "title": "Public Law 119-21, section 71113, federal Medicaid payments to prohibited entities",
+    "url": "https://www.govinfo.gov/content/pkg/PLAW-119publ21/pdf/PLAW-119publ21.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/public-law-119-21.pdf",
+    "bytes": 968588,
+    "sha256": "42f86c3d408bccb1a663c11a51a90d207b3dbc25e689240da51726154be51c8b"
+  },
+  {
+    "id": "gao-health-care-funding-2023",
+    "access": "open",
+    "title": "GAO-24-106215, federal grants and public health coverage payments, 2019–2022",
+    "url": "https://www.gao.gov/assets/d24106215.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "ansirh-self-pay-2023",
+    "access": "private",
+    "title": "ANSIRH, Trends in Abortion Services in the United States 2017–2023, Table 5",
+    "url": "https://www.ansirh.org/sites/default/files/2024-08/AFD%20Trends%20in%20Abortion%20Services%20in%20the%20United%20States%202017-2023_Final%20UPDATED.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ansirh-self-pay-2023.pdf",
+    "bytes": 1358970,
+    "sha256": "610816a35cf07edb3471b004842a441121574f97cfbad3abd28955047bc29f1e"
+  },
+  {
+    "id": "miller-wherry-foster-economics",
+    "access": "private",
+    "title": "Miller, Wherry and Foster, The Economic Consequences of Being Denied an Abortion",
+    "url": "https://www.nber.org/system/files/working_papers/w26662/w26662.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/miller-wherry-foster-economics.pdf",
+    "bytes": 900581,
+    "sha256": "faa4833abd3976dd5ac7e0bde28e13b40a187ca142b6380e798fae671211549d"
   }
 ]

@@ -139,3 +139,9 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #county-coverage .coverage-years{display:block;font-weight:700;font-variant-numeric:tabular-nums}
 #county-coverage .coverage-scope{display:block;margin-top:3px}
 #county-coverage .coverage-scope,#county-coverage .coverage-missing{color:var(--ink2)}
+
+.self-pay-chart{max-width:560px;margin:12px 0 16px}
+.self-pay-chart dl{display:grid;gap:8px;margin:10px 0}
+.self-pay-chart dl div{display:grid;grid-template-columns: minmax(0,1fr) minmax(7rem,1fr);gap:12px;align-items:center;font-size:14px}
+.self-pay-chart dd{display:grid;grid-template-columns:minmax(0,1fr) 4.5rem;align-items:center;gap:8px;margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.self-pay-chart meter{width:100%;accent-color:var(--accent)}

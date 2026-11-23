@@ -28,7 +28,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=provider-finances-records"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=funding-structure"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
@@ -723,8 +723,8 @@ Promise.all([
       <dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births per year</dt><dd>${fmt(d.births)}</dd>
       <dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd>
       ${d.shareUnintendedAborted != null ? `<dt>Unintended pregnancies aborted</dt><dd>${d.shareUnintendedAborted}%</dd>` : ""}
-      ${gdp ? `<dt>Thought experiment: added annual output</dt><dd>${money(gdp)}</dd>` : ""}</dl>
-      ${gdp ? `<p class="small">One year's abortions times 2023 GDP per person. This is an illustration, not a forecast.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
+      ${gdp ? `<dt>Abortions × GDP per capita</dt><dd>${money(gdp)}</dd>` : ""}</dl>
+      ${gdp ? `<p class="small">This arithmetic applies 2023 GDP per person to one year’s estimated abortions. It leaves out population change, the timing of work and earnings, and the costs of raising children.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
       ${spark(d, "Eligible official counts exclude spontaneous abortions and omit years with conflicting eligible values.", true)}
       ${d.reported.length ? `<details id="country-reported"><summary>View annual reported counts and sources</summary>
         <p class="small">Published in the ${cite("osf-global-incidence-csv", "incidence dataset")}.</p>
