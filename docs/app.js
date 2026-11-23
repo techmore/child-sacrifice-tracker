@@ -132,7 +132,7 @@ Promise.all([
   function worldBanner() {
     setBanner("World", "73.3M", "estimated per year, 2015 to 2019", "No reliable total", "No source measures a worldwide cumulative count. Records begin in the 20th century and remain incomplete.");
   }
-  function saveView() {
+  function saveView({ showMap = false } = {}) {
     const url = new URL(location.href);
     for (const key of ["view", "state", "basis", "year", "county", "country", "metric"]) url.searchParams.delete(key);
     if (view === "state") {
@@ -142,10 +142,11 @@ Promise.all([
         url.searchParams.set("year", countyYear);
         if (activeCounty) url.searchParams.set("county", activeCounty);
       }
+      if (showMap) url.hash = "map";
     } else {
       if (view === "us") url.searchParams.set("view", "us");
       else if (picked) url.searchParams.set("country", selected.id);
-      if (url.hash === "#county-panel") url.hash = "";
+      if (url.hash === "#county-panel" || url.hash === "#map") url.hash = "";
     }
     if (metric !== "abortions") url.searchParams.set("metric", metric);
     if (url.href !== location.href) window.history.replaceState(window.history.state, "", url);
@@ -156,7 +157,7 @@ Promise.all([
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
-    if (countyView) parts.push('<a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
+    if (countyView) parts.push('<strong id="focused-county" hidden></strong><a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
@@ -258,6 +259,9 @@ Promise.all([
     const yearPick = document.getElementById("county-year");
     const modePick = document.getElementById("county-mode");
     const reset = document.getElementById("all-counties");
+    const focusedCountyLabel = document.getElementById("focused-county");
+    const countyFeatures = new Map();
+    let pendingCounty;
     if (modePick) modePick.value = countyMode;
     const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
     const description = feature => `${rowFor(feature)?.name ?? feature.properties.name}, ${countyYear}: ${countyCount(rowFor(feature))}`;
@@ -266,9 +270,11 @@ Promise.all([
       document.getElementById("county-detail").textContent = feature
         ? description(feature) : "Select a county on the map for its reported count.";
     };
-    const focusCounty = feature => {
+    const focusCounty = (feature, showMap = false) => {
       activeCounty = feature?.id ?? null;
       reset.hidden = !feature;
+      focusedCountyLabel.hidden = !feature;
+      focusedCountyLabel.textContent = feature?.properties.name ?? "";
       frameStateMap(feature ?? stateShapeById.get(state.id).__data__, feature ? 40 : 7);
       reveal(feature
         ? countyG.selectAll("path").filter(f => f.id === feature.id).node()
@@ -276,7 +282,8 @@ Promise.all([
       tip.attr("hidden", true);
       showCountyDetail();
       paint();
-      saveView();
+      saveView({ showMap });
+      if (showMap) mapWrap.scrollIntoView({ block: "start" });
     };
     reset.addEventListener("click", () => focusCounty(null));
     const update = (series = countyData, refreshYears = false) => {
@@ -295,7 +302,14 @@ Promise.all([
       const heading = countyMode === "occurrence" ? "County of procedure" : "County of residence";
       const rows = d3.select("#county-table").html(`<thead><tr><th scope="col">${heading}</th><th scope="col">Reported abortions · ${countyYear}</th></tr></thead>`)
         .append("tbody").selectAll("tr").data([...countyRows.values()].sort((a, b) => a.name.localeCompare(b.name))).join("tr");
-      rows.append("th").attr("scope", "row").text(row => row.name);
+      rows.on("click", (_, row) => {
+        const name = countyKey(row.name);
+        const feature = countyFeatures.get(name);
+        if (feature) focusCounty(feature, true);
+        else pendingCounty = name;
+      });
+      rows.append("th").attr("scope", "row").append("button").attr("type", "button")
+        .attr("class", "county-table-link").text(row => row.name);
       rows.append("td").text(countyCount);
       showCountyDetail();
       paint();
@@ -317,6 +331,7 @@ Promise.all([
     countyGeometry.then(features => {
       if (view !== "state" || state !== activeState || !panel.isConnected) return;
       const stateCounties = features.filter(f => f.id.startsWith(state.id));
+      stateCounties.forEach(feature => countyFeatures.set(countyKey(feature.properties.name), feature));
       countyG.style("display", null).selectAll("path")
         .data(stateCounties).join("path")
         .attr("class", "county").attr("d", usPath).attr("tabindex", 0).attr("role", "button")
@@ -326,15 +341,16 @@ Promise.all([
             .style("top", y + 12 + "px").text(description(feature));
         })
         .on("mouseleave", () => tip.attr("hidden", true))
-        .on("click", (_, feature) => focusCounty(feature))
+        .on("click", (_, feature) => focusCounty(feature, location.hash === "#county-panel"))
         .on("keydown", (event, feature) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            focusCounty(feature);
+            focusCounty(feature, location.hash === "#county-panel");
           }
         });
       status.hidden = true;
-      focusCounty(stateCounties.find(f => f.id === activeCounty));
+      const requested = countyFeatures.get(pendingCounty);
+      focusCounty(requested ?? stateCounties.find(f => f.id === activeCounty), !!requested);
     }).catch(() => {
       countyGeometry = null;
       if (panel.isConnected) {

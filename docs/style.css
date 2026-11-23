@@ -95,6 +95,9 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #county-panel .pick{margin:6px 0}
 #county-panel .table-scroll{max-height:min(420px,55vh)}
 #county-table tbody th{position:static;background:transparent;font-weight:500}
+#county-table tbody tr{cursor:pointer}
+#county-table tbody tr:hover{background:var(--surface)}
+#county-table .county-table-link{min-height:0;padding:3px 0;border:0;border-radius:0;font:inherit;text-decoration:underline;text-underline-offset:.15em;color:var(--accent)}
 #county-detail{font-size:14px;font-weight:600;margin-block:8px}
 #us-legend{display:flex;flex-wrap:wrap;gap:6px 20px;font:13px system-ui,sans-serif;color:var(--ink2)}
 #us-legend span::before{content:"";display:inline-block;width:20px;margin-right:6px;border-top:3px solid var(--series-color);vertical-align:middle}
