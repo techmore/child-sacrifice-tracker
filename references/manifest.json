@@ -6614,5 +6614,201 @@
     "file": "private/ftc-stem-cell-complaint-2021.pdf",
     "bytes": 4813788,
     "sha256": "554907a2fcd10506c1158ebe26fa6b1a0e3267eaaae5924f8b46ea57e3370fe1"
+  },
+  {
+    "id": "bearak-2020-lancet-appendix",
+    "access": "open",
+    "title": "Bearak et al., 2020 global model supplement, Tables 4–5 (CC BY)",
+    "url": "https://ars.els-cdn.com/content/image/1-s2.0-S2214109X20303156-mmc1.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/bearak-2020-lancet-appendix.pdf",
+    "bytes": 1105862,
+    "sha256": "1d04c97d91f9bd899e5286f298e93f30571056c90d5fea6343b9f371ae7e157e"
+  },
+  {
+    "id": "bearak-ipc-global-estimates-2025",
+    "access": "private",
+    "title": "Bearak, global and regional estimates through 2024, 2025 conference abstract",
+    "url": "https://ipc2025.popconf.org/abstracts/251016",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/bearak-ipc-global-estimates-2025.html",
+    "bytes": 7964,
+    "sha256": "e813b42fb0488ae06209d34607313e2a44df8ee6a75dffdc84ad115106e74c3a"
+  },
+  {
+    "id": "guttmacher-patient-characteristics-2014",
+    "access": "private",
+    "title": "Guttmacher, Characteristics of U.S. Abortion Patients in 2014",
+    "url": "https://www.guttmacher.org/sites/default/files/report_pdf/characteristics-us-abortion-patients-2014.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-patient-characteristics-2014.pdf",
+    "bytes": 343659,
+    "sha256": "e092272122bb0e2296882d946f49bcd68520055032c215bf1d3f2a426de11228"
+  },
+  {
+    "id": "guttmacher-patient-age-2021-22",
+    "access": "private",
+    "title": "Characteristics and Circumstances of Adolescents Obtaining Abortions, Table 2",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11050360/?report=classic",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-patient-age-2021-22.html",
+    "bytes": 275886,
+    "sha256": "d7e0ae420a0cae5d9db2260ec761b10c37a8f8a9d7631804a69d4084f87d07a4"
+  },
+  {
+    "id": "california-campus-abortion-report-2025",
+    "access": "open",
+    "title": "California Commission on the Status of Women and Girls, College Student Right to Access Act FY 2024–25 report",
+    "url": "https://women.ca.gov/wp-content/uploads/sites/96/2025/12/2025-College-Student-Right-to-Access-Act-FINAL.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-campus-abortion-report-2025.pdf",
+    "bytes": 1538607,
+    "sha256": "caeac9342e3b0cb742c5a11e49b31fbb7155e63513e78bcadea7160d487d1ed0"
+  },
+  {
+    "id": "gao-campus-reproductive-care-2025",
+    "access": "open",
+    "title": "GAO-25-107151, reproductive health services at selected colleges, Table 10",
+    "url": "https://files.gao.gov/reports/GAO-25-107151/index.html#table-10",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/gao-campus-reproductive-care-2025.html",
+    "bytes": 711767,
+    "sha256": "24b79cdb0c64ae872edfc0e02db9709ec4facbeaa942eaa2c0bd4c708179f705"
+  },
+  {
+    "id": "california-campus-abortion-program",
+    "access": "open",
+    "title": "California Commission on the Status of Women and Girls, College Student Right to Access Act program",
+    "url": "https://women.ca.gov/college-student-right-to-access-act/",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "google-abortion-advertising-policy",
+    "access": "private",
+    "title": "Google Ads, abortion advertising policy",
+    "url": "https://support.google.com/adspolicy/answer/9274988?hl=en",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/google-abortion-advertising-policy.html",
+    "bytes": 1674471,
+    "sha256": "77eb45c509fb1a68009087e0d565bb708bc2f9b89e8d2e335da50ef9949d6ded"
+  },
+  {
+    "id": "turnaway-employment-outcomes-2018",
+    "access": "private",
+    "title": "Foster et al., socioeconomic outcomes after abortion receipt or denial (2018)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5803812/?report=classic",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/turnaway-employment-outcomes-2018.html",
+    "bytes": 176181,
+    "sha256": "8029954971206b5a5c10398b969151a0623bad5341e5f68eb92086cafb0cca8d"
+  },
+  {
+    "id": "guttmacher-safe-abortion-cost-methods",
+    "access": "private",
+    "title": "Guttmacher Safe Abortion Calculator methodology",
+    "url": "https://www.guttmacher.org/safe-abortion-calculator-methodology",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-safe-abortion-cost-methods.html",
+    "bytes": 113007,
+    "sha256": "47be4d680131ca68e8799987caf337caf90c01c8b8b409af680fe4491e96e555"
+  },
+  {
+    "id": "guttmacher-unsafe-abortion-cost-estimate",
+    "access": "private",
+    "title": "Guttmacher, published estimate of complication treatment costs across 117 countries",
+    "url": "https://www.guttmacher.org/article/2026/11/making-invisible-visible",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-unsafe-abortion-cost-estimate.html",
+    "bytes": 66964,
+    "sha256": "28926e77740b2468a2177d36517d3d61dd8bcfb4856b76d61e004be05cb35073"
+  },
+  {
+    "id": "rocca-five-year-emotions-2020",
+    "access": "private",
+    "title": "Rocca and colleagues, five-year emotions and decision rightness, accepted manuscript (2020)",
+    "url": "https://clacaidigital.info/bitstream/handle/123456789/1267/Emotions%20and%20decision%20rightness%20over%20five%20years%20following%20an%20abortion.pdf?isAllowed=y&sequence=2",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/rocca-five-year-emotions-2020.pdf",
+    "bytes": 922944,
+    "sha256": "57be374e7f95be5983bbe52bf05bc21ada113424c4fa668ad57667665fbcb933"
+  },
+  {
+    "id": "nih-research-category-methods",
+    "access": "open",
+    "title": "NIH, Research, Condition and Disease Categorization methodology",
+    "url": "https://report.nih.gov/funding/categorical-spending/rcdc",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/nih-research-category-methods.html",
+    "bytes": 42926,
+    "sha256": "6ae0ee79550050845bf212f679d3c17ee68be961f9171be0b456c411bcdefb2b"
+  },
+  {
+    "id": "nih-tissue-repository-paper-2015",
+    "access": "private",
+    "title": "Nahar and colleagues, Chemosphere, Methods § 2.1 and funding acknowledgments",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4297568/?report=classic",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/nih-tissue-repository-paper-2015.html",
+    "bytes": 186923,
+    "sha256": "b13e6f788bf6da724bdac790da1b54c44327e892a6c7132199c1c148e67c69be"
+  },
+  {
+    "id": "nih-fetal-tissue-grants-policy",
+    "access": "open",
+    "title": "NIH Grants Policy Statement, human fetal tissue research",
+    "url": "https://grants.nih.gov/grants/policy/NIHgps/html5/section_4/4.1.15_human_fetal_tissue_research.htm",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/nih-fetal-tissue-grants-policy.html",
+    "bytes": 28964,
+    "sha256": "d9ff2d0c01a834e4ba94da2a22c261c22a8d02ec808a98ee8a77f19cba32c1da"
+  },
+  {
+    "id": "fda-ryoncil-approval-2024",
+    "access": "open",
+    "title": "FDA, Ryoncil approval announcement and cell source (2024)",
+    "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-mesenchymal-stromal-cell-therapy-treat-steroid-refractory-acute-graft-versus-host",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fda-ryoncil-approval-2024.html",
+    "bytes": 37294,
+    "sha256": "f680553ad583b7e86fc6047e5dee9dfb85187d89b8a4e2722b32f6fd14f5f9d8"
+  },
+  {
+    "id": "nih-categorical-spending-data",
+    "access": "open",
+    "title": "NIH RePORT categorical spending, official data export",
+    "url": "https://report.nih.gov/reportweb/api/CategoricalSpendings",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/nih-categorical-spending-data.json",
+    "bytes": 1239201,
+    "sha256": "c5ac9d1b052d3824d6f59554fd385db3e9435ed65bbab0f153e674f95cfd0c43"
+  },
+  {
+    "id": "wasser-abortion-household-costs-2024",
+    "access": "private",
+    "title": "Wasser et al., Catastrophic Health Expenditures for In-State and Out-of-State Abortion Care (2024)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11549660/?report=classic",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/wasser-abortion-household-costs-2024.html",
+    "bytes": 231134,
+    "sha256": "584acbb834f5870ab3ccc02ba7d26e3fcf1e971762fb1df39c4cb55d1c652469"
   }
 ]

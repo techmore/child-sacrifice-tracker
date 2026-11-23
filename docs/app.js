@@ -46,10 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById(location.hash.slice(1))?.closest("details")) revealHashTarget();
 });
 
-const now = new Date();
-const start = new Date(now.getFullYear(), 0, 1);
-const end = new Date(now.getFullYear() + 1, 0, 1);
-document.getElementById("ytd").textContent = ((73.3 * (now - start)) / (end - start)).toFixed(1) + "M";
+const globalTrendReady = d3.json("data/world-trend.json").then(drawGlobalTrend, () => {
+  d3.select("#global-volume-chart").text("The historical series could not load. The JSON download is linked below.");
+});
+
 document.querySelectorAll(".waffle").forEach(w => {
   const n = +w.dataset.n;
   w.setAttribute("role", "img");
@@ -59,7 +59,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=archive-status"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=global-trend"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const arrivalHash = location.hash;
@@ -836,15 +836,13 @@ Promise.all([
       setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `reported across ${n} eligible year${n > 1 ? "s" : ""} between ${d.reported[0][0]} and ${d.reported[n - 1][0]}` : "No eligible annual counts in the source dataset");
     }
     document.getElementById("country").value = d.id;
-    const gdp = d.gdpPerCapita2023 ? d.abortions * d.gdpPerCapita2023 : null;
-    const money = v => v >= 1e12 ? "$" + (v / 1e12).toFixed(1) + "T" : v >= 1e9 ? "$" + Math.round(v / 1e9) + "B" : "$" + Math.round(v / 1e6) + "M";
     document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Annual average, 2015 to 2019</span>
       <dl><dt>Estimated abortions</dt><dd>${fmt(d.abortions)}</dd><dt>80% uncertainty interval</dt><dd>${exact(d.abortionsLow)} to ${exact(d.abortionsHigh)}</dd>
       <dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births per year</dt><dd>${fmt(d.births)}</dd>
       <dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd>
       ${d.shareUnintendedAborted != null ? `<dt>Unintended pregnancies aborted</dt><dd>${d.shareUnintendedAborted}%</dd>` : ""}
-      ${gdp ? `<dt>Abortions × GDP per capita</dt><dd>${money(gdp)}</dd>` : ""}</dl>
-      ${gdp ? `<p class="small">This arithmetic applies 2023 GDP per person to one year’s estimated abortions. It leaves out population change, the timing of work and earnings, and the costs of raising children.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
+      </dl>
+      ${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
       <p id="country-history-link" class="small" hidden><a href="?country=${d.id}&history=${d.iso3}#international-history">Explore international historical records</a></p>
       ${spark(d, "Eligible official counts exclude spontaneous abortions and omit years with conflicting eligible values.", true)}
       ${d.reported.length ? `<details id="country-reported"><summary>View annual reported counts and sources</summary>
@@ -927,7 +925,7 @@ Promise.all([
     document.getElementById("county-coverage").textContent = "County data could not load. Refresh to try again.";
     if (view === "state") showCounties(activeState);
   });
-  Promise.allSettled([paymentsReady, evidenceReady, historyReady, countiesReady]).then(() => {
+  Promise.allSettled([globalTrendReady, paymentsReady, evidenceReady, historyReady, countiesReady]).then(() => {
     if (arrivalHash && location.hash === arrivalHash && !arrival.signal.aborted) revealHashTarget();
     arrival.abort();
   });
@@ -1038,6 +1036,39 @@ function usHistoricalBreakdown(rows, total, recent) {
     <div class="table-scroll"><table><thead><tr><th scope="col">Period</th><th scope="col">Years included</th><th scope="col">Estimated abortions</th></tr></thead>
     <tbody>${subtotals}</tbody><tfoot><tr><th scope="row">Total</th><td>${rows.length}</td><td>${fmt(total)}</td></tr></tfoot></table></div>
     <p class="note"><a id="us-annual-link" href="#us-annual-data">View the annual estimates</a> · <a href="data/us.json">Download the historical series (JSON)</a> · <a href="#osf-us-pregnancy-csv">Guttmacher source</a></p>`;
+}
+
+function drawGlobalTrend({ periods }) {
+  const periodLabel = d => `${d.firstYear}–${String(d.lastYear).slice(-2)}`;
+  const rows = d3.select("#global-trend-table").append("tbody").selectAll("tr").data(periods).join("tr");
+  rows.append("th").attr("scope", "row").text(periodLabel);
+  rows.append("td").text(d => `${d.millions.toFixed(1)} (${d.millionsLow.toFixed(1)}–${d.millionsHigh.toFixed(1)})`);
+  rows.append("td").text(d => `${d.rate} (${d.rateLow}–${d.rateHigh})`);
+
+  const charts = [
+    { selector: "#global-volume-chart", value: "millions", low: "millionsLow", high: "millionsHigh", ceiling: 90,
+      label: "Estimated annual worldwide induced abortions in millions from 1990 to 2019" },
+    { selector: "#global-rate-chart", value: "rate", low: "rateLow", high: "rateHigh", ceiling: 50,
+      label: "Estimated annual worldwide induced abortions per 1,000 women aged 15 to 49 from 1990 to 2019" },
+  ];
+  const x = d3.scalePoint(periods.map(d => d.firstYear), [40, 438]);
+  for (const chart of charts) {
+    const y = d3.scaleLinear([0, chart.ceiling], [180, 22]);
+    const svg = d3.select(chart.selector).append("svg").attr("viewBox", "0 0 462 212")
+      .attr("role", "img").attr("aria-label", `${chart.label}. See the table for values and intervals.`);
+    svg.append("g").attr("transform", "translate(40,0)").call(d3.axisLeft(y).ticks(5).tickSize(-398))
+      .call(g => g.selectAll(".tick line").attr("stroke", "var(--line)"))
+      .call(g => g.select(".domain").remove());
+    svg.append("g").attr("transform", "translate(0,180)").call(d3.axisBottom(x).tickFormat(year =>
+      periodLabel(periods.find(row => row.firstYear === year))
+    )).call(g => g.select(".domain").remove());
+    svg.append("path").datum(periods).attr("class", "trend-interval")
+      .attr("d", d3.area().x(d => x(d.firstYear)).y0(d => y(d[chart.low])).y1(d => y(d[chart.high])));
+    svg.append("path").datum(periods).attr("class", "trend-line")
+      .attr("d", d3.line().x(d => x(d.firstYear)).y(d => y(d[chart.value])));
+    svg.selectAll("circle").data(periods).join("circle").attr("r", 3.5).attr("fill", "var(--accent)")
+      .attr("cx", d => x(d.firstYear)).attr("cy", d => y(d[chart.value]));
+  }
 }
 
 function usChart(us, history) {

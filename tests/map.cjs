@@ -37,7 +37,13 @@ for (const width of [1280, 390]) {
       await page.locator("#open-us").waitFor();
       assert.match(await page.locator("#banner").innerText(), /73\.3M.*worldwide, averaged over 2015–2019/s);
       assert.match(await page.locator("#banner").innerText(), /gives no worldwide count for 2025/);
-      assert.match(await page.locator("#ytd + span").innerText(), /projection using the 2015–2019 average/);
+      assert.match(await page.locator(".scale-summary").innerText(), /73\.3 million.*2015–2019/s);
+      await page.locator("#global-volume-chart svg").waitFor({ state: "attached" });
+      assert.equal(await page.locator("#global-volume-chart circle").count(), 6);
+      assert.equal(await page.locator("#global-rate-chart circle").count(), 6);
+      const worldRow = page.locator("#global-trend-table tbody tr").last();
+      assert.deepEqual(await worldRow.locator("th, td").allTextContents(), ["2015–19", "73.3 (66.7–82.0)", "39 (35–44)"]);
+      assert.match(await page.locator("#global-trend").innerText(), /75\.1 million per year for 2020–2024/);
       await page.locator("#open-us").click();
       const breakdown = page.locator("#us-total-breakdown");
       await breakdown.locator("summary").click();

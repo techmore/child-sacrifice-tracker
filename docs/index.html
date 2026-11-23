@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=archive-status">
+<link rel="stylesheet" href="style.css?v=global-trend">
 </head>
 <body>
 <a class="skip-link" href="#map-heading">Skip to the map</a>
@@ -18,6 +18,10 @@
     <a href="#act">Get help</a>
   </nav>
 </header>
+<div class="scale-summary">
+  <a href="#global-trend"><strong>73.3 million</strong> estimated induced abortions per year worldwide</a>
+  <span>Average for 2015–2019 · Published model</span>
+</div>
 <section id="map-section" class="wide">
   <div class="section-head">
     <h2 id="map-heading" tabindex="-1">The world, country by country</h2>
@@ -65,6 +69,7 @@
   <h2 id="research-heading">Explore the research</h2>
   <div class="research-topics">
     <div><h3>Data</h3><ul>
+      <li><a href="#global-trend">Global scale and trend</a></li>
       <li><a href="#map-section">World and U.S. map</a></li>
       <li><a href="#us-history">U.S. history</a></li>
       <li><a href="#international-history">History by continent</a></li>
@@ -79,6 +84,9 @@
       <li><a href="#markets-and-oversight">Markets and oversight</a></li>
     </ul></div>
     <div><h3>Evidence and outcomes</h3><ul>
+      <li><a href="#patient-demographics">Patients and campus access</a></li>
+      <li><a href="#economic-account">Households, jobs and public budgets</a></li>
+      <li><a href="#research-grants">Research grants and tissue purchases</a></li>
       <li><a href="#evidence-records">Case records</a></li>
       <li><a href="#investigation-files">Enforcement files and open questions</a></li>
       <li><a href="#measured-outcomes">Health and family outcomes</a></li>
@@ -104,11 +112,71 @@
   <div class="stats">
     <div><strong>73.3M</strong><span>estimated abortions per year worldwide, 2015 to 2019</span></div>
     <div><strong>29%</strong><span>of pregnancies worldwide ended in induced abortion, 2015 to 2019</span></div>
-    <div><strong id="ytd">–</strong><span>worldwide year-to-date projection using the 2015–2019 average</span></div>
+    <div><strong>66.7–82.0M</strong><span>80% uncertainty interval for the 2015–2019 annual estimate</span></div>
   </div>
 </header>
 
 <main>
+
+<section id="global-trend" class="wide">
+  <h2>How many abortions occur worldwide?</h2>
+  <p>The published global model estimates <strong>73.3 million induced abortions per year</strong> on average in <strong>2015–2019</strong>, with an 80% uncertainty interval of 66.7 to 82.0 million. WHO’s December 2025 fact sheet cites this work. The date of the fact sheet and the years analyzed are different. The numbers count abortions, so someone who had more than one can contribute more than one event. <a href="#bearak-2020-lancet-appendix">Model supplement, Tables 4–5</a> · <a href="#who-abortion-factsheet">WHO fact sheet</a></p>
+  <div class="global-trend-grid">
+    <figure><figcaption>Estimated annual abortions (millions)</figcaption><div class="chart" id="global-volume-chart"></div></figure>
+    <figure><figcaption>Estimated annual abortions per 1,000 women aged 15–49</figcaption><div class="chart" id="global-rate-chart"></div></figure>
+  </div>
+  <p class="note">Each point is an annual average over five years. The shaded areas show the model’s 80% uncertainty intervals. The estimated count rose over the published series, while the rate per 1,000 was similar at the start and end.</p>
+  <details><summary>Read the estimates and uncertainty intervals</summary><div class="table-scroll"><table id="global-trend-table"><thead><tr><th scope="col">Period</th><th scope="col">Annual count in millions (80% interval)</th><th scope="col">Annual rate per 1,000 (80% interval)</th></tr></thead></table></div></details>
+  <p class="note"><a href="data/world-trend.json" download>Download the published series (JSON)</a></p>
+  <p><b>Newer preliminary estimate.</b> A conference abstract presented in 2025 reports an estimated 75.1 million per year for 2020–2024 using an updated model and inputs. The abstract gives no uncertainty interval for that estimate. It sits outside the plotted 2020 study series. <a href="#bearak-ipc-global-estimates-2025">Conference abstract</a></p>
+  <nav class="reading-flow" aria-label="Continue reading">
+    <a href="#patient-demographics">Who gets abortions and how they find care</a>
+    <a href="#economic-account">What households and payers spend</a>
+    <a href="#measured-outcomes">What the health studies found</a>
+  </nav>
+</section>
+
+<section id="patient-demographics">
+  <h2>Who gets abortions, and how do students find care?</h2>
+  <p>Guttmacher’s 2014 U.S. patient survey found that 24% of patients were attending school at any level. Its enrollment question grouped high school, college and university. In the same survey, 59% had previously given birth and 49% had incomes below the federal poverty level. A weighted analysis of its 2021–2022 patient survey found 32.7% were aged 20–24. These measures describe different groups and leave current college enrollment unknown. <a href="#guttmacher-patient-characteristics-2014">2014 patient survey</a> · <a href="#guttmacher-patient-age-2021-22">2021–2022 survey analysis, Table 2</a></p>
+  <p>California’s public university systems reported 297 medication abortions at UC campus clinics and 349 at CSU campus clinics in fiscal year 2024–2025, for 646 in those reported counts. Students may also obtain care elsewhere. CSU also reported $3.29 million in cumulative readiness spending from the SB 24 grant from FY 2020–2021 through FY 2024–2025. That includes startup and staffing costs across five years. <a href="#california-campus-abortion-report-2025">California program report, pp. 8, 38–39</a></p>
+  <p>There are distinct channels for campus information, clinical referrals, and paid promotion. A GAO review of selected U.S. colleges documented campuses that referred students to outside providers, as well as campuses that referred students for adoption services. California’s commission credits several organizations for supporting campus access, including Planned Parenthood Affiliates of California and mifepristone manufacturers Danco and GenBioPro. Google requires U.S. advertisers for certain abortion-related search queries to declare whether they provide abortions. The available sources identify specific channels and participants. Student-targeted spending, ad exposure and effects on decisions remain open questions. <a href="#gao-campus-reproductive-care-2025">GAO review, Table 10</a> · <a href="#california-campus-abortion-program">California commission</a> · <a href="#google-abortion-advertising-policy">Google Ads policy</a></p>
+  <p><a href="#economic-account">Continue to costs, work and taxes</a> · <a href="#reasons-for-abortion">Read the reasons patients reported</a></p>
+</section>
+
+<section id="economic-account">
+  <h2>Costs, jobs and taxes</h2>
+  <ul>
+    <li><b>Households.</b> Count the out-of-pocket bill, travel, child care and unpaid work time. A U.S. patient study measured these expenses and found substantial financial burdens, especially for people traveling out of state. <a href="#wasser-abortion-household-costs-2024">Patient expense study</a></li>
+    <li><b>Jobs and earnings.</b> Track time away from work, employment and earnings separately. One Turnaway analysis found less full-time employment initially among women who gave birth after denial. A separate credit-record analysis found sustained financial distress after denial, with no strong evidence of employment changes in its linked sample. These studies answer questions about U.S. patients seeking care near facility limits. <a href="#turnaway-employment-outcomes-2018">Employment and poverty study</a> · <a href="#miller-wherry-foster-economics">Credit-record study</a></li>
+    <li><b>Public budgets.</b> Report what a program pays, who funds it, and whether the policy changes other spending or tax receipts. A net estimate needs a defined jurisdiction, policy comparison and time horizon. Future births, later childbearing, earnings and public costs all affect such a model. The project has no global net tax or jobs estimate. <a href="#public-funding">Public funding records</a> · <a href="#policy-consequences">Policy studies</a></li>
+    <li><b>Health-system costs.</b> Guttmacher’s calculator estimates about $1.56 billion annually to treat complications of unsafe abortion across the 117 countries it covers. This is a modeled component of spending. The scope excludes household time, other medical services and any proposed tax effect. <a href="#guttmacher-safe-abortion-cost-methods">Calculator methodology</a> · <a href="#guttmacher-unsafe-abortion-cost-estimate">Published cost estimate</a></li>
+  </ul>
+  <p><a href="#measured-outcomes">Continue to health and later pregnancies</a> · <a href="#research-grants">Trace research funds and tissue purchases</a></p>
+</section>
+
+<section id="measured-outcomes">
+  <h2>Measured outcomes for women and families</h2>
+  <p>National abortion counts track ended pregnancies. The figures below address health and other outcomes for people who received or sought care. Individual accounts of grief, relief and coercion can each be real. To estimate an average effect, researchers need a comparison group that accounts for why people sought an abortion and their circumstances before it.</p>
+  <ul>
+    <li id="outcome-physical-safety"><b>Physical safety.</b> The CDC estimated 0.46 deaths related to legal induced abortion per 100,000 reported legal abortions in the United States during 2013–2021. This is a case-fatality rate for legal procedures. It does not measure deaths from unsafe abortion, the risks of continuing a pregnancy, or the number of pregnancies ended. <a href="https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm">CDC abortion surveillance, Table 15</a></li>
+    <li id="outcome-mental-health"><b>Mental health.</b> The National Academies’ 2018 review concluded that having an abortion does not increase the risk of depression, anxiety or PTSD. A U.S. study followed 956 people who sought abortions. Those denied care near facility gestational limits had more anxiety initially and similar depression scores. Psychological well-being improved over time and the groups converged. These findings describe groups and leave room for individual experiences. A separate five-year analysis of people who received an abortion found no increase in decision regret over time in its sample. Decision difficulty and stigma were associated with more negative emotions. <a href="#rocca-five-year-emotions-2020">Five-year emotions study</a> · <a href="#nas-abortion-long-term-outcomes">National Academies evidence review</a> · <a href="https://doi.org/10.1001/jamapsychiatry.2016.3478">Five-year study</a> · <a href="#biggs-turnaway-mental-health-2017">Indexed abstract</a></li>
+    <li id="outcome-future-fertility"><b>Future fertility.</b> The National Academies review found no increased risk of secondary infertility in the evidence it reviewed. It found insufficient well-designed research to draw broad conclusions about later ectopic pregnancy, miscarriage or stillbirth. Wanting a child later, being able to conceive and wishing an earlier pregnancy had continued are separate questions. The Turnaway follow-up documented later births and asked about pregnancy intentions. It gives no population-wide estimate of how many people later wish they had continued the earlier pregnancy. <a href="#nas-abortion-long-term-outcomes">Evidence review</a> · <a href="#foster-2018-subsequent-births">Subsequent-birth study</a></li>
+    <li id="outcome-prior-abortions"><b>Prior abortions and later pregnancies.</b> In 41 U.S. reporting areas in 2022, 56.1% of abortions with known history were among patients without a prior induced abortion. This describes reported procedures. The National Academies review identified an association between two or more prior aspiration abortions and the rare outcome of a first birth before 28 weeks. The finding concerns a specific procedure and outcome. It does not establish the same risk for all methods or a causal effect for an individual patient. <a href="#cdc-abortion-2022">CDC surveillance, Table 9</a> · <a href="#nas-abortion-long-term-outcomes">Evidence review</a></li>
+    <li id="outcome-policy-costs"><b>Costs and policy effects.</b> The project also tracks household financial distress after denial, changes in births after bans, and estimates of travel and other costs. Each estimate depends on its population and comparison. <a href="#household-finances">Household evidence</a> · <a href="#policy-consequences">Policy consequences</a></li>
+    <li id="outcome-coercion"><b>Coercion and trafficking.</b> Court records document traffickers coercing individual victims to end pregnancies. Establishing whether access made trafficking easier would require a credible comparison across settings and a measure of coercion or trafficking. National abortion surveillance and the cases in this archive cannot answer that question. <a href="#evidence-records">Case evidence</a> · <a href="#bjs-trafficking-data-2024">Federal trafficking data limitations</a></li>
+  </ul>
+</section>
+
+<section id="research-grants">
+  <h2>Research grants, tissue purchases and commercial products</h2>
+  <ul>
+    <li><b>Federal research awards.</b> NIH’s spending table assigns about $53 million to its human fetal tissue category in each of fiscal years 2024 and 2025. NIH counts whole research projects in this system, with categories that can overlap. The figures do not measure tissue purchases, payments to clinics or pharmaceutical sales. <a href="https://report.nih.gov/funding/categorical-spending">NIH spending table</a> · <a href="#nih-categorical-spending-data">Data export</a> · <a href="#nih-research-category-methods">NIH counting method</a></li>
+    <li><b>A grant-to-publication link.</b> A 2015 research paper names a University of Washington tissue repository and gives award number 2R24HD000836-47. The paper identifies the institution and research material. It supplies no per-sample invoice or payment to a clinic. <a href="https://reporter.nih.gov/project-details/8018370">NIH RePORTER award</a> · <a href="#nih-tissue-repository-paper-2015">Research paper, Methods §2.1</a></li>
+    <li><b>Purchases and resale.</b> Purchase orders and invoices can show what an agency or lab paid a supplier. Clinic income requires its own payment records. The <a href="#material-payments">tissue payment ledger</a> includes federal purchase records and the California civil judgment against two bioscience companies.</li>
+    <li><b>Existing cell lines and regulated products.</b> NIH’s January 2026 notice bars NIH funds for covered research using fetal tissue from elective abortions. NIH’s policy statement distinguishes already-established fetal cell lines under the policy’s definitions. Commercial stem-cell products can have different sources. For example, FDA identifies adult donor bone marrow as the source for Ryoncil. <a href="#nih-fetal-tissue-funding-policy-2026">NIH notice</a> · <a href="#nih-fetal-tissue-grants-policy">NIH grants policy</a> · <a href="#fda-ryoncil-approval-2024">FDA approval</a></li>
+  </ul>
+</section>
 
 <section id="decimation">
   <h2>Decimation, tripled</h2>
@@ -281,6 +349,8 @@
   <p>To test whether a clinic made money from transferring tissue, match the contract and invoices to payments received and documented costs for the same work and period. An invoice shows what was billed. A payment record shows what changed hands. Aggregate revenue and list prices leave the question of profit open.</p>
 </section>
 
+
+
 <section id="stem-cell-market">
   <h2>The private stem-cell treatment market</h2>
   <p>Some stem-cell treatments, such as blood-forming stem-cell transplantation for certain diseases, are established medical care. This section examines businesses that sell interventions directly to consumers, including products marketed for conditions without convincing evidence of benefit. The term “stem-cell treatment” can also be used in ads for exosomes, which are particles released by cells.</p>
@@ -381,16 +451,7 @@
   <p class="limit">A financial account helps ask who benefits from a policy, who pays when it changes, and what it would cost to give families meaningful alternatives. The moral claims about prenatal life, consent and responsibility still need to be argued in their own terms. <a href="#policy-consequences">What changes when abortion policy changes?</a></p>
 </section>
 
-<section id="measured-outcomes">
-  <h2>Measured outcomes for women and families</h2>
-  <p>National abortion counts track ended pregnancies. The figures below address health and other outcomes for people who received or sought care. Individual accounts of grief, relief and coercion can each be real. To estimate an average effect, researchers need a comparison group that accounts for why people sought an abortion and their circumstances before it.</p>
-  <ul>
-    <li id="outcome-physical-safety"><b>Physical safety.</b> The CDC estimated 0.46 deaths related to legal induced abortion per 100,000 reported legal abortions in the United States during 2013–2021. This is a case-fatality rate for legal procedures. It does not measure deaths from unsafe abortion, the risks of continuing a pregnancy, or the number of pregnancies ended. <a href="https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm">CDC abortion surveillance, Table 15</a></li>
-    <li id="outcome-mental-health"><b>Mental health.</b> The National Academies’ 2018 review concluded that having an abortion does not increase the risk of depression, anxiety or PTSD. A U.S. study followed 956 people who sought abortions. Those denied care near facility gestational limits had more anxiety initially and similar depression scores. Psychological well-being improved over time and the groups converged. These findings describe groups and leave room for individual experiences. <a href="#nas-abortion-long-term-outcomes">National Academies evidence review</a> · <a href="https://doi.org/10.1001/jamapsychiatry.2016.3478">Five-year study</a> · <a href="#biggs-turnaway-mental-health-2017">Indexed abstract</a></li>
-    <li id="outcome-policy-costs"><b>Costs and policy effects.</b> The project also tracks household financial distress after denial, changes in births after bans, and estimates of travel and other costs. Each estimate depends on its population and comparison. <a href="#household-finances">Household evidence</a> · <a href="#policy-consequences">Policy consequences</a></li>
-    <li id="outcome-coercion"><b>Coercion and trafficking.</b> Court records document traffickers coercing individual victims to end pregnancies. Establishing whether access made trafficking easier would require a credible comparison across settings and a measure of coercion or trafficking. National abortion surveillance and the cases in this archive cannot answer that question. <a href="#evidence-records">Case evidence</a> · <a href="#bjs-trafficking-data-2024">Federal trafficking data limitations</a></li>
-  </ul>
-</section>
+
 
 <section id="evidence-records">
   <h2>Evidence records</h2>
@@ -473,9 +534,9 @@
 
 <section id="community-and-economy">
   <h2>Community, heritage and the economy</h2>
-  <p>Select a country with published estimates on the map to see its births, abortions and a simple economic thought experiment. A nation is a chain of people handing down language, skills, obligations and memory. Where fewer births mean fewer people in the next generation, the effects can reach workplaces, neighborhoods and families. Population aging can strain pension systems and shrink workforces, and migration can help fill some labor shortages. <a href="https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf">World Bank on pensions and aging</a>, <a href="https://www.worldbank.org/en/publication/wdr2023">World Bank on migration</a>.</p>
+  <p>Select a country with published estimates on the map to see its estimated births and abortions. A nation is a chain of people handing down language, skills, obligations and memory. Where fewer births mean fewer people in the next generation, the effects can reach workplaces, neighborhoods and families. Population aging can strain pension systems and shrink workforces, and migration can help fill some labor shortages. <a href="https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf">World Bank on pensions and aging</a>, <a href="https://www.worldbank.org/en/publication/wdr2023">World Bank on migration</a>.</p>
   <p>Families and communities can keep a culture alive and carry its language, skills and memory into exchanges with others.</p>
-  <div class="limit"><b>What the GDP figure assumes.</b> It multiplies yearly abortions by <a href="https://data360files.worldbank.org/data360-data/metadata/WB_WDI/WB_WDI_NY_GDP_PCAP_CD.pdf">output per person</a>. Some people who have abortions have children in later years, and childbearing can affect earnings. Both are missing from this simple calculation. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6248140/">Foster and colleagues</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10629572/">U.S. administrative earnings study</a>.</div>
+  <p>Estimating long-run effects on workforces or public revenue requires a population model and explicit assumptions about later births, work, earnings, and public spending. <a href="#economic-account">Economic evidence and its limits</a></p>
 </section>
 
 <section id="act">
@@ -535,6 +596,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=archive-status"></script>
+<script src="app.js?v=global-trend"></script>
 </body>
 </html>

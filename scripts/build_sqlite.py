@@ -18,7 +18,7 @@ MANIFEST = Path("references/manifest.json")
 SNAPSHOTS = {
     name: Path(f"docs/data/{name}.json")
     for name in ("countries", "us", "us-history", "states", "counties", "international-history", "evidence-records",
-                 "material-payments")
+                 "material-payments", "world-trend")
 }
 INPUTS = (SCHEMA, MANIFEST, *SNAPSHOTS.values())
 CDC_SOURCE_YEARS = {
@@ -65,6 +65,22 @@ def insert_sources(db, manifest):
             (r["id"], r["title"], r["url"], r["access"], r["retrieved"], r["status"],
              r.get("file"), r.get("sha256"), r.get("bytes"), r.get("error"))
             for r in manifest
+        ),
+    )
+
+
+def insert_world_trend(db, trend):
+    db.executemany(
+        """INSERT INTO world_trend (
+            source_id, first_year, last_year, published, interval_percent,
+            annual_millions, annual_millions_low, annual_millions_high,
+            rate_per_1000, rate_low, rate_high
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (
+            (trend["source"], p["firstYear"], p["lastYear"], trend["published"],
+             trend["intervalPercent"], p["millions"], p["millionsLow"], p["millionsHigh"],
+             p["rate"], p["rateLow"], p["rateHigh"])
+            for p in trend["periods"]
         ),
     )
 
@@ -299,6 +315,7 @@ def populate(db, files):
             ((path.as_posix(), sha256(raw).hexdigest(), len(raw)) for path, raw in files.items()),
         )
         insert_sources(db, manifest)
+        insert_world_trend(db, data["world-trend"])
         insert_evidence(db, data["evidence-records"])
         insert_material_payments(db, data["material-payments"])
         db.executemany("INSERT INTO series (id, label, scope, geography) VALUES (?, ?, ?, ?)", SERIES)

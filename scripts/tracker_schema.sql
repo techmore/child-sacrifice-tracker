@@ -1,4 +1,4 @@
-PRAGMA user_version = 4;
+PRAGMA user_version = 5;
 
 CREATE TABLE build_input (
     path TEXT PRIMARY KEY NOT NULL,
@@ -24,6 +24,23 @@ CREATE TABLE source (
         (archive_status = 'failed' AND archive_path IS NULL
             AND archive_sha256 IS NULL AND archive_bytes IS NULL)
     )
+) WITHOUT ROWID;
+
+CREATE TABLE world_trend (
+    source_id TEXT NOT NULL REFERENCES source (id),
+    first_year INTEGER NOT NULL CHECK (first_year > 0),
+    last_year INTEGER NOT NULL CHECK (last_year >= first_year),
+    published INTEGER NOT NULL CHECK (published >= last_year),
+    interval_percent INTEGER NOT NULL CHECK (interval_percent BETWEEN 1 AND 99),
+    annual_millions REAL NOT NULL,
+    annual_millions_low REAL NOT NULL CHECK (annual_millions_low >= 0),
+    annual_millions_high REAL NOT NULL,
+    rate_per_1000 REAL NOT NULL,
+    rate_low REAL NOT NULL CHECK (rate_low >= 0),
+    rate_high REAL NOT NULL,
+    CHECK (annual_millions BETWEEN annual_millions_low AND annual_millions_high),
+    CHECK (rate_per_1000 BETWEEN rate_low AND rate_high),
+    PRIMARY KEY (source_id, first_year, last_year)
 ) WITHOUT ROWID;
 
 CREATE TABLE evidence_record (

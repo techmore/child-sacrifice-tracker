@@ -1,0 +1,13 @@
+{
+  "source": "bearak-2020-lancet-appendix",
+  "published": 2020,
+  "intervalPercent": 80,
+  "periods": [
+    {"firstYear": 1990, "lastYear": 1994, "millions": 55.0, "millionsLow": 50.2, "millionsHigh": 60.9, "rate": 40, "rateLow": 37, "rateHigh": 44},
+    {"firstYear": 1995, "lastYear": 1999, "millions": 55.2, "millionsLow": 50.5, "millionsHigh": 60.9, "rate": 37, "rateLow": 34, "rateHigh": 41},
+    {"firstYear": 2000, "lastYear": 2004, "millions": 56.8, "millionsLow": 51.5, "millionsHigh": 63.0, "rate": 35, "rateLow": 32, "rateHigh": 39},
+    {"firstYear": 2005, "lastYear": 2009, "millions": 64.1, "millionsLow": 57.5, "millionsHigh": 72.1, "rate": 37, "rateLow": 33, "rateHigh": 42},
+    {"firstYear": 2010, "lastYear": 2014, "millions": 71.4, "millionsLow": 64.6, "millionsHigh": 79.7, "rate": 39, "rateLow": 36, "rateHigh": 44},
+    {"firstYear": 2015, "lastYear": 2019, "millions": 73.3, "millionsLow": 66.7, "millionsHigh": 82.0, "rate": 39, "rateLow": 35, "rateHigh": 44}
+  ]
+}
