@@ -640,7 +640,7 @@ Promise.all([
     picked = !keepBanner;
     if (!keepBanner) {
       const n = d.reported.length, sum = d3.sum(d.reported, r => r[1]);
-      setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `reported across the ${n} year${n > 1 ? "s" : ""} in this series, between ${d.reported[0][0]} and ${d.reported[n - 1][0]}. Other years are missing.` : "No annual counts in the source dataset");
+      setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `reported across ${n} eligible year${n > 1 ? "s" : ""} between ${d.reported[0][0]} and ${d.reported[n - 1][0]}` : "No eligible annual counts in the source dataset");
     }
     document.getElementById("country").value = d.id;
     const gdp = d.gdpPerCapita2023 ? d.abortions * d.gdpPerCapita2023 : null;
