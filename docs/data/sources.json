@@ -2128,5 +2128,65 @@
     "id": "commerce-air-travel-survey-questionnaire",
     "title": "U.S. Department of Commerce, Survey of International Air Travelers questionnaire, p. 3",
     "url": "https://www.trade.gov/sites/default/files/2025-04/SIAT-Questionnaire.pdf#page=3"
+  },
+  {
+    "id": "ftc-stem-cell-case-file-1823125",
+    "title": "FTC legal library, Stem Cell Institute of America case file, 182-3125",
+    "url": "https://search.ftc.gov/legal-library/browse/cases-proceedings/182-3125-stem-cell-institute-america-llc"
+  },
+  {
+    "id": "ftc-stem-cell-summary-judgment-2024",
+    "title": "U.S. District Court, FTC and Georgia v. Peyroux et al., summary judgment (2024)",
+    "url": "https://search.ftc.gov/system/files/ftc_gov/pdf/stem_cell_sj_order.pdf"
+  },
+  {
+    "id": "ftc-stem-cell-injunction-2024",
+    "title": "U.S. District Court, FTC and Georgia v. Peyroux et al., permanent injunction (2024)",
+    "url": "https://search.ftc.gov/system/files/ftc_gov/pdf/stem_cell_order_granting_injunctive_relief.pdf"
+  },
+  {
+    "id": "ftc-refund-program-index",
+    "title": "FTC, public index of cases resulting in refunds",
+    "url": "https://search.ftc.gov/enforcement/refunds"
+  },
+  {
+    "id": "iowa-stem-cell-judgment-2026",
+    "title": "Iowa District Court, State v. Biologics Health et al., findings and judgment, EQCE089356 (2026)",
+    "url": "https://www.iowaattorneygeneral.gov/media/cms/5_EE9BC2B96DCC5.PDF#page=148"
+  },
+  {
+    "id": "iowa-stem-cell-release-2026",
+    "title": "Iowa Attorney General, summary of Biologics Health judgment (2026)",
+    "url": "https://www.iowaattorneygeneral.gov/newsroom/attorney-general-brenna-bird-secures-victory-against-deceptive-stem-cell-company"
+  },
+  {
+    "id": "fda-cber-enforcement-index",
+    "title": "FDA, enforcement actions for biologics and human cell and tissue products",
+    "url": "https://www.fda.gov/vaccines-blood-biologics/compliance-actions-biologics/enforcement-actions-cber"
+  },
+  {
+    "id": "fda-genetech-warning-2018",
+    "title": "FDA, Genetech warning letter, 561808 (2018)",
+    "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/genetech-inc-561808-11292018"
+  },
+  {
+    "id": "fda-liveyon-recall-2018",
+    "title": "FDA, Liveyon recall announcement for Genetech-manufactured ReGen Series (2018)",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/liveyon-llc-issues-voluntary-nationwide-recall-regen-series-r-product-manufactured-genetech-inc"
+  },
+  {
+    "id": "cdc-cord-blood-outbreak-2018",
+    "title": "CDC, initial investigation of infections after contaminated cord-blood products (2018)",
+    "url": "https://stacks.cdc.gov/view/cdc/144157/cdc_144157_DS1.pdf"
+  },
+  {
+    "id": "cdc-cord-blood-followup-2021",
+    "title": "Hartnett and colleagues, national follow-up investigation of infections after cord-blood products (2021)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8498849/?report=classic"
+  },
+  {
+    "id": "ftc-stem-cell-complaint-2021",
+    "title": "FTC and Georgia, complaint in FTC v. Peyroux et al., 1:21-cv-03329 (2021)",
+    "url": "https://search.ftc.gov/system/files/documents/cases/1._complaint.pdf"
   }
 ]

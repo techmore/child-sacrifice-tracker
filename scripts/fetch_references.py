@@ -45,6 +45,8 @@ def download(source, folder, expected_sha256):
         body = response.read()
         content_type = response.headers.get_content_type()
     identifier = source["id"]
+    if content_type == "text/html" and b"<title>Checking your browser - reCAPTCHA</title>" in body:
+        raise ValueError("Server returned a verification page")
     if content_type == "text/html" and len(body) < 10_000:
         if b"?bm-verify=" in body or b"<title>Making sure you&#39;re not a bot!" in body:
             raise ValueError("Server returned a verification page")
@@ -139,10 +141,18 @@ def main():
     parser.add_argument("--refresh", action="store_true", help="Redownload already archived sources")
     parser.add_argument("--index-only", action="store_true", help="Regenerate only the site's bibliography, without network access")
     parser.add_argument("--verify", action="store_true", help="Verify the local archive without downloading or writing files")
+    parser.add_argument("--source", action="append", default=[], metavar="ID",
+                        help="Download or verify selected source IDs. Repeat for more than one.")
     options = parser.parse_args()
+    selected_ids = set(options.source)
     manifest = ROOT / "manifest.json"
     if options.verify:
         entries = json.loads(manifest.read_text(encoding="utf8"))
+        missing = selected_ids - {entry["id"] for entry in entries}
+        if missing:
+            parser.error("Source IDs missing from the manifest: " + ", ".join(sorted(missing)))
+        if selected_ids:
+            entries = [entry for entry in entries if entry["id"] in selected_ids]
         invalid = []
         for entry in entries:
             path = ROOT / entry.get("file", "")
@@ -160,6 +170,9 @@ def main():
     ids = {s["id"] for s in sources}
     if len(ids) != len(sources):
         parser.error("Source IDs must be unique")
+    missing = selected_ids - ids
+    if missing:
+        parser.error("Unknown source IDs: " + ", ".join(sorted(missing)))
     (REPO / "docs/data/sources.json").write_text(
         json.dumps([{k: s[k] for k in ("id", "title", "url")} for s in bibliography], ensure_ascii=False, indent=2) + "\n",
         encoding="utf8",
@@ -167,9 +180,15 @@ def main():
     if options.index_only:
         return
     previous = {entry["id"]: entry for entry in json.loads(manifest.read_text(encoding="utf8"))} if manifest.exists() else {}
+    if selected_ids:
+        sources = [source for source in sources if source["id"] in selected_ids]
     with ThreadPoolExecutor(max_workers=6) as pool:
         results = list(pool.map(lambda source: archive_source(source, previous, options.refresh), sources))
-    manifest.write_text(json.dumps(results, indent=2, ensure_ascii=False) + "\n", encoding="utf8")
+    archived = results
+    if selected_ids:
+        previous.update((entry["id"], entry) for entry in results)
+        archived = list(previous.values())
+    manifest.write_text(json.dumps(archived, indent=2, ensure_ascii=False) + "\n", encoding="utf8")
     for result in results:
         error = result.get("refresh_error") or result.get("error")
         if error:

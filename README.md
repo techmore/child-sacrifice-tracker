@@ -83,7 +83,7 @@ ORDER BY o.year DESC;"
 
 The [Eurostat source](https://ec.europa.eu/eurostat/databrowser/product/view/demo_fabort) is the `demo_fabort` release for all ages, in counts. The explorer normalizes geography codes and omits overlapping geographic variants. Eurostat is not responsible for these modifications. Some countries in the snapshot are available for noncommercial reuse only under [Eurostat’s terms](https://ec.europa.eu/eurostat/help/copyright-notice). The Guttmacher originals follow its [public-use dataset terms](https://www.guttmacher.org/public-use-datasets). Stats NZ and the New Zealand Ministry of Health publish their source data under CC BY 4.0.
 
-Run `python3 scripts/fetch_references.py` online to fill in missing downloads. The script reuses local copies whose checksums match the manifest. If a publisher changed a file, use `--refresh` to accept a newer copy. Read the saved report or dataset version when comparing published figures. Restoring the 2017 fetal-tissue judgment excerpt from its source filing requires `qpdf`.
+Run `python3 scripts/fetch_references.py` online to fill in missing downloads. The script reuses local copies whose checksums match the manifest. If a publisher changed a file, use `--refresh` to accept a newer copy. Read the saved report or dataset version when comparing published figures. Restoring the 2017 fetal-tissue judgment excerpt from its source filing requires `qpdf`. To download a case file or a specific source, pass its ID from `references/sources.tsv` as `--source ID`. Repeat the flag for multiple records. The same flag limits `--verify` to those IDs.
 
 ## Checks
 
