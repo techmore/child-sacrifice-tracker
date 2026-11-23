@@ -4636,5 +4636,69 @@
     "file": "private/in-abortion-counties-2013.html",
     "bytes": 104154,
     "sha256": "2451a1f4d64fbf1af0144d54db0a94ef15cb64edddb27785053e588a8275bcb6"
+  },
+  {
+    "id": "ppfa-annual-report-2024-2025",
+    "access": "private",
+    "title": "Planned Parenthood 2024–2025 annual report, financial data",
+    "url": "https://www.plannedparenthood.org/uploads/filer_public/6a/19/6a191461-a0ad-4ea0-8118-aa9184c24a31/digital-2025-ppfa-annualreport-c3.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "irs-nonprofit-public-disclosure",
+    "access": "open",
+    "title": "IRS public disclosure rules for exempt organizations",
+    "url": "https://www.irs.gov/charities-non-profits/public-disclosure-and-availability-of-exempt-organizations-returns-and-applications-documents-subject-to-public-disclosure",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/irs-nonprofit-public-disclosure.html",
+    "bytes": 107368,
+    "sha256": "2a2be850186b5b10f5240871f2e20afb61f2f6cb3af8a02b9dae9c1b2fe64784"
+  },
+  {
+    "id": "ocda-fetal-tissue-settlement-2017",
+    "access": "private",
+    "title": "Orange County District Attorney, DV Biologics and DaVinci Biosciences settlement",
+    "url": "https://ocdistrictattorney.gov/press/ocda-obtains-7-8-million-settlement-and-admission-of-liability-in-lawsuit-against-two-companies-who-sold-fetal-tissue-products/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ocda-fetal-tissue-settlement-2017.html",
+    "bytes": 119644,
+    "sha256": "51e0a3193c9e3ce54b56c95f28bf94986ff30dce9ca780a7290bb09aa7d27b5f"
+  },
+  {
+    "id": "uscode-fetal-tissue-289g2",
+    "access": "open",
+    "title": "U.S. Code, 42 U.S.C. § 289g-2, human fetal tissue transfers",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title42/pdf/USCODE-2024-title42-chap6A-subchapIII-partH-sec289g-1.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/uscode-fetal-tissue-289g2.pdf",
+    "bytes": 144567,
+    "sha256": "579dd58e809b3df3f634f72a10a025debbd8e35ce8c159fdc30fac3dccc1e707"
+  },
+  {
+    "id": "ppfa-nih-reimbursement-2015",
+    "access": "private",
+    "title": "Planned Parenthood letter to NIH on expense reimbursement, October 13, 2015",
+    "url": "https://cdn.plannedparenthood.org/uploads/filer_public/d3/6d/d36db865-3b8b-47fe-852b-645713d820a0/second_nih_letter.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ppfa-nih-reimbursement-2015.pdf",
+    "bytes": 55756,
+    "sha256": "0ceffce3014e68521dbf1df6b2f8fea20506cc2b0943df084c1a056a025662d7"
+  },
+  {
+    "id": "house-fetal-tissue-reimbursement-2015",
+    "access": "open",
+    "title": "House Energy and Commerce Committee staff memorandum on fetal tissue, September 9, 2015",
+    "url": "https://docs.house.gov/meetings/IF/IF14/20150917/103957/HHRG-114-IF14-20150917-SD008.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/house-fetal-tissue-reimbursement-2015.pdf",
+    "bytes": 203938,
+    "sha256": "726009f4e50e95de943610aebbdd150d8385297e1bcf2efdc0a7db1d1d5c3b7c"
   }
 ]
