@@ -185,3 +185,28 @@ test("evidence markers open sourced records and persist on the world map", async
     assert.match(await page.locator("#measured-outcomes").innerText(), /0\.46 deaths/);
   });
 });
+
+test("research navigation opens the market and keeps deep-linked sources visible on mobile", async () => {
+  await checkMap({ width: 390, height: 850 }, async page => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(origin + "/#who-abortion-factsheet");
+    const siteNav = page.getByRole("navigation", { name: "Site navigation" });
+    const source = page.locator("#who-abortion-factsheet");
+    await source.waitFor();
+    await page.waitForFunction(() => {
+      const bounds = document.querySelector("#who-abortion-factsheet").getBoundingClientRect();
+      return bounds.top >= document.querySelector(".site-header").getBoundingClientRect().bottom
+        && bounds.bottom <= window.innerHeight;
+    });
+    await siteNav.getByRole("link", { name: "Research" }).click();
+    const research = page.getByRole("navigation", { name: "Explore the research" });
+    await research.getByRole("link", { name: "Private stem-cell market" }).click();
+    assert.equal(new URL(page.url()).hash, "#stem-cell-market");
+    const market = page.getByRole("region", { name: "Prices and payments for private stem-cell treatments" });
+    assert.match(await market.getByRole("row", { name: /Federal court findings/ }).innerText(), /\$3,350,416 paid by 485 customers/);
+    await siteNav.getByRole("link", { name: "Get help" }).click();
+    assert.equal(new URL(page.url()).hash, "#act");
+    await page.goto(origin + "/#county-coverage-section");
+    assert.equal(await page.locator("#county-coverage-section").evaluate(el => el.open), true);
+  });
+});

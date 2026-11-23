@@ -6372,5 +6372,115 @@
     "file": "open/hr7270-status-118.xml",
     "bytes": 9765,
     "sha256": "fae5768e4c1ed45c7009548b9e0c013c818c20a6983e7fa3129e21be061a6a4c"
+  },
+  {
+    "id": "stem-cell-knee-prices-2017",
+    "access": "private",
+    "title": "The Stem-Cell Market for the Treatment of Knee Osteoarthritis, indexed abstract (2017)",
+    "url": "https://api.crossref.org/works/10.1055/s-0037-1604443",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/stem-cell-knee-prices-2017.json",
+    "bytes": 5538,
+    "sha256": "370c3fc510eca3e884cd071077d5ea3cd0411919539eff9f5d1906cfca34bf2e"
+  },
+  {
+    "id": "stem-cell-covid-marketing-2023",
+    "access": "private",
+    "title": "Turner and colleagues, Businesses marketing purported stem cell treatments and exosome therapies for COVID-19 (2023)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10679647/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/stem-cell-covid-marketing-2023.html",
+    "bytes": 136449,
+    "sha256": "ee971ab40efac11b56d46da02008d348c045c94a0ac3bd756701b0a88763f8ac"
+  },
+  {
+    "id": "global-exosome-marketing-2023",
+    "access": "private",
+    "title": "Uncovering the gray zone, global web survey of secretome, extracellular vesicle and exosome sellers (2023)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10156419/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/global-exosome-marketing-2023.html",
+    "bytes": 173418,
+    "sha256": "a3a74a7a6b2458659f47f3d4b486d86f7cd61d817e1f88d06e9b715dbcdfb0cf"
+  },
+  {
+    "id": "stem-cell-ftc-monetary-order-2024",
+    "access": "open",
+    "title": "U.S. District Court, FTC and Georgia v. Stem Cell Institute of America et al., monetary relief order, pp. 10–12 and 26 (2024)",
+    "url": "https://search.ftc.gov/system/files/ftc_gov/pdf/stemcell_order_granting_monetary_relief.pdf#page=10",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/stem-cell-ftc-monetary-order-2024.pdf",
+    "bytes": 410908,
+    "sha256": "2291bfb8f3b181c510cda62131c644c9842bca5639eb74eaccf3b8688e8ec84a"
+  },
+  {
+    "id": "stem-cell-ftc-refunds-2019",
+    "access": "open",
+    "title": "FTC, refund checks issued for deceptively marketed amniotic stem cell therapy (2019)",
+    "url": "https://search.ftc.gov/news-events/news/press-releases/2019/04/ftc-returns-almost-515000-consumers-who-bought-deceptively-marketed-amniotic-stem-cell-therapy",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/stem-cell-ftc-refunds-2019.html",
+    "bytes": 995161,
+    "sha256": "99275f588db5bfca6ad84cbf8f4dce4ea77adf9acb1041530e5f298666281555"
+  },
+  {
+    "id": "cdc-stem-cell-medical-tourism-mexico-2024",
+    "access": "open",
+    "title": "CDC, potential outbreak after stem-cell interventions in Mexico (2024)",
+    "url": "https://www.cdc.gov/mmwr/volumes/73/wr/mm7318a3.htm",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/cdc-stem-cell-medical-tourism-mexico-2024.html",
+    "bytes": 105424,
+    "sha256": "9060dca20b05f295ab4c5a6f677c44737f24a5763eb0e3bb0d94ee163da2705d"
+  },
+  {
+    "id": "stem-cell-medical-tourism-thailand-2015",
+    "access": "private",
+    "title": "Disseminated Mycobacterial Infection After International Medical Tourism (2015)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4567086/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/stem-cell-medical-tourism-thailand-2015.html",
+    "bytes": 112858,
+    "sha256": "5cc648f774aa5fc5ba87ab099b889d902e6007fc64539f1135bf74394edc6ec9"
+  },
+  {
+    "id": "stem-cell-donor-tumor-2009",
+    "access": "open",
+    "title": "Amariglio and colleagues, donor-derived brain tumor after neural stem cell transplantation (2009)",
+    "url": "https://journals.plos.org/plosmedicine/article/file?id=10.1371%2Fjournal.pmed.1000029&type=printable",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/stem-cell-donor-tumor-2009.pdf",
+    "bytes": 960101,
+    "sha256": "0bab7bf44a038496948b532b476392968f1f60336b4c05228f48bdb891332638"
+  },
+  {
+    "id": "bts-t100-international-segment-fields",
+    "access": "open",
+    "title": "Bureau of Transportation Statistics, T-100 International Segment data fields",
+    "url": "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=FJE",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/bts-t100-international-segment-fields.html",
+    "bytes": 164807,
+    "sha256": "d39ffd528fd499dc4c0f9bbad89646dad2ac4a43f7a385ccb1a0ed2dcd961d41"
+  },
+  {
+    "id": "commerce-air-travel-survey-questionnaire",
+    "access": "open",
+    "title": "U.S. Department of Commerce, Survey of International Air Travelers questionnaire, p. 3",
+    "url": "https://www.trade.gov/sites/default/files/2025-04/SIAT-Questionnaire.pdf#page=3",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/commerce-air-travel-survey-questionnaire.pdf",
+    "bytes": 648992,
+    "sha256": "aadf08f00dbb7a4b2c64cc460d6277358aef5d00dd37776cb82840232b9679e2"
   }
 ]

@@ -155,3 +155,32 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #evidence-list h3 { margin-bottom: 0.25rem; }
 #evidence-list h3:target { outline: 2px solid #0a5963; outline-offset: 0.25rem; }
 .evidence-meta { font-weight: 600; }
+
+:root { --site-header-height: 3rem; }
+html { scroll-padding-top: calc(var(--site-header-height) + 0.75rem); }
+.skip-link { position: fixed; inset: 0.5rem auto auto 0.5rem; z-index: 12; transform: translateY(-160%); padding: 0.5rem; background: var(--bg); }
+.skip-link:focus { transform: none; }
+.site-header { position: sticky; top: 0; z-index: 9; display: flex; justify-content: space-between; gap: 0.4rem; min-height: var(--site-header-height); padding: 0 1rem; border-bottom: 1px solid var(--line); background: var(--bg); font: 600 14px system-ui, sans-serif; }
+.site-header nav { display: flex; gap: 1rem; }
+.site-header a { display: inline-flex; align-items: center; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.site-header a:hover { text-decoration: underline; }
+.site-title { font-weight: 750; }
+#state-total { top: var(--site-header-height); }
+.map-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; margin: 0.75rem 1rem; font: 14px/1.5 system-ui, sans-serif; }
+.map-methods p { margin: 0.2rem 0 0.8rem; }
+.research-index { max-width: 1120px; margin: 2.25rem auto 0; padding: 1.25rem 1rem; border-block: 1px solid var(--line); }
+.research-topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: 1rem 1.5rem; font: 14px/1.45 system-ui, sans-serif; }
+.research-topics ul { list-style: none; margin: 0; padding: 0; }
+.research-topics li a { display: inline-block; padding-block: 0.3rem; }
+#source-list li:target { outline: 2px solid var(--accent); outline-offset: 0.2rem; }
+#stem-cell-market td, #stem-cell-market th { white-space: normal; text-align: left; }
+#stem-cell-market td:first-of-type { min-width: 8rem; }
+#stem-cell-market td:last-of-type { min-width: 14rem; }
+@media (max-width: 560px) {
+  .site-header { font-size: 13px; padding-inline: 0.65rem; }
+  .site-header nav { gap: 0.65rem; }
+  .research-topics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 0.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

@@ -5,12 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=evidence-records">
+<link rel="stylesheet" href="style.css?v=research-navigation">
 </head>
 <body>
+<a class="skip-link" href="#map-heading">Skip to the map</a>
+<header class="site-header">
+  <a class="site-title" href="#map-section">Three in Ten</a>
+  <nav aria-label="Site navigation">
+    <a href="#map-section">Map</a>
+    <a href="#research">Research</a>
+    <a href="#sources">Sources</a>
+    <a href="#act">Get help</a>
+  </nav>
+</header>
 <section id="map-section" class="wide">
   <div class="section-head">
-    <h2 id="map-heading">The world, country by country</h2>
+    <h2 id="map-heading" tabindex="-1">The world, country by country</h2>
     <div class="controls" role="group" aria-label="Map measure">
       <button data-metric="abortions" class="on" aria-pressed="true">Abortions per year</button>
       <button data-metric="rate" aria-pressed="false">Rate per 1,000 women</button>
@@ -39,11 +49,53 @@
     </div>
     <aside id="panel" aria-live="polite"></aside>
   </div>
+  <p class="note">World map values are modeled annual averages for 2015–2019. Local data coverage varies.</p>
+  <details class="map-methods"><summary>About this map data</summary>
   <p class="note">Choose the United States, then a state, to see its history and available county counts. State map colors use <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. Selected states also show <a href="#guttmacher-full-year-2025-appendix">2023–2025 estimates by state of procedure or pill receipt</a>. County tables use state health agency reports. Where a report provides both measures, select patient residence or procedure location. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
-  <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
-  <p class="note"><a href="#international-history">Explore historical records by continent</a></p>
+  </details>
+  <details id="country-table"><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
+  <nav class="map-links" aria-label="Explore data">
+    <a href="#us-history">U.S. history</a>
+    <a href="#international-history">History by continent</a>
+    <a href="#county-coverage-section">County coverage</a>
+  </nav>
   <details id="county-coverage-section"><summary>View U.S. county data coverage by state</summary><div id="county-coverage"></div></details>
 </section>
+<nav id="research" class="research-index" aria-labelledby="research-heading">
+  <h2 id="research-heading">Explore the research</h2>
+  <div class="research-topics">
+    <div><h3>Data</h3><ul>
+      <li><a href="#map-section">World and U.S. map</a></li>
+      <li><a href="#us-history">U.S. history</a></li>
+      <li><a href="#international-history">History by continent</a></li>
+    </ul></div>
+    <div><h3>Money and markets</h3><ul>
+      <li><a href="#public-funding">Public funding</a></li>
+      <li><a href="#provider-finances">Provider finances</a></li>
+      <li><a href="#political-spending">Political spending</a></li>
+      <li><a href="#material-payments">Tissue payments</a></li>
+      <li><a href="#stem-cell-market">Private stem-cell market</a></li>
+      <li><a href="#medication-economics">Pills and instruments</a></li>
+      <li><a href="#markets-and-oversight">Markets and oversight</a></li>
+    </ul></div>
+    <div><h3>Evidence and outcomes</h3><ul>
+      <li><a href="#evidence-records">Case records</a></li>
+      <li><a href="#measured-outcomes">Health and family outcomes</a></li>
+      <li><a href="#policy-consequences">Policy consequences</a></li>
+      <li><a href="#further-reading">Further reading</a></li>
+      <li><a href="#sources">Source archive</a></li>
+    </ul></div>
+    <div><h3>The argument</h3><ul>
+      <li><a href="#decimation">Decimation comparison</a></li>
+      <li><a href="#sacrifice-record">Historical record</a></li>
+      <li><a href="#bodily-autonomy">Case for bodily autonomy</a></li>
+      <li><a href="#family-and-fragility">Family and fragility</a></li>
+      <li><a href="#family-and-civic-life">Civic life</a></li>
+      <li><a href="#reasons-for-abortion">Why people choose abortion</a></li>
+      <li><a href="#community-and-economy">Community and the economy</a></li>
+    </ul></div>
+  </div>
+</nav>
 <header class="hero">
   <p class="eyebrow">A social and philosophical inquiry</p>
   <h1>Decimation killed one soldier in ten.<br>We end three pregnancies in ten.</h1>
@@ -57,7 +109,7 @@
 
 <main>
 
-<section>
+<section id="decimation">
   <h2>Decimation, tripled</h2>
   <div class="waffles">
     <figure><div class="waffle" data-n="10"></div><figcaption><b>10 in 100.</b> Roman decimation</figcaption></figure>
@@ -68,7 +120,7 @@
   <div class="limit"><b>Where the comparison strains.</b> Commanders imposed decimation on unwilling soldiers. Abortion is a personal decision shaped by particular circumstances. Whether an embryo or fetus has the moral standing of a soldier is the very question in dispute.</div>
 </section>
 
-<section>
+<section id="sacrifice-record">
   <h2>The record of sacrifice</h2>
   <p>Some accounts describe child sacrifice as an appeal for rain or divine favor. This project asks what that history can tell us about obligations to vulnerable life when present needs press.</p>
   <ol class="timeline">
@@ -125,7 +177,7 @@
   <div id="international-observations"></div>
 </section>
 
-<section>
+<section id="family-and-fragility">
   <h2>Family, fragility and the thing we cannot measure</h2>
   <p>The strongest evidence here concerns connection. A meta-analysis of 148 studies and over 300,000 people found that those with stronger social relationships had 50% greater odds of survival. One British panel study found that married participants reported higher life satisfaction after accounting for their well-being before marriage. <a href="https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1000316&amp;type=printable">Holt-Lunstad and colleagues</a>, <a href="https://www.nber.org/system/files/working_papers/w20794/w20794.pdf">Grover and Helliwell</a>.</p>
   <p>Supportive marriages and extended families can give people someone to share a shock with and someone willing to tell them the truth. Friendships, work and community commitments can also help people learn to bear hardship. The case this project makes is that supportive family ties can build resilience under stress.</p>
@@ -230,7 +282,35 @@
   <p>The 2020 U.S. indictment charged Peter Nygård with racketeering, sex trafficking and related offenses. In a separate Canadian case, an Ontario appellate court left four sexual assault convictions and an 11-year sentence in place in 2026. In 2022 a Manitoba legislator alleged that a proposed company used cells from aborted fetuses in his treatments. The debate records the allegation. The U.S. indictment and Canadian decisions supply no evidence identifying a tissue source or tracing a transfer or payment to a clinic or broker. <a href="#doj-nygard-indictment-2020">U.S. indictment</a> · <a href="#scc-nygard-extradition-docket">Canadian extradition docket</a> · <a href="#onca-nygard-appeal-2026">Ontario appeal decision</a> · <a href="#manitoba-nygard-debate-2022">Manitoba debate</a></p>
   <p><a href="#further-reading">Books, investigations and source records</a></p>
   <p>Canadian Press reported that Nygård’s bail affidavit described stem-cell injections four times a year in China and Panama. That is his account of his treatment. It provides no independent evidence of what was administered or where it came from. The reviewed records do not authenticate the claimed boat footage or corroborate the alleged Epstein connection or a recurring procurement arrangement. <a href="#canadian-press-nygard-affidavit-2021">Canadian Press account</a></p>
-  <p>The FDA separately warns that unapproved regenerative products are marketed in the U.S. and can cause serious harms. Its warning concerns the products and claims it regulates, and leaves the provenance of any treatment Nygård received unresolved. <a href="#fda-regenerative-medicine-warning">FDA consumer notice</a></p>
+  <p>The FDA separately warns that unapproved regenerative products are marketed in the U.S. and can cause serious harms. Its warning concerns the products and claims it regulates, and leaves the provenance of any treatment Nygård received unresolved. <a href="#fda-regenerative-medicine-warning">FDA consumer notice</a> · <a href="#stem-cell-market">Private market evidence</a></p>
+</section>
+
+<section id="stem-cell-market">
+  <h2>The private stem-cell treatment market</h2>
+  <p>Some stem-cell treatments, such as blood-forming stem-cell transplantation for certain diseases, are established medical care. This section examines businesses that sell interventions directly to consumers, including products marketed for conditions without convincing evidence of benefit. The term “stem-cell treatment” can also be used in ads for exosomes, which are particles released by cells.</p>
+
+  <h3>What buyers were quoted and what they paid</h3>
+  <div class="table-scroll" role="region" aria-label="Prices and payments for private stem-cell treatments" tabindex="0">
+    <table>
+      <thead><tr><th scope="col">Evidence</th><th scope="col">Amount</th><th scope="col">What was measured</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">U.S. knee injection quotes, study published in 2017</th><td>$5,156 average</td><td>Researchers posing as a patient obtained 65 quotes for a single knee injection. The study recorded asking prices. <a href="#stem-cell-knee-prices-2017">Pricing study</a></td></tr>
+        <tr><th scope="row">COVID-19 marketing, study published in 2023</th><td>$2,950–$25,000</td><td>Prices listed by businesses marketing purported stem-cell or exosome interventions. The study did not measure sales or margins. <a href="#stem-cell-covid-marketing-2023">Marketing study</a></td></tr>
+        <tr><th scope="row">Federal court findings, December 2024</th><td>$3,350,416 paid by 485 customers</td><td>Customers paid Superior Healthcare for injections. The court credited $40,270 in six refunds and ordered $3,310,146 in restitution. It separately imposed $1,845,000 in civil penalties. The record concerns one defendant’s customers. The amount ordered does not establish how much consumers ultimately received. <a href="#stem-cell-ftc-monetary-order-2024">Court order</a></td></tr>
+        <tr><th scope="row">FTC refund checks, April 2019</th><td>Nearly $515,000 in 270 checks</td><td>The FTC mailed checks in a separate case involving products marketed as amniotic stem-cell therapy. The marketing description gives no verified tissue provenance. <a href="#stem-cell-ftc-refunds-2019">FTC refund announcement</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>A separate 2023 study identified 114 companies marketing exosomes or other products released by cells in 28 countries. It measured online offerings, and many sellers did not disclose the cellular source. The dataset gives no global count of paying customers or market turnover. <a href="#global-exosome-marketing-2023">Global marketing study</a></p>
+
+  <h3>Patient journeys documented in clinical reports</h3>
+  <ul>
+    <li><b>United States to Mexico.</b> Public health investigators reported three serious infections after procedures at clinics in Mexico in 2022. Samples from two cases were genetically nearly identical. Investigators suspected shared contaminated material or equipment and could not identify the product administered. <a href="#cdc-stem-cell-medical-tourism-mexico-2024">CDC investigation</a></li>
+    <li><b>United States to Thailand.</b> A case report documented disseminated infection after infusions described as fetal stem cells. The authors had no information about infection screening of the source material. The report does not identify who supplied the cells or how they were obtained. <a href="#stem-cell-medical-tourism-thailand-2015">Clinical report</a></li>
+    <li><b>Israel to Russia.</b> A case report documented treatment in Moscow followed by a tumor. Analysis showed the tumor originated from donor cells. The report documents one patient’s outcome and gives no market volume or price. <a href="#stem-cell-donor-tumor-2009">Clinical report and genetic analysis</a></li>
+  </ul>
+  <p>These cases establish particular journeys. They do not establish the number of people traveling on those routes for treatment or whether they traveled by air. U.S. international passenger data count travelers by flight segment. A separate Commerce Department survey asks about health treatment broadly. Neither identifies stem-cell treatment by flight route. <a href="#bts-t100-international-segment-fields">Passenger data fields</a> · <a href="#commerce-air-travel-survey-questionnaire">Traveler questionnaire</a></p>
+  <p>To estimate patient flows, an investigator would need de-identified records that give both patient residence and treatment location. To verify a link to the fetal-tissue market, the records would need to identify the supplier and trace the material to the product administered. <a href="#material-payments">Documented tissue payments</a> · <a href="#nygard-records">Nygård case record</a></p>
 </section>
 
 <section id="medication-economics">
@@ -317,7 +397,7 @@
   <p>FDA labels identify longstanding fetal-derived cell lines used in vaccine manufacturing. The rubella component of M-M-R II uses WI-38 lung fibroblasts, and the Varivax label discloses residual DNA and protein from MRC-5 cells. California school-entry rules generally require MMR and varicella vaccination, subject to exemptions. The rules specify the vaccinations, and the labels describe manufacturing. Neither record identifies payments to abortion providers. <a href="https://www.fda.gov/media/75191/download">M-M-R II label</a>, <a href="https://www.fda.gov/media/76000/download">Varivax label</a>, <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/Immunization/IMM-1080.pdf">California school-entry regulations</a>.</p>
 </section>
 
-<section>
+<section id="reasons-for-abortion">
   <h2>Why people say they choose it</h2>
   <p>Any serious account of virtue has to meet the person in the waiting room. In a study published in 2013 of 954 women seeking abortion in the United States, most gave more than one reason. <a href="https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29">Biggs and colleagues</a>.</p>
   <div class="compare four">
@@ -368,7 +448,7 @@
   <div class="limit">A dollar paid by an insurer is also a dollar received by a provider. For a public budget, count the change in program spending. For a household, count payments, travel, child care and time away from work. To estimate the cost to society, account for the resources used and avoid counting the same payment twice. The study estimates here answer narrower questions than the tracker’s <a href="#bodily-autonomy">ethical argument</a>.</div>
 </section>
 
-<section>
+<section id="community-and-economy">
   <h2>Community, heritage and the economy</h2>
   <p>Select a country with published estimates on the map to see its births, abortions and a simple economic thought experiment. A nation is a chain of people handing down language, skills, obligations and memory. Where fewer births mean fewer people in the next generation, the effects can reach workplaces, neighborhoods and families. Population aging can strain pension systems and shrink workforces, and migration can help fill some labor shortages. <a href="https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf">World Bank on pensions and aging</a>, <a href="https://www.worldbank.org/en/publication/wdr2023">World Bank on migration</a>.</p>
   <p>Families and communities can keep a culture alive and carry its language, skills and memory into exchanges with others.</p>
@@ -431,6 +511,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=political-spending"></script>
+<script src="app.js?v=stem-cell-market"></script>
 </body>
 </html>

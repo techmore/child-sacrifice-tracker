@@ -15,6 +15,20 @@ const countyFeatureName = feature => feature.id.startsWith("51")
 const COUNTY_BINS = [10, 50, 250, 1000];
 const mapWrap = document.querySelector(".map-wrap");
 
+function revealHashTarget() {
+  const target = document.getElementById(location.hash.slice(1));
+  if (!target) return;
+  for (let details = target.closest("details"); details; details = details.parentElement.closest("details")) {
+    details.open = true;
+  }
+  target.scrollIntoView();
+}
+
+window.addEventListener("hashchange", revealHashTarget);
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById(location.hash.slice(1))?.closest("details")) revealHashTarget();
+});
+
 const now = new Date();
 const start = new Date(now.getFullYear(), 0, 1);
 const end = new Date(now.getFullYear() + 1, 0, 1);
@@ -28,7 +42,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=political-spending"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=stem-cell-market"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
@@ -175,7 +189,7 @@ Promise.all([
     evidenceToggle.disabled = false;
     updateEvidenceVisibility();
     if (location.hash.startsWith("#evidence-") && location.hash !== "#evidence-records") {
-      document.getElementById(location.hash.slice(1))?.scrollIntoView();
+      revealHashTarget();
     }
   }).catch(() => {
     d3.select("#evidence-list").append("li").text("Evidence records could not be loaded. Reload the page to retry.");
@@ -851,6 +865,9 @@ Promise.all([
     crumbs();
   }
   usChart(us, history);
+  if (document.getElementById(location.hash.slice(1))?.closest("#source-list, #us-total-breakdown")) {
+    revealHashTarget();
+  }
   d3.json("data/international-history.json").then(
     archive => {
       archivedPlaces = new Set(archive.rows.map(row => row.geography));

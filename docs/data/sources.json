@@ -2078,5 +2078,55 @@
     "id": "hr7270-status-118",
     "title": "U.S. Congress, H.R. 7270 legislative status and actions, 118th Congress",
     "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7270.xml"
+  },
+  {
+    "id": "stem-cell-knee-prices-2017",
+    "title": "The Stem-Cell Market for the Treatment of Knee Osteoarthritis, indexed abstract (2017)",
+    "url": "https://api.crossref.org/works/10.1055/s-0037-1604443"
+  },
+  {
+    "id": "stem-cell-covid-marketing-2023",
+    "title": "Turner and colleagues, Businesses marketing purported stem cell treatments and exosome therapies for COVID-19 (2023)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10679647/"
+  },
+  {
+    "id": "global-exosome-marketing-2023",
+    "title": "Uncovering the gray zone, global web survey of secretome, extracellular vesicle and exosome sellers (2023)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10156419/"
+  },
+  {
+    "id": "stem-cell-ftc-monetary-order-2024",
+    "title": "U.S. District Court, FTC and Georgia v. Stem Cell Institute of America et al., monetary relief order, pp. 10–12 and 26 (2024)",
+    "url": "https://search.ftc.gov/system/files/ftc_gov/pdf/stemcell_order_granting_monetary_relief.pdf#page=10"
+  },
+  {
+    "id": "stem-cell-ftc-refunds-2019",
+    "title": "FTC, refund checks issued for deceptively marketed amniotic stem cell therapy (2019)",
+    "url": "https://search.ftc.gov/news-events/news/press-releases/2019/04/ftc-returns-almost-515000-consumers-who-bought-deceptively-marketed-amniotic-stem-cell-therapy"
+  },
+  {
+    "id": "cdc-stem-cell-medical-tourism-mexico-2024",
+    "title": "CDC, potential outbreak after stem-cell interventions in Mexico (2024)",
+    "url": "https://www.cdc.gov/mmwr/volumes/73/wr/mm7318a3.htm"
+  },
+  {
+    "id": "stem-cell-medical-tourism-thailand-2015",
+    "title": "Disseminated Mycobacterial Infection After International Medical Tourism (2015)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4567086/"
+  },
+  {
+    "id": "stem-cell-donor-tumor-2009",
+    "title": "Amariglio and colleagues, donor-derived brain tumor after neural stem cell transplantation (2009)",
+    "url": "https://journals.plos.org/plosmedicine/article/file?id=10.1371%2Fjournal.pmed.1000029&type=printable"
+  },
+  {
+    "id": "bts-t100-international-segment-fields",
+    "title": "Bureau of Transportation Statistics, T-100 International Segment data fields",
+    "url": "https://transtats.bts.gov/DL_SelectFields.aspx?QO_fu146_anzr=Nv4+Pn44vr45&gnoyr_VQ=FJE"
+  },
+  {
+    "id": "commerce-air-travel-survey-questionnaire",
+    "title": "U.S. Department of Commerce, Survey of International Air Travelers questionnaire, p. 3",
+    "url": "https://www.trade.gov/sites/default/files/2025-04/SIAT-Questionnaire.pdf#page=3"
   }
 ]
