@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Three in Ten</title>
+<meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <p class="eyebrow">A social and philosophical inquiry</p>
+  <h1>Rome executed one soldier in ten.<br>We end three pregnancies in ten.</h1>
+  <p class="lede">Every age decides what it will give up for the life it wants. This project sets the modern abortion debate beside the historic record of child sacrifice, and asks what a society owes its next generation.</p>
+  <div class="stats">
+    <div><strong>73.3M</strong><span>estimated abortions per year worldwide, 2015 to 2019</span></div>
+    <div><strong>29%</strong><span>of all pregnancies end in induced abortion, per WHO</span></div>
+    <div><strong id="ytd">–</strong><span>estimated so far this year, at that average pace</span></div>
+  </div>
+</header>
+
+<main>
+<section id="map-section" class="wide">
+  <div class="section-head">
+    <h2>The world, country by country</h2>
+    <div class="controls" role="group" aria-label="Map measure">
+      <button data-metric="abortions" class="on">Abortions per year</button>
+      <button data-metric="rate">Rate per 1,000 women</button>
+      <button data-metric="shareOfBirthsPlusAbortions">Share of births + abortions</button>
+    </div>
+  </div>
+  <div class="map-layout">
+    <div class="map-wrap">
+      <svg id="map" role="img" aria-label="World map of estimated abortions by country"></svg>
+      <div id="legend"></div>
+      <div id="tip" hidden></div>
+    </div>
+    <aside id="panel" aria-live="polite"></aside>
+  </div>
+  <label class="pick">Choose a country <select id="country"></select></label>
+  <p class="note">Map values are modeled annual averages for 2015 to 2019, the latest country estimates published. They cover 150 countries and total about 62.6 million. The publishers withheld 45 countries, mostly in North Africa and the Middle East, for lack of reliable data. Those appear in gray and account for the gap to the 73.3 million global estimate.</p>
+  <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
+</section>
+
+<section>
+  <h2>Decimation, tripled</h2>
+  <div class="waffles">
+    <figure><div class="waffle" data-n="10"></div><figcaption><b>10 in 100.</b> Roman decimation</figcaption></figure>
+    <figure><div class="waffle" data-n="29"></div><figcaption><b>29 in 100.</b> Pregnancies ending in abortion</figcaption></figure>
+  </div>
+  <p>Decimation was the Roman army's punishment for a unit that broke faith: one man in ten was killed, often by his own comrades. The word still carries the horror of a community made to pay for its failure of virtue.</p>
+  <p>The modern figure is nearly three times that proportion. The thesis this project explores is that a society can lose a generation at scale without ever feeling it as a loss, because the loss is private, dispersed and unnamed.</p>
+  <div class="limit"><b>Where the comparison strains.</b> Decimation was imposed by commanders on unwilling men, and historians consider it rare. Abortion is usually a personal decision made under particular circumstances. Whether an embryo or fetus has the moral standing of a soldier is the very question in dispute.</div>
+</section>
+
+<section>
+  <h2>The record of sacrifice</h2>
+  <p>Ancient peoples gave up children to secure rain, harvest, victory or favor. The parallel worth examining is the logic: a present good purchased with a future life.</p>
+  <ol class="timeline">
+    <li><b>Carthage, first millennium BCE.</b> Urns of cremated infants fill the sanctuaries called tophets. A 2014 scholarly team called the evidence for sacrifice "overwhelming." Others argue many of the infants died naturally.</li>
+    <li><b>Ancient Israel.</b> Leviticus forbids offering children to Molech, and the valley of Tophet became a byword for that horror. The prohibition itself shows the practice was a live temptation.</li>
+    <li><b>Huanchaquito-Las Llamas, Peru, 15th century.</b> Excavators found 137 children and 3 adults with 200 camelids, possibly offered during catastrophic rains.</li>
+    <li><b>Tlatelolco, Aztec Mexico.</b> In 2008 archaeologists excavated 43 sacrificial victims, 37 of them children, at a temple tied to the rain gods.</li>
+  </ol>
+  <div class="limit"><b>Where the comparison strains.</b> Sacrificed children were born, or were killed as a public religious rite. Modern abortion has no deity or ritual, and most occur early in pregnancy. Many readers will find the analogy clarifying, and many will find it deeply wrong. Both reactions are part of the inquiry.</div>
+</section>
+
+<section>
+  <h2>America across fifty years</h2>
+  <div id="us-chart" class="chart"></div>
+  <p class="note">Line shows Guttmacher national estimates, 1973 to 2020. The #WeCount project separately counted 1,126,760 abortions in the formal US health system in 2025. Its method differs, so it is shown as a separate point.</p>
+  <p>US abortions peaked around 1990, fell for almost three decades, and have climbed again since 2017. Worldwide, the rate has stayed roughly level since the early 1990s, while the share of unintended pregnancies ending in abortion rose to 61%.</p>
+  <div class="limit"><b>A finding that cuts across both camps.</b> Abortion rates are about the same where it is broadly legal (40 per 1,000 women) and where it is restricted (36 per 1,000). Law alone appears to move the number less than either side tends to assume. Unintended pregnancy is the stronger driver.</div>
+</section>
+
+<section>
+  <h2>Family, fragility and the thing we cannot measure</h2>
+  <p>The strongest evidence here concerns connection. A meta-analysis of 148 studies and over 300,000 people found that those with stronger social relationships had 50% greater odds of survival, an effect comparable to well-known risks such as smoking. Married people also report higher life satisfaction, and one major British panel study found that this advantage persists after accounting for how happy people were before marriage.</p>
+  <p>This is the case for antifragility. A person embedded in marriage, children, parents and cousins has people who will absorb a shock with them, and people who will tell them the truth. A person who curates their whole environment meets little resistance, and so never builds the capacity to bear it.</p>
+  <div class="compare">
+    <div><strong>10.4 → 14.1</strong><span>US suicide rate per 100,000, 2000 to 2023</span></div>
+    <div><strong>13.6 → 8.8</strong><span>Global suicide rate per 100,000, 2000 to 2021</span></div>
+  </div>
+  <div class="limit"><b>What the evidence does not show.</b> The US suicide rate rose from 2003 to 2018 and has stayed high, but the global rate fell by about a third while abortion stayed common. No data here shows that abortion causes suicide or unhappiness. Researchers also still debate how much of marriage's benefit comes from happier people being likelier to marry. The link proposed here is a hypothesis about social structure, offered for argument.</div>
+</section>
+
+<section>
+  <h2>Community, heritage and the economy</h2>
+  <p>Select any country on the map to see its births, abortions and a simple economic thought experiment. A nation is a chain of people handing down language, skills, obligations and memory. Each missing link is also a missing worker, neighbor, parent and caregiver. Aging countries feel this first, in strained pensions and in reliance on migration to fill the gap.</p>
+  <p>This gives an unusual argument for both heritage and global cooperation. Every culture's survival depends on its own families, and a world of secure, continuing peoples has more to exchange.</p>
+  <div class="limit"><b>Why the GDP figure is only a thought experiment.</b> It multiplies abortions by output per person. Many women who have an abortion go on to have children later, so not every abortion means one fewer lifetime birth. Childbearing also affects women's education and earnings, which this simple figure leaves out.</div>
+</section>
+
+<section id="act">
+  <h2>If this is personal, or if you want to act</h2>
+  <div class="cards">
+    <div class="card"><h3>Pregnant and deciding</h3><ul>
+      <li><a href="https://www.abortionfinder.org/">Abortion Finder</a> lists verified US providers and current state law.</li>
+      <li><a href="https://www.ineedana.com/">I Need an A</a> is another US clinic search.</li>
+      <li><a href="https://www.childwelfare.gov/topics/adoption/">Child Welfare Information Gateway</a> explains adoption.</li>
+    </ul></div>
+    <div class="card"><h3>Continuing a pregnancy</h3><ul>
+      <li><a href="https://www.fns.usda.gov/wic">WIC</a> provides food and health support for mothers and children.</li>
+      <li><a href="https://www.211.org/">211</a> connects you to local housing, food and childcare help.</li>
+      <li>Maternal Mental Health Hotline: call or text <a href="tel:18338526262">1-833-852-6262</a>, 24 hours a day.</li>
+    </ul></div>
+    <div class="card"><h3>In crisis</h3><ul>
+      <li>Call or text <a href="tel:988">988</a> for the Suicide &amp; Crisis Lifeline.</li>
+      <li>Call 911 if you or someone else is in immediate danger.</li>
+    </ul></div>
+    <div class="card"><h3>Make your voice heard</h3><ul>
+      <li><a href="https://www.usa.gov/elected-officials">Find your elected officials</a>.</li>
+      <li><a href="https://openstates.org/find_your_legislator/">Find your state legislators</a> and follow their bills.</li>
+      <li>Testify at public hearings, write to local papers, vote, and support families directly.</li>
+    </ul></div>
+  </div>
+  <div class="limit"><b>Why this site has no list of clinics or staff.</b> Abortion providers have faced murder, arson and threats. Courts found a website listing them to be a true threat in <i>Planned Parenthood v. American Coalition of Life Activists</i>. Disagreement belongs with lawmakers and in public argument. Never approach, harass or threaten patients or staff.</div>
+</section>
+
+<section id="sources">
+  <h2>Sources</h2>
+  <ul class="sources" id="source-list"></ul>
+  <p class="note">Open-licensed copies are archived in this project's <code>references</code> folder, with checksums for every saved file. Country estimates are from Bearak et al. 2022 and are reused under CC BY-NC 4.0, so this site is noncommercial.</p>
+</section>
+</main>
+<footer><p>An independent inquiry. It offers no medical or legal advice.</p></footer>
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

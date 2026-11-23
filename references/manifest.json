@@ -1,0 +1,269 @@
+[
+  {
+    "id": "who-abortion-factsheet",
+    "access": "private",
+    "title": "WHO, Abortion fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/abortion",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/who-abortion-factsheet.html",
+    "bytes": 130243,
+    "sha256": "b83d54b859325a1f65d910fe9f1d78c1248a8bcd971a309802aa0f56a25081e3"
+  },
+  {
+    "id": "who-country-estimates-2022",
+    "access": "private",
+    "title": "WHO, First-ever country-level estimates of unintended pregnancy and abortion",
+    "url": "https://www.who.int/news/item/24-03-2022-first-ever-country-level-estimates-of-unintended-pregnancy-and-abortion",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/who-country-estimates-2022.html",
+    "bytes": 121436,
+    "sha256": "35b07c9735e8044c9113f5e2f9d57d471943bf1dd3d58fc27c8b8f7244527e46"
+  },
+  {
+    "id": "bearak-2020-lancet-gh",
+    "access": "open",
+    "title": "Bearak et al. 2020, Lancet Global Health (CC BY)",
+    "url": "https://www.thelancet.com/pdfs/journals/langlo/PIIS2214-109X(20)30315-6.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "bearak-2020-pubmed",
+    "access": "private",
+    "title": "Bearak et al. 2020, PubMed record",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/32710833/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/bearak-2020-pubmed.html",
+    "bytes": 5590,
+    "sha256": "fad30a929d7f191767ce0f50907a0401abb9878dd684325dd54c11a2b2cbc4dc"
+  },
+  {
+    "id": "bearak-2022-pubmed",
+    "access": "private",
+    "title": "Bearak et al. 2022, BMJ Global Health, PubMed record",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/35332057/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/bearak-2022-pubmed.html",
+    "bytes": 5590,
+    "sha256": "27c4f474f2b40e22bb3daa6cb0c8fae46a025c93e7361fef93b40dfbf806f725"
+  },
+  {
+    "id": "guttmacher-worldwide-factsheet",
+    "access": "private",
+    "title": "Guttmacher, Induced Abortion Worldwide",
+    "url": "https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-worldwide-factsheet.html",
+    "bytes": 80507,
+    "sha256": "4d58155053efc494dd57562ff425b30435bab4a262b8f8d59719f1fdb807fa76"
+  },
+  {
+    "id": "guttmacher-country-explainer",
+    "access": "private",
+    "title": "Guttmacher, Country-Level Estimates Explained",
+    "url": "https://www.guttmacher.org/node/33475/printable/print",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/guttmacher-country-explainer.html",
+    "bytes": 16689,
+    "sha256": "6e3d240ed7de40fff0c2e490e234d2ecb53ca0c33fb26812518672867f3e3ed0"
+  },
+  {
+    "id": "osf-aww-data-tables",
+    "access": "private",
+    "title": "Guttmacher/WHO, Basis of 1990-2019 estimates, data tables",
+    "url": "https://osf.io/download/a8jq5/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/osf-aww-data-tables.xlsx",
+    "bytes": 198143,
+    "sha256": "19dcf46b7578f54025eb7298e4c4150d03719018b2b2c0b4cfb5d3c60678a109"
+  },
+  {
+    "id": "osf-global-incidence-csv",
+    "access": "private",
+    "title": "Guttmacher, Global Abortion Incidence Dataset",
+    "url": "https://osf.io/download/6t4eh/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/osf-global-incidence-csv.csv",
+    "bytes": 519250,
+    "sha256": "7e867de252f57174ffb8c85caab12a834a98ec16a454fd06ac7d1637d0325ecd"
+  },
+  {
+    "id": "osf-global-incidence-codebook",
+    "access": "private",
+    "title": "Guttmacher, Global Abortion Incidence Codebook",
+    "url": "https://osf.io/download/skzvu/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/osf-global-incidence-codebook.xlsx",
+    "bytes": 1542233,
+    "sha256": "c6cf94f78901d1823c4d7c18f0e3f26b819f23b71c949a38749f2cc4f68acc09"
+  },
+  {
+    "id": "osf-us-pregnancy-csv",
+    "access": "private",
+    "title": "Guttmacher, US National and State Pregnancy Trends",
+    "url": "https://osf.io/download/duj6a/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/osf-us-pregnancy-csv.csv",
+    "bytes": 609171,
+    "sha256": "bc1dfc297c35cb50f0f0e0a5556dead82b5ce2ae3072433443838991e5648704"
+  },
+  {
+    "id": "wecount-dec-2025",
+    "access": "private",
+    "title": "Society of Family Planning, #WeCount December 2025",
+    "url": "https://societyfp.org/research/wecount/wecount-december-2025-data/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/wecount-dec-2025.html",
+    "bytes": 270777,
+    "sha256": "bf9b206c4007a8e1b497b24e43a35a3024346670cc3990c1a3117be8ff557d42"
+  },
+  {
+    "id": "npr-2026-us-abortions",
+    "access": "private",
+    "title": "NPR, US abortion numbers hold steady, March 2026",
+    "url": "https://www.npr.org/2026/03/24/nx-s1-5757550/abortion-telemedicine-travel-mifepristone-misoprostol",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/npr-2026-us-abortions.html",
+    "bytes": 177762,
+    "sha256": "946ab1f390ec657bfab142bfab701dda90eb4f8431fa31db02b08d96ce103d5d"
+  },
+  {
+    "id": "nchs-db541",
+    "access": "open",
+    "title": "NCHS Data Brief 541, suicide rates 2022 to 2023 (US government)",
+    "url": "https://www.cdc.gov/nchs/products/databriefs/db541.htm",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "nchs-db572",
+    "access": "open",
+    "title": "NCHS Data Brief 572, suicide rates 2023 to 2024 (US government)",
+    "url": "https://www.cdc.gov/nchs/data/databriefs/db572.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "nimh-suicide",
+    "access": "open",
+    "title": "NIMH, Suicide statistics (US government)",
+    "url": "https://www.nimh.nih.gov/health/statistics/suicide",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/nimh-suicide.html",
+    "bytes": 128538,
+    "sha256": "645f2c25e622456878e16bd6054677273e22e51ecf35a5ae11d4d498f7c96106"
+  },
+  {
+    "id": "owid-suicide-who",
+    "access": "open",
+    "title": "Our World in Data, suicide rate from WHO (CC BY)",
+    "url": "https://ourworldindata.org/grapher/death-rate-from-suicides-gho?tab=table",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/owid-suicide-who.html",
+    "bytes": 64330,
+    "sha256": "d7c8f858ad56104042915c7d2bb196efa0dffedbfadbbbc34bb861cf7c2c672d"
+  },
+  {
+    "id": "holt-lunstad-2010",
+    "access": "open",
+    "title": "Holt-Lunstad et al. 2010, PLoS Medicine (CC BY)",
+    "url": "https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1000316&type=printable",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/holt-lunstad-2010.pdf",
+    "bytes": 1018918,
+    "sha256": "86eaa5e1777618dff75d843b32c4f2d743994c97a83036737556001f69c53930"
+  },
+  {
+    "id": "helliwell-grover-marriage",
+    "access": "private",
+    "title": "Grover and Helliwell, How's Life at Home, NBER 20794",
+    "url": "https://www.nber.org/papers/20794",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/helliwell-grover-marriage.html",
+    "bytes": 93556,
+    "sha256": "308970e034b3cb3aec6b83b237233b8e228d81cbdf3f4b7c3bd22d99e587bb63"
+  },
+  {
+    "id": "taylor-decimatio",
+    "access": "private",
+    "title": "Taylor, Decimatio: Myth, Discipline and Death in the Roman Republic",
+    "url": "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/taylor-decimatio.html",
+    "bytes": 1076714,
+    "sha256": "4254dc142389a33b97c37ca16f63dc881925c3964b7b636e1bbbe4d1b0f2fe5e"
+  },
+  {
+    "id": "livius-decimation",
+    "access": "private",
+    "title": "Livius.org, Decimation",
+    "url": "https://livius.org/articles/concept/decimation",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/livius-decimation.html",
+    "bytes": 10542,
+    "sha256": "2c68d6bc6c13cf06671d49a534938163a1a2d592c6d857b636bafe83c5c64050"
+  },
+  {
+    "id": "archaeology-carthage-2014",
+    "access": "private",
+    "title": "Archaeology Magazine, Child Sacrifice in Ancient Carthage",
+    "url": "https://archaeology.org/news/2014/01/23/140123-carthage-tophet-sacrifice",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/archaeology-carthage-2014.html",
+    "bytes": 1034465,
+    "sha256": "722a998e5371ba61dddf36a6388369c221aa0d8f76c8f343c751ff94d8514324"
+  },
+  {
+    "id": "worldhistory-tophet",
+    "access": "private",
+    "title": "World History Encyclopedia, Tophet",
+    "url": "https://www.worldhistory.org/Tophet/",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "wikipedia-child-sacrifice",
+    "access": "open",
+    "title": "Wikipedia, Child sacrifice (CC BY-SA)",
+    "url": "https://en.wikipedia.org/wiki/Child_sacrifice",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/wikipedia-child-sacrifice.html",
+    "bytes": 344620,
+    "sha256": "878fe70253de944dcf24b872c55effe5a7c2f9be645db024b671bed42c23e6cf"
+  },
+  {
+    "id": "ppcw-v-acla-en-banc",
+    "access": "open",
+    "title": "Planned Parenthood v. ACLA, 9th Cir. en banc opinion (US court record)",
+    "url": "https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/ppcw-v-acla-en-banc.pdf",
+    "bytes": 544149,
+    "sha256": "15ff330f1f365ad5ad575861072d00a8d01bf31fe42f4f9c34789f24f470a67e"
+  }
+]
