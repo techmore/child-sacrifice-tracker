@@ -52,7 +52,8 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 #us-total-breakdown tfoot{font-weight:700}
 #banner b{display:block;font-size:24px;line-height:1.2;font-variant-numeric:tabular-nums}#banner span{font-size:12.5px;line-height:1.35;display:block;opacity:.82}
 #crumbs{font:14px system-ui,sans-serif;min-height:30px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--ink2)}#crumbs button{min-height:30px;padding:3px 9px}
-#crumbs .county-jump{margin-left:8px}
+#state-total .county-jump{margin-inline-start:auto}
+.evidence-controls[hidden]{display:none}
 .country,.state{vector-effect:non-scaling-stroke}.state{stroke:var(--bg);stroke-width:.7;cursor:pointer}.state.sel{stroke:var(--ink);stroke-width:2}
 .state-label{font:600 10px system-ui,sans-serif;fill:var(--ink);paint-order:stroke;stroke:var(--halo);stroke-width:3px;pointer-events:none;text-anchor:middle}
 #panel .open{width:100%;margin:4px 0 10px}
@@ -200,3 +201,11 @@ html { scroll-padding-top: calc(var(--site-header-height) + 0.75rem); }
 .trend-interval { fill: var(--accent); opacity: 0.16; }
 .reading-flow { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; border-top: 1px solid var(--line); padding-top: 0.6rem; font: 14px/1.5 system-ui, sans-serif; }
 @media (max-width: 720px) { .global-trend-grid { grid-template-columns: 1fr; } }
+
+@media (max-width:560px) {
+  #map-section[data-view="state"] #banner > :first-child,
+  #state-total.county-focused > strong:first-child,
+  #state-total.county-focused .state-total-note { display:none }
+  #map-section select { font-size:16px }
+  #state-total #all-counties, #crumbs button, #county-table .county-table-link { min-height:44px }
+}

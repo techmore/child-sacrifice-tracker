@@ -16,7 +16,7 @@ const COUNTY_BINS = [10, 50, 250, 1000];
 const mapWrap = document.querySelector(".map-wrap");
 
 function revealHashTarget() {
-  const target = document.getElementById(location.hash.slice(1));
+  const target = location.hash === "#map" ? mapWrap : document.getElementById(location.hash.slice(1));
   if (!target) return;
   for (let details = target.closest("details"); details; details = details.parentElement.closest("details")) {
     details.open = true;
@@ -109,7 +109,7 @@ Promise.all([
   let countyYear, countyMode, countyTransform, countyRows = new Map(), activeCounty, countyGeometry;
   const byId = new Map(data.map(d => [d.id, d]));
   let archivedPlaces = new Set();
-  let metric = Object.hasOwn(METRICS, params.get("metric")) ? params.get("metric") : "abortions";
+  let metric = "abortions";
   let selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
@@ -120,7 +120,8 @@ Promise.all([
     document.getElementById("us-annual-data").open = true;
   });
   const STATE_BINS = { abortions: [3000, 10000, 25000, 60000], rate: [5, 10, 15, 20], shareOfBirthsPlusAbortions: [10, 15, 20, 25] };
-  const W = Math.max(1000, document.querySelector(".map-scroll").clientWidth);
+  const mapScroll = mapWrap.querySelector(".map-scroll");
+  const W = Math.max(1000, mapScroll.clientWidth);
   const features = topojson.feature(world, world.objects.countries).features.filter(f => f.properties.name !== "Antarctica");
   const france = features.find(f => +f.id === 250);
   const isGuiana = poly => d3.geoCentroid({ type: "Polygon", coordinates: poly })[0] < 0;
@@ -162,7 +163,10 @@ Promise.all([
         .html(d ? `<b>${d.name}</b><br>${METRICS[metric].label}: ${METRICS[metric].show(d[metric])}` : `<b>${f.properties.name}</b><br>No published estimate`);
     })
     .on("mouseleave", () => tip.attr("hidden", true))
-    .on("click", (e, f) => { if (+f.id === 840) enterUS(); else if (rec(f)) select(rec(f)); });
+    .on("click", (_, f) => {
+      if (+f.id === 840) navigateMap(enterUS);
+      else if (rec(f)) navigateMap(() => select(rec(f)));
+    });
   const CHAR = 8, LINE = 16;
   const shortName = d => ({ "United States": "USA", "United Kingdom": "UK", "DR Congo": "DR Congo", "Central African Republic": "CAR" })[d.name] || d.name;
   const labelData = features.filter(rec).sort((a, b) => rec(b).abortions - rec(a).abortions).map(f => {
@@ -253,7 +257,7 @@ Promise.all([
         .html(`<b>${d.name}</b><br>${value} (${d.year}, by state of residence)`);
     })
     .on("mouseleave", () => tip.attr("hidden", true))
-    .on("click", (e, f) => selectState(stateById.get(f.id)));
+    .on("click", (_, f) => navigateMap(() => selectState(stateById.get(f.id))));
   const stateShapeById = new Map(stateShapes.nodes().map(shape => [shape.__data__.id, shape]));
   const SMALL = new Set(["CT", "DC", "DE", "MA", "MD", "NH", "NJ", "RI", "VT", "HI"]);
   const stateLabels = usG.append("g").selectAll("text").data(stateFeatures.filter(f => !SMALL.has(stateById.get(f.id).abbr))).join("text")
@@ -265,9 +269,22 @@ Promise.all([
   function worldBanner() {
     setBanner("World", "73.3M", "estimated abortions per year worldwide, averaged over 2015–2019", "No reliable cumulative total", "The worldwide study covers 2015–2019 for this estimate and gives no worldwide count for 2025.");
   }
+  const mapKeys = ["view", "state", "basis", "year", "county", "country", "metric"];
+  const mapKey = query => JSON.stringify(mapKeys.map(key => query.get(key)));
+  let renderedMapKey;
+  let placeChange = false;
+  function navigateMap(action) {
+    placeChange = true;
+    try {
+      action();
+      if (placeChange) saveView();
+    } finally {
+      placeChange = false;
+    }
+  }
   function saveView({ showMap = false } = {}) {
     const url = new URL(location.href);
-    for (const key of ["view", "state", "basis", "year", "county", "country", "metric"]) url.searchParams.delete(key);
+    for (const key of mapKeys) url.searchParams.delete(key);
     if (view === "state") {
       url.searchParams.set("state", activeState.abbr);
       if (countyYear) {
@@ -288,21 +305,30 @@ Promise.all([
     }
     if (view !== "us" && url.hash === "#us-total-breakdown") url.hash = "";
     if (metric !== "abortions") url.searchParams.set("metric", metric);
-    if (url.href !== location.href) window.history.replaceState(window.history.state, "", url);
+    if (placeChange && url.hash && !["#map", "#map-section", "#county-panel"].includes(url.hash)) url.hash = "map-section";
+    if (url.href !== location.href) {
+      if (placeChange) window.history.pushState(null, "", url);
+      else window.history.replaceState(window.history.state, "", url);
+    }
+    placeChange = false;
+    renderedMapKey = mapKey(url.searchParams);
   }
   function crumbs() {
     const c = document.getElementById("crumbs");
     usTotalBreakdown.hidden = view !== "us";
+    evidenceControl.closest(".evidence-controls").hidden = view !== "world";
     evidenceControl.hidden = view !== "world";
+    document.getElementById("map-section").dataset.view = view;
     updateEvidenceVisibility();
     const countyView = view === "state" && !!counties[activeState.id];
     const stateTotal = document.getElementById("state-total");
     const recent = history.recent.states?.[activeState?.abbr]?.at(-1);
     stateTotal.hidden = view !== "state";
+    stateTotal.classList.remove("county-focused");
     stateTotal.innerHTML = activeState
       ? `<strong>${activeState.name} <span>${fmt(activeState.abortions)}</span></strong>
-        <span>Estimated abortions in ${activeState.year} by state of residence · <a href="#osf-us-pregnancy-csv">Source</a></span>
-        ${recent ? `<span><b>${fmt(recent.abortions)}</b> clinician-provided in ${recent.year} by state of procedure or pill receipt · <a href="#guttmacher-full-year-2025-appendix">Source</a></span>` : ""}
+        <span class="state-total-note">Estimated abortions in ${activeState.year} by state of residence · <a href="#osf-us-pregnancy-csv">Source</a></span>
+        ${recent ? `<span class="state-total-note"><b>${fmt(recent.abortions)}</b> clinician-provided in ${recent.year} by state of procedure or pill receipt · <a href="#guttmacher-full-year-2025-appendix">Source</a></span>` : ""}
         ${countyStatus === "ready" && !countyView ? '<span>County boundaries only · <a href="#county-coverage-section">Check data coverage</a></span>' : ""}`
       : "";
     stateTotal.querySelector('a[href="#county-coverage-section"]')?.addEventListener("click", () => {
@@ -311,7 +337,7 @@ Promise.all([
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
-    if (countyView) parts.push('<strong id="focused-county" hidden></strong><span id="focused-count" hidden></span><a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
+    if (countyView) stateTotal.insertAdjacentHTML("beforeend", '<strong id="focused-county" hidden></strong><span id="focused-count" hidden></span><a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
@@ -322,7 +348,7 @@ Promise.all([
       : countyView ? `Reported abortion counts by county in ${activeState.name}` : `Map of ${activeState.name}`);
     document.getElementById("state-pick").hidden = view === "world";
     document.getElementById("state").value = activeState ? activeState.id : "";
-    c.querySelectorAll("button[data-go]").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
+    c.querySelectorAll("button[data-go]").forEach(b => b.onclick = () => navigateMap(b.dataset.go === "world" ? leaveUS : enterUS));
   }
   function usPanel() {
     document.getElementById("panel").innerHTML = `<h3>United States</h3><dl><dt>Estimated, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd>
@@ -339,7 +365,9 @@ Promise.all([
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
     setBanner("United States", fmt(newUS.abortions), `estimated clinician-provided abortions in the U.S. in ${newUS.year}`, short(usTotal), `estimated U.S. total across ${us.length} years, ${us[0].year}–${usLatest.year}`);
-    usPanel(); crumbs(); paint(); saveView();
+    usPanel(); crumbs(); paint();
+    reveal(usG.node());
+    saveView();
   }
   function leaveUS() {
     view = "world"; activeState = null;
@@ -399,7 +427,8 @@ Promise.all([
 
   function frameStateMap(feature, maxScale) {
     const [[x0, y0], [x1, y1]] = usPath.bounds(feature);
-    const k = Math.min(maxScale, 0.82 / Math.max((x1 - x0) / W, (y1 - y0) / H));
+    const visibleWidth = mapScroll.clientWidth * W / svg.node().clientWidth;
+    const k = Math.min(maxScale, 0.82 / Math.max((x1 - x0) / visibleWidth, (y1 - y0) / H));
     countyTransform = d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, H / 2 - k * (y0 + y1) / 2).scale(k);
     usG.attr("transform", countyTransform); countyG.attr("transform", countyTransform);
     countyOutlines.attr("transform", countyTransform);
@@ -471,6 +500,7 @@ Promise.all([
     const focusCounty = (feature, showMap = false) => {
       activeCounty = feature?.id ?? null;
       reset.hidden = !feature;
+      reset.parentElement.classList.toggle("county-focused", !!feature);
       focusedCountyLabel.hidden = !feature;
       focusedCountyLabel.textContent = feature ? countyFeatureName(feature) : "";
       frameStateMap(feature ?? stateShapeById.get(state.id).__data__, feature ? 40 : 7);
@@ -484,7 +514,7 @@ Promise.all([
       saveView({ showMap });
       if (showMap) mapWrap.scrollIntoView({ block: "start" });
     };
-    reset.addEventListener("click", () => focusCounty(null));
+    reset.addEventListener("click", () => navigateMap(() => focusCounty(null)));
     const update = (series = countyData, refreshYears = false) => {
       if (refreshYears) {
         const years = Object.keys(series.years).sort((a, b) => b - a);
@@ -516,7 +546,7 @@ Promise.all([
       rows.on("click", (_, row) => {
         const name = countyKey(row.name);
         const feature = countyFeatures.get(name);
-        if (feature) focusCounty(feature, true);
+        if (feature) navigateMap(() => focusCounty(feature, true));
         else pendingCounty = name;
       });
       rows.append("th").attr("scope", "row").append("button").attr("type", "button")
@@ -549,16 +579,17 @@ Promise.all([
             .style("top", y + 12 + "px").text(description(feature));
         })
         .on("mouseleave", () => tip.attr("hidden", true))
-        .on("click", (_, feature) => focusCounty(feature, location.hash === "#county-panel"))
+        .on("click", (_, feature) => navigateMap(() => focusCounty(feature, location.hash === "#county-panel")))
         .on("keydown", (event, feature) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            focusCounty(feature, location.hash === "#county-panel");
+            navigateMap(() => focusCounty(feature, location.hash === "#county-panel"));
           }
         });
       status.hidden = true;
       const requested = countyFeatures.get(pendingCounty);
-      focusCounty(requested ?? stateCounties.find(f => f.id === activeCounty), !!requested);
+      if (requested) navigateMap(() => focusCounty(requested, true));
+      else focusCounty(stateCounties.find(f => f.id === activeCounty));
     }).catch(() => {
       if (panel.isConnected) {
         status.textContent = "County boundaries could not load. County counts are available in the table.";
@@ -854,7 +885,7 @@ Promise.all([
     reportedRows.append("td").text(([, count]) => fmt(count));
     reportedRows.append("td").text(([year]) => d.reportedSources?.[year]?.join("; ") || "See dataset");
     const open = document.getElementById("open-us");
-    if (open) open.onclick = enterUS;
+    if (open) open.onclick = () => navigateMap(enterUS);
     paint();
     if (picked) {
       const f = features.find(x => rec(x) === d);
@@ -882,24 +913,49 @@ Promise.all([
   pick.innerHTML = [...data].sort((a, b) => a.name.localeCompare(b.name)).map(d => `<option value="${d.id}">${d.name}</option>`).join("");
   const statePick = document.getElementById("state");
   statePick.innerHTML = `<option value="">All states</option>` + [...stateData].sort((a, b) => a.name.localeCompare(b.name)).map(d => `<option value="${d.id}">${d.name}</option>`).join("");
-  statePick.addEventListener("change", () => statePick.value ? selectState(stateById.get(statePick.value)) : enterUS());
-  pick.addEventListener("change", () => +pick.value === 840 ? enterUS() : select(byId.get(+pick.value)));
+  statePick.addEventListener("change", () => navigateMap(() => {
+    if (statePick.value) selectState(stateById.get(statePick.value));
+    else enterUS();
+  }));
+  pick.addEventListener("change", () => navigateMap(() => +pick.value === 840 ? enterUS() : select(byId.get(+pick.value))));
   document.getElementById("table").innerHTML = `<thead><tr><th>Country</th><th>Abortions/yr</th><th>80% interval</th><th>Rate</th><th>Births/yr</th><th>Share</th></tr></thead><tbody>` +
     [...data].sort((a, b) => b.abortions - a.abortions).map(d => `<tr><td>${d.name}</td><td>${fmt(d.abortions)}</td><td>${exact(d.abortionsLow)} to ${exact(d.abortionsHigh)}</td><td>${d.rate}</td><td>${fmt(d.births)}</td><td>${d.shareOfBirthsPlusAbortions}%</td></tr>`).join("") + `</tbody>`;
-  const state = stateData.find(d => d.abbr === params.get("state")?.toUpperCase());
-  const savedCountry = byId.get(Number(params.get("country")));
-  if (state) {
-    selectState(state, { basis: params.get("basis"), year: params.get("year"), county: params.get("county") });
-    if (location.hash === "#county-panel") document.getElementById("county-panel").scrollIntoView();
-  } else if (params.get("view") === "us") {
-    enterUS();
-  } else if (savedCountry) {
-    crumbs(); select(savedCountry);
-  } else {
-    select(selected, true);
-    worldBanner();
-    crumbs();
+  function applyMapUrl() {
+    const query = new URLSearchParams(location.search);
+    const key = mapKey(query);
+    if (renderedMapKey === key) return;
+    renderedMapKey = key;
+    metric = Object.hasOwn(METRICS, query.get("metric")) ? query.get("metric") : "abortions";
+    paintMetricButtons();
+    const state = stateData.find(d => d.abbr === query.get("state")?.toUpperCase());
+    const country = byId.get(Number(query.get("country")));
+    if (state) {
+      selectState(state, { basis: query.get("basis"), year: query.get("year"), county: query.get("county") });
+    } else if (query.get("view") === "us") {
+      enterUS();
+    } else if (country) {
+      select(country);
+      crumbs();
+    } else {
+      leaveUS();
+    }
+    if (["#map", "#county-panel"].includes(location.hash)) revealHashTarget();
   }
+  applyMapUrl();
+  window.addEventListener("popstate", applyMapUrl);
+  let mapWidth = mapScroll.clientWidth;
+  new ResizeObserver(() => {
+    if (mapScroll.clientWidth === mapWidth) return;
+    mapWidth = mapScroll.clientWidth;
+    if (view === "us") reveal(usG.node());
+    if (view !== "state") return;
+    const county = countyG.selectAll("path").filter(feature => feature.id === activeCounty).node();
+    const shape = county ?? stateShapeById.get(activeState.id);
+    frameStateMap(shape.__data__, county ? 40 : 7);
+    reveal(shape);
+    showMunicipalities();
+    paint();
+  }).observe(mapScroll);
   usChart(us, history);
   if (document.getElementById(location.hash.slice(1))?.closest("#source-list, #us-total-breakdown")) {
     revealHashTarget();

@@ -69,7 +69,7 @@ for (const width of [1280, 390]) {
       for (const state of states) {
         await page.selectOption("#state", state.id);
         const recent = history.recent.states[state.abbr].at(-1);
-        assert.equal(await summary.locator("strong").innerText(), `${state.name} ${state.abortions.toLocaleString("en-US")}`);
+        assert.equal(await summary.locator(":scope > strong:first-child").innerText(), `${state.name} ${state.abortions.toLocaleString("en-US")}`);
         assert.match(await summary.innerText(), new RegExp(`${recent.abortions.toLocaleString("en-US")} clinician-provided in 2025`));
         const report = countyReports[state.id];
         const years = report?.years ?? report?.occurrence?.years;
@@ -241,5 +241,60 @@ test("source records disclose archive availability without publishing private pa
     await page.locator("#cdc-cord-blood-outbreak-2018").getByRole("link", { name: "Back to passage" }).press("Enter");
     assert.equal(new URL(page.url()).hash, "#investigation-liveyon");
     assert.equal(await page.evaluate(() => document.activeElement.id), "investigation-liveyon");
+  });
+});
+
+test("mobile map fits the selected state and restores place history", async () => {
+  await checkMap({ width: 390, height: 844 }, async page => {
+    await page.goto(origin + "/?state=TX#map");
+    await page.locator(".state.sel").waitFor();
+    const stateFits = () => page.locator(".state.sel").evaluate(state => {
+      const shape = state.getBoundingClientRect();
+      const viewport = state.closest(".map-scroll").getBoundingClientRect();
+      return shape.left >= viewport.left && shape.right <= viewport.right;
+    });
+    assert.equal(await stateFits(), true);
+    await page.setViewportSize({ width: 844, height: 390 });
+    await page.waitForFunction(() => {
+      const state = document.querySelector(".state.sel");
+      const shape = state.getBoundingClientRect();
+      const viewport = state.closest(".map-scroll").getBoundingClientRect();
+      return shape.left >= viewport.left && shape.right <= viewport.right;
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+
+    await page.goto(origin + "/?view=us");
+    await page.getByRole("heading", { name: "United States, state by state" }).waitFor();
+    const centered = await page.locator(".map-scroll").evaluate(scroll =>
+      Math.abs(scroll.scrollLeft - (scroll.scrollWidth - scroll.clientWidth) / 2) < 20
+    );
+    assert.equal(centered, true);
+    await page.selectOption("#state", "42");
+    await page.locator(".county").first().waitFor();
+    await page.getByRole("button", { name: "Bucks", exact: true }).click();
+    await page.locator("#focused-county").waitFor();
+    assert.match(await page.locator("#state-total").innerText(), /Bucks.*County numbers.*All counties/s);
+    await page.waitForFunction(() => {
+      const bar = document.getElementById("state-total").getBoundingClientRect();
+      return bar.top >= 0 && bar.bottom <= innerHeight;
+    });
+    assert.ok((await page.locator("#state-total").boundingBox()).height <= 96);
+    await page.getByRole("navigation", { name: "Site navigation" }).getByRole("link", { name: "Sources" }).click();
+
+    await page.goBack();
+    assert.equal(new URL(page.url()).searchParams.get("county"), "42017");
+    assert.equal(await page.locator("#focused-county").innerText(), "Bucks");
+    await page.goBack();
+    await page.locator(".county").first().waitFor();
+    assert.equal(new URL(page.url()).searchParams.get("county"), null);
+    assert.equal(await page.locator("#state").inputValue(), "42");
+    await page.goBack();
+    await page.getByRole("heading", { name: "United States, state by state" }).waitFor();
+    assert.equal(new URL(page.url()).searchParams.get("view"), "us");
+    await page.goForward();
+    await page.locator(".county").first().waitFor();
+    await page.goForward();
+    await page.locator("#focused-county").waitFor();
+    assert.equal(await page.locator("#focused-county").innerText(), "Bucks");
   });
 });
