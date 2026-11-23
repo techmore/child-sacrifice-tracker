@@ -156,7 +156,7 @@ Promise.all([
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
-    if (countyView) parts.push('<a class="county-jump" href="#county-panel">County numbers</a>');
+    if (countyView) parts.push('<a class="county-jump" href="#county-panel">County numbers</a><button id="all-counties" hidden>All counties</button>');
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
@@ -166,7 +166,7 @@ Promise.all([
       : countyView ? `Reported abortion counts by county in ${activeState.name}` : `Map of ${activeState.name}`);
     document.getElementById("state-pick").hidden = view === "world";
     document.getElementById("state").value = activeState ? activeState.id : "";
-    c.querySelectorAll("button").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
+    c.querySelectorAll("button[data-go]").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
   }
   function usPanel() {
     document.getElementById("panel").innerHTML = `<h3>United States</h3><dl><dt>Estimated, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd>
@@ -204,21 +204,36 @@ Promise.all([
     countyG.style("display", "none").selectAll("path").remove();
     tip.attr("hidden", true);
     document.getElementById("map-heading").textContent = d.name;
-    const f = stateFeatures.find(x => x.id === d.id), [[x0, y0], [x1, y1]] = usPath.bounds(f);
-    const k = Math.min(7, 0.82 / Math.max((x1 - x0) / W, (y1 - y0) / H));
-    countyTransform = d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, H / 2 - k * (y0 + y1) / 2).scale(k);
-    usG.attr("transform", countyTransform); countyG.attr("transform", countyTransform);
+    const f = stateFeatures.find(x => x.id === d.id);
+    frameStateMap(f, 7);
     stateLabels.style("display", "none");
     setBanner(d.name, fmt(d.abortions), `estimated in ${d.year}`, short(d.total2005to2020), "estimated from 2005 to 2020, the longest unbroken state series");
     document.getElementById("panel").innerHTML = `<div id="county-panel"></div>
       <h3>${d.name} statewide estimates</h3><span class="small">Guttmacher estimate by state of residence, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>
       ${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.", true)}
       <details><summary>View annual state estimates</summary><div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Estimated abortions</th></tr></thead><tbody>
-      ${d.reported.map(([year, count]) => `<tr><th scope="row">${year}</th><td>${fmt(count)}</td></tr>`).join("")}</tbody></table></div></details>`;
+      ${d.reported.map(([year, count]) => `<tr><th scope="row">${year}</th><td>${fmt(count)}</td></tr>`).join("")}</tbody></table></div></details>
+      ${reports?.statewide ? statewideTable(reports.statewide) : ""}`;
     crumbs(); paint();
     reveal(stateShapes.filter(x => x === f).node());
     showCounties(d);
     saveView();
+  }
+
+  function statewideTable(report) {
+    const sourceNotes = report.sources.map(({ id, first, last }) => cite(id, `${first}–${last}`)).join(" · ");
+    return `<details><summary>View Pennsylvania’s annual reported totals, ${report.rows[0].year}–${report.rows.at(-1).year}</summary>
+      <p class="small">Pennsylvania Vital Statistics, Table D-1. ${sourceNotes}.</p>
+      <div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">By patient residence</th><th scope="col">By procedure location</th></tr></thead><tbody>
+        ${[...report.rows].reverse().map(row => `<tr><th scope="row">${row.year}</th><td>${fmt(row.residence)}</td><td>${fmt(row.occurrence)}</td></tr>`).join("")}
+      </tbody></table></div></details>`;
+  }
+
+  function frameStateMap(feature, maxScale) {
+    const [[x0, y0], [x1, y1]] = usPath.bounds(feature);
+    const k = Math.min(maxScale, 0.82 / Math.max((x1 - x0) / W, (y1 - y0) / H));
+    countyTransform = d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, H / 2 - k * (y0 + y1) / 2).scale(k);
+    usG.attr("transform", countyTransform); countyG.attr("transform", countyTransform);
   }
 
   function showCounties(state) {
@@ -242,6 +257,7 @@ Promise.all([
       <div class="table-scroll" role="region" aria-label="County counts" tabindex="0"><table id="county-table"></table></div>`;
     const yearPick = document.getElementById("county-year");
     const modePick = document.getElementById("county-mode");
+    const reset = document.getElementById("all-counties");
     if (modePick) modePick.value = countyMode;
     const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
     const description = feature => `${rowFor(feature)?.name ?? feature.properties.name}, ${countyYear}: ${countyCount(rowFor(feature))}`;
@@ -250,6 +266,19 @@ Promise.all([
       document.getElementById("county-detail").textContent = feature
         ? description(feature) : "Select a county on the map for its reported count.";
     };
+    const focusCounty = feature => {
+      activeCounty = feature?.id ?? null;
+      reset.hidden = !feature;
+      frameStateMap(feature ?? stateShapeById.get(state.id).__data__, feature ? 40 : 7);
+      reveal(feature
+        ? countyG.selectAll("path").filter(f => f.id === feature.id).node()
+        : stateShapeById.get(state.id));
+      tip.attr("hidden", true);
+      showCountyDetail();
+      paint();
+      saveView();
+    };
+    reset.addEventListener("click", () => focusCounty(null));
     const update = (series = countyData, refreshYears = false) => {
       if (refreshYears) {
         const years = Object.keys(series.years).sort((a, b) => b - a);
@@ -287,14 +316,9 @@ Promise.all([
       .then(topology => topojson.feature(topology, topology.objects.counties).features);
     countyGeometry.then(features => {
       if (view !== "state" || state !== activeState || !panel.isConnected) return;
-      const pickCounty = feature => {
-        activeCounty = feature.id;
-        countyG.selectAll("path").classed("sel", f => f.id === activeCounty);
-        showCountyDetail();
-        saveView();
-      };
+      const stateCounties = features.filter(f => f.id.startsWith(state.id));
       countyG.style("display", null).selectAll("path")
-        .data(features.filter(f => f.id.startsWith(state.id))).join("path")
+        .data(stateCounties).join("path")
         .attr("class", "county").attr("d", usPath).attr("tabindex", 0).attr("role", "button")
         .on("mousemove", (event, feature) => {
           const [x, y] = d3.pointer(event, mapWrap);
@@ -302,16 +326,15 @@ Promise.all([
             .style("top", y + 12 + "px").text(description(feature));
         })
         .on("mouseleave", () => tip.attr("hidden", true))
-        .on("click", (_, feature) => pickCounty(feature))
+        .on("click", (_, feature) => focusCounty(feature))
         .on("keydown", (event, feature) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            pickCounty(feature);
+            focusCounty(feature);
           }
         });
       status.hidden = true;
-      showCountyDetail();
-      paint();
+      focusCounty(stateCounties.find(f => f.id === activeCounty));
     }).catch(() => {
       countyGeometry = null;
       if (panel.isConnected) {

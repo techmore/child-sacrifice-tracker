@@ -19,6 +19,8 @@ Open http://127.0.0.1:8000. Citation links open the original publications. The a
 - **County reports:** Select United States, then a state. For states with verified public tables, the map and table show reported counts by patient county of residence. Arizona, Florida, Michigan, Nebraska, North Carolina, Ohio, Pennsylvania, and South Carolina also have procedure-location series. Dates and coverage vary by state. Each panel gives the reporting scope and source. Reported zero, source suppression, and missing data have distinct labels.
 
 The URL keeps your map selection when you refresh or share it. For example, [Pennsylvania procedure counts for 2024](https://techmore.github.io/child-sacrifice-tracker/?state=PA&basis=occurrence&year=2024#county-panel).
+
+Pennsylvania's official reports cover all 67 counties for 1995–2024 and statewide totals for 1975–2024. County views show the reporting basis and cite the selected year's report. Statewide reported counts also appear in SQLite under `pa-state-reported` and `pa-state-occurrence`.
 - **Economic context:** World Bank GDP per capita, 2023.
 
 Rebuild the data without a network connection after setting up the local reference archive and installing `openpyxl` and `pdftotext`.

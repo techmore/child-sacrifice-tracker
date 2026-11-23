@@ -40,6 +40,10 @@ SERIES = [
     ("state-historical", "Guttmacher historical state estimates",
      "Estimates by state of residence. Rates per 1,000 women aged 15 to 44. "
      "Counts are available in selected years before 2005.", "state"),
+    ("pa-state-reported", "Pennsylvania official counts by residence",
+     "Reported induced abortions among Pennsylvania residents. Rates per 1,000 women aged 15 to 44.", "state"),
+    ("pa-state-occurrence", "Pennsylvania official counts by procedure location",
+     "Reported induced abortions occurring in Pennsylvania, including nonresidents.", "state"),
     ("county-reported", "Reported county counts by residence",
      "Public aggregate counts by patient county of residence. See each release for "
      "coverage. A suppressed value has a NULL count. A missing county has no row.", "county"),
@@ -173,6 +177,21 @@ def insert_counties(db, states):
         )
         for series_id, report in reports.items():
             insert_county_report(db, fips, series_id, report)
+        if "statewide" in state:
+            insert_pennsylvania_statewide(db, fips, state["statewide"])
+
+
+def insert_pennsylvania_statewide(db, fips, report):
+    for series_id, measure in (("pa-state-reported", "residence"), ("pa-state-occurrence", "occurrence")):
+        db.executemany(
+            "INSERT INTO series_source (series_id, source_id, first_year, last_year) VALUES (?, ?, ?, ?)",
+            ((series_id, r["id"], r["first"], r["last"]) for r in report["sources"]),
+        )
+        db.executemany(
+            "INSERT INTO state_observation (state_fips, series_id, year, abortions, rate) VALUES (?, ?, ?, ?, ?)",
+            ((fips, series_id, r["year"], r[measure], r["rate"] if measure == "residence" else None)
+             for r in report["rows"]),
+        )
 
 
 def insert_county_report(db, fips, series_id, report):

@@ -282,47 +282,80 @@ def oregon(source):
     return years
 
 
-def pennsylvania(source):
-    pages = re.findall(r"Table 7\s+Induced Abortions Performed in Pennsylvania\s+by Residence and Age of Woman(.*?)(?:\f|$)", pdf_text(source), re.S)
-    resident_rows = "\n".join(pages).split("Other States/Countries", 1)[0]
-    rows = [
-        (name, count(total))
-        for name, total in re.findall(rf"^([A-Za-z ]+?) +({COUNT})(?: +{COUNT}){{9}} *$", resident_rows, re.M)
-        if name not in {"Total Pennsylvania", "Unknown"}
-    ]
-    # 30,495 reports for Pennsylvania residents, including 12 with unknown county.
-    verify_total(rows, 30483)
-    return {2024: counties(rows, 67)}
+def pennsylvania_statewide(reports):
+    observations = {}
+    sources = []
+    for report_year, first, last in ((2000, 1975, 1979), (2024, 1980, 2024)):
+        heading = r"^ *Table D-1 *\n +Induced Abortions, Number and Rate, Pennsylvania Residents"
+        page, = (p for p in reports[report_year] if re.search(heading, p, re.I | re.M))
+        pattern = rf"^ *([12]\d{{3}}) +({COUNT}) +(\d+\.\d+) +({COUNT}) *$"
+        rows = {
+            int(year): {"year": int(year), "residence": count(resident),
+                        "rate": float(rate), "occurrence": count(occurrence)}
+            for year, resident, rate, occurrence in re.findall(pattern, page, re.M)
+            if first <= int(year) <= last
+        }
+        if set(rows) != set(range(first, last + 1)):
+            raise ValueError(f"Missing years in Pennsylvania {report_year} Table D-1")
+        observations.update(rows)
+        sources.append({"id": f"pa-abortion-occurrence-{report_year}", "first": first, "last": last})
+    return {"rows": [observations[year] for year in sorted(observations)], "sources": sources}
 
 
-def pennsylvania_occurrence():
-    years = {}
-    source_by_year = {}
-    for year in range(2015, 2025):
-        source = f"pa-abortion-occurrence-{year}"
-        heading = rf"Table D-7\s+Induced Abortions by County of Procedure\s+Pennsylvania Occurrences, {year}"
-        page, = (page for page in pdf_text(source).split("\f") if re.search(heading, page))
-        table = page.split("Pennsylvania Department of Health --", 1)[0]
-        rows = []
-        for line in table.splitlines():
-            # The report presents two side-by-side pairs of county and count columns.
-            cells = re.split(r" {2,}", line.strip())
-            rows.extend(
-                (name, count(value))
-                for name, value in zip(cells[::2], cells[1::2])
-                if re.fullmatch(COUNT, value)
-            )
-        state_total, = (total for name, total in rows if name == "Pennsylvania")
-        rows = [(name, value) for name, value in rows if name != "Pennsylvania"]
-        verify_total(rows, state_total)
-        years[year] = counties(rows, 67)
-        source_by_year[year] = source
-        print(f"{source}: {len(rows)} counties, {state_total:,} reported procedures")
+def pennsylvania_occurrence_rows(pages, year):
+    heading = rf"Table D-7\s+Induced Abortions by County of Procedure\s+Pennsylvania Occurrences, {year}"
+    page, = (p for p in pages if re.search(heading, p, re.I))
+    table = re.split(r"Pennsylvania Department of Health", page, maxsplit=1, flags=re.I)[0]
+    rows = []
+    for line in table.splitlines():
+        # The report presents two side-by-side pairs of county and count columns.
+        cells = re.split(r" {2,}", line.strip())
+        rows.extend(
+            (name, count(value))
+            for name, value in zip(cells[::2], cells[1::2])
+            if re.fullmatch(COUNT, value) and name.casefold() not in {"pennsylvania", "all counties"}
+        )
+    return rows
+
+
+def pennsylvania_residence_rows(pages, year, names):
+    heading = rf"Induced Abortions by Age of Woman and County\s+Number and Rate\*: Pennsylvania Residents, {year}"
+    table = "\n".join(page for page in pages if re.search(heading, page, re.I))
+    pattern = rf"^ *([A-Za-z ]+?) {{2,}}({COUNT})(?=\s|\*|$)"
+    rows = [(names[name.casefold()], count(value)) for name, value in re.findall(pattern, table, re.M) if name.casefold() in names]
+    return rows, table
+
+
+def pennsylvania():
+    source_by_year = {year: f"pa-abortion-occurrence-{year}" for year in range(1995, 2025)}
+    reports = {year: pdf_text(source).split("\f") for year, source in source_by_year.items()}
+    statewide = pennsylvania_statewide(reports)
+    totals = {row["year"]: row for row in statewide["rows"]}
+    names = {name.casefold(): name for name, _ in pennsylvania_occurrence_rows(reports[2024], 2024)}
+    residence, occurrence = {}, {}
+    for year, pages in reports.items():
+        occurred = [(names[name.casefold()], value) for name, value in pennsylvania_occurrence_rows(pages, year)]
+        verify_total(occurred, totals[year]["occurrence"])
+        occurrence[year] = counties(occurred, 67)
+        residents, table = pennsylvania_residence_rows(pages, year, names)
+        unknown = totals[year]["residence"] - sum(value for _, value in residents)
+        # These two reports leave a residual without an unknown-county note in Table D-6.
+        documented = re.search(r"unknown county", table, re.I) or {1995: 1, 2006: 4}.get(year) == unknown
+        if unknown < 0 or (unknown and not documented):
+            raise ValueError(f"Unexplained difference in Pennsylvania {year} residence counts")
+        residence[year] = counties(residents, 67)
     return {
-        "source": source_by_year[max(source_by_year)],
+        "source": source_by_year[2024],
         "sourceByYear": source_by_year,
-        "scope": "Induced abortions reported in Pennsylvania, grouped by county where the procedure occurred, including patients who lived outside Pennsylvania. Pennsylvania Vital Statistics, Table D-7.",
-        "years": years,
+        "scope": "Reported induced abortions among Pennsylvania residents by county of residence, Table D-6. Reports with an unknown county are excluded from the county figures. The published county sums fall short of the statewide totals by one in 1995 and four in 2006.",
+        "years": residence,
+        "occurrence": {
+            "source": source_by_year[2024],
+            "sourceByYear": source_by_year,
+            "scope": "Induced abortions reported in Pennsylvania, grouped by county where the procedure occurred, including patients who lived outside Pennsylvania. Pennsylvania Vital Statistics, Table D-7.",
+            "years": occurrence,
+        },
+        "statewide": statewide,
     }
 
 
@@ -561,10 +594,6 @@ SOURCES = {
         "or-abortion-counties-1995-2025", oregon,
         "Oregon residents with abortions reported in Oregon. These are the final annual totals from the state's workbook. The published 2018 rows sum to one fewer than the worksheet total.",
     ),
-    "42": (
-        "pa-abortion-counties-2024", pennsylvania,
-        "Pennsylvania residents with induced abortions reported in Pennsylvania, Table 7, all ages.",
-    ),
     "45": (
         "sc-vital-statistics-2024", south_carolina,
         "Reported abortions among South Carolina residents by county of residence, Table E-2. The report lists 6,646 additional abortions with unknown county of residence in 2024.",
@@ -586,6 +615,7 @@ def main():
         if fips == "53":
             data[fips]["sourceByYear"] = {year: f"wa-abortion-counties-{year}" for year in years}
         print(f"{source}: {min(years)}–{max(years)}, {len(years[max(years)])} counties")
+    data["42"] = pennsylvania()
     occurrence_sources = {
         "04": arizona_occurrence,
         "12": florida_occurrence,
@@ -593,7 +623,6 @@ def main():
         "31": nebraska_occurrence,
         "37": north_carolina_occurrence,
         "39": ohio_occurrence,
-        "42": pennsylvania_occurrence,
         "45": south_carolina_occurrence,
     }
     for fips, parse in occurrence_sources.items():
