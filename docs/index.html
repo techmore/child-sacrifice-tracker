@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=county-backlog">
+<link rel="stylesheet" href="style.css?v=us-total">
 </head>
 <body>
 <section id="map-section" class="wide">
@@ -18,6 +18,10 @@
     </div>
   </div>
   <div id="banner" aria-live="polite"></div>
+  <details id="us-total-breakdown" hidden>
+    <summary>How the U.S. historical total is calculated</summary>
+    <div id="us-total-calculation"></div>
+  </details>
   <nav id="crumbs" aria-label="Map level"></nav>
   <div class="picks"><label class="pick">Choose a country <select id="country"></select></label><label class="pick" id="state-pick" hidden>Choose a state <select id="state"></select></label></div>
   <div class="map-layout">
@@ -97,7 +101,7 @@
   <div id="us-legend" aria-label="Chart series"></div>
   <p class="note">The <a href="#osf-us-pregnancy-csv">Guttmacher historical estimates</a> cover 1973 to 2020. The <a href="#cdc-abortion-1972">earliest CDC surveillance</a> starts in 1969 with limited reporting. CDC counts cover the jurisdictions that reported each year. The break in 1998 marks a coverage change that included the loss of California from the series. <a href="#cdc-abortion-2005">CDC 2005</a>, <a href="#cdc-abortion-2014">CDC 2014</a>, <a href="#cdc-abortion-2022">CDC 2022</a>.</p>
   <p class="note">The <a href="#guttmacher-full-year-2025-appendix">Guttmacher monthly study</a> estimates clinician-provided abortions, including telehealth under shield laws, for 2023 to 2025. Its estimates exclude self-managed abortions outside the formal health system and abortions provided under exceptions in states with total bans. The <a href="#wecount-dec-2025">Society of Family Planning’s #WeCount</a> independently estimated 1,126,760 abortions in the formal U.S. health system in 2025.</p>
-  <details><summary>View the annual U.S. data</summary><div class="table-scroll"><table id="us-table"><thead><tr><th scope="col">Year</th><th scope="col">CDC reported</th><th scope="col">CDC reporting areas</th><th scope="col">Guttmacher historical estimate</th><th scope="col">Historical rate per 1,000 women aged 15 to 44</th><th scope="col">Guttmacher monthly study estimate</th><th scope="col">Monthly study 90% interval</th></tr></thead></table></div></details>
+  <details id="us-annual-data"><summary>View the annual U.S. data</summary><div class="table-scroll"><table id="us-table"><thead><tr><th scope="col">Year</th><th scope="col">CDC reported</th><th scope="col">CDC reporting areas</th><th scope="col">Guttmacher historical estimate</th><th scope="col">Historical rate per 1,000 women aged 15 to 44</th><th scope="col">Guttmacher monthly study estimate</th><th scope="col">Monthly study 90% interval</th></tr></thead></table></div></details>
   <p>The Guttmacher historical count peaked in 1990, generally fell until 2017, and then rose through 2020. The newer study shows roughly steady counts in 2024 and 2025. Worldwide, the estimated abortion rate among women aged 15 to 49 dipped in the early 2000s before returning to near its early-1990s level by 2015 to 2019. The estimated share of unintended pregnancies ending in abortion rose from 51% to 61%. <a href="#bearak-2020-lancet-gh">Global estimates</a>.</p>
   <div class="limit">For 2015 to 2019, researchers estimated 40 abortions per 1,000 women aged 15 to 49 where abortion was broadly legal and 36 where it was restricted. Excluding China and India brought the broadly legal estimate to 26. Groups also differed in rates of unintended pregnancy. <a href="#bearak-2020-lancet-gh">Study by legal status</a>.</div>
 </section>
@@ -215,6 +219,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=provider-finances-records"></script>
+<script src="app.js?v=us-total"></script>
 </body>
 </html>

@@ -43,6 +43,12 @@ Promise.all([
   let selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
+  const usTotalBreakdown = document.getElementById("us-total-breakdown");
+  document.getElementById("us-total-calculation").innerHTML = usHistoricalBreakdown(us, usTotal);
+  usTotalBreakdown.open = location.hash === "#us-total-breakdown";
+  document.getElementById("us-annual-link").addEventListener("click", () => {
+    document.getElementById("us-annual-data").open = true;
+  });
   const STATE_BINS = { abortions: [3000, 10000, 25000, 60000], rate: [5, 10, 15, 20], shareOfBirthsPlusAbortions: [10, 15, 20, 25] };
   const W = Math.max(1000, document.querySelector(".map-scroll").clientWidth);
   const features = topojson.feature(world, world.objects.countries).features.filter(f => f.properties.name !== "Antarctica");
@@ -163,11 +169,13 @@ Promise.all([
       else if (picked) url.searchParams.set("country", selected.id);
       if (url.hash === "#county-panel" || url.hash === "#map") url.hash = "";
     }
+    if (view !== "us" && url.hash === "#us-total-breakdown") url.hash = "";
     if (metric !== "abortions") url.searchParams.set("metric", metric);
     if (url.href !== location.href) window.history.replaceState(window.history.state, "", url);
   }
   function crumbs() {
     const c = document.getElementById("crumbs");
+    usTotalBreakdown.hidden = view !== "us";
     const countyView = view === "state" && !!counties[activeState.id];
     const stateTotal = document.getElementById("state-total");
     const recent = history.recent.states?.[activeState?.abbr]?.at(-1);
@@ -199,7 +207,7 @@ Promise.all([
   function usPanel() {
     document.getElementById("panel").innerHTML = `<h3>United States</h3><dl><dt>Estimated, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd>
       <dt>Rate per 1,000 women aged 15 to 44, ${usLatest.year}</dt><dd>${usLatest.rate}</dd>
-      <dt>Estimated, 1973 to ${usLatest.year}</dt><dd>${short(usTotal)}</dd>
+      <dt>Estimated, ${us[0].year} to ${usLatest.year}</dt><dd>${short(usTotal)}</dd>
       <dt>Clinician-provided estimate, ${newUS.year}</dt><dd>${fmt(newUS.abortions)}</dd></dl>
       <p class="small">The map shows 2020 estimates by state of residence. Choose a state for its history and available county counts. The <a href="#us-history">U.S. history chart</a> includes early CDC reports and newer Guttmacher estimates.</p>`;
   }
@@ -210,7 +218,7 @@ Promise.all([
     worldG.style("display", "none"); usG.style("display", null).attr("transform", null);
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
-    setBanner("United States", fmt(newUS.abortions), `clinician-provided estimate in ${newUS.year}`, short(usTotal), `estimated from 1973 to ${usLatest.year} in the historical series`);
+    setBanner("United States", fmt(newUS.abortions), `clinician-provided estimate in ${newUS.year}`, short(usTotal), `estimated from ${us[0].year} to ${usLatest.year} in the historical series`);
     usPanel(); crumbs(); paint(); saveView();
   }
   function leaveUS() {
@@ -790,6 +798,19 @@ Promise.all([
   console.error(err);
   document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";
 });
+
+function usHistoricalBreakdown(rows, total) {
+  const periods = d3.groups(rows, row => Math.floor(row.year / 10));
+  const subtotals = periods.map(([, years]) => {
+    const first = years[0].year, last = years.at(-1).year;
+    const label = first === last ? first : `${first}–${last}`;
+    return `<tr><th scope="row">${label}</th><td>${years.length}</td><td>${fmt(d3.sum(years, row => row.abortions))}</td></tr>`;
+  }).join("");
+  return `<p class="note">Add Guttmacher’s ${rows.length} annual national estimates from ${rows[0].year} through ${rows.at(-1).year}. The sum is ${fmt(total)}, shown as ${short(total)} in the banner. The CDC counts and newer clinician-provided estimates appear in separate series.</p>
+    <div class="table-scroll"><table><thead><tr><th scope="col">Period</th><th scope="col">Years included</th><th scope="col">Estimated abortions</th></tr></thead>
+    <tbody>${subtotals}</tbody><tfoot><tr><th scope="row">Total</th><td>${rows.length}</td><td>${fmt(total)}</td></tr></tfoot></table></div>
+    <p class="note"><a id="us-annual-link" href="#us-annual-data">View the annual estimates</a> · <a href="data/us.json">Download the historical series (JSON)</a> · <a href="#osf-us-pregnancy-csv">Guttmacher source</a></p>`;
+}
 
 function usChart(us, history) {
   const W = 720, H = 300, m = { t: 24, r: 24, b: 28, l: 60 };

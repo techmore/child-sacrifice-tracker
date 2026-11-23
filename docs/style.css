@@ -48,6 +48,8 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 @media (max-width:560px){.hero{padding-top:40px}.stats{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.lede{font-size:18px}.map-label{display:none}.waffle{grid-template-columns:repeat(10,14px)}.waffle i{width:14px;height:14px}}
 
 #banner{display:grid;grid-template-columns:minmax(150px,1.1fr) 1fr 1.4fr;gap:16px;background:var(--ink);color:var(--bg);border-radius:8px;padding:14px 18px;margin-bottom:8px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+#us-total-breakdown .table-scroll{max-width:560px}
+#us-total-breakdown tfoot{font-weight:700}
 #banner b{display:block;font-size:24px;line-height:1.2;font-variant-numeric:tabular-nums}#banner span{font-size:12.5px;line-height:1.35;display:block;opacity:.82}
 #crumbs{font:14px system-ui,sans-serif;min-height:30px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--ink2)}#crumbs button{min-height:30px;padding:3px 9px}
 #crumbs .county-jump{margin-left:8px}

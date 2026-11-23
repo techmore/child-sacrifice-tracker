@@ -34,9 +34,22 @@ for (const width of [1280, 390]) {
     await checkMap({ width, height: 850 }, async page => {
       await page.goto(origin);
       await page.locator("#open-us").click();
+      const breakdown = page.locator("#us-total-breakdown");
+      await breakdown.locator("summary").click();
+      assert.match(await page.locator("#banner").innerText(), /60\.9M/);
+      const rows = await breakdown.locator("tbody tr").evaluateAll(elements => elements.map(row => Array.from(row.cells, cell => cell.textContent)));
+      assert.deepEqual(rows, [
+        ["1973–1979", "7", "8,080,620"], ["1980–1989", "10", "15,736,610"],
+        ["1990–1999", "10", "14,300,450"], ["2000–2009", "10", "12,366,880"],
+        ["2010–2019", "10", "9,495,050"], ["2020", "1", "930,160"],
+      ]);
+      assert.equal(await breakdown.locator("tfoot td").last().textContent(), "60,909,770");
+      await page.getByRole("link", { name: "View the annual estimates" }).click();
+      assert.equal(await page.locator("#us-annual-data").evaluate(el => el.open), true);
       const california = page.locator(".state").filter({ visible: true });
       const index = await california.evaluateAll(nodes => nodes.findIndex(node => node.__data__.id === "06"));
       await california.nth(index).click();
+      assert.equal(await breakdown.isVisible(), false);
       const summary = page.locator("#state-total");
       await page.locator(".county-outlines path").first().waitFor();
       assert.match(await page.locator(".state-focus-label").textContent(), /CA 187,560 · 2025/);
