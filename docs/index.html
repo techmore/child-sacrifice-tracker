@@ -10,7 +10,7 @@
 <body>
 <section id="map-section" class="wide">
   <div class="section-head">
-    <h2>The world, country by country</h2>
+    <h2 id="map-heading">The world, country by country</h2>
     <div class="controls" role="group" aria-label="Map measure">
       <button data-metric="abortions" class="on" aria-pressed="true">Abortions per year</button>
       <button data-metric="rate" aria-pressed="false">Rate per 1,000 women</button>
@@ -29,16 +29,16 @@
     <aside id="panel" aria-live="polite"></aside>
   </div>
   <div class="picks"><label class="pick">Choose a country <select id="country"></select></label><label class="pick" id="state-pick" hidden>Choose a state <select id="state"></select></label></div>
-  <p class="note">Click the United States to open its states, then click a state for its history. State figures are Guttmacher estimates for 2020. We found no national county dataset, so the map stops at the state level rather than inventing county numbers. World map values are modeled annual averages for 2015 to 2019, the latest country estimates we could find. The map share divides abortions by live births plus abortions, while the 29% headline uses all pregnancies, including miscarriages. They cover 150 countries and total about 62.6 million. The publishers withheld 45 countries for lack of reliable data, about half of them (22) in the North Africa and Middle East group. Places without an estimate appear in gray, and the withheld countries account for much of the gap to the 73.3 million global estimate, which comes from a separate model run.</p>
+  <p class="note">Choose the United States, then a state, to see its history and available county counts. The U.S. map uses <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. County tables use state health agency reports by patient residence. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
   <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
 </section>
 <header class="hero">
   <p class="eyebrow">A social and philosophical inquiry</p>
   <h1>Decimation killed one soldier in ten.<br>We end three pregnancies in ten.</h1>
-  <p class="lede">Every age decides what it will give up for the life it wants. This project sets the modern abortion debate beside the historic record of child sacrifice, and asks what a society owes its next generation.</p>
+  <p class="lede">Every age faces hard choices when urgent needs and obligations to vulnerable life collide. This project sets the modern abortion debate beside the historic record of child sacrifice and asks what a society owes its next generation.</p>
   <div class="stats">
     <div><strong>73.3M</strong><span>estimated abortions per year worldwide, 2015 to 2019</span></div>
-    <div><strong>29%</strong><span>of all pregnancies end in induced abortion, per WHO</span></div>
+    <div><strong>29%</strong><span>of pregnancies worldwide ended in induced abortion, 2015 to 2019</span></div>
     <div><strong id="ytd">–</strong><span>estimated so far this year, at that average pace</span></div>
   </div>
 </header>
@@ -51,75 +51,125 @@
     <figure><div class="waffle" data-n="10"></div><figcaption><b>10 in 100.</b> Roman decimation</figcaption></figure>
     <figure><div class="waffle" data-n="29"></div><figcaption><b>29 in 100.</b> Pregnancies ending in abortion</figcaption></figure>
   </div>
-  <p>Decimation was the Roman army's punishment for a unit that broke faith: one man in ten was killed, often by his own comrades. The word still carries the horror of a community made to pay for its failure of virtue.</p>
-  <p>The modern figure is nearly three times that proportion. The thesis this project explores is that a society can lose a generation at scale without ever feeling it as a loss, because the loss is private, dispersed and unnamed.</p>
-  <div class="limit"><b>Where the comparison strains.</b> Decimation was imposed by commanders on unwilling men, and historians consider it rare. Abortion is usually a personal decision made under particular circumstances. Whether an embryo or fetus has the moral standing of a soldier is the very question in dispute.</div>
+  <p>Roman decimation was a punishment imposed on a military unit. One soldier in ten was selected to die, sometimes at the hands of fellow soldiers. The word still carries the horror of a community made to pay for its failure of virtue. <a href="https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf">Taylor on Roman decimation</a>.</p>
+  <p>Decimation took one life in ten within a punished unit. WHO estimates that 29 in 100 pregnancies worldwide ended in induced abortion in 2015 to 2019. The thesis this project explores is that a society can lose a generation at scale without ever feeling it as a loss, because the loss is private, dispersed and unnamed. <a href="https://www.who.int/news-room/fact-sheets/detail/abortion">WHO abortion estimates</a>.</p>
+  <div class="limit"><b>Where the comparison strains.</b> Commanders imposed decimation on unwilling soldiers. Abortion is a personal decision shaped by particular circumstances. Whether an embryo or fetus has the moral standing of a soldier is the very question in dispute.</div>
 </section>
 
 <section>
   <h2>The record of sacrifice</h2>
-  <p>Ancient peoples gave up children to secure rain, harvest, victory or favor. The parallel worth examining is the logic: a present good purchased with a future life.</p>
+  <p>Some accounts describe child sacrifice as an appeal for rain or divine favor. This project asks what that history can tell us about obligations to vulnerable life when present needs press.</p>
   <ol class="timeline">
-    <li><b>Carthage, first millennium BCE.</b> Urns of cremated infants fill the sanctuaries called tophets. A 2014 scholarly team called the evidence for sacrifice "overwhelming." Others argue many of the infants died naturally.</li>
-    <li><b>Ancient Israel.</b> Leviticus forbids offering children to Molech, and Tophet, in the Valley of Hinnom, became a byword for that horror. The prohibition itself shows the practice was a live temptation.</li>
-    <li><b>Huanchaquito-Las Llamas, Peru, 15th century.</b> Excavators found 137 children and 3 adults with 200 camelids, possibly offered during catastrophic rains.</li>
-    <li><b>Tlatelolco, Aztec Mexico.</b> Excavations at Temple R, reported in a 2008 study, recovered 43 sacrificial victims, 37 of them children, at a temple tied to the rain and wind gods.</li>
+    <li><b>Carthage, first millennium BCE.</b> The Carthage Tophet held urns containing cremated remains of infants and young children. Researchers disagree over how much of the evidence points to sacrifice and how much is consistent with natural deaths. <a href="https://www.cambridge.org/core/journals/antiquity/article/abs/cemetery-or-sacrifice-infant-burials-at-the-carthage-tophet/EA2F96A8FD7229800391B766C95ECBE1">Smith and colleagues</a>, <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009177">Schwartz and colleagues</a>.</li>
+    <li><b>Ancient Israel.</b> Leviticus forbids offering children to Molech, and Jeremiah condemns child sacrifice at Tophet in the Valley of Hinnom. The texts leave open how often such offerings occurred. <a href="https://bible.usccb.org/bible/leviticus/18">Leviticus 18</a>, <a href="https://bible.usccb.org/bible/jeremiah/7">Jeremiah 7</a>.</li>
+    <li><b>Huanchaquito-Las Llamas, Peru, 15th century.</b> Excavators found 137 children, three adults and more than 200 camelids. The research team suggested that the sacrifice may have been a response to severe rains and flooding. <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0211691">Prieto and colleagues</a>.</li>
+    <li><b>Tlatelolco, Aztec Mexico.</b> A study published in 2008 reported that excavations at a temple dedicated to the Aztec god of wind and rain recovered the remains of 43 sacrificial victims, 37 of them children or adolescents. <a href="https://rex.libraries.wsu.edu/view/pdfCoverPage?download=true&amp;filePid=13332957010001842&amp;instCode=01ALLIANCE_WSU">De La Cruz and colleagues</a>.</li>
   </ol>
-  <div class="limit"><b>Where the comparison strains.</b> Where the evidence supports child sacrifice, the victims were children who had already been born. Modern abortion has no deity or ritual, and most occur early in pregnancy. Many readers will find the analogy clarifying, and many will find it deeply wrong. Both reactions are part of the inquiry.</div>
+  <div class="limit"><b>Where the comparison strains.</b> The children in these cases had already been born. Most abortions reported in U.S. surveillance occur early in pregnancy. The modern debate also asks whether the state may require someone to remain pregnant. <a href="https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm">CDC abortion surveillance</a>.</div>
 </section>
 
-<section>
-  <h2>America across fifty years</h2>
+<section id="bodily-autonomy">
+  <h2>The strongest case against this page</h2>
+
+  <p>The comparison with historic child sacrifice puts the focus on the life that ends. Pregnancy also requires the sustained use of another person's body. Even if a fetus has the same right to life as a born person, the bodily autonomy argument asks whether that right entitles it to remain inside someone's body against their will.</p>
+
+  <p>Judith Jarvis Thomson asks you to imagine waking up connected, without your consent, to an unconscious violinist with a kidney ailment. Your kidneys will keep him alive while he recovers. If you disconnect before nine months, he will die. Thomson argues that you may disconnect even though the violinist has a right to life. The analogy is especially forceful when pregnancy results from rape. For consensual sex, Thomson imagines an airborne seed that can grow into a person taking root in your home despite a protective screen. Her point is that taking a foreseeable risk can leave your right to refuse bodily support intact. <a href="https://www.dpsquires.com/wp-content/uploads/2019/08/Thomson-A-Defense-of-Abortion.pdf">A Defense of Abortion</a>.</p>
+
+  <p>In the United States, living organ donation generally requires consent, even when a life depends on it. In <i>McFall v. Shimp</i>, a Pennsylvania court refused to order a compatible relative to donate bone marrow. The autonomy argument calls for the same protection against compelled bodily support during pregnancy. <a href="https://www.govinfo.gov/content/pkg/CFR-2024-title42-vol5/xhtml/CFR-2024-title42-vol5-part482-subpartE-subjectgroup-id52.html">Federal informed consent regulation</a>, <a href="https://www.violence.de/prescott/letters/McFall_v_Shimp.pdf">Court decision</a>.</p>
+
+  <p>Pregnancy and childbirth can cause severe bleeding and lasting harm. When the membranes rupture very early in pregnancy, waiting can increase the risk of serious infection. How to manage the pregnancy depends on the medical circumstances and the patient's preferences. A fetal diagnosis can bring a prognosis of death before or soon after birth, sometimes with substantial uncertainty. The case for autonomy gives the person facing these risks and decisions the authority to decide what they can bear. <a href="https://www.nichd.nih.gov/health/topics/factsheets/maternal-morbidity-mortality">Maternal health risks</a>, <a href="https://publications.smfm.org/publications/573-society-for-maternal-fetal-medicine-consult-series-71/">Early rupture of membranes</a>, <a href="https://s3.amazonaws.com/cdn.smfm.org/publications/279/download-ab0227a993edabf2fae09e8dee6a2c61.pdf">Life-limiting fetal diagnoses</a>.</p>
+
+  <p>The parental-duty reply holds that parents owe their children care beyond what strangers owe each other. If that duty begins before birth, gestation may count as the basic care a fetus needs at that stage. The responsibility reply makes a separate claim. When people voluntarily take a foreseeable risk and thereby bring a dependent life into existence, they can acquire duties even if they tried to prevent pregnancy. That argument relies on a voluntary act, so it falls away in cases of rape. Some pro-life thinkers still oppose abortion after rape because they see the fetus's claim to protection as independent of how conception occurred. In medical emergencies, some argue that treatment aimed at saving the pregnant person's life can be permissible even when fetal death is a foreseeable consequence. <a href="https://dimparato.wordpress.com/wp-content/uploads/2014/11/personal-bodily-rights-abortion-and-unplugging-the-violinist.pdf">Parental obligation and responsibility</a>, <a href="https://www.routledge.com/The-Ethics-of-Abortion-Womens-Rights-Human-Life-and-the-Question-of-Justice/Kaczor/p/book/9781032304618">The Ethics of Abortion</a>, <a href="https://sites.pitt.edu/~mthompso/readings/foot.pdf">The doctrine of double effect</a>.</p>
+
+  <p>Don Marquis argues that a central wrong of killing is that it deprives someone of the relationships, experiences and projects their future would have held. If a fetus already has a future like ours, abortion deprives it of that future. For Marquis, this gives a strong moral reason against abortion without first having to establish fetal personhood. <a href="https://spot.colorado.edu/~norcross/Ab2.pdf">Why Abortion Is Immoral</a>.</p>
+
+  <p>This project takes seriously the possibility that the parental relationship creates duties before birth. Gestation calls for a degree of bodily support that ordinary caregiving rarely does, and adoption can transfer care only after childbirth. Any case for compelling pregnancy in law must explain why that duty justifies the burdens it places on the person who is pregnant and how clinicians can exercise judgment when a pregnancy threatens health or life.</p>
+
+  <div class="limit"><b>What remains unresolved.</b> What moral claims does prenatal life have at different stages? Can a parental duty require gestation, and how should rape, a life-limiting fetal diagnosis or serious health risks affect that duty? Even where a moral duty exists, when may the state enforce it, and who should decide how much medical risk is too much?</div>
+</section>
+
+<section id="us-history">
+  <h2>U.S. abortion history, 1969 to 2025</h2>
   <div id="us-chart" class="chart"></div>
-  <p class="note">Line shows Guttmacher national estimates, 1973 to 2020. The #WeCount project separately estimated 1,126,760 abortions in the formal US health system in 2025, with 22% of that total imputed. Its method differs, so it is shown as a separate point.</p>
-  <p>The number of US abortions peaked around 1990 (the rate peaked around 1980), fell for almost three decades, rose after 2017, and held roughly steady from 2024 to 2025. Worldwide, the rate dipped slightly into the early 2000s and has since returned to its early-1990s level, while the share of unintended pregnancies ending in abortion rose from 51% to 61%.</p>
-  <div class="limit"><b>A finding that cuts across both camps.</b> Abortion rates are similar where it is broadly legal (40 per 1,000 women) and where it is restricted (36 per 1,000), though excluding China and India the rate is higher where it is restricted. These comparisons suggest that legal status alone does not determine the number.</div>
+  <div id="us-legend" aria-label="Chart series"></div>
+  <p class="note">The <a href="#osf-us-pregnancy-csv">Guttmacher historical estimates</a> cover 1973 to 2020. The <a href="#cdc-abortion-1972">earliest CDC surveillance</a> starts in 1969 with limited reporting. CDC counts cover the jurisdictions that reported each year. The break in 1998 marks a coverage change that included the loss of California from the series. <a href="#cdc-abortion-2005">CDC 2005</a>, <a href="#cdc-abortion-2014">CDC 2014</a>, <a href="#cdc-abortion-2022">CDC 2022</a>.</p>
+  <p class="note">The <a href="#guttmacher-full-year-2025-appendix">Guttmacher monthly study</a> estimates clinician-provided abortions, including telehealth under shield laws, for 2023 to 2025. Its estimates exclude self-managed abortions outside the formal health system and abortions provided under exceptions in states with total bans. The <a href="#wecount-dec-2025">Society of Family Planning’s #WeCount</a> independently estimated 1,126,760 abortions in the formal U.S. health system in 2025.</p>
+  <details><summary>View the annual U.S. data</summary><div class="table-scroll"><table id="us-table"><thead><tr><th scope="col">Year</th><th scope="col">CDC reported</th><th scope="col">CDC reporting areas</th><th scope="col">Guttmacher historical estimate</th><th scope="col">Historical rate per 1,000 women aged 15 to 44</th><th scope="col">Guttmacher monthly study estimate</th><th scope="col">Monthly study 90% interval</th></tr></thead></table></div></details>
+  <p>The Guttmacher historical count peaked in 1990, generally fell until 2017, and then rose through 2020. The newer study shows roughly steady counts in 2024 and 2025. Worldwide, the estimated abortion rate among women aged 15 to 49 dipped in the early 2000s before returning to near its early-1990s level by 2015 to 2019. The estimated share of unintended pregnancies ending in abortion rose from 51% to 61%. <a href="#bearak-2020-lancet-gh">Global estimates</a>.</p>
+  <div class="limit">For 2015 to 2019, researchers estimated 40 abortions per 1,000 women aged 15 to 49 where abortion was broadly legal and 36 where it was restricted. Excluding China and India brought the broadly legal estimate to 26. Groups also differed in rates of unintended pregnancy. <a href="#bearak-2020-lancet-gh">Study by legal status</a>.</div>
 </section>
 
 <section>
   <h2>Family, fragility and the thing we cannot measure</h2>
-  <p>The strongest evidence here concerns connection. A meta-analysis of 148 studies and over 300,000 people found that those with stronger social relationships had 50% greater odds of survival, an association the authors called comparable with quitting smoking. Married people also report higher life satisfaction, and one major British panel study found that this advantage persists after accounting for how happy people were before marriage.</p>
-  <p>This is the case for antifragility. A person embedded in marriage, children, parents and cousins has people who will absorb a shock with them, and people who will tell them the truth. A person who curates their whole environment meets little resistance, and so never builds the capacity to bear it.</p>
+  <p>The strongest evidence here concerns connection. A meta-analysis of 148 studies and over 300,000 people found that those with stronger social relationships had 50% greater odds of survival. One British panel study found that married participants reported higher life satisfaction after accounting for their well-being before marriage. <a href="https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1000316&amp;type=printable">Holt-Lunstad and colleagues</a>, <a href="https://www.nber.org/system/files/working_papers/w20794/w20794.pdf">Grover and Helliwell</a>.</p>
+  <p>Supportive marriages and extended families can give people someone to share a shock with and someone willing to tell them the truth. Friendships, work and community commitments can also help people learn to bear hardship. The case this project makes is that supportive family ties can build resilience under stress.</p>
   <div class="compare">
-    <div><strong>10.4 → 14.1</strong><span>US suicide rate per 100,000, 2000 to 2023</span></div>
-    <div><strong>13.6 → 8.8</strong><span>Global suicide rate per 100,000, 2000 to 2021</span></div>
+    <div><strong>10.8 → 14.1</strong><span>U.S. age-adjusted suicide rate per 100,000, 2003 to 2023. <a href="#nchs-db541">NCHS</a>.</span></div>
+    <div><strong>−35%</strong><span>Change in global age-standardized suicide rate, 2000 to 2021. <a href="https://iris.who.int/server/api/core/bitstreams/769d0a45-b50a-4b17-ba40-259bef44d9dd/content">WHO</a>.</span></div>
   </div>
-  <div class="limit"><b>What the evidence does not show.</b> The US suicide rate rose from 2000 to 2018, dipped in 2019 and 2020, and returned to about 14 per 100,000, but the global rate fell by about a third while abortion stayed common. No data here shows that abortion causes suicide or unhappiness. Researchers also still debate how much of marriage's benefit comes from happier people being likelier to marry. The link proposed here is a hypothesis about social structure, offered for argument.</div>
+  <div class="limit"><b>What the evidence can tell us.</b> The U.S. and global figures cover different periods and describe population trends. They cannot establish a causal link between abortion and suicide or unhappiness. The link proposed here is a hypothesis about social structure, offered for argument.</div>
+</section>
+
+<section id="family-and-civic-life">
+  <h2>What families and communities teach</h2>
+  <p>Family life can teach people how to keep a promise when keeping it is inconvenient. In the <i>Politics</i>, Aristotle treats the household as an association that meets everyday needs. In the <i>Nicomachean Ethics</i>, he argues that moral virtue develops through practice. Taken together, these ideas suggest why the ordinary work of raising children, caring for elders, and making amends matters. Aristotle defended male authority and slavery within the household. His account of how habits form can also be put to work in households whose members have equal standing. <sup><a href="#old-thinkers-politics">1</a>, <a href="#old-thinkers-ethics">2</a></sup></p>
+  <p>The Confucian <i>Analects</i> treats care and respect for parents as part of moral cultivation. It also counsels people to raise objections gently when they disagree with their parents. In <i>Reflections on the Revolution in France</i>, Edmund Burke describes political society as a partnership that joins the living with their predecessors and with people yet to be born. That view asks us to consider what future generations will inherit alongside what people need today. <sup><a href="#old-thinkers-analects">3</a>, <a href="#old-thinkers-burke">4</a></sup></p>
+  <p>In <i>Suicide</i>, Émile Durkheim argued that weaker integration into family, religious, and political groups helped explain differences in suicide rates across populations. Alexis de Tocqueville saw voluntary associations as a way for people in a democracy to learn to act together. In his 1995 essay <i>Bowling Alone</i>, Robert D. Putnam documented declines in many forms of American civic participation in the late twentieth century. A bowling league illustrates what is at stake. Meeting regularly gives people a chance to build trust and learn who will show up when needed. <sup><a href="#old-thinkers-durkheim">5</a>, <a href="#old-thinkers-tocqueville">6</a>, <a href="#old-thinkers-putnam">7</a></sup></p>
+  <p>These ties can help people absorb a shock. Nassim Nicholas Taleb calls a system antifragile when it gains from variation or stress. Take a household where an illness prompts relatives and neighbors to share school pickups. If the arrangement leaves the household with more people it can call on in the next crisis, it illustrates antifragility. If the same work repeatedly falls to one exhausted caregiver, the household may have coped while leaving that person more vulnerable. <sup><a href="#old-thinkers-taleb">8</a></sup></p>
+  <div class="limit">
+    <p>Susan Moller Okin argues that assigning most unpaid care to women can curb their earning power and leave them dependent on a partner. John Stuart Mill's <i>On Liberty</i> warns that social pressure can restrict freedom and argues that preventing harm to others is what justifies coercion of adults. A defense of family life must reckon with who bears the costs of care and leave room for people to dissent from the roles others expect them to fill. <sup><a href="#old-thinkers-okin">9</a>, <a href="#old-thinkers-mill">10</a></sup></p>
+  </div>
+  <p>These questions carry into the abortion debate. Many opponents of abortion see protecting prenatal life as a duty to a vulnerable human being. Many defenders of abortion access emphasize bodily autonomy and the burdens of being compelled to continue a pregnancy. An ethic of care across generations leaves open how to weigh those claims in law. It gives people on both sides a reason to ask who will share the work of caring for children and what makes that care possible.</p>
+  <h3>Works cited</h3>
+  <ol class="sources">
+    <li id="old-thinkers-politics">Aristotle, <a href="https://classics.mit.edu/Aristotle/politics.1.one.html"><i>Politics</i></a>, Book I.</li>
+    <li id="old-thinkers-ethics">Aristotle, <a href="https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html"><i>Nicomachean Ethics</i></a>, Book II.</li>
+    <li id="old-thinkers-analects">Confucius and his disciples, <a href="https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects"><i>Analects</i></a>, 1.2 and 4.18.</li>
+    <li id="old-thinkers-burke">Edmund Burke, <a href="https://constitution.org/2-Authors/eb/rev_fran.htm"><i>Reflections on the Revolution in France</i></a>.</li>
+    <li id="old-thinkers-durkheim">Émile Durkheim, <a href="https://classiques.uqam.ca/classiques/Durkheim_emile/suicide/suicide_Livre_2.pdf"><i>Suicide</i></a>, Book II, chapters II and III.</li>
+    <li id="old-thinkers-tocqueville">Alexis de Tocqueville, <a href="https://en.wikisource.org/wiki/Democracy_in_America/Volume_2/Book_2/Chapter_5"><i>Democracy in America</i></a>, volume II, part II, chapter V.</li>
+    <li id="old-thinkers-putnam">Robert D. Putnam, <a href="https://www.journalofdemocracy.org/articles/bowling-alone-americas-declining-social-capital/"><i>Bowling Alone: America’s Declining Social Capital</i></a>.</li>
+    <li id="old-thinkers-taleb">Nassim Nicholas Taleb, <a href="https://www.penguinrandomhouse.com/books/176227/antifragile-by-nassim-nicholas-taleb/hardcover/"><i>Antifragile: Things That Gain from Disorder</i></a>.</li>
+    <li id="old-thinkers-okin">Susan Moller Okin, <a href="https://www.hachettebookgroup.com/titles/susan-moller-okin/justice-gender-and-the-family/9780465037032/"><i>Justice, Gender, and the Family</i></a>.</li>
+    <li id="old-thinkers-mill">John Stuart Mill, <a href="https://en.wikisource.org/wiki/On_Liberty/Chapter_1"><i>On Liberty</i></a>, chapter I.</li>
+  </ol>
 </section>
 
 <section>
   <h2>Public money and public conscience</h2>
-  <p>Should people be taxed to pay for something they believe is the taking of a life? Since 1977 the Hyde Amendment has largely barred federal Medicaid money from paying for abortion. Its current exceptions cover rape, incest and danger to the woman's life. The rape and incest exceptions were dropped in 1981 and restored in 1993. States may go further with their own revenue.</p>
+  <p>Should people be taxed to pay for something they believe is the taking of a life? Since fiscal year 1977 the Hyde Amendment has largely barred federal Medicaid funds from paying for abortion. Its exceptions cover rape, incest and danger to the pregnant patient's life. Congress restored the rape and incest exceptions in 1993. States may fund broader coverage with their own revenue. <a href="https://www.congress.gov/crs_external_products/RL/PDF/RL33467/RL33467.53.pdf">Congressional Research Service</a>, <a href="https://www.kff.org/medicaid/state-indicator/abortion-under-medicaid/">KFF state policy analysis</a>.</p>
   <div class="compare three">
-    <div><strong>21</strong><span>states use their own funds to cover abortion for Medicaid enrollees</span></div>
-    <div><strong>16 + DC</strong><span>follow the federal Hyde limits, five of them with narrow added exceptions</span></div>
-    <div><strong>13</strong><span>states ban abortion</span></div>
+    <div><strong>21</strong><span>states use their own funds for broader Medicaid abortion coverage</span></div>
+    <div><strong>16 + DC</strong><span>follow the federal Hyde limits, some with narrow additional exceptions</span></div>
+    <div><strong>13</strong><span>states ban abortion, subject to exceptions</span></div>
   </div>
-  <p>Medical education raises the same question. Accredited OB/GYN residencies must provide clinical experience in abortion or access to it, including in another state where it is unlawful locally, and residents with religious or moral objections may opt out. Before <i>Dobbs</i>, an estimated 140 of 286 programs (49%) offered routine abortion training, based on Ryan Program status or program acknowledgment.</p>
-  <div class="limit"><b>The other side of the ledger.</b> The same training teaches management of miscarriage and obstetric emergencies, so removing it has clinical costs. Taxpayers also fund many things others object to on conscience, including war. This project reports funding by policy and state. It does not trace money or training to named hospitals, universities or doctors.</div>
+  <p class="note">State totals as of July 24, 2026. <a href="https://www.kff.org/medicaid/state-indicator/abortion-under-medicaid/">KFF state policy analysis</a>.</p>
+  <p>Medical education raises the same question. Accredited OB/GYN residencies must provide clinical experience in abortion or access to it, including support for training in another state where local law prevents it. Residents may opt out. Before <i>Dobbs</i>, 140 of 286 programs (49%) offered routine abortion training, based on Ryan Program status or program acknowledgment. <a href="https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf">ACGME requirements</a>, <a href="https://institutionalrepository.aah.org/auroragme/329">Vinekar and colleagues</a>.</p>
+  <div class="limit"><b>The other side of the ledger.</b> Training in abortion builds skills that clinicians also use to manage miscarriage and obstetric emergencies. Taxpayers fund many things people object to on conscience, including war. This project reports funding by policy and state. <a href="https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf">ACGME requirements and FAQs</a>.</div>
 </section>
 
 <section>
   <h2>Why people say they choose it</h2>
-  <p>Any serious account of virtue has to meet the person in the waiting room. In a study of 954 women seeking abortion, most gave more than one reason.</p>
+  <p>Any serious account of virtue has to meet the person in the waiting room. In a study published in 2013 of 954 women seeking abortion in the United States, most gave more than one reason. <a href="https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29">Biggs and colleagues</a>.</p>
   <div class="compare four">
     <div><strong>40%</strong><span>financial reasons</span></div>
     <div><strong>36%</strong><span>timing</span></div>
     <div><strong>31%</strong><span>partner-related reasons</span></div>
     <div><strong>29%</strong><span>need to focus on other children</span></div>
   </div>
-  <p>Read through this project's thesis, those answers describe missing structure: too little money, an absent partner, no family nearby to share the load. People on every side of the debate could work on that together.</p>
+  <p>The answers show how money, timing, relationships and care for existing children can weigh on a decision. People on every side of the debate can ask what stronger support might change.</p>
 </section>
 
 <section>
   <h2>Community, heritage and the economy</h2>
-  <p>Select any country on the map to see its births, abortions and a simple economic thought experiment. A nation is a chain of people handing down language, skills, obligations and memory. Each missing link is also a missing worker, neighbor, parent and caregiver. Aging countries feel this first, in strained pensions and in reliance on migration to fill the gap.</p>
-  <p>This gives an unusual argument for both heritage and global cooperation. Every culture's survival depends on its own families, and a world of secure, continuing peoples has more to exchange.</p>
-  <div class="limit"><b>Why the GDP figure is only a thought experiment.</b> It multiplies abortions by output per person. Many women who have an abortion go on to have children later, so not every abortion means one fewer lifetime birth. Childbearing also affects women's education and earnings, which this simple figure leaves out.</div>
+  <p>Select a country with published estimates on the map to see its births, abortions and a simple economic thought experiment. A nation is a chain of people handing down language, skills, obligations and memory. Where fewer births mean fewer people in the next generation, the effects can reach workplaces, neighborhoods and families. Population aging can strain pension systems and shrink workforces, and migration can help fill some labor shortages. <a href="https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf">World Bank on pensions and aging</a>, <a href="https://www.worldbank.org/en/publication/wdr2023">World Bank on migration</a>.</p>
+  <p>Families and communities can keep a culture alive and carry its language, skills and memory into exchanges with others.</p>
+  <div class="limit"><b>What the GDP figure assumes.</b> It multiplies yearly abortions by <a href="https://data360files.worldbank.org/data360-data/metadata/WB_WDI/WB_WDI_NY_GDP_PCAP_CD.pdf">output per person</a>. Some people who have abortions have children in later years, and childbearing can affect earnings. Both are missing from this simple calculation. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6248140/">Foster and colleagues</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10629572/">U.S. administrative earnings study</a>.</div>
 </section>
 
 <section id="act">
   <h2>If this is personal, or if you want to act</h2>
+  <p class="note">Online services and directories link to their current information.</p>
   <div class="cards">
     <div class="card"><h3>Pregnant and deciding</h3><ul>
       <li><a href="https://www.abortionfinder.org/">Abortion Finder</a> lists verified US providers and current state law.</li>
@@ -129,7 +179,7 @@
     <div class="card"><h3>Continuing a pregnancy</h3><ul>
       <li><a href="https://www.fns.usda.gov/wic">WIC</a> provides food and health support for mothers and children.</li>
       <li><a href="https://www.211.org/">211</a> connects you to local housing, food and childcare help.</li>
-      <li>Maternal Mental Health Hotline: call or text <a href="tel:18338526262">1-833-852-6262</a>, 24 hours a day.</li>
+      <li><a href="https://mchb.hrsa.gov/programs-impact/national-maternal-mental-health-hotline">National Maternal Mental Health Hotline</a>. Call or text <a href="tel:18338526262">1-833-852-6262</a>, 24 hours a day.</li>
     </ul></div>
     <div class="card"><h3>In crisis</h3><ul>
       <li>Call or text <a href="tel:988">988</a> for the Suicide &amp; Crisis Lifeline.</li>
@@ -141,13 +191,13 @@
       <li>Testify at public hearings, write to local papers, vote, and support families directly.</li>
     </ul></div>
   </div>
-  <div class="limit"><b>Why this site has no list of clinics or staff.</b> Abortion providers have faced murder, arson and threats. In <i>Planned Parenthood v. American Coalition of Life Activists</i>, a divided federal appeals court upheld a finding that "GUILTY" posters naming abortion providers, together with listing those plaintiffs on a website, were true threats. Disagreement belongs with lawmakers and in public argument. Never approach, harass or threaten patients or staff.</div>
+  <div class="limit"><b>Why this site has no list of clinics or staff.</b> Abortion providers have faced murder, arson and threats. In <i>Planned Parenthood v. American Coalition of Life Activists</i>, a divided federal appeals court upheld a finding that "GUILTY" posters naming abortion providers, together with listing those plaintiffs on a website, were true threats. Disagreement belongs with lawmakers and in public argument. Never approach, harass or threaten patients or staff. <a href="https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/">National Abortion Federation incident reports</a>, <a href="https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf">Ninth Circuit opinion</a>.</div>
 </section>
 
 <section id="sources">
   <h2>Sources</h2>
   <ul class="sources" id="source-list"></ul>
-  <p class="note">Open-licensed copies are archived in this project's <code>references</code> folder, with checksums for every saved file. Country estimates are from Bearak et al. 2022 and are reused under CC BY-NC 4.0, so this site is noncommercial.</p>
+  <p class="note">The repository’s <code>references</code> folder contains an offline archive, with checksums and original URLs in its manifest. The repository includes redistributable copies. Other saved references are available in the local archive. Country estimates are from Bearak et al. 2022 and are reused under CC BY-NC 4.0, so this site is noncommercial.</p>
 </section>
 </main>
 <footer><p>An independent inquiry. It offers no medical or legal advice.</p></footer>

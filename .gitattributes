@@ -1,0 +1,2 @@
+# Preserve archived documents byte for byte.
+references/open/** -text -diff

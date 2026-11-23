@@ -7,32 +7,10 @@ const METRICS = {
 };
 const exact = n => n < 2e6 ? fmt(n) : short(n);
 const STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5"].map(v => `var(${v})`);
-const SOURCES = [
-  ["WHO, Abortion fact sheet", "https://www.who.int/news-room/fact-sheets/detail/abortion"],
-  ["Bearak et al. 2022, BMJ Global Health, country estimates", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/"],
-  ["Bearak et al. 2020, Lancet Global Health, global trends", "https://pubmed.ncbi.nlm.nih.gov/32710833/"],
-  ["Guttmacher, Induced Abortion Worldwide", "https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide"],
-  ["Guttmacher, Global Abortion Incidence Dataset", "https://osf.io/5k7fp/"],
-  ["Guttmacher, US National and State Pregnancy Trends", "https://osf.io/kthnf/"],
-  ["Society of Family Planning, #WeCount", "https://societyfp.org/research/wecount/wecount-december-2025-data/"],
-  ["World Bank, GDP per capita 2023", "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD"],
-  ["NIMH, Suicide statistics", "https://www.nimh.nih.gov/health/statistics/suicide"],
-  ["NCHS Data Brief 541", "https://www.cdc.gov/nchs/products/databriefs/db541.htm"],
-  ["Our World in Data, WHO suicide rates", "https://ourworldindata.org/grapher/death-rate-from-suicides-gho"],
-  ["Holt-Lunstad et al. 2010, PLoS Medicine", "https://journals.plos.org/plosmedicine/article?id=10.1371/journal.pmed.1000316"],
-  ["Grover and Helliwell, How's Life at Home?", "https://www.nber.org/papers/20794"],
-  ["KFF, The Hyde Amendment and Medicaid coverage", "https://www.kff.org/womens-health-policy/issue-brief/the-hyde-amendment-and-coverage-for-abortion-services/"],
-  ["KFF, State policies on abortion coverage", "https://www.kff.org/womens-health-policy/issue-brief/interactive-how-state-policies-shape-access-to-abortion-coverage/"],
-  ["ACGME, OB/GYN program requirements, 2026", "https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf"],
-  ["Vinekar et al. 2024, residency training after Dobbs", "https://institutionalrepository.aah.org/auroragme/329"],
-  ["Biggs et al. 2013, reasons for seeking abortion", "https://bmcwomenshealth.biomedcentral.com/articles/10.1186/1472-6874-13-29"],
-  ["National Abortion Federation, violence and disruption statistics (self-reported)", "https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/"],
-  ["Taylor, Decimatio: Myth, Discipline and Death", "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf"],
-  ["Livius.org, Decimation", "https://livius.org/articles/concept/decimation"],
-  ["Archaeology Magazine, Carthage 2014", "https://archaeology.org/news/2014/01/23/140123-carthage-tophet-sacrifice"],
-  ["Wikipedia, Child sacrifice", "https://en.wikipedia.org/wiki/Child_sacrifice"],
-  ["Planned Parenthood v. ACLA, 290 F.3d 1058 (9th Cir. 2002)", "https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf"],
-];
+const sourceLink = (source, label = source.title) => `<a href="${source.url}">${label}</a>`;
+const countyKey = name => name.toLowerCase().replace(/[^a-z]/g, "");
+const COUNTY_BINS = [10, 50, 250, 1000];
+const mapWrap = document.querySelector(".map-wrap");
 
 const now = new Date();
 const start = new Date(now.getFullYear(), 0, 1);
@@ -44,9 +22,17 @@ document.querySelectorAll(".waffle").forEach(w => {
   w.setAttribute("aria-label", `${n} of 100 squares filled`);
   w.innerHTML = Array.from({ length: 100 }, (_, i) => `<i class="${i < n ? "f" : ""}"></i>`).join("");
 });
-document.getElementById("source-list").innerHTML = SOURCES.map(([t, u]) => `<li><a href="${u}">${t}</a></li>`).join("");
-
-Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json"), d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json")]).then(([data, world, us, stateData, usMap]) => {
+Promise.all([
+  d3.json("data/countries.json"), d3.json("vendor/countries-110m.json"),
+  d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
+  d3.json("data/us-history.json"), d3.json("data/counties.json"), d3.json("data/sources.json"),
+]).then(([data, world, us, stateData, usMap, history, counties, bibliography]) => {
+  const sources = new Map(bibliography.map(source => [source.id, source]));
+  d3.select("#source-list").selectAll("li").data(bibliography).join("li")
+    .attr("id", source => source.id).append("a").attr("href", source => source.url).text(source => source.title);
+  const cite = (id, label) => sourceLink(sources.get(id), label);
+  const newUS = history.recent.rows.at(-1);
+  let countyYear, countyRows = new Map(), activeCounty, countyGeometry;
   const byId = new Map(data.map(d => [d.id, d]));
   let metric = "abortions", selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
@@ -72,6 +58,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   const bins = () => view === "world" ? METRICS[metric].bins : STATE_BINS[metric];
   const color = v => STEPS[d3.bisect(bins(), v)];
   const worldG = svg.append("g"), usG = svg.append("g").style("display", "none");
+  const countyG = svg.append("g").style("display", "none");
   const stateFeatures = topojson.feature(usMap, usMap.objects.states).features.filter(f => stateById.has(f.id));
   const albers = d3.geoAlbersUsa().fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: stateFeatures });
   const usPath = d3.geoPath(albers);
@@ -143,36 +130,137 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
+    document.querySelector(".controls").hidden = view === "state" && !!counties[activeState.id];
+    svg.attr("aria-label", view === "world" ? "World map of estimated abortions by country"
+      : view === "us" ? "United States map of estimated abortions by state of residence"
+      : counties[activeState.id] ? `County counts by residence in ${activeState.name}` : `Map of ${activeState.name}`);
     document.getElementById("state-pick").hidden = view === "world";
     document.getElementById("state").value = activeState ? activeState.id : "";
     c.querySelectorAll("button").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
   }
   function usPanel() {
-    document.getElementById("panel").innerHTML = `<h3>United States</h3><span class="small">Guttmacher estimates</span><dl><dt>Abortions, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${usLatest.rate}</dd><dt>Estimated, 1973 to ${usLatest.year}</dt><dd>${short(usTotal)}</dd><dt>#WeCount, 2025</dt><dd>1,126,760</dd></dl><p class="small">Select a state on the map. Counts before 1973 are not included because abortion was largely illegal and no comparable national series exists.</p>`;
+    document.getElementById("panel").innerHTML = `<h3>United States</h3><dl><dt>Estimated, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd>
+      <dt>Rate per 1,000 women aged 15 to 44, ${usLatest.year}</dt><dd>${usLatest.rate}</dd>
+      <dt>Estimated, 1973 to ${usLatest.year}</dt><dd>${short(usTotal)}</dd>
+      <dt>Clinician-provided estimate, ${newUS.year}</dt><dd>${fmt(newUS.abortions)}</dd></dl>
+      <p class="small">The map shows 2020 estimates by state of residence. Choose a state for its history and available county counts. The <a href="#us-history">U.S. history chart</a> includes early CDC reports and newer Guttmacher estimates.</p>`;
   }
   function enterUS() {
     view = "us"; activeState = null; selected = byId.get(840);
+    countyG.style("display", "none"); tip.attr("hidden", true);
+    document.getElementById("map-heading").textContent = "United States, state by state";
     worldG.style("display", "none"); usG.style("display", null).attr("transform", null);
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
-    setBanner("United States", fmt(usLatest.abortions), `estimated in ${usLatest.year}. #WeCount estimated 1,126,760 in 2025.`, short(usTotal), `estimated from 1973 to ${usLatest.year}, the span of the national series`);
+    setBanner("United States", fmt(newUS.abortions), `clinician-provided estimate in ${newUS.year}`, short(usTotal), `estimated from 1973 to ${usLatest.year} in the historical series`);
     usPanel(); crumbs(); paint();
   }
   function leaveUS() {
     view = "world"; activeState = null;
+    countyG.style("display", "none"); tip.attr("hidden", true);
+    document.getElementById("map-heading").textContent = "The world, country by country";
     usG.style("display", "none"); worldG.style("display", null);
     worldBanner(); crumbs(); select(byId.get(840), true);
   }
   function selectState(d) {
-    view = "state"; activeState = d;
+    view = "state"; activeState = d; activeCounty = null;
+    worldG.style("display", "none"); usG.style("display", null);
+    countyG.style("display", "none").selectAll("path").remove();
+    tip.attr("hidden", true);
+    document.getElementById("map-heading").textContent = d.name;
     const f = stateFeatures.find(x => x.id === d.id), [[x0, y0], [x1, y1]] = usPath.bounds(f);
     const k = Math.min(7, 0.82 / Math.max((x1 - x0) / W, (y1 - y0) / H));
-    usG.attr("transform", `translate(${W / 2 - k * (x0 + x1) / 2},${H / 2 - k * (y0 + y1) / 2}) scale(${k})`);
+    const transform = `translate(${W / 2 - k * (x0 + x1) / 2},${H / 2 - k * (y0 + y1) / 2}) scale(${k})`;
+    usG.attr("transform", transform); countyG.attr("transform", transform);
     stateLabels.style("display", "none");
     setBanner(d.name, fmt(d.abortions), `estimated in ${d.year}`, short(d.total2005to2020), "estimated from 2005 to 2020, the longest unbroken state series");
-    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate by state of residence, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.")}<p class="small">County figures are not shown. We found no national county dataset, and small-county counts can expose individual patients.</p>`;
+    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate by state of residence, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>
+      ${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.", true)}
+      <details><summary>View annual state estimates</summary><div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Estimated abortions</th></tr></thead><tbody>
+      ${d.reported.map(([year, count]) => `<tr><th scope="row">${year}</th><td>${fmt(count)}</td></tr>`).join("")}</tbody></table></div></details>
+      <div id="county-panel"></div>`;
     crumbs(); paint();
     reveal(stateShapes.filter(x => x === f).node());
+    showCounties(d);
+  }
+
+  function showCounties(state) {
+    const panel = document.getElementById("county-panel");
+    const countyData = counties[state.id];
+    if (!countyData) {
+      panel.innerHTML = "<h4>County counts</h4><p class='small'>No county-of-residence series is available for this state in this tracker.</p>";
+      return;
+    }
+    const years = Object.keys(countyData.years).sort((a, b) => b - a);
+    panel.innerHTML = `<h4>County counts by residence</h4>
+      <label class="pick">Year <select id="county-year">${years.map(year => `<option>${year}</option>`).join("")}</select></label>
+      <p class="small">${countyData.scope} <span id="county-source"></span>.</p>
+      <p id="county-status" class="small" role="status"></p>
+      <div id="county-detail"></div>
+      <details><summary>View county counts as a table</summary><div class="table-scroll"><table id="county-table"></table></div></details>`;
+    const yearPick = document.getElementById("county-year");
+    const update = () => {
+      countyYear = yearPick.value;
+      activeCounty = null;
+      const source = countyData.sourceByYear?.[countyYear] ?? countyData.source;
+      document.getElementById("county-source").innerHTML = countyData.report
+        ? `${cite(countyData.report, "Source report")} · ${cite(source, "Data file")}`
+        : cite(source, "Source report");
+      countyRows = new Map(countyData.years[countyYear].map(row => [countyKey(row.name), row]));
+      d3.select("#county-table").html("<thead><tr><th scope='col'>County</th><th scope='col'>Reported abortions</th></tr></thead>")
+        .append("tbody").selectAll("tr").data([...countyRows.values()].sort((a, b) => a.name.localeCompare(b.name)))
+        .join("tr").selectAll("td").data(row => [row.name, countyCount(row)]).join("td").text(value => value);
+      document.getElementById("county-detail").textContent = "Select a county on the map for its reported count.";
+      paint();
+      tip.attr("hidden", true);
+    };
+    yearPick.addEventListener("change", update);
+    update();
+    const status = document.getElementById("county-status");
+    status.textContent = "Loading county boundaries…";
+    countyGeometry ??= d3.json("vendor/counties-10m.json")
+      .then(topology => topojson.feature(topology, topology.objects.counties).features);
+    countyGeometry.then(features => {
+      if (view !== "state" || state !== activeState || !panel.isConnected) return;
+      const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
+      const nameFor = feature => rowFor(feature)?.name ?? feature.properties.name;
+      const description = feature => `${nameFor(feature)}, ${countyYear}: ${countyCount(rowFor(feature))}`;
+      const pickCounty = feature => {
+        activeCounty = feature;
+        countyG.selectAll("path").classed("sel", f => f === feature);
+        document.getElementById("county-detail").textContent = description(feature);
+      };
+      countyG.style("display", null).selectAll("path")
+        .data(features.filter(f => f.id.startsWith(state.id))).join("path")
+        .attr("class", "county").attr("d", usPath).attr("tabindex", 0).attr("role", "button")
+        .on("mousemove", (event, feature) => {
+          const [x, y] = d3.pointer(event, mapWrap);
+          tip.attr("hidden", null).style("left", Math.min(x + 12, mapWrap.clientWidth - 200) + "px")
+            .style("top", y + 12 + "px").text(description(feature));
+        })
+        .on("mouseleave", () => tip.attr("hidden", true))
+        .on("click", (_, feature) => pickCounty(feature))
+        .on("keydown", (event, feature) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            pickCounty(feature);
+          }
+        });
+      status.textContent = "";
+      paint();
+    }).catch(() => {
+      countyGeometry = null;
+      if (panel.isConnected) {
+        status.textContent = "County boundaries could not load. County counts are available in the table.";
+        document.getElementById("county-detail").textContent = "";
+        panel.querySelector("details").open = true;
+      }
+    });
+  }
+
+  function countyCount(row) {
+    if (!row) return "No published figure";
+    return row.count == null ? "Suppressed" : fmt(row.count);
   }
 
   function reveal(n) {
@@ -195,20 +283,41 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     stateShapes.filter(".sel").raise();
     stateLabels.text(f => `${stateById.get(f.id).abbr} ${METRICS[metric].show(stateById.get(f.id)[metric])}`);
     labelValues.text(l => METRICS[metric].show(l.d[metric]));
-    const b = bins(), s = METRICS[metric].show;
-    const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1])}`), `${s(b[b.length - 1])} or more`];
-    document.getElementById("legend").innerHTML = names.map((n, i) => `<span><i style="background:${STEPS[i]}"></i>${n}</span>`).join("") + `<span><i style="background:var(--nodata)"></i>no estimate</span>`;
+    const countyView = view === "state" && !!counties[activeState.id];
+    if (countyView) {
+      const rowFor = f => countyRows.get(countyKey(f.properties.name));
+      countyG.selectAll("path").attr("fill", f => {
+        const n = rowFor(f)?.count;
+        return n == null ? "var(--nodata)" : STEPS[d3.bisect(COUNTY_BINS, n)];
+      }).attr("aria-label", f => `${f.properties.name}, ${countyYear}: ${countyCount(rowFor(f))}`)
+        .classed("sel", f => f === activeCounty);
+    }
+    const b = countyView ? COUNTY_BINS : bins(), s = countyView ? fmt : METRICS[metric].show;
+    const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1] - (countyView ? 1 : 0))}`), `${s(b.at(-1))} or more`];
+    document.getElementById("legend").innerHTML = (countyView ? `<strong>Reported abortions · ${countyYear || ""}</strong>` : "") +
+      names.map((n, i) => `<span><i style="background:${STEPS[i]}"></i>${n}</span>`).join("") +
+      `<span><i style="background:var(--nodata)"></i>${countyView ? "suppressed or unavailable" : "no estimate"}</span>`;
   }
-  function spark(d, caption = d.id === 840 ? "Guttmacher national estimates for the years in this series." : "Reported counts for the years in this series. Coverage varies, and these may differ from modeled estimates.") {
+  function spark(d, caption = "Reported counts for the years in this series. Coverage varies, and these may differ from modeled estimates.", showGaps = false) {
     if (d.reported.length < 3) return `<p class="small">Too few annual counts to chart a trend for this country.</p>`;
     const x = d3.scaleLinear(d3.extent(d.reported, r => r[0]), [6, 262]), y = d3.scaleLinear([0, d3.max(d.reported, r => r[1])], [62, 8]);
-    const line = d3.line(r => x(r[0]), r => y(r[1]));
+    const line = d3.line(r => x(r[0]), r => y(r[1])).defined(r => r !== null);
+    const points = showGaps ? d.reported.flatMap((r, index) =>
+      index && r[0] > d.reported[index - 1][0] + 1 ? [null, r] : [r]) : d.reported;
+    const dots = showGaps ? d.reported.filter(r => r[0] < 2005)
+      .map(([yr, n]) => `<circle cx="${x(yr)}" cy="${y(n)}" r="1.8" fill="var(--mark)"/>`).join("") : "";
     const [a, z] = [d.reported[0], d.reported[d.reported.length - 1]];
-    return `<svg viewBox="0 0 268 84" role="img" aria-label="Abortions, ${a[0]} ${fmt(a[1])} to ${z[0]} ${fmt(z[1])}"><path d="${line(d.reported)}" fill="none" stroke="var(--mark)" stroke-width="2"/><text x="2" y="80" font-size="11" fill="var(--ink2)">${a[0]}: ${short(a[1])}</text><text x="266" y="80" text-anchor="end" font-size="11" fill="var(--ink2)">${z[0]}: ${short(z[1])}</text></svg><p class="small">${caption}</p>`;
+    return `<svg viewBox="0 0 268 84" role="img" aria-label="Abortions, ${a[0]} ${fmt(a[1])} to ${z[0]} ${fmt(z[1])}"><path d="${line(points)}" fill="none" stroke="var(--mark)" stroke-width="2"/>${dots}<text x="2" y="80" font-size="11" fill="var(--ink2)">${a[0]}: ${short(a[1])}</text><text x="266" y="80" text-anchor="end" font-size="11" fill="var(--ink2)">${z[0]}: ${short(z[1])}</text></svg><p class="small">${caption}</p>`;
   }
   function select(d, keepBanner) {
     selected = d;
-    if (view !== "world") { view = "world"; activeState = null; usG.style("display", "none"); worldG.style("display", null); crumbs(); }
+    if (view !== "world") {
+      view = "world"; activeState = null;
+      usG.style("display", "none"); countyG.style("display", "none"); worldG.style("display", null);
+      tip.attr("hidden", true);
+      document.getElementById("map-heading").textContent = "The world, country by country";
+      crumbs();
+    }
     picked = !keepBanner;
     if (!keepBanner) {
       const n = d.reported.length, sum = d3.sum(d.reported, r => r[1]);
@@ -249,37 +358,68 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   select(selected, true);
   worldBanner();
   crumbs();
-  usChart(us);
+  usChart(us, history);
 }).catch(err => {
   console.error(err);
   document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";
 });
 
-function usChart(us) {
-  const W = 720, H = 300, m = { t: 16, r: 18, b: 28, l: 52 };
-  const point = { year: 2025, abortions: 1126760 };
-  const x = d3.scaleLinear([1973, 2025], [m.l, W - m.r]), y = d3.scaleLinear([0, 1800000], [H - m.b, m.t]);
-  const root = d3.select("#us-chart"), svg = root.append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
-    .attr("aria-label", "US abortions per year, 1973 to 2020, peaking near 1.6 million in 1990");
-  y.ticks(4).forEach(t => {
-    svg.append("line").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(t)).attr("y2", y(t)).attr("stroke", "var(--line)");
-    svg.append("text").attr("x", m.l - 8).attr("y", y(t) + 4).attr("text-anchor", "end").text(t ? t / 1e6 + "M" : "0");
+function usChart(us, history) {
+  const W = 720, H = 300, m = { t: 24, r: 24, b: 28, l: 60 };
+  const { cdc, recent } = history;
+  const series = [
+    { label: "CDC reports", rows: cdc.rows, color: "var(--ink2)", dash: "5 4" },
+    { label: "Guttmacher historical estimates", rows: us, color: "var(--mark)" },
+    { label: "Guttmacher monthly study", rows: recent.rows, color: "var(--sel)" },
+  ];
+  const first = cdc.rows[0].year, last = recent.rows.at(-1).year;
+  const x = d3.scaleLinear([first, last], [m.l, W - m.r]);
+  const y = d3.scaleLinear([0, 1800000], [H - m.b, m.t]);
+  const root = d3.select("#us-chart");
+  const svg = root.append("svg").attr("viewBox", `0 0 ${W} ${H}`).attr("role", "img")
+    .attr("aria-label", `U.S. abortion counts from ${first} to ${last}. Three series with different coverage. The annual data table follows.`);
+  y.ticks(4).forEach(n => {
+    svg.append("line").attr("x1", m.l).attr("x2", W - m.r).attr("y1", y(n)).attr("y2", y(n)).attr("stroke", "var(--line)");
+    svg.append("text").attr("x", m.l - 8).attr("y", y(n) + 4).attr("text-anchor", "end").text(n ? n / 1e6 + "M" : "0");
   });
-  [1973, 1990, 2005, 2020].forEach(t => svg.append("text").attr("x", x(t)).attr("y", H - 8).attr("text-anchor", "middle").text(t));
-  svg.append("path").datum(us).attr("fill", "none").attr("stroke", "var(--mark)").attr("stroke-width", 2).attr("d", d3.line(d => x(d.year), d => y(d.abortions)));
-  svg.append("circle").attr("cx", x(point.year)).attr("cy", y(point.abortions)).attr("r", 5).attr("fill", "var(--bg)").attr("stroke", "var(--mark)").attr("stroke-width", 2);
-  svg.append("text").attr("x", x(point.year)).attr("y", y(point.abortions) - 11).attr("text-anchor", "end").text("#WeCount 2025: 1.13M");
+  [first, 1980, 1990, 2000, 2010, last].forEach(year => svg.append("text").attr("x", x(year)).attr("y", H - 8).attr("text-anchor", "middle").text(year));
+  const line = d3.line(d => x(d.year), d => y(d.abortions));
+  for (const { label, rows, color, dash } of series) {
+    const segments = dash ? [rows.filter(d => d.year < 1998), rows.filter(d => d.year >= 1998)] : [rows];
+    svg.append("g").selectAll("path").data(segments).join("path").attr("fill", "none").attr("stroke", color)
+      .attr("stroke-width", 2.25).attr("stroke-dasharray", dash ?? null).attr("d", line);
+    d3.select("#us-legend").append("span").style("--series-color", color)
+      .classed("dashed", !!dash).text(label);
+  }
+  svg.append("g").selectAll("circle").data(recent.rows).join("circle").attr("cx", d => x(d.year))
+    .attr("cy", d => y(d.abortions)).attr("r", 3.5).attr("fill", series[2].color);
   const peak = us.reduce((a, b) => b.abortions > a.abortions ? b : a);
-  svg.append("text").attr("x", x(peak.year)).attr("y", y(peak.abortions) - 8).attr("text-anchor", "middle").text(`${peak.year} peak: ${(peak.abortions / 1e6).toFixed(2)}M`);
+  svg.append("text").attr("x", x(peak.year)).attr("y", y(peak.abortions) - 8).attr("text-anchor", "middle")
+    .text(`${peak.year} peak · ${(peak.abortions / 1e6).toFixed(2)}M`);
+  const byYear = series.map(s => new Map(s.rows.map(row => [row.year, row])));
+  const years = d3.range(first, last + 1);
+  d3.select("#us-table").append("tbody").selectAll("tr").data(years).join("tr").each(function (year) {
+    const [reported, historical, current] = byYear.map(rows => rows.get(year));
+    const display = row => row ? fmt(row.abortions) : "—";
+    const interval = current?.low != null && current?.high != null ? `${fmt(current.low)} to ${fmt(current.high)}` : "—";
+    const tr = d3.select(this);
+    tr.append("th").attr("scope", "row").text(year);
+    tr.selectAll("td").data([display(reported), reported?.areas ?? "—", display(historical),
+      historical?.rate ?? "—", display(current), interval]).join("td").text(d => d);
+  });
   const cross = svg.append("line").attr("y1", m.t).attr("y2", H - m.b).attr("stroke", "var(--ink2)").attr("visibility", "hidden");
-  const tip = root.append("div").attr("id", "us-tip").style("position", "absolute").style("pointer-events", "none").style("background", "var(--ink)").style("color", "var(--bg)").style("font", "13px system-ui").style("padding", "5px 8px").style("border-radius", "5px").style("display", "none");
+  const tip = root.append("div").attr("class", "chart-tip").attr("hidden", true);
   svg.append("rect").attr("x", m.l).attr("y", m.t).attr("width", W - m.l - m.r).attr("height", H - m.t - m.b).attr("fill", "transparent")
-    .on("mousemove", e => {
-      const yr = Math.round(x.invert(d3.pointer(e)[0])), d = us.find(u => u.year === yr);
-      if (!d) { cross.attr("visibility", "hidden"); tip.style("display", "none"); return; }
-      cross.attr("x1", x(yr)).attr("x2", x(yr)).attr("visibility", "visible");
-      const scale = root.node().clientWidth / W;
-      tip.style("display", "block").style("left", Math.min(x(yr) * scale + 8, root.node().clientWidth - 150) + "px").style("top", "8px").html(`<b>${yr}</b>: ${fmt(d.abortions)}`);
+    .on("mousemove", event => {
+      const year = Math.round(x.invert(d3.pointer(event)[0]));
+      const values = series.flatMap(({ label }, index) => {
+        const row = byYear[index].get(year);
+        return row ? [`${label} · ${fmt(row.abortions)}`] : [];
+      });
+      cross.attr("x1", x(year)).attr("x2", x(year)).attr("visibility", "visible");
+      const width = root.node().clientWidth;
+      tip.attr("hidden", null).style("left", Math.max(0, Math.min(x(year) * width / W + 8, width - 235)) + "px")
+        .html(`<b>${year}</b><br>${values.join("<br>")}`);
     })
-    .on("mouseleave", () => { cross.attr("visibility", "hidden"); tip.style("display", "none"); });
+    .on("mouseleave", () => { cross.attr("visibility", "hidden"); tip.attr("hidden", true); });
 }

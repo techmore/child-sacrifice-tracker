@@ -1,0 +1,452 @@
+[
+  {
+    "id": "who-abortion-factsheet",
+    "title": "WHO, Abortion fact sheet",
+    "url": "https://www.who.int/news-room/fact-sheets/detail/abortion"
+  },
+  {
+    "id": "who-country-estimates-2022",
+    "title": "WHO, First-ever country-level estimates of unintended pregnancy and abortion",
+    "url": "https://www.who.int/news/item/24-03-2022-first-ever-country-level-estimates-of-unintended-pregnancy-and-abortion"
+  },
+  {
+    "id": "bearak-2020-lancet-gh",
+    "title": "Bearak et al. 2020, Lancet Global Health (CC BY)",
+    "url": "https://clacaidigital.info/bitstream/handle/123456789/1317/unitendend%20pregnancy.pdf?sequence=3"
+  },
+  {
+    "id": "bearak-2022-bmj-gh",
+    "title": "Bearak et al. 2022, BMJ Global Health, full text (CC BY-NC)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/"
+  },
+  {
+    "id": "guttmacher-worldwide-factsheet",
+    "title": "Guttmacher, Induced Abortion Worldwide",
+    "url": "https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide"
+  },
+  {
+    "id": "guttmacher-country-explainer",
+    "title": "Guttmacher, Country-Level Estimates Explained",
+    "url": "https://www.guttmacher.org/node/33475/printable/print"
+  },
+  {
+    "id": "osf-aww-data-tables",
+    "title": "Guttmacher/WHO, Basis of 1990-2019 estimates, data tables",
+    "url": "https://osf.io/download/a8jq5/"
+  },
+  {
+    "id": "osf-global-incidence-csv",
+    "title": "Guttmacher, Global Abortion Incidence Dataset",
+    "url": "https://osf.io/download/6t4eh/"
+  },
+  {
+    "id": "osf-global-incidence-codebook",
+    "title": "Guttmacher, Global Abortion Incidence Codebook",
+    "url": "https://osf.io/download/skzvu/"
+  },
+  {
+    "id": "osf-us-pregnancy-csv",
+    "title": "Guttmacher, US National and State Pregnancy Trends",
+    "url": "https://osf.io/download/duj6a/"
+  },
+  {
+    "id": "wecount-dec-2025",
+    "title": "Society of Family Planning, #WeCount December 2025",
+    "url": "https://societyfp.org/research/wecount/wecount-december-2025-data/"
+  },
+  {
+    "id": "npr-2026-us-abortions",
+    "title": "NPR, US abortion numbers hold steady, March 2026",
+    "url": "https://www.npr.org/2026/03/24/nx-s1-5757550/abortion-telemedicine-travel-mifepristone-misoprostol"
+  },
+  {
+    "id": "nchs-db541",
+    "title": "NCHS Data Brief 541, suicide rates 2022 to 2023 (US government)",
+    "url": "https://stacks.cdc.gov/view/cdc/174625/cdc_174625_DS1.pdf?download=1"
+  },
+  {
+    "id": "nchs-db572",
+    "title": "NCHS Data Brief 572, suicide rates 2023 to 2024 (US government)",
+    "url": "https://stacks.cdc.gov/view/cdc/252473/cdc_252473_DS1.pdf?download=1"
+  },
+  {
+    "id": "nimh-suicide",
+    "title": "NIMH, Suicide statistics (US government)",
+    "url": "https://www.nimh.nih.gov/health/statistics/suicide"
+  },
+  {
+    "id": "owid-suicide-who",
+    "title": "Our World in Data, suicide rate from WHO (CC BY)",
+    "url": "https://ourworldindata.org/grapher/death-rate-from-suicides-gho?tab=table"
+  },
+  {
+    "id": "holt-lunstad-2010",
+    "title": "Holt-Lunstad et al. 2010, PLoS Medicine (CC BY)",
+    "url": "https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1000316&type=printable"
+  },
+  {
+    "id": "helliwell-grover-marriage",
+    "title": "Grover and Helliwell, How's Life at Home, NBER 20794",
+    "url": "https://www.nber.org/papers/20794"
+  },
+  {
+    "id": "taylor-decimatio",
+    "title": "Taylor, Decimatio: Myth, Discipline and Death in the Roman Republic",
+    "url": "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf"
+  },
+  {
+    "id": "livius-decimation",
+    "title": "Livius.org, Decimation",
+    "url": "https://livius.org/articles/concept/decimation"
+  },
+  {
+    "id": "archaeology-carthage-2014",
+    "title": "Archaeology Magazine, Child Sacrifice in Ancient Carthage",
+    "url": "https://archaeology.org/news/2014/01/23/140123-carthage-tophet-sacrifice"
+  },
+  {
+    "id": "wikipedia-child-sacrifice",
+    "title": "Wikipedia, Child sacrifice (CC BY-SA)",
+    "url": "https://en.wikipedia.org/wiki/Child_sacrifice"
+  },
+  {
+    "id": "ppcw-v-acla-en-banc",
+    "title": "Planned Parenthood v. ACLA, 9th Cir. en banc opinion (US court record)",
+    "url": "https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf"
+  },
+  {
+    "id": "bearak-2022-supp-tables",
+    "title": "Bearak et al. 2022, supplementary country tables (CC BY-NC)",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8943721/supplementaryFiles"
+  },
+  {
+    "id": "kff-hyde-medicaid",
+    "title": "KFF, The Hyde Amendment and Coverage for Abortion Services",
+    "url": "https://www.kff.org/womens-health-policy/issue-brief/the-hyde-amendment-and-coverage-for-abortion-services/"
+  },
+  {
+    "id": "kff-state-coverage",
+    "title": "KFF, How State Policies Shape Access to Abortion Coverage",
+    "url": "https://www.kff.org/womens-health-policy/issue-brief/interactive-how-state-policies-shape-access-to-abortion-coverage/"
+  },
+  {
+    "id": "acgme-obgyn-2026",
+    "title": "ACGME, OB/GYN program requirements 2026",
+    "url": "https://www.acgme.org/globalassets/pfassets/programrequirements/2026-prs/220_obstetricsgynecology_2026.pdf"
+  },
+  {
+    "id": "vinekar-residency-training",
+    "title": "Vinekar et al. 2024, abortion training in OB/GYN residencies",
+    "url": "https://institutionalrepository.aah.org/auroragme/329"
+  },
+  {
+    "id": "biggs-2013-reasons",
+    "title": "Biggs et al. 2013, BMC Womens Health, reasons for seeking abortion (CC BY)",
+    "url": "https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29"
+  },
+  {
+    "id": "naf-violence-2024",
+    "title": "National Abortion Federation, 2024 violence and disruption statistics",
+    "url": "https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/"
+  },
+  {
+    "id": "cdc-abortion-1972",
+    "title": "CDC, Abortion Surveillance 1972, Table 1",
+    "url": "https://stacks.cdc.gov/view/cdc/59311/cdc_59311_DS1.pdf"
+  },
+  {
+    "id": "cdc-abortion-2005",
+    "title": "CDC, Abortion Surveillance 2005, Table 2",
+    "url": "https://www.cdc.gov/mmwr/preview/mmwrhtml/ss5713a1.htm"
+  },
+  {
+    "id": "cdc-abortion-2014",
+    "title": "CDC, Abortion Surveillance 2014, Table 1",
+    "url": "https://www.cdc.gov/mmwr/volumes/66/ss/ss6625a1.htm"
+  },
+  {
+    "id": "cdc-abortion-2022",
+    "title": "CDC, Abortion Surveillance 2022, Table 1",
+    "url": "https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm"
+  },
+  {
+    "id": "guttmacher-full-year-2025",
+    "title": "Guttmacher, Full-Year 2025 Estimates",
+    "url": "https://www.guttmacher.org/report/full-year-estimates-show-overall-stability-abortion-incidence-decreased-travel-increased-telehealth-provision"
+  },
+  {
+    "id": "guttmacher-full-year-2025-appendix",
+    "title": "Guttmacher Monthly Abortion Provision Study, 2023 to 2025 workbook",
+    "url": "https://www.guttmacher.org/sites/default/files/report_downloads/Abortions%20and%20travel%20for%20care%20in%20US%20states%2C%202023%2C%202024%20and%202025.xlsx"
+  },
+  {
+    "id": "guttmacher-us-historical-report",
+    "title": "Guttmacher, U.S. National and State Pregnancy Trends, 1973 to 2020",
+    "url": "https://www.guttmacher.org/report/pregnancies-births-abortions-in-united-states-1973-2020"
+  },
+  {
+    "id": "fl-abortion-counties-2025",
+    "title": "Florida AHCA, 2025 Induced Terminations by County",
+    "url": "https://ahca.myflorida.com/file/hqa/TotalsByCounty2025.pdf"
+  },
+  {
+    "id": "oh-abortion-counties-2025",
+    "title": "Ohio Department of Health, Induced Abortions in Ohio 2025, Table 5",
+    "url": "https://dam.assets.ohio.gov/image/upload/odh.ohio.gov/programs/vital-statistics/abortion-reports/induced-abortions-in-ohio-2025.pdf"
+  },
+  {
+    "id": "pa-abortion-counties-2024",
+    "title": "Pennsylvania Department of Health, Abortion Statistics 2024",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/documents/pennsylvania_annual_abortion_report_2024_final.pdf"
+  },
+  {
+    "id": "mi-abortion-counties-2013-2023",
+    "title": "Michigan DHHS, Abortions by County of Residence, 2013 to 2023",
+    "url": "https://vitalstats.michigan.gov/osr/Abortion/AbortionNos.asp"
+  },
+  {
+    "id": "nc-abortion-counties-2023",
+    "title": "North Carolina DHHS, Induced Abortions by County and Residence, 2023",
+    "url": "https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2023/Table6-2023-AbortionCountyResidence.pdf"
+  },
+  {
+    "id": "mn-abortion-counties-2024",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2024",
+    "url": "https://www.health.state.mn.us/data/mchs/pubs/abrpt/docs/2024abrpt.pdf?download=1"
+  },
+  {
+    "id": "us-atlas",
+    "title": "U.S. Atlas, Census Bureau cartographic boundaries and FIPS",
+    "url": "https://github.com/topojson/us-atlas"
+  },
+  {
+    "id": "world-bank-gdp",
+    "title": "World Bank, GDP per capita in current U.S. dollars (2023 API extract)",
+    "url": "https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?date=2023&format=json&per_page=300"
+  },
+  {
+    "id": "carthage-smith-2013",
+    "title": "Smith et al. 2013, Age estimations attest to infant sacrifice at the Carthage Tophet",
+    "url": "https://www.cambridge.org/core/journals/antiquity/article/abs/cemetery-or-sacrifice-infant-burials-at-the-carthage-tophet/EA2F96A8FD7229800391B766C95ECBE1"
+  },
+  {
+    "id": "carthage-schwartz-2010",
+    "title": "Schwartz et al. 2010, Skeletal Remains from Punic Carthage Do Not Support Systematic Sacrifice of Infants (CC BY)",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009177"
+  },
+  {
+    "id": "leviticus-18",
+    "title": "Leviticus 18, New American Bible (USCCB)",
+    "url": "https://bible.usccb.org/bible/leviticus/18"
+  },
+  {
+    "id": "jeremiah-7",
+    "title": "Jeremiah 7, New American Bible (USCCB)",
+    "url": "https://bible.usccb.org/bible/jeremiah/7"
+  },
+  {
+    "id": "prieto-2019-peru",
+    "title": "Prieto et al. 2019, A mass sacrifice of children and camelids at Huanchaquito-Las Llamas (CC BY)",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0211691"
+  },
+  {
+    "id": "delacruz-2008-tlatelolco",
+    "title": "De La Cruz et al. 2008, Sex Identification of Children Sacrificed to the Ancient Aztec Rain Gods in Tlatelolco",
+    "url": "https://rex.libraries.wsu.edu/view/pdfCoverPage?download=true&filePid=13332957010001842&instCode=01ALLIANCE_WSU"
+  },
+  {
+    "id": "thomson-1971-defense",
+    "title": "Judith Jarvis Thomson, A Defense of Abortion (1971)",
+    "url": "https://www.dpsquires.com/wp-content/uploads/2019/08/Thomson-A-Defense-of-Abortion.pdf"
+  },
+  {
+    "id": "mcfall-v-shimp",
+    "title": "McFall v. Shimp, 10 Pa. D. & C.3d 90 (1978), court opinion",
+    "url": "https://www.violence.de/prescott/letters/McFall_v_Shimp.pdf"
+  },
+  {
+    "id": "nichd-maternal-health",
+    "title": "NICHD, Maternal Morbidity and Mortality",
+    "url": "https://www.nichd.nih.gov/health/topics/factsheets/maternal-morbidity-mortality"
+  },
+  {
+    "id": "smfm-series-71",
+    "title": "SMFM Consult Series 71, Management of previable and periviable preterm prelabor rupture of membranes",
+    "url": "https://publications.smfm.org/publications/573-society-for-maternal-fetal-medicine-consult-series-71/"
+  },
+  {
+    "id": "acog-perinatal-palliative",
+    "title": "ACOG Committee Opinion 786, Perinatal Palliative Care",
+    "url": "https://s3.amazonaws.com/cdn.smfm.org/publications/279/download-ab0227a993edabf2fae09e8dee6a2c61.pdf"
+  },
+  {
+    "id": "kaczor-ethics-abortion",
+    "title": "Christopher Kaczor, The Ethics of Abortion, third edition (publisher overview)",
+    "url": "https://www.routledge.com/The-Ethics-of-Abortion-Womens-Rights-Human-Life-and-the-Question-of-Justice/Kaczor/p/book/9781032304618"
+  },
+  {
+    "id": "foot-double-effect",
+    "title": "Philippa Foot, The Problem of Abortion and the Doctrine of Double Effect",
+    "url": "https://sites.pitt.edu/~mthompso/readings/foot.pdf"
+  },
+  {
+    "id": "marquis-1989-abortion",
+    "title": "Don Marquis, Why Abortion Is Immoral (1989)",
+    "url": "https://spot.colorado.edu/~norcross/Ab2.pdf"
+  },
+  {
+    "id": "grover-helliwell-working-paper",
+    "title": "Grover and Helliwell, How’s Life at Home? NBER working paper PDF",
+    "url": "https://www.nber.org/system/files/working_papers/w20794/w20794.pdf"
+  },
+  {
+    "id": "who-suicide-2021",
+    "title": "WHO, Suicide worldwide in 2021 (CC BY-NC-SA 3.0 IGO)",
+    "url": "https://iris.who.int/server/api/core/bitstreams/769d0a45-b50a-4b17-ba40-259bef44d9dd/content"
+  },
+  {
+    "id": "aristotle-politics-i",
+    "title": "Aristotle, Politics, Book I, Benjamin Jowett translation",
+    "url": "https://classics.mit.edu/Aristotle/politics.1.one.html"
+  },
+  {
+    "id": "aristotle-ethics-ii",
+    "title": "Aristotle, Nicomachean Ethics, Book II, W. D. Ross translation",
+    "url": "https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html"
+  },
+  {
+    "id": "confucius-analects",
+    "title": "Confucius and disciples, Analects 1.2 and 4.18, James Legge translation",
+    "url": "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects"
+  },
+  {
+    "id": "burke-reflections",
+    "title": "Edmund Burke, Reflections on the Revolution in France (1790)",
+    "url": "https://constitution.org/2-Authors/eb/rev_fran.htm"
+  },
+  {
+    "id": "durkheim-suicide-ii",
+    "title": "Émile Durkheim, Le Suicide, Book II (1897)",
+    "url": "https://classiques.uqam.ca/classiques/Durkheim_emile/suicide/suicide_Livre_2.pdf"
+  },
+  {
+    "id": "tocqueville-democracy-ii",
+    "title": "Alexis de Tocqueville, Democracy in America, Volume II, Part II, Chapter V",
+    "url": "https://en.wikisource.org/wiki/Democracy_in_America/Volume_2/Book_2/Chapter_5"
+  },
+  {
+    "id": "putnam-bowling-alone",
+    "title": "Robert D. Putnam, Bowling Alone: America’s Declining Social Capital (1995)",
+    "url": "https://www.journalofdemocracy.org/articles/bowling-alone-americas-declining-social-capital/"
+  },
+  {
+    "id": "taleb-antifragile",
+    "title": "Nassim Nicholas Taleb, Antifragile: Things That Gain from Disorder (publisher extract)",
+    "url": "https://www.penguinrandomhouse.com/books/176227/antifragile-by-nassim-nicholas-taleb/hardcover/"
+  },
+  {
+    "id": "okin-justice-family",
+    "title": "Susan Moller Okin, Justice, Gender, and the Family (publisher overview)",
+    "url": "https://www.hachettebookgroup.com/titles/susan-moller-okin/justice-gender-and-the-family/9780465037032/"
+  },
+  {
+    "id": "mill-liberty-i",
+    "title": "John Stuart Mill, On Liberty, Chapter I",
+    "url": "https://en.wikisource.org/wiki/On_Liberty/Chapter_1"
+  },
+  {
+    "id": "crs-abortion-history",
+    "title": "Congressional Research Service, Abortion: Judicial History and Legislative Response",
+    "url": "https://www.congress.gov/crs_external_products/RL/PDF/RL33467/RL33467.53.pdf"
+  },
+  {
+    "id": "kff-medicaid-state-table",
+    "title": "KFF, State Funding of Abortions Under Medicaid, July 2026",
+    "url": "https://www.kff.org/medicaid/state-indicator/abortion-under-medicaid/"
+  },
+  {
+    "id": "world-bank-pensions-aging",
+    "title": "World Bank, Riding the Demographic Wave: Pensions and Retirement Income in an Aging World",
+    "url": "https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf"
+  },
+  {
+    "id": "world-bank-migration-2023",
+    "title": "World Bank, World Development Report 2023: Migrants, Refugees, and Societies",
+    "url": "https://www.worldbank.org/en/publication/wdr2023"
+  },
+  {
+    "id": "foster-2018-subsequent-births",
+    "title": "Foster et al. 2018, Outcomes among children born after abortion denial or subsequent pregnancy",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6248140/"
+  },
+  {
+    "id": "motherhood-earnings-2023",
+    "title": "Almond et al. 2023, Large motherhood penalties in US administrative microdata (CC BY-NC-ND 4.0)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10629572/"
+  },
+  {
+    "id": "az-abortion-counties-2024",
+    "title": "Arizona DHHS, Abortion Report 2024, Table 14",
+    "url": "https://www.azdhs.gov/documents/preparedness/public-health-statistics/abortions/2024-arizona-abortion-report.pdf"
+  },
+  {
+    "id": "ks-abortion-counties-2024",
+    "title": "Kansas Department of Health and Environment, Annual Summary of Vital Statistics 2024, Table D9(A)",
+    "url": "https://www.coronavirus.kdheks.gov/DocumentCenter/View/53419/Kansas-Annual-Summary-of-Vital-Statistics-2024-PDF"
+  },
+  {
+    "id": "or-abortion-counties-1995-2025",
+    "title": "Oregon Health Authority, County of Residence workbook",
+    "url": "https://www.oregon.gov/oha/PH/BIRTHDEATHCERTIFICATES/AllStatisticsInducedAbortionData/AbortionsByMonth1995-now.xlsx"
+  },
+  {
+    "id": "wa-abortion-counties-2002",
+    "title": "Washington State Department of Health, Induced Abortion 2002, Table 02-15",
+    "url": "https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs/422-012-AbortReport2002.pdf"
+  },
+  {
+    "id": "ne-abortion-counties-2025",
+    "title": "Nebraska DHHS, Abortion Dashboard Summary 2025",
+    "url": "https://dhhs.ne.gov/Documents/Nebraska-Abortion-Dashboard-Summary-2025.pdf"
+  },
+  {
+    "id": "wa-abortion-counties-2005",
+    "title": "Washington State Department of Health, Induced Abortion 2005, Table 05-15",
+    "url": "https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs/422-018-AbortReport2005.pdf"
+  },
+  {
+    "id": "il-abortion-county-archive",
+    "title": "Illinois Department of Public Health, Abortion Statistics Archive",
+    "url": "https://dph.illinois.gov/data-statistics/vital-statistics/abortion-statistics/abortion-statistics-archive.html"
+  },
+  {
+    "id": "cfr-living-donor-consent",
+    "title": "42 CFR § 482.102, Informed consent for living donors",
+    "url": "https://www.govinfo.gov/content/pkg/CFR-2024-title42-vol5/xhtml/CFR-2024-title42-vol5-part482-subpartE-subjectgroup-id52.html"
+  },
+  {
+    "id": "beckwith-1992-violinist",
+    "title": "Francis J. Beckwith, Personal Bodily Rights, Abortion, and Unplugging the Violinist (1992)",
+    "url": "https://dimparato.wordpress.com/wp-content/uploads/2014/11/personal-bodily-rights-abortion-and-unplugging-the-violinist.pdf"
+  },
+  {
+    "id": "world-bank-gdp-per-capita",
+    "title": "World Bank, GDP per capita (current US$)",
+    "url": "https://data360files.worldbank.org/data360-data/metadata/WB_WDI/WB_WDI_NY_GDP_PCAP_CD.pdf"
+  },
+  {
+    "id": "il-abortion-counties-1995-2020",
+    "title": "Illinois Department of Public Health, County data download, 1995 to 2020",
+    "url": "https://idph.illinois.gov/DPHPublicInformation/api/Statistics/getAbortionCountyData?year="
+  },
+  {
+    "id": "osf-country-profiles",
+    "title": "Guttmacher and WHO, basis of 1990 to 2019 estimates, country profiles index",
+    "url": "https://api.osf.io/v2/nodes/gjhm6/files/osfstorage/6262da7c83b9f10934191b7c/?page%5Bsize%5D=100"
+  },
+  {
+    "id": "hi-abortion-counties-2015-2024",
+    "title": "Hawaiʻi Health Data Warehouse, Induced Terminations of Pregnancy, 2015 to 2024",
+    "url": "https://hhdw.org/wp-content/uploads/2026/04/ITOPS-Report_20260327.pdf"
+  }
+]

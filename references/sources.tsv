@@ -1,7 +1,7 @@
 id	access	title	url
 who-abortion-factsheet	private	WHO, Abortion fact sheet	https://www.who.int/news-room/fact-sheets/detail/abortion
 who-country-estimates-2022	private	WHO, First-ever country-level estimates of unintended pregnancy and abortion	https://www.who.int/news/item/24-03-2022-first-ever-country-level-estimates-of-unintended-pregnancy-and-abortion
-bearak-2020-lancet-gh	open	Bearak et al. 2020, Lancet Global Health (CC BY)	https://www.thelancet.com/pdfs/journals/langlo/PIIS2214-109X(20)30315-6.pdf
+bearak-2020-lancet-gh	open	Bearak et al. 2020, Lancet Global Health (CC BY)	https://clacaidigital.info/bitstream/handle/123456789/1317/unitendend%20pregnancy.pdf?sequence=3
 bearak-2022-bmj-gh	open	Bearak et al. 2022, BMJ Global Health, full text (CC BY-NC)	https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/
 guttmacher-worldwide-factsheet	private	Guttmacher, Induced Abortion Worldwide	https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide
 guttmacher-country-explainer	private	Guttmacher, Country-Level Estimates Explained	https://www.guttmacher.org/node/33475/printable/print
@@ -11,8 +11,8 @@ osf-global-incidence-codebook	private	Guttmacher, Global Abortion Incidence Code
 osf-us-pregnancy-csv	private	Guttmacher, US National and State Pregnancy Trends	https://osf.io/download/duj6a/
 wecount-dec-2025	private	Society of Family Planning, #WeCount December 2025	https://societyfp.org/research/wecount/wecount-december-2025-data/
 npr-2026-us-abortions	private	NPR, US abortion numbers hold steady, March 2026	https://www.npr.org/2026/03/24/nx-s1-5757550/abortion-telemedicine-travel-mifepristone-misoprostol
-nchs-db541	open	NCHS Data Brief 541, suicide rates 2022 to 2023 (US government)	https://www.cdc.gov/nchs/products/databriefs/db541.htm
-nchs-db572	open	NCHS Data Brief 572, suicide rates 2023 to 2024 (US government)	https://www.cdc.gov/nchs/data/databriefs/db572.pdf
+nchs-db541	open	NCHS Data Brief 541, suicide rates 2022 to 2023 (US government)	https://stacks.cdc.gov/view/cdc/174625/cdc_174625_DS1.pdf?download=1
+nchs-db572	open	NCHS Data Brief 572, suicide rates 2023 to 2024 (US government)	https://stacks.cdc.gov/view/cdc/252473/cdc_252473_DS1.pdf?download=1
 nimh-suicide	open	NIMH, Suicide statistics (US government)	https://www.nimh.nih.gov/health/statistics/suicide
 owid-suicide-who	open	Our World in Data, suicide rate from WHO (CC BY)	https://ourworldindata.org/grapher/death-rate-from-suicides-gho?tab=table
 holt-lunstad-2010	open	Holt-Lunstad et al. 2010, PLoS Medicine (CC BY)	https://journals.plos.org/plosmedicine/article/file?id=10.1371/journal.pmed.1000316&type=printable
@@ -20,7 +20,6 @@ helliwell-grover-marriage	private	Grover and Helliwell, How's Life at Home, NBER
 taylor-decimatio	private	Taylor, Decimatio: Myth, Discipline and Death in the Roman Republic	https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/504D6242E0621DE1B2CC0D32B92765E3/S0066477422000090a.pdf/decimatio-myth-discipline-and-death-in-the-roman-republic.pdf
 livius-decimation	private	Livius.org, Decimation	https://livius.org/articles/concept/decimation
 archaeology-carthage-2014	private	Archaeology Magazine, Child Sacrifice in Ancient Carthage	https://archaeology.org/news/2014/01/23/140123-carthage-tophet-sacrifice
-worldhistory-tophet	private	World History Encyclopedia, Tophet	https://www.worldhistory.org/Tophet/
 wikipedia-child-sacrifice	open	Wikipedia, Child sacrifice (CC BY-SA)	https://en.wikipedia.org/wiki/Child_sacrifice
 ppcw-v-acla-en-banc	open	Planned Parenthood v. ACLA, 9th Cir. en banc opinion (US court record)	https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf
 bearak-2022-supp-tables	open	Bearak et al. 2022, supplementary country tables (CC BY-NC)	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8943721/supplementaryFiles
@@ -30,3 +29,63 @@ acgme-obgyn-2026	private	ACGME, OB/GYN program requirements 2026	https://www.acg
 vinekar-residency-training	private	Vinekar et al. 2024, abortion training in OB/GYN residencies	https://institutionalrepository.aah.org/auroragme/329
 biggs-2013-reasons	open	Biggs et al. 2013, BMC Womens Health, reasons for seeking abortion (CC BY)	https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29
 naf-violence-2024	private	National Abortion Federation, 2024 violence and disruption statistics	https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/
+cdc-abortion-1972	open	CDC, Abortion Surveillance 1972, Table 1	https://stacks.cdc.gov/view/cdc/59311/cdc_59311_DS1.pdf
+cdc-abortion-2005	open	CDC, Abortion Surveillance 2005, Table 2	https://www.cdc.gov/mmwr/preview/mmwrhtml/ss5713a1.htm
+cdc-abortion-2014	open	CDC, Abortion Surveillance 2014, Table 1	https://www.cdc.gov/mmwr/volumes/66/ss/ss6625a1.htm
+cdc-abortion-2022	open	CDC, Abortion Surveillance 2022, Table 1	https://www.cdc.gov/mmwr/volumes/73/ss/ss7307a1.htm
+guttmacher-full-year-2025	private	Guttmacher, Full-Year 2025 Estimates	https://www.guttmacher.org/report/full-year-estimates-show-overall-stability-abortion-incidence-decreased-travel-increased-telehealth-provision
+guttmacher-full-year-2025-appendix	private	Guttmacher Monthly Abortion Provision Study, 2023 to 2025 workbook	https://www.guttmacher.org/sites/default/files/report_downloads/Abortions%20and%20travel%20for%20care%20in%20US%20states%2C%202023%2C%202024%20and%202025.xlsx
+guttmacher-us-historical-report	private	Guttmacher, U.S. National and State Pregnancy Trends, 1973 to 2020	https://www.guttmacher.org/report/pregnancies-births-abortions-in-united-states-1973-2020
+fl-abortion-counties-2025	private	Florida AHCA, 2025 Induced Terminations by County	https://ahca.myflorida.com/file/hqa/TotalsByCounty2025.pdf
+oh-abortion-counties-2025	private	Ohio Department of Health, Induced Abortions in Ohio 2025, Table 5	https://dam.assets.ohio.gov/image/upload/odh.ohio.gov/programs/vital-statistics/abortion-reports/induced-abortions-in-ohio-2025.pdf
+pa-abortion-counties-2024	private	Pennsylvania Department of Health, Abortion Statistics 2024	https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/documents/pennsylvania_annual_abortion_report_2024_final.pdf
+mi-abortion-counties-2013-2023	private	Michigan DHHS, Abortions by County of Residence, 2013 to 2023	https://vitalstats.michigan.gov/osr/Abortion/AbortionNos.asp
+nc-abortion-counties-2023	private	North Carolina DHHS, Induced Abortions by County and Residence, 2023	https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2023/Table6-2023-AbortionCountyResidence.pdf
+mn-abortion-counties-2024	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2024	https://www.health.state.mn.us/data/mchs/pubs/abrpt/docs/2024abrpt.pdf?download=1
+us-atlas	private	U.S. Atlas, Census Bureau cartographic boundaries and FIPS	https://github.com/topojson/us-atlas
+world-bank-gdp	private	World Bank, GDP per capita in current U.S. dollars (2023 API extract)	https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?date=2023&format=json&per_page=300
+carthage-smith-2013	private	Smith et al. 2013, Age estimations attest to infant sacrifice at the Carthage Tophet	https://www.cambridge.org/core/journals/antiquity/article/abs/cemetery-or-sacrifice-infant-burials-at-the-carthage-tophet/EA2F96A8FD7229800391B766C95ECBE1
+carthage-schwartz-2010	open	Schwartz et al. 2010, Skeletal Remains from Punic Carthage Do Not Support Systematic Sacrifice of Infants (CC BY)	https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0009177
+leviticus-18	private	Leviticus 18, New American Bible (USCCB)	https://bible.usccb.org/bible/leviticus/18
+jeremiah-7	private	Jeremiah 7, New American Bible (USCCB)	https://bible.usccb.org/bible/jeremiah/7
+prieto-2019-peru	open	Prieto et al. 2019, A mass sacrifice of children and camelids at Huanchaquito-Las Llamas (CC BY)	https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0211691
+delacruz-2008-tlatelolco	private	De La Cruz et al. 2008, Sex Identification of Children Sacrificed to the Ancient Aztec Rain Gods in Tlatelolco	https://rex.libraries.wsu.edu/view/pdfCoverPage?download=true&filePid=13332957010001842&instCode=01ALLIANCE_WSU
+thomson-1971-defense	private	Judith Jarvis Thomson, A Defense of Abortion (1971)	https://www.dpsquires.com/wp-content/uploads/2019/08/Thomson-A-Defense-of-Abortion.pdf
+mcfall-v-shimp	open	McFall v. Shimp, 10 Pa. D. & C.3d 90 (1978), court opinion	https://www.violence.de/prescott/letters/McFall_v_Shimp.pdf
+nichd-maternal-health	open	NICHD, Maternal Morbidity and Mortality	https://www.nichd.nih.gov/health/topics/factsheets/maternal-morbidity-mortality
+smfm-series-71	private	SMFM Consult Series 71, Management of previable and periviable preterm prelabor rupture of membranes	https://publications.smfm.org/publications/573-society-for-maternal-fetal-medicine-consult-series-71/
+acog-perinatal-palliative	private	ACOG Committee Opinion 786, Perinatal Palliative Care	https://s3.amazonaws.com/cdn.smfm.org/publications/279/download-ab0227a993edabf2fae09e8dee6a2c61.pdf
+kaczor-ethics-abortion	private	Christopher Kaczor, The Ethics of Abortion, third edition (publisher overview)	https://www.routledge.com/The-Ethics-of-Abortion-Womens-Rights-Human-Life-and-the-Question-of-Justice/Kaczor/p/book/9781032304618
+foot-double-effect	private	Philippa Foot, The Problem of Abortion and the Doctrine of Double Effect	https://sites.pitt.edu/~mthompso/readings/foot.pdf
+marquis-1989-abortion	private	Don Marquis, Why Abortion Is Immoral (1989)	https://spot.colorado.edu/~norcross/Ab2.pdf
+grover-helliwell-working-paper	private	Grover and Helliwell, How’s Life at Home? NBER working paper PDF	https://www.nber.org/system/files/working_papers/w20794/w20794.pdf
+who-suicide-2021	open	WHO, Suicide worldwide in 2021 (CC BY-NC-SA 3.0 IGO)	https://iris.who.int/server/api/core/bitstreams/769d0a45-b50a-4b17-ba40-259bef44d9dd/content
+aristotle-politics-i	open	Aristotle, Politics, Book I, Benjamin Jowett translation	https://classics.mit.edu/Aristotle/politics.1.one.html
+aristotle-ethics-ii	open	Aristotle, Nicomachean Ethics, Book II, W. D. Ross translation	https://classics.mit.edu/Aristotle/nicomachaen.2.ii.html
+confucius-analects	open	Confucius and disciples, Analects 1.2 and 4.18, James Legge translation	https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects
+burke-reflections	open	Edmund Burke, Reflections on the Revolution in France (1790)	https://constitution.org/2-Authors/eb/rev_fran.htm
+durkheim-suicide-ii	open	Émile Durkheim, Le Suicide, Book II (1897)	https://classiques.uqam.ca/classiques/Durkheim_emile/suicide/suicide_Livre_2.pdf
+tocqueville-democracy-ii	open	Alexis de Tocqueville, Democracy in America, Volume II, Part II, Chapter V	https://en.wikisource.org/wiki/Democracy_in_America/Volume_2/Book_2/Chapter_5
+putnam-bowling-alone	private	Robert D. Putnam, Bowling Alone: America’s Declining Social Capital (1995)	https://www.journalofdemocracy.org/articles/bowling-alone-americas-declining-social-capital/
+taleb-antifragile	private	Nassim Nicholas Taleb, Antifragile: Things That Gain from Disorder (publisher extract)	https://www.penguinrandomhouse.com/books/176227/antifragile-by-nassim-nicholas-taleb/hardcover/
+okin-justice-family	private	Susan Moller Okin, Justice, Gender, and the Family (publisher overview)	https://www.hachettebookgroup.com/titles/susan-moller-okin/justice-gender-and-the-family/9780465037032/
+mill-liberty-i	open	John Stuart Mill, On Liberty, Chapter I	https://en.wikisource.org/wiki/On_Liberty/Chapter_1
+crs-abortion-history	open	Congressional Research Service, Abortion: Judicial History and Legislative Response	https://www.congress.gov/crs_external_products/RL/PDF/RL33467/RL33467.53.pdf
+kff-medicaid-state-table	private	KFF, State Funding of Abortions Under Medicaid, July 2026	https://www.kff.org/medicaid/state-indicator/abortion-under-medicaid/
+world-bank-pensions-aging	private	World Bank, Riding the Demographic Wave: Pensions and Retirement Income in an Aging World	https://documents.worldbank.org/curated/en/099914304032536462/pdf/IDU-1060b970-d432-4716-a488-690896fa2387.pdf
+world-bank-migration-2023	private	World Bank, World Development Report 2023: Migrants, Refugees, and Societies	https://www.worldbank.org/en/publication/wdr2023
+foster-2018-subsequent-births	private	Foster et al. 2018, Outcomes among children born after abortion denial or subsequent pregnancy	https://pmc.ncbi.nlm.nih.gov/articles/PMC6248140/
+motherhood-earnings-2023	open	Almond et al. 2023, Large motherhood penalties in US administrative microdata (CC BY-NC-ND 4.0)	https://pmc.ncbi.nlm.nih.gov/articles/PMC10629572/
+az-abortion-counties-2024	private	Arizona DHHS, Abortion Report 2024, Table 14	https://www.azdhs.gov/documents/preparedness/public-health-statistics/abortions/2024-arizona-abortion-report.pdf
+ks-abortion-counties-2024	private	Kansas Department of Health and Environment, Annual Summary of Vital Statistics 2024, Table D9(A)	https://www.coronavirus.kdheks.gov/DocumentCenter/View/53419/Kansas-Annual-Summary-of-Vital-Statistics-2024-PDF
+or-abortion-counties-1995-2025	private	Oregon Health Authority, County of Residence workbook	https://www.oregon.gov/oha/PH/BIRTHDEATHCERTIFICATES/AllStatisticsInducedAbortionData/AbortionsByMonth1995-now.xlsx
+wa-abortion-counties-2002	private	Washington State Department of Health, Induced Abortion 2002, Table 02-15	https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs/422-012-AbortReport2002.pdf
+ne-abortion-counties-2025	private	Nebraska DHHS, Abortion Dashboard Summary 2025	https://dhhs.ne.gov/Documents/Nebraska-Abortion-Dashboard-Summary-2025.pdf
+wa-abortion-counties-2005	private	Washington State Department of Health, Induced Abortion 2005, Table 05-15	https://doh.wa.gov/sites/default/files/legacy/Documents/Pubs/422-018-AbortReport2005.pdf
+il-abortion-county-archive	private	Illinois Department of Public Health, Abortion Statistics Archive	https://dph.illinois.gov/data-statistics/vital-statistics/abortion-statistics/abortion-statistics-archive.html
+cfr-living-donor-consent	open	42 CFR § 482.102, Informed consent for living donors	https://www.govinfo.gov/content/pkg/CFR-2024-title42-vol5/xhtml/CFR-2024-title42-vol5-part482-subpartE-subjectgroup-id52.html
+beckwith-1992-violinist	private	Francis J. Beckwith, Personal Bodily Rights, Abortion, and Unplugging the Violinist (1992)	https://dimparato.wordpress.com/wp-content/uploads/2014/11/personal-bodily-rights-abortion-and-unplugging-the-violinist.pdf
+world-bank-gdp-per-capita	private	World Bank, GDP per capita (current US$)	https://data360files.worldbank.org/data360-data/metadata/WB_WDI/WB_WDI_NY_GDP_PCAP_CD.pdf
+il-abortion-counties-1995-2020	private	Illinois Department of Public Health, County data download, 1995 to 2020	https://idph.illinois.gov/DPHPublicInformation/api/Statistics/getAbortionCountyData?year=
+osf-country-profiles	private	Guttmacher and WHO, basis of 1990 to 2019 estimates, country profiles index	https://api.osf.io/v2/nodes/gjhm6/files/osfstorage/6262da7c83b9f10934191b7c/?page%5Bsize%5D=100
+hi-abortion-counties-2015-2024	private	Hawaiʻi Health Data Warehouse, Induced Terminations of Pregnancy, 2015 to 2024	https://hhdw.org/wp-content/uploads/2026/04/ITOPS-Report_20260327.pdf
