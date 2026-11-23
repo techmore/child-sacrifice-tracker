@@ -2,8 +2,7 @@ id	access	title	url
 who-abortion-factsheet	private	WHO, Abortion fact sheet	https://www.who.int/news-room/fact-sheets/detail/abortion
 who-country-estimates-2022	private	WHO, First-ever country-level estimates of unintended pregnancy and abortion	https://www.who.int/news/item/24-03-2022-first-ever-country-level-estimates-of-unintended-pregnancy-and-abortion
 bearak-2020-lancet-gh	open	Bearak et al. 2020, Lancet Global Health (CC BY)	https://www.thelancet.com/pdfs/journals/langlo/PIIS2214-109X(20)30315-6.pdf
-bearak-2020-pubmed	private	Bearak et al. 2020, PubMed record	https://pubmed.ncbi.nlm.nih.gov/32710833/
-bearak-2022-pubmed	private	Bearak et al. 2022, BMJ Global Health, PubMed record	https://pubmed.ncbi.nlm.nih.gov/35332057/
+bearak-2022-bmj-gh	open	Bearak et al. 2022, BMJ Global Health, full text (CC BY-NC)	https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/
 guttmacher-worldwide-factsheet	private	Guttmacher, Induced Abortion Worldwide	https://www.guttmacher.org/fact-sheet/induced-abortion-worldwide
 guttmacher-country-explainer	private	Guttmacher, Country-Level Estimates Explained	https://www.guttmacher.org/node/33475/printable/print
 osf-aww-data-tables	private	Guttmacher/WHO, Basis of 1990-2019 estimates, data tables	https://osf.io/download/a8jq5/
@@ -24,3 +23,9 @@ archaeology-carthage-2014	private	Archaeology Magazine, Child Sacrifice in Ancie
 worldhistory-tophet	private	World History Encyclopedia, Tophet	https://www.worldhistory.org/Tophet/
 wikipedia-child-sacrifice	open	Wikipedia, Child sacrifice (CC BY-SA)	https://en.wikipedia.org/wiki/Child_sacrifice
 ppcw-v-acla-en-banc	open	Planned Parenthood v. ACLA, 9th Cir. en banc opinion (US court record)	https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf
+bearak-2022-supp-tables	open	Bearak et al. 2022, supplementary country tables (CC BY-NC)	https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8943721/supplementaryFiles
+kff-hyde-medicaid	private	KFF, The Hyde Amendment and Coverage for Abortion Services	https://www.kff.org/womens-health-policy/issue-brief/the-hyde-amendment-and-coverage-for-abortion-services/
+kff-state-coverage	private	KFF, How State Policies Shape Access to Abortion Coverage	https://www.kff.org/womens-health-policy/issue-brief/interactive-how-state-policies-shape-access-to-abortion-coverage/
+acgme-obgyn-2022	private	ACGME, OB/GYN program requirement impact statement 2022	https://prep.acgme.org/globalassets/pfassets/reviewandcomment/220_obstetricsandgynecology_2022-06-24_impact.pdf
+vinekar-residency-training	private	Vinekar et al. 2024, abortion training in OB/GYN residencies	https://works.bepress.com/callie-coxbauer/20
+biggs-2013-reasons	open	Biggs et al. 2013, BMC Womens Health, reasons for seeking abortion (CC BY)	https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29

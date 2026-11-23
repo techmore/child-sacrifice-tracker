@@ -4,7 +4,7 @@
 Open sources go to references/open (committed).
 Copyrighted sources go to references/private (git-ignored).
 """
-import csv, datetime, hashlib, json, mimetypes, pathlib, urllib.request
+import csv, datetime, hashlib, io, json, mimetypes, pathlib, urllib.request, zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent / "references"
 UA = "Mozilla/5.0 (reference-archiver)"
@@ -18,6 +18,9 @@ for row in csv.DictReader(open(ROOT / "sources.tsv", encoding="utf8"), delimiter
         with urllib.request.urlopen(urllib.request.Request(row["url"], headers={"User-Agent": UA}), timeout=60) as r:
             body = r.read()
             ctype = r.headers.get_content_type()
+        if row["id"] == "bearak-2022-supp-tables":
+            with zipfile.ZipFile(io.BytesIO(body)) as z:
+                body = z.read("bmjgh-2021-007151supp001.xlsx")
         if body[:4] == b"%PDF":
             ext = ".pdf"
         elif body[:2] == b"PK":

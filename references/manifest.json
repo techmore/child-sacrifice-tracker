@@ -31,26 +31,15 @@
     "error": "HTTP Error 403: Forbidden"
   },
   {
-    "id": "bearak-2020-pubmed",
-    "access": "private",
-    "title": "Bearak et al. 2020, PubMed record",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/32710833/",
+    "id": "bearak-2022-bmj-gh",
+    "access": "open",
+    "title": "Bearak et al. 2022, BMJ Global Health, full text (CC BY-NC)",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/",
     "retrieved": "2026-11-23",
     "status": "saved",
-    "file": "private/bearak-2020-pubmed.html",
-    "bytes": 5590,
-    "sha256": "fad30a929d7f191767ce0f50907a0401abb9878dd684325dd54c11a2b2cbc4dc"
-  },
-  {
-    "id": "bearak-2022-pubmed",
-    "access": "private",
-    "title": "Bearak et al. 2022, BMJ Global Health, PubMed record",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/35332057/",
-    "retrieved": "2026-11-23",
-    "status": "saved",
-    "file": "private/bearak-2022-pubmed.html",
-    "bytes": 5590,
-    "sha256": "27c4f474f2b40e22bb3daa6cb0c8fae46a025c93e7361fef93b40dfbf806f725"
+    "file": "open/bearak-2022-bmj-gh.html",
+    "bytes": 206742,
+    "sha256": "fd0befb6bf5997ae4824fff8487dff6bf494267c19101631b84fb64fe9313d1d"
   },
   {
     "id": "guttmacher-worldwide-factsheet",
@@ -61,7 +50,7 @@
     "status": "saved",
     "file": "private/guttmacher-worldwide-factsheet.html",
     "bytes": 80507,
-    "sha256": "4d58155053efc494dd57562ff425b30435bab4a262b8f8d59719f1fdb807fa76"
+    "sha256": "80fab3dca86d90a16f311c8d2e32fc0ee4dea2a4138d888ecafc6ac94fc217fd"
   },
   {
     "id": "guttmacher-country-explainer",
@@ -138,7 +127,7 @@
     "status": "saved",
     "file": "private/npr-2026-us-abortions.html",
     "bytes": 177762,
-    "sha256": "946ab1f390ec657bfab142bfab701dda90eb4f8431fa31db02b08d96ce103d5d"
+    "sha256": "5ff44960ea9500c381ec1221ddb0fd287a140fb8ef62980a5a3382a2a960f45f"
   },
   {
     "id": "nchs-db541",
@@ -177,8 +166,8 @@
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "open/owid-suicide-who.html",
-    "bytes": 64330,
-    "sha256": "d7c8f858ad56104042915c7d2bb196efa0dffedbfadbbbc34bb861cf7c2c672d"
+    "bytes": 64326,
+    "sha256": "827b0e3f60ca43e89ce4eb54f2e3569ec05eac7dd6a98a6a4e6713d4e02dfa16"
   },
   {
     "id": "holt-lunstad-2010",
@@ -199,8 +188,8 @@
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "private/helliwell-grover-marriage.html",
-    "bytes": 93556,
-    "sha256": "308970e034b3cb3aec6b83b237233b8e228d81cbdf3f4b7c3bd22d99e587bb63"
+    "bytes": 93555,
+    "sha256": "597021261a7467b126a609c81844743cca07a409f845265742b231932af4bcc2"
   },
   {
     "id": "taylor-decimatio",
@@ -210,8 +199,8 @@
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "private/taylor-decimatio.html",
-    "bytes": 1076714,
-    "sha256": "4254dc142389a33b97c37ca16f63dc881925c3964b7b636e1bbbe4d1b0f2fe5e"
+    "bytes": 1076716,
+    "sha256": "45c3725edfd957fd92f7cc434df93cc6a67209330a67928b3d6439e245b0610a"
   },
   {
     "id": "livius-decimation",
@@ -222,7 +211,7 @@
     "status": "saved",
     "file": "private/livius-decimation.html",
     "bytes": 10542,
-    "sha256": "2c68d6bc6c13cf06671d49a534938163a1a2d592c6d857b636bafe83c5c64050"
+    "sha256": "fcd2887196054a707ac2f0ff32daf9bb72fe5e2c1dbc91f2d9f2a5cb8572d5bd"
   },
   {
     "id": "archaeology-carthage-2014",
@@ -233,7 +222,7 @@
     "status": "saved",
     "file": "private/archaeology-carthage-2014.html",
     "bytes": 1034465,
-    "sha256": "722a998e5371ba61dddf36a6388369c221aa0d8f76c8f343c751ff94d8514324"
+    "sha256": "073b81587ae492865ada41a40223b49049abf01e37f3e1a79a6fc338a35d2613"
   },
   {
     "id": "worldhistory-tophet",
@@ -265,5 +254,69 @@
     "file": "open/ppcw-v-acla-en-banc.pdf",
     "bytes": 544149,
     "sha256": "15ff330f1f365ad5ad575861072d00a8d01bf31fe42f4f9c34789f24f470a67e"
+  },
+  {
+    "id": "bearak-2022-supp-tables",
+    "access": "open",
+    "title": "Bearak et al. 2022, supplementary country tables (CC BY-NC)",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8943721/supplementaryFiles",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/bearak-2022-supp-tables.xlsx",
+    "bytes": 312680,
+    "sha256": "3e6a54d5eb451b8ccdef62d20691ffcb80831e7e85ab766fb85a189d67d97254"
+  },
+  {
+    "id": "kff-hyde-medicaid",
+    "access": "private",
+    "title": "KFF, The Hyde Amendment and Coverage for Abortion Services",
+    "url": "https://www.kff.org/womens-health-policy/issue-brief/the-hyde-amendment-and-coverage-for-abortion-services/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/kff-hyde-medicaid.html",
+    "bytes": 204565,
+    "sha256": "e6378496d25d3a73a098ad092148f94db1e10561a7daeedbb33f69aec7e9c762"
+  },
+  {
+    "id": "kff-state-coverage",
+    "access": "private",
+    "title": "KFF, How State Policies Shape Access to Abortion Coverage",
+    "url": "https://www.kff.org/womens-health-policy/issue-brief/interactive-how-state-policies-shape-access-to-abortion-coverage/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/kff-state-coverage.html",
+    "bytes": 150380,
+    "sha256": "95bf900257942772a1090a4cee3fd889da7a9f0882bb98c7934afdd251f816c4"
+  },
+  {
+    "id": "acgme-obgyn-2022",
+    "access": "private",
+    "title": "ACGME, OB/GYN program requirement impact statement 2022",
+    "url": "https://prep.acgme.org/globalassets/pfassets/reviewandcomment/220_obstetricsandgynecology_2022-06-24_impact.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "id": "vinekar-residency-training",
+    "access": "private",
+    "title": "Vinekar et al. 2024, abortion training in OB/GYN residencies",
+    "url": "https://works.bepress.com/callie-coxbauer/20",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/vinekar-residency-training.html",
+    "bytes": 61456,
+    "sha256": "e8dd8d3207900e675a4e45257c4b2910f4ba179ddfe97fa28b804318c6d68080"
+  },
+  {
+    "id": "biggs-2013-reasons",
+    "access": "open",
+    "title": "Biggs et al. 2013, BMC Womens Health, reasons for seeking abortion (CC BY)",
+    "url": "https://bmcwomenshealth.biomedcentral.com/track/pdf/10.1186/1472-6874-13-29",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/biggs-2013-reasons.pdf",
+    "bytes": 342633,
+    "sha256": "aa8dd25728f2620f4a99a60357afb6a7c9963c569e57006f90c546aa077d570a"
   }
 ]
