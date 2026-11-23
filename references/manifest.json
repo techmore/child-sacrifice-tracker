@@ -4641,10 +4641,12 @@
     "id": "ppfa-annual-report-2024-2025",
     "access": "private",
     "title": "Planned Parenthood 2024–2025 annual report, financial data",
-    "url": "https://www.plannedparenthood.org/uploads/filer_public/6a/19/6a191461-a0ad-4ea0-8118-aa9184c24a31/digital-2025-ppfa-annualreport-c3.pdf",
+    "url": "https://web.archive.org/web/20260404035128id_/https://www.plannedparenthood.org/uploads/filer_public/6a/19/6a191461-a0ad-4ea0-8118-aa9184c24a31/digital-2025-ppfa-annualreport-c3.pdf",
     "retrieved": "2026-11-23",
-    "status": "failed",
-    "error": "HTTP Error 403: Forbidden"
+    "status": "saved",
+    "file": "private/ppfa-annual-report-2024-2025.pdf",
+    "bytes": 5931567,
+    "sha256": "a25cf634e969b5a8fba9d10b364f017fd070c5886829215c26fbd83391ca8842"
   },
   {
     "id": "irs-nonprofit-public-disclosure",
@@ -4837,10 +4839,12 @@
     "id": "gao-child-trafficking-2024",
     "access": "open",
     "title": "GAO-24-106038, Child Trafficking",
-    "url": "https://www.gao.gov/assets/d24106038.pdf",
+    "url": "https://web.archive.org/web/20240110182554id_/https://www.gao.gov/assets/d24106038.pdf",
     "retrieved": "2026-11-23",
-    "status": "failed",
-    "error": "HTTP Error 403: Forbidden"
+    "status": "saved",
+    "file": "open/gao-child-trafficking-2024.pdf",
+    "bytes": 4150344,
+    "sha256": "245037c52d31e394cbea8e9ab4632aa56655fcaddf7057d7bc4a0fb0e729e966"
   },
   {
     "id": "bjs-trafficking-data-2024",
