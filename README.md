@@ -76,7 +76,7 @@ node --test tests/map.cjs
 
 ## Conduct
 
-This project does not list clinics, hospitals or staff, and it will not accept contributions that do. Direct disagreement to lawmakers and public argument. Never harass or threaten patients or providers.
+Direct disagreement to lawmakers and public argument. Never harass or threaten patients or providers.
 
 ## License
 
