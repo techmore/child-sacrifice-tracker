@@ -63,9 +63,9 @@ Promise.all([
   const countyG = svg.append("g").style("display", "none");
   const municipalBoundaries = svg.append("g").attr("aria-hidden", "true").attr("pointer-events", "none");
   const stateContextLabels = svg.append("g").attr("aria-hidden", "true");
-  const countyLabels = svg.append("g").attr("aria-hidden", "true");
   const municipalLabels = svg.append("g").attr("aria-hidden", "true").attr("pointer-events", "none");
-  let municipalities, municipalityFocus;
+  const countyLabels = svg.append("g").attr("aria-hidden", "true").attr("pointer-events", "none");
+  let municipalities;
   const stateFeatures = topojson.feature(usMap, usMap.objects.states).features.filter(f => stateById.has(f.id));
   const stateEstimateYear = d3.max(stateData, d => d.year);
   const albers = d3.geoAlbersUsa().fitExtent([[8, 8], [W - 8, H - 8]], { type: "FeatureCollection", features: stateFeatures });
@@ -380,7 +380,6 @@ Promise.all([
 
   function clearMunicipalities() {
     const notes = document.getElementById("municipality-notes");
-    municipalityFocus = null;
     municipalBoundaries.selectAll("path").remove();
     municipalLabels.selectAll("text").remove();
     notes.hidden = true;
@@ -396,7 +395,6 @@ Promise.all([
       if (view !== "state" || activeState.abbr !== "PA" || activeCounty !== id) return;
       const features = byCounty.get(id);
       if (!features?.length) return;
-      municipalityFocus = id;
       municipalBoundaries.attr("transform", countyTransform).selectAll("path").data(features, f => f.id)
         .join("path").attr("class", "municipal-boundary").attr("d", usPath);
       const placed = [];
@@ -471,23 +469,46 @@ Promise.all([
       .append("title").text(d => `${d.year} · ${fmt(d.row.count)}`);
   }
 
-  function paintCountyLabels(features, rowFor) {
-    const labels = features.map(feature => {
-      const count = rowFor(feature)?.count;
-      const [x, y] = countyTransform.apply(usPath.centroid(feature));
-      return { count, x, y };
-    }).filter(({ count, x, y }) => count != null && Number.isFinite(x) && Number.isFinite(y))
-      .sort((a, b) => b.count - a.count);
+  function paintCountyLabels(shapes, rowFor) {
+    const labels = shapes.nodes().map(shape => {
+      const feature = shape.__data__;
+      const row = rowFor(feature);
+      const focused = feature.id === activeCounty;
+      return { shape, feature, focused, count: row?.count, text: countyCount(row) };
+    }).filter(label => label.focused || label.count != null)
+      .sort((a, b) => Number(b.focused) - Number(a.focused) || (b.count ?? -1) - (a.count ?? -1));
     const placed = [];
+    const t = countyTransform;
     for (const label of labels) {
-      const width = fmt(label.count).length * 8 + 6;
-      const bounds = { l: label.x - width / 2, r: label.x + width / 2, t: label.y - 9, b: label.y + 9 };
-      if (bounds.l < 0 || bounds.r > W || bounds.t < 0 || bounds.b > H ||
-          placed.some(a => bounds.l < a.r && bounds.r > a.l && bounds.t < a.b && bounds.b > a.t)) continue;
-      placed.push({ ...bounds, ...label });
+      const width = label.text.length * (label.focused ? 9 : 8) + 14;
+      const height = label.focused ? 28 : 20;
+      const [min, max] = usPath.bounds(label.feature).map(point => t.apply(point));
+      const left = Math.max(min[0], 0), right = Math.min(max[0], W);
+      const top = Math.max(min[1], 0), bottom = Math.min(max[1], H);
+      if (right <= left || bottom <= top) continue;
+      const candidates = [t.apply(usPath.centroid(label.feature))];
+      for (const u of [0.5, 0.25, 0.75]) {
+        for (const v of [0.5, 0.25, 0.75]) {
+          candidates.push([left + (right - left) * u, top + (bottom - top) * v]);
+        }
+      }
+      for (const [x, y] of candidates) {
+        const bounds = { l: x - width / 2, r: x + width / 2, t: y - height / 2, b: y + height / 2 };
+        if (!Number.isFinite(x + y) || bounds.l < 2 || bounds.r > W - 2 || bounds.t < 2 || bounds.b > H - 2) continue;
+        if (placed.some(a => bounds.l < a.r + 3 && bounds.r > a.l - 3 && bounds.t < a.b + 2 && bounds.b > a.t - 2)) continue;
+        if (!label.shape.isPointInFill(new DOMPoint(...t.invert([x, y])))) continue;
+        placed.push({ ...bounds, ...label, x, y, width, height });
+        break;
+      }
     }
-    countyLabels.selectAll("text").data(placed).join("text").attr("class", "county-label")
-      .attr("x", label => label.x).attr("y", label => label.y).text(label => fmt(label.count));
+    const badges = countyLabels.selectAll("g").data(placed, d => d.feature.id).join(enter => {
+      const badge = enter.append("g").attr("class", "county-count-badge");
+      badge.append("rect").attr("rx", 4);
+      badge.append("text").attr("class", "county-label");
+      return badge;
+    }).classed("focused", d => d.focused);
+    badges.select("rect").attr("x", d => d.l).attr("y", d => d.t).attr("width", d => d.width).attr("height", d => d.height);
+    badges.select("text").attr("x", d => d.x).attr("y", d => d.y).text(d => d.text);
   }
 
   function paintStateContext() {
@@ -555,8 +576,9 @@ Promise.all([
         return n == null ? "var(--nodata)" : STEPS[d3.bisect(COUNTY_BINS, n)];
       }).attr("aria-label", f => `${f.properties.name}, ${countyYear}: ${countyCount(rowFor(f))}`)
         .classed("sel", f => f.id === activeCounty);
-      paintCountyLabels(countyShapes.data().filter(f => f.id !== municipalityFocus), rowFor);
-    } else countyLabels.selectAll("text").remove();
+      countyShapes.filter(".sel").raise();
+      paintCountyLabels(countyShapes, rowFor);
+    } else countyLabels.selectAll("g").remove();
     paintStateContext();
     const b = countyView ? COUNTY_BINS : bins(), s = countyView ? fmt : METRICS[metric].show;
     const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1] - (countyView ? 1 : 0))}`), `${s(b.at(-1))} or more`];

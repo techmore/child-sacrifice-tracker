@@ -87,9 +87,12 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 .state.context{fill:var(--surface);stroke:var(--line)}
 .state-context-label{font:600 13px system-ui,sans-serif;fill:var(--ink2);stroke:var(--surface);stroke-width:3px;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
 #legend .context-key{flex-basis:100%}
-.county{stroke:var(--bg);stroke-width:1;vector-effect:non-scaling-stroke;cursor:pointer}
-.county:focus,.county.sel{stroke:var(--sel);stroke-width:3;outline:none}
-.county-label{font:700 13px system-ui,sans-serif;fill:var(--ink);stroke:var(--halo);stroke-width:3px;paint-order:stroke;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.county{stroke:var(--ink);stroke-opacity:.77;stroke-width:1.4;vector-effect:non-scaling-stroke;cursor:pointer}
+.county:focus,.county.sel{stroke:var(--sel);stroke-opacity:1;stroke-width:3.5;outline:none}
+.county-count-badge rect{fill:var(--bg);stroke:var(--ink);stroke-width:1}
+.county-label{font:750 13px system-ui,sans-serif;fill:var(--ink);text-anchor:middle;dominant-baseline:central;font-variant-numeric:tabular-nums}
+.county-count-badge.focused rect{fill:var(--ink);stroke:var(--bg);stroke-width:2}
+.county-count-badge.focused .county-label{fill:var(--bg);font-size:16px}
 .municipal-boundary{fill:none;stroke:var(--ink2);stroke-opacity:.75;stroke-width:.9;vector-effect:non-scaling-stroke}
 .municipal-label{font:600 11px system-ui,sans-serif;fill:var(--ink);stroke:var(--halo);stroke-width:3px;paint-order:stroke;text-anchor:middle;dominant-baseline:central}
 #municipality-notes details{margin-inline:0}
