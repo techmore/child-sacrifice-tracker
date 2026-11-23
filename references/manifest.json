@@ -4674,12 +4674,12 @@
     "id": "uscode-fetal-tissue-289g2",
     "access": "open",
     "title": "U.S. Code, 42 U.S.C. § 289g-2, human fetal tissue transfers",
-    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title42/pdf/USCODE-2024-title42-chap6A-subchapIII-partH-sec289g-1.pdf",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title42/pdf/USCODE-2024-title42-chap6A-subchapIII-partH-sec289g-2.pdf",
     "retrieved": "2026-11-23",
     "status": "saved",
     "file": "open/uscode-fetal-tissue-289g2.pdf",
-    "bytes": 144567,
-    "sha256": "579dd58e809b3df3f634f72a10a025debbd8e35ce8c159fdc30fac3dccc1e707"
+    "bytes": 135819,
+    "sha256": "efb0f0311a00388259a1c485324c32f0ae772f89df240b40e6825d2b46190250"
   },
   {
     "id": "ppfa-nih-reimbursement-2015",
@@ -6918,5 +6918,111 @@
     "file": "open/california-ab2540-status-2026.html",
     "bytes": 21467,
     "sha256": "f7406f1537d9a89c58a13d5487486d5b9e44a9de172405ea3ca017d933b03c2e"
+  },
+  {
+    "id": "steinberg-psychotropic-abortion-method-2026",
+    "access": "private",
+    "title": "Steinberg et al., Danish registry study of psychotropic prescriptions before and after a first abortion (2026)",
+    "url": "https://researchprofiles.ku.dk/en/publications/medication-and-procedural-abortion-and-risk-of-psychotropic-medic/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/steinberg-psychotropic-abortion-method-2026.html",
+    "bytes": 56421,
+    "sha256": "a60b51ef04524c3ff0536242ee11e97aa4fa0128729b072c7f046dc185297521"
+  },
+  {
+    "id": "virk-subsequent-pregnancy-2007",
+    "access": "private",
+    "title": "Virk, Zhang and Olsen, Danish registry comparison of subsequent pregnancies by abortion method (2007), indexed abstract",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=17699814&retmode=xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/virk-subsequent-pregnancy-2007.xml",
+    "bytes": 8314,
+    "sha256": "5d82ccb0792a6c90dd07277e5f2b25f364c02eacff532468f1bb62e9f3e6f58e"
+  },
+  {
+    "id": "kc-repeat-procedure-first-birth-2017",
+    "access": "private",
+    "title": "Kc et al., Finnish registry study of first births after repeat abortions by method (2017)",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=28815662&retmode=xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/kc-repeat-procedure-first-birth-2017.xml",
+    "bytes": 8405,
+    "sha256": "67910b1bf9a644fe2ffb318ea5864ccf5a211efb4baea2eef28fa6b5602a93df"
+  },
+  {
+    "id": "upadhyay-later-intended-pregnancy-2019",
+    "access": "private",
+    "title": "Upadhyay et al., intended pregnancies after receiving or being denied an abortion (2019), indexed abstract",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=30244161&retmode=xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/upadhyay-later-intended-pregnancy-2019.xml",
+    "bytes": 8471,
+    "sha256": "1d2ba6dabc78e81333b1a7f33451686c6f36a064ceceb88e794afb005cd85143"
+  },
+  {
+    "id": "california-abortion-website-budget-2022",
+    "access": "open",
+    "title": "California FY 2022–23 enacted budget summary, abortion website and reproductive-health outreach appropriations",
+    "url": "https://ebudget.ca.gov/2022-23/pdf/Enacted/BudgetSummary/FullBudgetSummary.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-abortion-website-budget-2022.pdf",
+    "bytes": 3466535,
+    "sha256": "238981310f80184094273767c115c4fead224c02faffb64012acf6796d1f30f5"
+  },
+  {
+    "id": "california-dhcs-state-abortion-funds-2026",
+    "access": "open",
+    "title": "California DHCS All Plan Letter 25-011, Medi-Cal abortion claim funding",
+    "url": "https://www.dhcs.ca.gov/wp-content/uploads/2026/09/APL25-011_eefb42.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "Expected .pdf but the server returned .html"
+  },
+  {
+    "id": "judicial-watch-hhs-foia-prices-2021",
+    "access": "open",
+    "title": "U.S. DOJ case summary, Judicial Watch v. HHS, fetal tissue unit-pricing records (2021)",
+    "url": "https://www.justice.gov/oip/jud-watch-inc-v-hhs-no-19-00876-2021-wl-930350-ddc-mar-11-2021-mcfadden-j",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/judicial-watch-hhs-foia-prices-2021.html",
+    "bytes": 96676,
+    "sha256": "2cc7f0880d2f5917db9922f877ec1da2260a3942e4d5c0f37527000002936717"
+  },
+  {
+    "id": "california-medical-funded-abortions-2014",
+    "access": "open",
+    "title": "California DHCS, Medi-Cal Funded Abortions, 2014, claims and fee-for-service spending",
+    "url": "https://www.dhcs.ca.gov/wp-content/uploads/2025/10/Medi-Cal-Funded-Abortions-2014.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "Expected .pdf but the server returned .html"
+  },
+  {
+    "id": "california-uncompensated-care-2024",
+    "access": "open",
+    "title": "California HCAI, Uncompensated Care Evaluation Report, June 2024",
+    "url": "https://hcai.ca.gov/wp-content/uploads/2024/07/Uncompensated-Care-Evaluation-Report-June-2024.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/california-uncompensated-care-2024.pdf",
+    "bytes": 359307,
+    "sha256": "f0d7beda121c4b1adaafbf56f7594ae0ae038bc3b08fc100bb74c5ad01ccebf0"
+  },
+  {
+    "id": "judicial-watch-hhs-foia-opinion-2021",
+    "access": "open",
+    "title": "U.S. District Court for D.C., Judicial Watch v. HHS, FOIA opinion, pp. 22–24 (court filing mirrored by Justia)",
+    "url": "https://cases.justia.com/federal/district-courts/district-of-columbia/dcdce/1%3A2019cv00876/205666/25/0.pdf#page=22",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/judicial-watch-hhs-foia-opinion-2021.pdf",
+    "bytes": 448455,
+    "sha256": "f7a60b9afe03501659732139f8439bf51b8ac16a97835fcc9fa4ac04305bfd9c"
   }
 ]

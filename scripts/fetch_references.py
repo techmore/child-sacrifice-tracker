@@ -67,7 +67,8 @@ def download(source, folder, expected_sha256):
     if content_type == "text/html" and b"<title>Checking your browser - reCAPTCHA</title>" in body:
         raise ValueError("Server returned a verification page")
     if content_type == "text/html" and len(body) < 10_000:
-        if b"?bm-verify=" in body or b"<title>Making sure you&#39;re not a bot!" in body:
+        if (b"?bm-verify=" in body or b"<title>Making sure you&#39;re not a bot!" in body
+                or b'const challengeDomain = "pubmed.ncbi.nlm.nih.gov"' in body):
             raise ValueError("Server returned a verification page")
     if identifier == "bearak-2022-supp-tables":
         with zipfile.ZipFile(io.BytesIO(body)) as archive:

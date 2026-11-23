@@ -59,7 +59,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=campus-reports"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=health-funding-evidence"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const arrivalHash = location.hash;
@@ -85,7 +85,7 @@ Promise.all([
     .attr("title", ({ archive }) => `SHA-256 ${archive.sha256}`)
     .text(({ archive }) => `SHA-256 ${archive.sha256.slice(0, 12)}…`);
   const cite = (id, label) => sourceLink(sources.get(id), label);
-  const paymentsReady = d3.json("data/material-payments.json").then(records => {
+  const paymentsReady = d3.json("data/material-payments.json?v=health-funding-evidence").then(records => {
     const rows = d3.select("#material-payment-rows").selectAll("tr").data(records).join("tr")
       .attr("id", record => `payment-${record.id}`);
     rows.append("th").attr("scope", "row").text(record => record.period);

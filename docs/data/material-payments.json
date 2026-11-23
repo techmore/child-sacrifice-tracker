@@ -75,11 +75,11 @@
   {
     "id": "broker-clinic-to-buyer-2014",
     "period": "June 2014",
-    "payer": "A broker and a downstream research buyer",
+    "payer": "A broker and downstream research buyers",
     "recipient": "A clinic and the broker",
     "purpose": "One transfer documented by Senate Judiciary committee staff",
     "amount": "$60 clinic payment and $2,275 in downstream specimen charges, plus separate service charges",
-    "scope": "A single invoice comparison. The provider’s payment and the buyer’s charges represent different stages. This example gives no net profit or overall rate.",
+    "scope": "A single invoice comparison. Committee staff report five downstream customers. The clinic’s reported payment and customer charges cover different stages. This example gives no net profit, abortion payer or connection to a particular treatment.",
     "sources": [
       "senate-fetal-tissue-report-2016"
     ]
