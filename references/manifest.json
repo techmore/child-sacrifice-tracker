@@ -4700,5 +4700,27 @@
     "file": "open/house-fetal-tissue-reimbursement-2015.pdf",
     "bytes": 203938,
     "sha256": "726009f4e50e95de943610aebbdd150d8385297e1bcf2efdc0a7db1d1d5c3b7c"
+  },
+  {
+    "id": "ppfa-form-990-2024",
+    "access": "private",
+    "title": "Planned Parenthood Federation of America, Form 990, year ended June 30, 2025",
+    "url": "https://docs.candid.org/990/131/131644147/131644147_2025_202641349349313769_990.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ppfa-form-990-2024.pdf",
+    "bytes": 4330352,
+    "sha256": "b6c5a00629d6128e7d720deb29d82336ef3ddc89a57da7a7510043dcce94cfbf"
+  },
+  {
+    "id": "ocda-fetal-tissue-judgment-2017",
+    "access": "private",
+    "title": "Orange County Superior Court, stipulated judgment excerpt (federal filing exhibit, pp. 52–58)",
+    "url": "https://www.centerformedicalprogress.org/wp-content/uploads/2018/08/Dkt.-547-1-Daleiden-Decl.-ISO-Mtn-to-Dissolve-PI.pdf#page=52",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ocda-fetal-tissue-judgment-2017.pdf",
+    "bytes": 254497,
+    "sha256": "0bd1bc085445f3ecb262c00adfa9fcb14c0317408e133c2ee4fb4c892f91d786"
   }
 ]

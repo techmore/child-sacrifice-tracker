@@ -8,6 +8,8 @@ import io
 import json
 import mimetypes
 import pathlib
+import subprocess
+import tempfile
 import urllib.parse
 import urllib.request
 import zipfile
@@ -46,6 +48,19 @@ def download(source, folder, expected_sha256):
     if identifier == "bearak-2022-supp-tables":
         with zipfile.ZipFile(io.BytesIO(body)) as archive:
             body = archive.read("bmjgh-2021-007151supp001.xlsx")
+    if identifier == "ocda-fetal-tissue-judgment-2017":
+        # The judgment is an exhibit in the federal filing. Archive only the pages cited on the site.
+        with tempfile.TemporaryDirectory() as directory:
+            original = pathlib.Path(directory) / "filing.pdf"
+            excerpt = pathlib.Path(directory) / "judgment.pdf"
+            original.write_bytes(body)
+            result = subprocess.run(
+                ["qpdf", "--deterministic-id", "--empty", "--pages", str(original), "52-58", "--", str(excerpt)],
+                capture_output=True,
+            )
+            if result.returncode:
+                raise ValueError("Could not extract the cited pages from the federal filing")
+            body = excerpt.read_bytes()
     expected = pathlib.PurePosixPath(source.get("filename", urllib.parse.urlparse(source["url"]).path)).suffix
     if body.startswith(b"%PDF"):
         extension = ".pdf"

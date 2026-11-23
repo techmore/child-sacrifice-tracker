@@ -73,7 +73,7 @@ ORDER BY o.year DESC;"
 
 `references/sources.tsv` is the bibliography, `references/country-profiles.tsv` indexes the 150 country profile PDFs, and `references/manifest.json` records filenames, retrieval dates, and SHA-256 checksums. Redistributable documents are stored in `references/open/`. Other downloads are stored in the git-ignored `references/private/`. Copy that directory along with the checkout to use the complete archive on another offline machine.
 
-Run `python3 scripts/fetch_references.py` online to fill in missing downloads. The script reuses local copies whose checksums match the manifest. If a publisher changed a file, use `--refresh` to accept a newer copy. Read the saved report or dataset version when comparing published figures.
+Run `python3 scripts/fetch_references.py` online to fill in missing downloads. The script reuses local copies whose checksums match the manifest. If a publisher changed a file, use `--refresh` to accept a newer copy. Read the saved report or dataset version when comparing published figures. Restoring the 2017 fetal-tissue judgment excerpt from its source filing requires `qpdf`.
 
 ## Checks
 
