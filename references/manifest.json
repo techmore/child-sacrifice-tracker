@@ -7024,5 +7024,27 @@
     "file": "open/judicial-watch-hhs-foia-opinion-2021.pdf",
     "bytes": 448455,
     "sha256": "f7a60b9afe03501659732139f8439bf51b8ac16a97835fcc9fa4ac04305bfd9c"
+  },
+  {
+    "id": "hhs-tissue-procurement-audit-2021",
+    "access": "open",
+    "title": "HHS proposed rule describing its audit of human fetal tissue procurement, 86 FR 2615, pp. 2618–19",
+    "url": "https://www.govinfo.gov/content/pkg/FR-2021-01-13/pdf/2020-29107.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/hhs-tissue-procurement-audit-2021.pdf",
+    "bytes": 370293,
+    "sha256": "3796b24c9094e477f35f82b47ff75b1deeac896ab9b9f3840ea0848e2e36e5dc"
+  },
+  {
+    "id": "hhs-tissue-rule-withdrawal-2021",
+    "access": "open",
+    "title": "OIRA Unified Agenda, withdrawal of HHS human fetal tissue proposal (RIN 0991-AC15)",
+    "url": "https://www.reginfo.gov/public/do/eAgendaViewRule?RIN=0991-AC15&pubId=202104",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/hhs-tissue-rule-withdrawal-2021.html",
+    "bytes": 55787,
+    "sha256": "79ba2e239ae15ef0f973752b8080399f6df4766b220989410ba760d8a5055e6d"
   }
 ]
