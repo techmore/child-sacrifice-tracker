@@ -53,6 +53,12 @@ The site's "Public money and public conscience" section reports how public funds
 
 The underlying records are `kff-hyde-medicaid`, `kff-medicaid-state-table`, `kff-state-coverage` and `crs-abortion-history` in `references/sources.tsv`. Figures carry the date and publisher of the policy snapshot they came from.
 
+## Evidence records
+
+The world map can display jurisdiction markers for individual cases and official responses. Each record describes what the cited sources establish and what remains unverified. The [JSON snapshot](docs/data/evidence-records.json) is available offline. SQLite stores these rows in `evidence_record`. Join `evidence_source` and `source` for original URLs and archive paths.
+
+The [payment records](docs/data/material-payments.json) track the amounts, sources and reported scope of individual payment arrangements. The SQLite tables are `material_payment` and `material_payment_source`.
+
 ## SQLite
 
 `python3 scripts/build_sqlite.py` generates `data/tracker.sqlite3` offline from the published JSON snapshots and reference manifest. Use `--output` to choose another file. The database holds the national, state, county, and global data, with source records and hashes for the build inputs. The source documents remain in the archive.

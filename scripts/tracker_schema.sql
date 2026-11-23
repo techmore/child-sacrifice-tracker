@@ -1,4 +1,4 @@
-PRAGMA user_version = 3;
+PRAGMA user_version = 4;
 
 CREATE TABLE build_input (
     path TEXT PRIMARY KEY NOT NULL,
@@ -24,6 +24,40 @@ CREATE TABLE source (
         (archive_status = 'failed' AND archive_path IS NULL
             AND archive_sha256 IS NULL AND archive_bytes IS NULL)
     )
+) WITHOUT ROWID;
+
+CREATE TABLE evidence_record (
+    id TEXT PRIMARY KEY NOT NULL,
+    place TEXT NOT NULL,
+    year INTEGER NOT NULL CHECK (year > 0),
+    status TEXT NOT NULL,
+    title TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    limits TEXT NOT NULL,
+    longitude REAL NOT NULL CHECK (longitude BETWEEN -180 AND 180),
+    latitude REAL NOT NULL CHECK (latitude BETWEEN -90 AND 90)
+) WITHOUT ROWID;
+
+CREATE TABLE evidence_source (
+    record_id TEXT NOT NULL REFERENCES evidence_record (id),
+    source_id TEXT NOT NULL REFERENCES source (id),
+    PRIMARY KEY (record_id, source_id)
+) WITHOUT ROWID;
+
+CREATE TABLE material_payment (
+    id TEXT PRIMARY KEY NOT NULL,
+    period TEXT NOT NULL,
+    payer TEXT NOT NULL,
+    recipient TEXT NOT NULL,
+    purpose TEXT NOT NULL,
+    amount TEXT NOT NULL,
+    scope TEXT NOT NULL
+) WITHOUT ROWID;
+
+CREATE TABLE material_payment_source (
+    payment_id TEXT NOT NULL REFERENCES material_payment (id),
+    source_id TEXT NOT NULL REFERENCES source (id),
+    PRIMARY KEY (payment_id, source_id)
 ) WITHOUT ROWID;
 
 CREATE TABLE series (

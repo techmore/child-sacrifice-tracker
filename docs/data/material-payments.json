@@ -1,0 +1,139 @@
+[
+  {
+    "id": "ppfa-public-programs-2019-2021",
+    "period": "2019–2021",
+    "payer": "HHS and public health coverage programs",
+    "recipient": "Planned Parenthood affiliates",
+    "purpose": "Health program grants and payments for services",
+    "amount": "About $148 million in HHS grants or cooperative agreements and $1.54 billion in Medicare, Medicaid and CHIP payments",
+    "scope": "GAO review. Medicaid and CHIP payments can include federal and state shares. These totals span health services and do not isolate abortion or tissue payments.",
+    "sources": [
+      "gao-health-care-funding-2023"
+    ]
+  },
+  {
+    "id": "nih-research-1999",
+    "period": "FY 1999",
+    "payer": "NIH",
+    "recipient": "Grantees conducting research that used fetal tissue",
+    "purpose": "Research grants",
+    "amount": "About $17 million across 103 grants",
+    "scope": "GAO estimate of full research awards. Tissue acquisition was one part of the research costs.",
+    "sources": [
+      "gao-fetal-tissue-acquisition-2000"
+    ]
+  },
+  {
+    "id": "nih-investigator-acquisition-1999",
+    "period": "FY 1999",
+    "payer": "NIH-supported researchers in the GAO survey",
+    "recipient": "Tissue suppliers, carriers and research laboratories",
+    "purpose": "Acquisition fees and related costs",
+    "amount": "$358,679 total, including $142,144 in acquisition fees and $80,405 in shipping and transportation",
+    "scope": "Seventy-eight investigators reported receiving tissue in FY 1999. Nearly half reported no acquisition fee. Table 2 also counts internal lab expenditures.",
+    "sources": [
+      "gao-fetal-tissue-acquisition-2000"
+    ]
+  },
+  {
+    "id": "uw-tissue-bank-1999",
+    "period": "FY 1999",
+    "payer": "NIH and researchers",
+    "recipient": "University of Washington Birth Defects Laboratory",
+    "purpose": "Tissue bank funding and researcher fees",
+    "amount": "$346,743 NIH grant and $52,035 in researcher fees",
+    "scope": "GAO reported 2,869 samples distributed. Some researcher fees may already appear in the survey totals above.",
+    "sources": [
+      "gao-fetal-tissue-acquisition-2000"
+    ]
+  },
+  {
+    "id": "ppfa-clinic-reimbursements-2015",
+    "period": "Reported in 2015",
+    "payer": "Novogenix, StemExpress and Advanced Bioscience Resources",
+    "recipient": "Participating Planned Parenthood affiliates",
+    "purpose": "Contracted payments described as reimbursement",
+    "amount": "$45, $55 and $60 under separate arrangements",
+    "scope": "House minority staff reported a per-specimen rate and rates based on usable or patient collections. The units differ. Planned Parenthood later told NIH it would stop accepting the payments.",
+    "sources": [
+      "house-fetal-tissue-hearing-2015",
+      "ppfa-nih-reimbursement-2015"
+    ]
+  },
+  {
+    "id": "california-affiliate-transfers-2010-2015",
+    "period": "2010–2015",
+    "payer": "StemExpress and Advanced Bioscience Resources",
+    "recipient": "California Planned Parenthood affiliates",
+    "purpose": "Payments identified by a House investigative panel",
+    "amount": "$135,880 from StemExpress and $328,225 from Advanced Bioscience Resources",
+    "scope": "The panel attributed these totals to invoice analysis. The figures are gross payments and the report reflects congressional findings. Clinic costs, profits and liability require separate evidence.",
+    "sources": [
+      "house-fetal-tissue-panel-2016"
+    ]
+  },
+  {
+    "id": "broker-clinic-to-buyer-2014",
+    "period": "June 2014",
+    "payer": "A broker and a downstream research buyer",
+    "recipient": "A clinic and the broker",
+    "purpose": "One transfer documented by Senate Judiciary committee staff",
+    "amount": "$60 clinic payment and $2,275 in downstream specimen charges, plus separate service charges",
+    "scope": "A single invoice comparison. The provider’s payment and the buyer’s charges represent different stages. This example gives no net profit or overall rate.",
+    "sources": [
+      "senate-fetal-tissue-report-2016"
+    ]
+  },
+  {
+    "id": "california-broker-revenue-2012-2015",
+    "period": "August 2012–October 2015",
+    "payer": "Research customers, including pharmaceutical and academic purchasers",
+    "recipient": "DV Biologics and DaVinci Biosciences",
+    "purpose": "Sales of fetal-derived products",
+    "amount": "Over $550,000 in gross revenue from approximately 500 products",
+    "scope": "Prosecutor’s accounting of sales at issue. A separate stipulated $7.785 million civil settlement involved penalties and donated assets. The panel reported finding no evidence DaVinci paid its supplying affiliate for donated tissue.",
+    "sources": [
+      "ocda-fetal-tissue-settlement-2017",
+      "ocda-fetal-tissue-judgment-2017",
+      "house-fetal-tissue-panel-2016"
+    ]
+  },
+  {
+    "id": "fda-abr-order-2015",
+    "period": "2015 invoices, later closeout",
+    "payer": "U.S. Food and Drug Administration",
+    "recipient": "Advanced Bioscience Resources",
+    "purpose": "Research tissue purchase order HHSF223201400732P",
+    "amount": "$7,470 across nine invoices marked paid in the vendor ledger",
+    "scope": "The vendor reported no open balance. The agency closeout records a $9,900 ceiling and $2,430 remaining.",
+    "sources": [
+      "fda-abr-order-2018"
+    ]
+  },
+  {
+    "id": "nih-abr-examples-2016-2018",
+    "period": "December 2016 and May 2018",
+    "payer": "NIH",
+    "recipient": "Advanced Bioscience Resources",
+    "purpose": "Research tissue procurement",
+    "amount": "$680 and $750 in two purchase orders",
+    "scope": "The released records include invoices and payment paperwork. These amounts represent the two cited examples.",
+    "sources": [
+      "nih-abr-invoice-2016",
+      "nih-abr-invoice-2018"
+    ]
+  },
+  {
+    "id": "fda-abr-order-2018",
+    "period": "July–September 2018",
+    "payer": "U.S. Food and Drug Administration",
+    "recipient": "Advanced Bioscience Resources",
+    "purpose": "Research tissue purchase order HHSF223201810184P",
+    "amount": "$15,900 original obligation. $11,660 de-obligated after termination, leaving $4,240 on the order.",
+    "scope": "The order and modification show obligations. Disbursements require invoice and payment records. HHS said the order was terminated in September 2018.",
+    "sources": [
+      "fda-abr-order-2018",
+      "hhs-fda-abr-contract-2019"
+    ]
+  }
+]

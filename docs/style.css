@@ -145,3 +145,13 @@ footer{max-width:1120px;margin:auto;padding:24px 16px 48px;font-size:13px;color:
 .self-pay-chart dl div{display:grid;grid-template-columns: minmax(0,1fr) minmax(7rem,1fr);gap:12px;align-items:center;font-size:14px}
 .self-pay-chart dd{display:grid;grid-template-columns:minmax(0,1fr) 4.5rem;align-items:center;gap:8px;margin:0;text-align:right;font-variant-numeric:tabular-nums}
 .self-pay-chart meter{width:100%;accent-color:var(--accent)}
+
+.evidence-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1rem; margin-block: 0.5rem 0.85rem; }
+.evidence-controls input { accent-color: #0a5963; }
+.evidence-marker circle { fill: #0a5963; stroke: white; stroke-width: 2px; }
+.evidence-marker text { fill: white; font: bold 12px system-ui, sans-serif; text-anchor: middle; pointer-events: none; }
+.evidence-marker:hover circle, .evidence-marker:focus-visible circle { fill: #17212d; stroke: #f9bb60; stroke-width: 3px; }
+#evidence-list > li { margin-block: 1.5rem; }
+#evidence-list h3 { margin-bottom: 0.25rem; }
+#evidence-list h3:target { outline: 2px solid #0a5963; outline-offset: 0.25rem; }
+.evidence-meta { font-weight: 600; }

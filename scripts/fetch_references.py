@@ -45,21 +45,30 @@ def download(source, folder, expected_sha256):
         body = response.read()
         content_type = response.headers.get_content_type()
     identifier = source["id"]
+    if content_type == "text/html" and len(body) < 10_000:
+        if b"?bm-verify=" in body or b"<title>Making sure you&#39;re not a bot!" in body:
+            raise ValueError("Server returned a verification page")
     if identifier == "bearak-2022-supp-tables":
         with zipfile.ZipFile(io.BytesIO(body)) as archive:
             body = archive.read("bmjgh-2021-007151supp001.xlsx")
-    if identifier == "ocda-fetal-tissue-judgment-2017":
-        # The judgment is an exhibit in the federal filing. Archive only the pages cited on the site.
+    excerpt_pages = {
+        "ocda-fetal-tissue-judgment-2017": "52-58",
+        "fda-abr-order-2018": "28-36,161,166",
+        "doj-trafficking-report-fy2006": "90",
+    }
+    if identifier in excerpt_pages:
+        # Retain the cited records from the longer source.
         with tempfile.TemporaryDirectory() as directory:
-            original = pathlib.Path(directory) / "filing.pdf"
-            excerpt = pathlib.Path(directory) / "judgment.pdf"
+            original = pathlib.Path(directory) / "original.pdf"
+            excerpt = pathlib.Path(directory) / "excerpt.pdf"
             original.write_bytes(body)
             result = subprocess.run(
-                ["qpdf", "--deterministic-id", "--empty", "--pages", str(original), "52-58", "--", str(excerpt)],
+                ["qpdf", "--deterministic-id", "--empty", "--pages",
+                 str(original), excerpt_pages[identifier], "--", str(excerpt)],
                 capture_output=True,
             )
             if result.returncode:
-                raise ValueError("Could not extract the cited pages from the federal filing")
+                raise ValueError("Could not extract the cited pages")
             body = excerpt.read_bytes()
     expected = pathlib.PurePosixPath(source.get("filename", urllib.parse.urlparse(source["url"]).path)).suffix
     if body.startswith(b"%PDF"):

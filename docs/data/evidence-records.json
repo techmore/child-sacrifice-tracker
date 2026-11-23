@@ -1,0 +1,159 @@
+[
+  {
+    "id": "new-jersey-2005",
+    "place": "New Jersey, United States",
+    "year": 2005,
+    "status": "Indictment and reported testimony",
+    "title": "Alleged forced use of abortion-inducing pills",
+    "summary": "A federal indictment alleged that members of a forced-labor operation made pregnant workers take abortion-inducing medication. The U.S. Labor Department separately reported that three defendants pleaded guilty to forced-labor charges in 2006. In a separate plea hearing, a cooperating defendant said she witnessed forced pill use, according to contemporaneous Associated Press reporting.",
+    "limits": "The Labor Department plea summary does not resolve the pill allegation. The drug identity, supplier and any broader link remain unverified.",
+    "coordinates": [
+      -74.5,
+      40.1
+    ],
+    "sources": [
+      "doj-medrano-indictment-2005",
+      "dol-oig-medrano-pleas-2006",
+      "ap-rosales-plea-testimony",
+      "unodc-rosales-case-summary",
+      "doj-trafficking-report-fy2006"
+    ]
+  },
+  {
+    "id": "mexico-new-york-2009",
+    "place": "Tlaxcala, Mexico and New York, United States",
+    "year": 2009,
+    "status": "Sentencing record",
+    "title": "Coerced abortion in a sex trafficking prosecution",
+    "summary": "The U.S. Justice Department reported at sentencing that a trafficking operation recruited women and girls in Mexico and used threats and violence, including coerced abortion, to force them into prostitution in New York. The map marks the recruitment region.",
+    "limits": "The sentencing release does not specify how the abortions were performed or establish how often traffickers coerce abortions beyond this case.",
+    "coordinates": [
+      -98.2,
+      19.4
+    ],
+    "sources": [
+      "doj-carreto-plea-2008",
+      "doj-carreto-sentencing-2009"
+    ]
+  },
+  {
+    "id": "england-2014",
+    "place": "England, United Kingdom",
+    "year": 2014,
+    "status": "Official response",
+    "title": "Pregnancy remains in waste-to-energy incinerators",
+    "summary": "A hospital trust’s disclosure describes group incineration of remains from miscarriages, stillbirths and abortions. A planning report says the plant recovered heat for the hospital. The Department of Health told Parliament it opposed using waste-to-energy incinerators in these circumstances.",
+    "limits": "The records do not quantify energy from these loads or establish a sale of remains or payments to care providers. See PDF pages 144 and 147 of the deposited dossier.",
+    "coordinates": [
+      -1.5,
+      52.5
+    ],
+    "sources": [
+      "uk-parliament-fetal-remains-2014",
+      "uk-channel-4-pregnancy-remains-2014"
+    ]
+  },
+  {
+    "id": "oregon-2014",
+    "place": "Oregon, United States",
+    "year": 2014,
+    "status": "Official response and contract records",
+    "title": "County response to reports of fetal tissue in medical waste",
+    "summary": "Marion County reviewed its waste-to-energy disposal arrangements after reports involving medical waste from British Columbia. A subsequent county contract excluded human fetal tissue and specified a disposal fee paid by the hauler to the county.",
+    "limits": "The records leave the contents of individual shipments and any payments to clinics unverified.",
+    "coordinates": [
+      -120.4,
+      44.0
+    ],
+    "sources": [
+      "marion-oregon-board-april-2014",
+      "marion-oregon-board-july-2014"
+    ]
+  },
+  {
+    "id": "california-2017",
+    "place": "Southern California, United States",
+    "year": 2017,
+    "status": "Civil judgment",
+    "title": "Unlawful fetal tissue sales by two brokers",
+    "summary": "Two bioscience companies admitted liability in a civil case over unlawful sales of fetal tissue products. The county prosecutor described sales to pharmaceutical and academic customers.",
+    "limits": "The judgment leaves clinic revenue and net profit unverified. The case concerns tissue products for research.",
+    "coordinates": [
+      -116.8,
+      33.2
+    ],
+    "sources": [
+      "ocda-fetal-tissue-judgment-2017",
+      "ocda-fetal-tissue-settlement-2017"
+    ]
+  },
+  {
+    "id": "new-south-wales-2009",
+    "place": "New South Wales, Australia",
+    "year": 2009,
+    "status": "Official parliamentary answer",
+    "title": "Contractor collection for incineration",
+    "summary": "In response to question 6112 about abortion clinics, the health minister said remains were collected by a clinical-waste contractor for incineration. Parents could request their return for burial or cremation. Tasmania’s environmental guidance separately describes approved incineration or cremation for certain fetal and placental tissue.",
+    "limits": "The New South Wales answer describes the 2009 practice. Neither source establishes energy recovery or sales.",
+    "coordinates": [
+      147.1,
+      -32.2
+    ],
+    "sources": [
+      "nsw-parliament-clinical-waste-2009",
+      "epa-tasmania-clinical-waste"
+    ]
+  },
+  {
+    "id": "florida-2014",
+    "place": "Florida, United States",
+    "year": 2014,
+    "status": "Court finding at sentencing",
+    "title": "Nonconsensual administration of an abortion-inducing drug",
+    "summary": "In a separate intimate-partner abuse case, the U.S. Justice Department reported that a federal judge heard expert testimony and found that a drug given without the woman’s informed consent caused her pregnancy loss.",
+    "limits": "The case concerns a single act of abuse. The sentencing release does not describe a trafficking case.",
+    "coordinates": [
+      -82.2,
+      28.0
+    ],
+    "sources": [
+      "doj-welden-sentencing-2014"
+    ]
+  },
+  {
+    "id": "ohio-2015",
+    "place": "Ohio, United States",
+    "year": 2015,
+    "status": "State investigation findings",
+    "title": "Disposal review found no evidence of tissue sales by Ohio affiliates",
+    "summary": "The Ohio Attorney General reviewed provider, disposal contractor and bank records. The office reported that a contractor described treating clinical waste before landfill disposal in Kentucky. The investigation found no evidence that the Ohio affiliates it reviewed sold fetal tissue. The state declined to enforce the disposal rule at issue against the providers. The court vacated a temporary order, and the docket records a stipulated dismissal in 2016.",
+    "limits": "The findings concern organizations and records reviewed in 2015. They leave present-day practices and other providers unverified.",
+    "coordinates": [
+      -82.8,
+      40.0
+    ],
+    "sources": [
+      "ohio-ag-fetal-tissue-investigation-2015",
+      "ohio-ag-disposal-referral-2015",
+      "ohio-ag-investigation-summary-2015",
+      "ohio-disposal-litigation-2015"
+    ]
+  },
+  {
+    "id": "south-carolina-2016",
+    "place": "South Carolina, United States",
+    "year": 2016,
+    "status": "Regulatory consent orders",
+    "title": "Penalties for handling and documenting clinical waste",
+    "summary": "South Carolina’s environmental regulator cited a provider for handling, recordkeeping and disposal violations, including how products of conception were managed. A consent order required corrective steps and a $12,000 civil penalty. A separate order set a $5,400 penalty for the carrier over waste shipment documentation.",
+    "limits": "The penalties concern regulatory compliance. The orders leave energy recovery and tissue sales unverified.",
+    "coordinates": [
+      -80.4,
+      34.0
+    ],
+    "sources": [
+      "sc-infectious-waste-orders-2016",
+      "sc-licensing-order-2015"
+    ]
+  }
+]

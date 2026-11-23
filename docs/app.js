@@ -28,13 +28,30 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=policy-consequences"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=evidence-records"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
   d3.select("#source-list").selectAll("li").data(bibliography).join("li")
     .attr("id", source => source.id).append("a").attr("href", source => source.url).text(source => source.title);
   const cite = (id, label) => sourceLink(sources.get(id), label);
+  d3.json("data/material-payments.json").then(records => {
+    const rows = d3.select("#material-payment-rows").selectAll("tr").data(records).join("tr");
+    rows.append("th").attr("scope", "row").text(record => record.period);
+    const parties = rows.append("td");
+    parties.append("div").text(record => `From ${record.payer}`);
+    parties.append("div").text(record => `To ${record.recipient}`);
+    const amounts = rows.append("td");
+    amounts.append("div").text(record => record.purpose);
+    amounts.append("strong").text(record => record.amount);
+    const scope = rows.append("td").text(record => record.scope);
+    scope.append("ul").attr("class", "sources").selectAll("li")
+      .data(record => record.sources.map(id => sources.get(id))).join("li")
+      .append("a").attr("href", source => source.url).text(source => source.title);
+  }).catch(() => {
+    d3.select("#material-payment-rows").append("tr").append("td").attr("colspan", 4)
+      .text("Payment records could not be loaded. Reload the page to retry.");
+  });
   const newUS = history.recent.rows.at(-1);
   let counties = {}, countyStatus = "loading", pendingStateOptions;
   let countyYear, countyMode, countyTransform, countyRows = new Map(), activeCounty, countyGeometry;
@@ -116,10 +133,57 @@ Promise.all([
     labelNames.filter(l => l.show).attr("x", l => l.sx).text(l => l.text);
     labelValues.filter(l => l.show).attr("x", l => l.sx);
   }
+  const evidenceControl = document.getElementById("evidence-control");
+  const evidenceToggle = document.getElementById("evidence-toggle");
+  const evidenceLayer = worldG.append("g").attr("id", "evidence-markers").style("display", "none");
+  evidenceToggle.checked = params.get("evidence") === "1";
+  evidenceToggle.addEventListener("change", () => {
+    updateEvidenceVisibility();
+    const url = new URL(location.href);
+    if (evidenceToggle.checked) url.searchParams.set("evidence", "1");
+    else url.searchParams.delete("evidence");
+    window.history.replaceState(window.history.state, "", url);
+  });
+  function updateEvidenceVisibility() {
+    evidenceLayer.style("display", evidenceToggle.checked ? null : "none");
+    if (view === "world") svg.attr("role", evidenceToggle.checked ? "group" : "img");
+  }
+  function placeEvidence(transform) {
+    evidenceLayer.selectAll("a").attr("transform", record => {
+      const [x, y] = transform.apply(projection(record.coordinates));
+      return `translate(${x},${y})`;
+    });
+  }
+  d3.json("data/evidence-records.json").then(records => {
+    const entries = d3.select("#evidence-list").selectAll("li").data(records).join("li");
+    entries.append("h3").attr("id", record => `evidence-${record.id}`).attr("tabindex", -1).text(record => record.title);
+    entries.append("p").attr("class", "evidence-meta").text(record => `${record.place} · ${record.year} · ${record.status}`);
+    entries.append("p").text(record => record.summary);
+    entries.append("p").attr("class", "note").text(record => record.limits);
+    const references = entries.append("ul").attr("class", "sources");
+    references.selectAll("li").data(record => record.sources.map(id => sources.get(id))).join("li")
+      .append("a").attr("href", source => source.url).text(source => source.title);
+    const markers = evidenceLayer.selectAll("a").data(records).join("a")
+      .attr("class", "evidence-marker")
+      .attr("href", record => `#evidence-${record.id}`)
+      .attr("aria-label", record => `${record.place}, ${record.year}. ${record.status}. ${record.title}`)
+      .on("click", () => tip.attr("hidden", true));
+    markers.append("title").text(record => `${record.place} · ${record.status}`);
+    markers.append("circle").attr("r", 11);
+    markers.append("text").attr("dy", "0.35em").attr("aria-hidden", "true").text((_, index) => index + 1);
+    placeEvidence(d3.zoomTransform(svg.node()));
+    evidenceToggle.disabled = false;
+    updateEvidenceVisibility();
+    if (location.hash.startsWith("#evidence-") && location.hash !== "#evidence-records") {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView();
+    }
+  }).catch(() => {
+    d3.select("#evidence-list").append("li").text("Evidence records could not be loaded. Reload the page to retry.");
+  });
   const mapLayer = d3.select(shapes.node().parentNode);
   const zoom = d3.zoom().clickDistance(4).scaleExtent([1, 12]).translateExtent([[0, 0], [W, H]]).extent([[0, 0], [W, H]])
     .filter(e => view === "world" && !e.button && !e.touches && e.type !== "wheel")
-    .on("zoom", e => { mapLayer.attr("transform", e.transform); placeLabels(e.transform); });
+    .on("zoom", e => { mapLayer.attr("transform", e.transform); placeLabels(e.transform); placeEvidence(e.transform); });
   svg.call(zoom).on("wheel.zoom", null).on("dblclick.zoom", null).style("touch-action", "pan-x pan-y pinch-zoom");
   document.querySelectorAll("#zoom button").forEach(b => b.addEventListener("click", () => {
     if (b.dataset.z === "reset") svg.call(zoom.transform, d3.zoomIdentity);
@@ -177,6 +241,8 @@ Promise.all([
   function crumbs() {
     const c = document.getElementById("crumbs");
     usTotalBreakdown.hidden = view !== "us";
+    evidenceControl.hidden = view !== "world";
+    updateEvidenceVisibility();
     const countyView = view === "state" && !!counties[activeState.id];
     const stateTotal = document.getElementById("state-total");
     const recent = history.recent.states?.[activeState?.abbr]?.at(-1);
@@ -198,7 +264,8 @@ Promise.all([
     document.getElementById("zoom").hidden = view !== "world";
     document.querySelector(".controls").hidden = countyView;
     document.getElementById("panel").setAttribute("aria-live", countyView ? "off" : "polite");
-    svg.attr("role", countyView ? "group" : "img").attr("aria-label", view === "world" ? "World map of estimated abortions by country"
+    svg.attr("role", countyView || (view === "world" && evidenceToggle.checked) ? "group" : "img")
+      .attr("aria-label", view === "world" ? "World map of estimated abortions by country"
       : view === "us" ? "United States map of estimated abortions by state of residence"
       : countyView ? `Reported abortion counts by county in ${activeState.name}` : `Map of ${activeState.name}`);
     document.getElementById("state-pick").hidden = view === "world";

@@ -2,6 +2,7 @@ const assert = require("node:assert/strict");
 const { test } = require("node:test");
 const path = require("node:path");
 const { chromium } = require("playwright");
+const evidenceRecords = require("../docs/data/evidence-records.json");
 const states = require("../docs/data/states.json");
 const history = require("../docs/data/us-history.json");
 const countyReports = require("../docs/data/counties.json");
@@ -145,5 +146,37 @@ test("international history lists continent coverage and preserves the selected 
     await controls.waitFor();
     assert.equal(await page.locator("#history-series").inputValue(), "south-africa");
     assert.equal(await observations.count(), 6);
+  });
+});
+
+test("evidence markers open sourced records and persist on the world map", async () => {
+  await checkMap({ width: 1280, height: 850 }, async page => {
+    await page.goto(origin);
+    const toggle = page.getByLabel("Show evidence markers");
+    const markers = page.locator("#evidence-markers a");
+    const nsw = page.getByRole("link", { name: /^New South Wales, Australia, 2009/ });
+    await toggle.check();
+    assert.equal(await markers.count(), evidenceRecords.length);
+    assert.equal(new URL(page.url()).searchParams.get("evidence"), "1");
+    await nsw.click();
+    await page.waitForURL(url => url.hash === "#evidence-new-south-wales-2009");
+    const entry = page.locator("#evidence-new-south-wales-2009").locator("..");
+    assert.match(await entry.innerText(), /energy recovery or sales/);
+    assert.match(await entry.getByRole("link", { name: /^New South Wales/ }).getAttribute("href"), /parliament\.nsw\.gov\.au/);
+    await page.reload();
+    await nsw.waitFor();
+    assert.equal(await toggle.isChecked(), true);
+    await page.locator("#country").selectOption("840");
+    assert.equal(await toggle.isVisible(), false);
+    assert.equal(await page.locator("#evidence-markers").isVisible(), false);
+    await page.getByRole("button", { name: "World", exact: true }).click();
+    await nsw.waitFor();
+    await toggle.uncheck();
+    assert.equal(await nsw.isVisible(), false);
+    const payments = page.getByRole("region", { name: "Public records of payments and charges" });
+    await payments.getByText(/\$7,470 across nine invoices/).waitFor();
+    assert.match(await payments.getByText(/\$15,900 original obligation/).locator("../..").innerText(),
+      /Disbursements require invoice and payment records/);
+    assert.equal(await page.getByRole("heading", { name: "Further reading and investigations" }).count(), 1);
   });
 });

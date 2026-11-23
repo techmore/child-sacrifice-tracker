@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=funding-structure">
+<link rel="stylesheet" href="style.css?v=evidence-records">
 </head>
 <body>
 <section id="map-section" class="wide">
@@ -24,6 +24,10 @@
   </details>
   <nav id="crumbs" aria-label="Map level"></nav>
   <div class="picks"><label class="pick">Choose a country <select id="country"></select></label><label class="pick" id="state-pick" hidden>Choose a state <select id="state"></select></label></div>
+  <div class="evidence-controls">
+    <label id="evidence-control" hidden><input type="checkbox" id="evidence-toggle" disabled> Show evidence markers</label>
+    <a href="#evidence-records">Read the evidence records</a>
+  </div>
   <div class="map-layout">
     <div class="map-wrap">
       <div id="state-total" role="status" hidden></div>
@@ -185,10 +189,29 @@
 <section id="provider-finances">
   <h2>Provider revenue and fetal tissue sales</h2>
   <p>Nonprofit providers disclose organization-wide revenue in public financial reports and IRS filings. Planned Parenthood’s 2024–2025 annual report lists $1.883 billion in total revenue across 49 affiliates, based on their audited fiscal years ending during 2024. The report gives no separate revenue figures for abortion care or fetal tissue. <a href="https://www.plannedparenthood.org/uploads/filer_public/6a/19/6a191461-a0ad-4ea0-8118-aa9184c24a31/digital-2025-ppfa-annualreport-c3.pdf#page=20">Planned Parenthood annual report</a>, <a href="https://www.irs.gov/charities-non-profits/public-disclosure-and-availability-of-exempt-organizations-returns-and-applications-documents-subject-to-public-disclosure">IRS disclosure rules</a>.</p>
+  <p><a href="#material-payments">See the records of specific payments and transfers</a>.</p>
   <p>The same annual report groups affiliate revenue by source. It lists $832.0 million in government health-service reimbursements and grants, $380.6 million in nongovernment health-service revenue, and $497.7 million in private contributions and bequests. The government line also includes Medicaid managed-care payments. These are organization-wide figures, and the public table cannot trace a service-level payment or how shared costs were allocated. <a href="https://www.plannedparenthood.org/uploads/filer_public/6a/19/6a191461-a0ad-4ea0-8118-aa9184c24a31/digital-2025-ppfa-annualreport-c3.pdf#page=20">Annual report, revenue table and note c</a>.</p>
   <p>The national federation also files its own Form 990. It reported $410.0 million in total revenue for the year ending June 30, 2025. This return covers the national federation. Its revenue statement gives no line item for fetal tissue or revenue by clinic. <a href="https://docs.candid.org/990/131/131644147/131644147_2025_202641349349313769_990.pdf">PPFA Form 990, Parts I and VIII</a>.</p>
   <p>In 2017, two bioscience companies, DV Biologics and DaVinci Biosciences, admitted to unlawful fetal tissue sales under California law in a stipulated civil judgment. The judgment set a $7.785 million settlement consisting of donated assets and civil penalties. The Orange County District Attorney reported that the companies sold fetal-derived products to pharmaceutical companies and academic institutions. Prosecutors attributed more than $550,000 in gross revenue to the two companies from the sales at issue between August 2012 and October 2015. The judgment resolves the case against the defendants named in it. It gives no figures for clinic payments or clinic profits. <a href="https://www.centerformedicalprogress.org/wp-content/uploads/2018/08/Dkt.-547-1-Daleiden-Decl.-ISO-Mtn-to-Dissolve-PI.pdf#page=52">Filed judgment</a>, <a href="https://ocdistrictattorney.gov/press/ocda-obtains-7-8-million-settlement-and-admission-of-liability-in-lawsuit-against-two-companies-who-sold-fetal-tissue-products/">District Attorney’s settlement announcement</a>.</p>
   <p>Federal law prohibits knowingly transferring human fetal tissue for valuable consideration when the transfer affects interstate commerce. The statute excludes reasonable payments for specified costs, including transportation, processing, and storage. In August 2015, Planned Parenthood told Congress that some affiliates received $45 to $60 per specimen from tissue procurement organizations. It said those payments were intended to cover costs. The reported amounts alone leave any profit unverified. In October 2015, the organization told NIH that its participating centers would stop accepting reimbursement. <a href="https://www.govinfo.gov/content/pkg/USCODE-2024-title42/pdf/USCODE-2024-title42-chap6A-subchapIII-partH-sec289g-1.pdf">42 U.S.C. § 289g-2</a>, <a href="https://docs.house.gov/meetings/IF/IF14/20150917/103957/HHRG-114-IF14-20150917-SD008.pdf">House record of the August letter</a>, <a href="https://cdn.plannedparenthood.org/uploads/filer_public/d3/6d/d36db865-3b8b-47fe-852b-645713d820a0/second_nih_letter.pdf">October 2015 letter to NIH</a>.</p>
+</section>
+
+<section id="material-payments">
+  <h2>Who paid for fetal tissue and related services?</h2>
+  <p>Public records trace specific payments from research funders and buyers to laboratories, brokers and some clinics. Clinical reimbursements, research grants, broker sales and waste-disposal fees pay for different things. Some amounts overlap, so the rows have no combined total.</p>
+  <div class="table-scroll" role="region" aria-label="Public records of payments and charges" tabindex="0">
+    <table>
+      <thead><tr><th scope="col">Period</th><th scope="col">Payer and recipient</th><th scope="col">Purpose and amount</th><th scope="col">What the record covers</th></tr></thead>
+      <tbody id="material-payment-rows"></tbody>
+    </table>
+  </div>
+  <p class="note"><a href="data/material-payments.json" download>Download the payment records (JSON)</a></p>
+  <h3>Legal and accounting questions</h3>
+  <p>U.S. federal law prohibits knowingly transferring human fetal tissue for valuable consideration when the transfer affects interstate commerce. Reasonable payments for specified activities, such as transportation, processing and storage, are excluded. The January 2026 NIH notice bars its funding for covered research using fetal tissue from elective abortions. The notice preserves funding eligibility for tissue from miscarriage and stillbirth under existing requirements. <a href="#uscode-fetal-tissue-289g2">42 U.S.C. § 289g-2</a> · <a href="#nih-fetal-tissue-funding-policy-2026">NIH funding notice</a></p>
+  <p>To test whether a clinic made money from transferring tissue, match the contract and invoices to payments received and documented costs for the same work and period. An invoice shows what was billed. A payment record shows what changed hands. Aggregate revenue and list prices leave the question of profit open.</p>
+  <h3 id="nygard-records">What the Nygård records establish</h3>
+  <p>The 2020 U.S. indictment charged Peter Nygård with racketeering, sex trafficking and related offenses. In a separate Canadian case, an Ontario appellate court left four sexual assault convictions and an 11-year sentence in place in 2026. In 2022 a Manitoba legislator alleged that a proposed company used cells from aborted fetuses in his treatments. The debate records the allegation. The U.S. indictment and Canadian decisions supply no evidence identifying a tissue source or tracing a transfer or payment to a clinic or broker. <a href="#doj-nygard-indictment-2020">U.S. indictment</a> · <a href="#scc-nygard-extradition-docket">Canadian extradition docket</a> · <a href="#onca-nygard-appeal-2026">Ontario appeal decision</a> · <a href="#manitoba-nygard-debate-2022">Manitoba debate</a></p>
+  <p><a href="#further-reading">Books, investigations and source records</a></p>
 </section>
 
 <section id="medication-economics">
@@ -236,6 +259,14 @@
   <p class="limit">A financial account helps ask who benefits from a policy, who pays when it changes, and what it would cost to give families meaningful alternatives. The moral claims about prenatal life, consent and responsibility still need to be argued in their own terms. <a href="#policy-consequences">What changes when abortion policy changes?</a></p>
 </section>
 
+<section id="evidence-records">
+  <h2>Evidence records</h2>
+  <p>Each marker identifies the jurisdiction or region associated with a public record. The year refers to the cited action or publication. The records cover individual cases and official responses. They provide no prevalence estimate and establish no common link between trafficking, tissue sales and waste disposal.</p>
+  <p class="note"><a href="?evidence=1#map-section">Show markers on the world map</a> · <a href="data/evidence-records.json" download>Download the records (JSON)</a></p>
+  <ol id="evidence-list"></ol>
+  <p>Trafficking prosecutions document reproductive coercion, including coerced abortion. The cited records do not trace drugs to a supplier or establish a wider supply network. <a href="#markets-and-oversight">Survivor study and surveillance limitations</a></p>
+</section>
+
 <section id="markets-and-oversight">
   <h2>Exploitation, markets and legal oversight</h2>
   <p>Who can profit when someone else loses control over a pregnancy or what happens to its remains? The records show where law allows payments, where authorities acted against abuse, and where oversight has missed people. A payment can be legal and still raise a moral question about what should be bought or sold. An act can be illegal while institutions fail to recognize the people it harms.</p>
@@ -249,6 +280,8 @@
 
   <h3>Waste-to-energy disposal</h3>
   <p>In 2014, the UK Department of Health told Parliament that a Channel 4 investigation had brought to its attention the use of waste-to-energy incinerators to dispose of fetal remains. The department called the practice unacceptable and NHS England wrote to trusts. The parliamentary record documents disposal and the government response. It provides no payment records establishing that remains were sold as fuel. <a href="https://publications.parliament.uk/pa/ld201314/ldhansrd/text/140408w0001.htm">UK Parliament, April 8, 2014</a>, <a href="https://data.parliament.uk/DepositedPapers/Files/DEP2014-0569/PQ194504_-_Library_Doc_-_Report.pdf">Channel 4 records deposited with Parliament</a>.</p>
+
+  <p>Australia’s national waste report describes incinerators that handle mostly medical waste without recovering energy. That distinction matters when reading historical disposal records. <a href="#evidence-new-south-wales-2009">New South Wales record</a> · <a href="#australia-energy-recovery-2024">Australian energy recovery report</a></p>
 
   <h3>Vaccine manufacturing and school requirements</h3>
   <p>FDA labels identify longstanding fetal-derived cell lines used in vaccine manufacturing. The rubella component of M-M-R II uses WI-38 lung fibroblasts, and the Varivax label discloses residual DNA and protein from MRC-5 cells. California school-entry rules generally require MMR and varicella vaccination, subject to exemptions. The rules specify the vaccinations, and the labels describe manufacturing. Neither record identifies payments to abortion providers. <a href="https://www.fda.gov/media/75191/download">M-M-R II label</a>, <a href="https://www.fda.gov/media/76000/download">Varivax label</a>, <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/Immunization/IMM-1080.pdf">California school-entry regulations</a>.</p>
@@ -339,6 +372,25 @@
   <div class="limit"><b>Why this site has no list of clinics or staff.</b> Abortion providers have faced murder, arson and threats. In <i>Planned Parenthood v. American Coalition of Life Activists</i>, a divided federal appeals court upheld a finding that "GUILTY" posters naming abortion providers, together with listing those plaintiffs on a website, were true threats. Disagreement belongs with lawmakers and in public argument. Never approach, harass or threaten patients or staff. <a href="https://nationalabortionfederation.org/safety-security/2024-naf-violence-disruption/">National Abortion Federation incident reports</a>, <a href="https://pld.cs.luc.edu/courses/ethics/spr25/mnotes/documents/nuremberg/PPvACLA_9th_enbanc.pdf">Ninth Circuit opinion</a>.</div>
 </section>
 
+<section id="further-reading">
+  <h2>Further reading and investigations</h2>
+  <h3>Books and research</h3>
+  <ul>
+    <li>Catherine Waldby and Robert Mitchell, <i>Tissue Economies</i> (2006). Case studies on tissue donation, banking and commercial use. <a href="https://www.dukeupress.edu/tissue-economies">Duke University Press</a></li>
+    <li>Loretta J. Ross and Rickie Solinger, <i>Reproductive Justice</i> (2017). A history of the movement for the ability to have children, avoid pregnancy and raise a family under safe conditions. <a href="https://www.ucpress.edu/books/reproductive-justice/paper">University of California Press</a></li>
+    <li>Rebecca Skloot, <i>The Immortal Life of Henrietta Lacks</i> (2010). Investigative reporting on consent and the commercial use of a cell line taken from an adult cancer patient. <a href="https://www.penguinrandomhouse.com/books/168191/the-immortal-life-of-henrietta-lacks-by-rebecca-skloot/9781400052189/">Publisher</a></li>
+    <li>Solveig Jülich, <i>Embryology and the Clinic</i>. A historical account of fetal specimen collecting through Swedish clinicians and midwives. <a href="https://doi.org/10.1163/9789004703759_008">Chapter</a> · <a href="#julich-fetal-collecting-history">Publication record</a></li>
+  </ul>
+  <h3>Investigative reporting and source documents</h3>
+  <ul>
+    <li>Denise Grady and Nicholas St. Fleur reported on tissue intermediaries, fees and competing accounts of their costs in 2015. The Congressional Research Service gives the historical federal rules and funding context. <a href="https://www.nytimes.com/2015/07/28/health/fetal-tissue-from-abortions-for-research-is-traded-in-a-gray-zone.html">The New York Times</a> · <a href="#crs-fetal-tissue-faq-2019">CRS report</a></li>
+    <li>Channel 4 obtained hospital responses about the disposal of pregnancy remains. Parliament published those responses and recorded the Department of Health’s reply. <a href="#uk-channel-4-pregnancy-remains-2014">Deposited documents</a> · <a href="#uk-parliament-fetal-remains-2014">Written answers</a></li>
+    <li>CBC’s reporting on Nygård includes material from his former videographer. The court records establish the charges and outcomes described in the <a href="#nygard-records">Nygård case note</a>. The reviewed sources leave the claimed tissue connection unverified. <a href="https://www.youtube.com/watch?v=MiovkjJkWq8">CBC News</a></li>
+    <li>The Center for Medical Progress’s undercover recordings prompted congressional inquiries. A federal appeals court reviewed how the recordings were obtained in a civil suit. The legality of tissue payments is a separate question addressed by transaction records and, in California, a stipulated judgment against two bioscience companies. <a href="#ninth-circuit-cmp-2022">Appeals court opinion</a> · <a href="#house-fetal-tissue-panel-2016">House investigation</a> · <a href="#ocda-fetal-tissue-judgment-2017">California judgment</a></li>
+    <li>Lederer and Wetzel report what trafficking survivors told researchers about their experiences. The study documents individual accounts of coercion. Its recruitment and response rates limit prevalence estimates. <a href="#lederer-wetzel-trafficking-2014">Original study</a></li>
+  </ul>
+</section>
+
 <section id="sources">
   <h2>Sources</h2>
   <ul class="sources" id="source-list"></ul>
@@ -349,6 +401,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=policy-consequences"></script>
+<script src="app.js?v=evidence-records"></script>
 </body>
 </html>

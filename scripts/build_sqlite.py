@@ -17,7 +17,8 @@ SCHEMA = Path("scripts/tracker_schema.sql")
 MANIFEST = Path("references/manifest.json")
 SNAPSHOTS = {
     name: Path(f"docs/data/{name}.json")
-    for name in ("countries", "us", "us-history", "states", "counties", "international-history")
+    for name in ("countries", "us", "us-history", "states", "counties", "international-history", "evidence-records",
+                 "material-payments")
 }
 INPUTS = (SCHEMA, MANIFEST, *SNAPSHOTS.values())
 CDC_SOURCE_YEARS = {
@@ -65,6 +66,32 @@ def insert_sources(db, manifest):
              r.get("file"), r.get("sha256"), r.get("bytes"), r.get("error"))
             for r in manifest
         ),
+    )
+
+
+def insert_evidence(db, records):
+    db.executemany(
+        """INSERT INTO evidence_record
+               (id, place, year, status, title, summary, limits, longitude, latitude)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        ((r["id"], r["place"], r["year"], r["status"], r["title"], r["summary"], r["limits"], *r["coordinates"])
+         for r in records),
+    )
+    db.executemany(
+        "INSERT INTO evidence_source (record_id, source_id) VALUES (?, ?)",
+        ((r["id"], source_id) for r in records for source_id in r["sources"]),
+    )
+
+
+def insert_material_payments(db, records):
+    db.executemany(
+        """INSERT INTO material_payment (id, period, payer, recipient, purpose, amount, scope)
+           VALUES (:id, :period, :payer, :recipient, :purpose, :amount, :scope)""",
+        records,
+    )
+    db.executemany(
+        "INSERT INTO material_payment_source (payment_id, source_id) VALUES (?, ?)",
+        ((r["id"], source_id) for r in records for source_id in r["sources"]),
     )
 
 
@@ -272,6 +299,8 @@ def populate(db, files):
             ((path.as_posix(), sha256(raw).hexdigest(), len(raw)) for path, raw in files.items()),
         )
         insert_sources(db, manifest)
+        insert_evidence(db, data["evidence-records"])
+        insert_material_payments(db, data["material-payments"])
         db.executemany("INSERT INTO series (id, label, scope, geography) VALUES (?, ?, ?, ?)", SERIES)
         db.executemany(
             "INSERT INTO series_source (series_id, source_id) VALUES (?, ?)",
