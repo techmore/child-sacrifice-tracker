@@ -130,7 +130,7 @@
     "recipient": "Advanced Bioscience Resources",
     "purpose": "Research tissue purchase order HHSF223201810184P",
     "amount": "$15,900 original obligation. $11,660 de-obligated after termination, leaving $4,240 on the order.",
-    "scope": "FDA terminated the order on September 24, 2018, citing concerns about compliance and the sole-source justification. FDA staff reported no open invoices in October. The remaining obligation does not establish the amount disbursed.",
+    "scope": "FDA terminated the order on September 24, 2018, citing concerns about compliance and the sole-source justification. FDA staff reported no open invoices in October. Disbursements require invoice and payment records. An obligation is a commitment to pay.",
     "sources": [
       "fda-abr-order-2018",
       "hhs-fda-abr-contract-2019"
