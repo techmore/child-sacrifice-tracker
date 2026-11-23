@@ -5530,5 +5530,126 @@
     "file": "private/un-dyb-scan-1982.pdf",
     "bytes": 43989702,
     "sha256": "340d077da0de9b7d1fc00ad5b0700ab59df8dd90c093561b3ab21ea0b7204f02"
+  },
+  {
+    "id": "fda-orange-book-2026",
+    "access": "open",
+    "title": "FDA Orange Book, approved drug products, 46th edition",
+    "url": "https://www.fda.gov/media/71474/download",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fda-orange-book-2026.pdf",
+    "bytes": 13646959,
+    "sha256": "667506e66165928a0cac4280c62fc8a7dc8e4355960953c12cf69664e90d9575"
+  },
+  {
+    "id": "fda-evita-approval-2025",
+    "access": "open",
+    "title": "FDA approval letter for Evita Solutions mifepristone, ANDA 216616",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/216616s000ltr.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fda-evita-approval-2025.pdf",
+    "bytes": 877203,
+    "sha256": "d87d6d05cd8ab90a88bbecbf7ac89c6552ddde459437d1c684bcec361089c839"
+  },
+  {
+    "id": "senate-help-mifepristone-2026",
+    "access": "private",
+    "title": "Senate HELP majority staff report on mifepristone and sponsor correspondence, August 2026",
+    "url": "https://www.help.senate.gov/mifepristone-report_finalpdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/senate-help-mifepristone-2026.pdf",
+    "bytes": 35331329,
+    "sha256": "15dbe302a6e2b92b5a6ebe5f075def9bc413bb9318ac5cc1c9672768ce603966"
+  },
+  {
+    "id": "pfizer-cytotec-label",
+    "access": "private",
+    "title": "Pfizer, Cytotec prescribing information",
+    "url": "https://labeling.pfizer.com/showlabeling.aspx?id=559",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pfizer-cytotec-label.html",
+    "bytes": 46689,
+    "sha256": "830e9721281dbc0577b684a958629cfb73cabaf57f90e04aaeef06c161d656a2"
+  },
+  {
+    "id": "pfizer-10k-2025",
+    "access": "private",
+    "title": "Pfizer fiscal 2025 Form 10-K, archived issuer filing",
+    "url": "https://www.annualreports.com/HostedData/AnnualReports/PDF/NYSE_PFE_2025.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pfizer-10k-2025.pdf",
+    "bytes": 1612922,
+    "sha256": "1e6c4258a77add226c736ecef8413962c37af70733cd77d1935e8f6d7f2e9d8d"
+  },
+  {
+    "id": "merck-10k-2025",
+    "access": "private",
+    "title": "Merck fiscal 2025 Form 10-K, SEC filing and product sales",
+    "url": "https://www.merck.com/wp-content/uploads/sites/124/2026/05/MRK-12.31.2025-10K-FINAL.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/merck-10k-2025.pdf",
+    "bytes": 1423877,
+    "sha256": "79f49f7214b396168ef5da16c211715a447360bf6329f3a5f6caf20cad457bfc"
+  },
+  {
+    "id": "medication-abortion-pricing-2023",
+    "access": "private",
+    "title": "Upadhyay et al., Pricing of medication abortion in the United States, 2021–2023",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11606000/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/medication-abortion-pricing-2023.html",
+    "bytes": 334907,
+    "sha256": "08129cfd498cefe36cc36b8ff859dc6a47f6542aa7fcff26ab55dba0081f6b40"
+  },
+  {
+    "id": "abortion-travel-spending-2019",
+    "access": "private",
+    "title": "Catastrophic Health Expenditures for In-State and Out-of-State Abortion Care, 2019 survey",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11549660/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/abortion-travel-spending-2019.html",
+    "bytes": 231096,
+    "sha256": "00d89a4d73b35e619ba9a29e908f73bd7a25f515a41d656e0511b8c107e1f719"
+  },
+  {
+    "id": "abortion-followup-costs-ca",
+    "access": "private",
+    "title": "ANSIRH, Distance Traveled for an Abortion and Source of Care After Abortion, California 2011–2012",
+    "url": "https://www.ansirh.org/sites/default/files/publications/admin_files/17_upadhyay.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/abortion-followup-costs-ca.pdf",
+    "bytes": 477788,
+    "sha256": "60577ab49d4f93c0324e14e5dfabc015f7a0e67007335268288195d0b89a7c94"
+  },
+  {
+    "id": "danco-doj-customs-settlement-2023",
+    "access": "private",
+    "title": "U.S. Department of Justice and Danco, signed 2023 customs settlement",
+    "url": "https://www.justice.gov/d9/press-releases/attachments/2023/04/12/us_ex_rel._lldf_v._danco_-_signed_settlement_agreement_0.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/danco-doj-customs-settlement-2023.pdf",
+    "bytes": 1092657,
+    "sha256": "e8274db2dc40d5dc05431ae7507441acb2fac0a503160ca8f03827dc68c8415e"
+  },
+  {
+    "id": "fda-mifepristone-environmental-assessment",
+    "access": "private",
+    "title": "FDA original mifepristone environmental assessment and finding of no significant impact",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/20687_Mifepristone_EA.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/fda-mifepristone-environmental-assessment.pdf",
+    "bytes": 2177901,
+    "sha256": "7b216bf4ff9cc054284f5a7810eed91725c3e524ed13f4f3a1a30bfb384316b6"
   }
 ]

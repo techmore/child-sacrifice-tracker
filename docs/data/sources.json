@@ -1698,5 +1698,60 @@
     "id": "un-dyb-scan-1982",
     "title": "UN Demographic Yearbook 1982, scanned full edition",
     "url": "https://unstats.un.org/unsd/demographic-social/products/dyb/dybsets/1982%20DYB.pdf"
+  },
+  {
+    "id": "fda-orange-book-2026",
+    "title": "FDA Orange Book, approved drug products, 46th edition",
+    "url": "https://www.fda.gov/media/71474/download"
+  },
+  {
+    "id": "fda-evita-approval-2025",
+    "title": "FDA approval letter for Evita Solutions mifepristone, ANDA 216616",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/216616s000ltr.pdf"
+  },
+  {
+    "id": "senate-help-mifepristone-2026",
+    "title": "Senate HELP majority staff report on mifepristone and sponsor correspondence, August 2026",
+    "url": "https://www.help.senate.gov/mifepristone-report_finalpdf"
+  },
+  {
+    "id": "pfizer-cytotec-label",
+    "title": "Pfizer, Cytotec prescribing information",
+    "url": "https://labeling.pfizer.com/showlabeling.aspx?id=559"
+  },
+  {
+    "id": "pfizer-10k-2025",
+    "title": "Pfizer fiscal 2025 Form 10-K, archived issuer filing",
+    "url": "https://www.annualreports.com/HostedData/AnnualReports/PDF/NYSE_PFE_2025.pdf"
+  },
+  {
+    "id": "merck-10k-2025",
+    "title": "Merck fiscal 2025 Form 10-K, SEC filing and product sales",
+    "url": "https://www.merck.com/wp-content/uploads/sites/124/2026/05/MRK-12.31.2025-10K-FINAL.pdf"
+  },
+  {
+    "id": "medication-abortion-pricing-2023",
+    "title": "Upadhyay et al., Pricing of medication abortion in the United States, 2021–2023",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11606000/"
+  },
+  {
+    "id": "abortion-travel-spending-2019",
+    "title": "Catastrophic Health Expenditures for In-State and Out-of-State Abortion Care, 2019 survey",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11549660/"
+  },
+  {
+    "id": "abortion-followup-costs-ca",
+    "title": "ANSIRH, Distance Traveled for an Abortion and Source of Care After Abortion, California 2011–2012",
+    "url": "https://www.ansirh.org/sites/default/files/publications/admin_files/17_upadhyay.pdf"
+  },
+  {
+    "id": "danco-doj-customs-settlement-2023",
+    "title": "U.S. Department of Justice and Danco, signed 2023 customs settlement",
+    "url": "https://www.justice.gov/d9/press-releases/attachments/2023/04/12/us_ex_rel._lldf_v._danco_-_signed_settlement_agreement_0.pdf"
+  },
+  {
+    "id": "fda-mifepristone-environmental-assessment",
+    "title": "FDA original mifepristone environmental assessment and finding of no significant impact",
+    "url": "https://www.accessdata.fda.gov/drugsatfda_docs/nda/2000/20687_Mifepristone_EA.pdf"
   }
 ]
