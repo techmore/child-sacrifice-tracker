@@ -5728,5 +5728,102 @@
     "file": "private/gudid-hayden-bierer-forceps.html",
     "bytes": 50221,
     "sha256": "10e105236e03a007b42501b2272f96b363c36b3e38efacd24555062bacbee847"
+  },
+  {
+    "id": "illinois-medicaid-abortion-births",
+    "access": "private",
+    "title": "Health Affairs, Abortion Rate Increased And Birth Rate Decreased After Introduction Of Medicaid Abortion Coverage In Illinois",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12320975/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/illinois-medicaid-abortion-births.html",
+    "bytes": 190482,
+    "sha256": "19d15ace311f35670ee46bdcdefdb5130b3187f8506bba7a719e532b76647854"
+  },
+  {
+    "id": "state-medicaid-abortion-patient-payments",
+    "access": "private",
+    "title": "Perspectives on Sexual and Reproductive Health, The impact of state Medicaid coverage of abortion on people accessing care in three states",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11605993/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/state-medicaid-abortion-patient-payments.html",
+    "bytes": 227904,
+    "sha256": "d29a2f9abbb9b5b4026bfcb38424b29e54a213d1efeb5bff020b69b59e12ae0f"
+  },
+  {
+    "id": "tennessee-waiting-period-effects",
+    "access": "private",
+    "title": "Lindo and Pineda-Torres, New Evidence on the Effects of Mandatory Waiting Periods for Abortion",
+    "url": "https://bpb-us-e1.wpmucdn.com/sites.gatech.edu/dist/f/3934/files/2023/12/MandatoryWaitingPeriods_LindoPinedaTorres.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/tennessee-waiting-period-effects.pdf",
+    "bytes": 6439551,
+    "sha256": "513e03f851842438aefd9044688f70620070ae151949998626c6731ba57d7fb6"
+  },
+  {
+    "id": "north-carolina-interstate-care-dobbs",
+    "access": "private",
+    "title": "JAMA Network Open, Out-of-State Travel for Abortion Care Before and After the Dobbs v Jackson Decision",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499001/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/north-carolina-interstate-care-dobbs.html",
+    "bytes": 153008,
+    "sha256": "b37d948d0fa7812fb5aa8d90cb658f07230cf2ab2156717a96f341ea7c97a3fc"
+  },
+  {
+    "id": "post-ban-us-births-2025",
+    "access": "private",
+    "title": "Bell et al., US Abortion Bans and Fertility, JAMA 2025",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11826436/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/post-ban-us-births-2025.html",
+    "bytes": 185150,
+    "sha256": "8bd16ec0b75f2307502d4afca02754ede622239fa43caaa6f20a3a553671d975"
+  },
+  {
+    "id": "pregnancy-care-physician-interviews-2026",
+    "access": "private",
+    "title": "JAMA Network Open, Abortion Bans and Pregnancy-Related Care Across Physician Specialties",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13288732/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pregnancy-care-physician-interviews-2026.html",
+    "bytes": 186426,
+    "sha256": "f0f40a620af45d3c1537e6e60d95359213ff850e78bd6a0a2dc6ce27e02c40b5"
+  },
+  {
+    "id": "neonatal-infant-mortality-bans-2026",
+    "access": "private",
+    "title": "Abraha et al., State Abortion Bans and Neonatal and Infant Mortality in the US, JAMA Network Open 2026",
+    "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2856963",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "societal-costs-14-states-2026",
+    "access": "private",
+    "title": "Platt et al., Societal Costs of Total Abortion Bans in 14 US States After Dobbs, AJPH 2026, PubMed abstract record",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=41785442&retmode=xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/societal-costs-14-states-2026.xml",
+    "bytes": 20237,
+    "sha256": "6e32f705b9ffa23c51a1abf9e5163d8c140ad9fea4c7207c7ee5dc45a9f3f825"
+  },
+  {
+    "id": "neonatal-infant-mortality-bans-2026-summary",
+    "access": "private",
+    "title": "JAMA Network, publisher summary of State Abortion Bans and Neonatal and Infant Mortality in the US",
+    "url": "https://media.jamanetwork.com/media-releases/10.1001/jamanetworkopen.2026.45613",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/neonatal-infant-mortality-bans-2026-summary.html",
+    "bytes": 9314,
+    "sha256": "35c85cad7909352c5b530568af9d9a7e6880de6181c78917416ef983d4255944"
   }
 ]

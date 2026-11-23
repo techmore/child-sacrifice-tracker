@@ -1788,5 +1788,50 @@
     "id": "gudid-hayden-bierer-forceps",
     "title": "AccessGUDID, Hayden Medical Bierer ovum forceps",
     "url": "https://accessgudid.nlm.nih.gov/devices/00840319724392"
+  },
+  {
+    "id": "illinois-medicaid-abortion-births",
+    "title": "Health Affairs, Abortion Rate Increased And Birth Rate Decreased After Introduction Of Medicaid Abortion Coverage In Illinois",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12320975/"
+  },
+  {
+    "id": "state-medicaid-abortion-patient-payments",
+    "title": "Perspectives on Sexual and Reproductive Health, The impact of state Medicaid coverage of abortion on people accessing care in three states",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11605993/"
+  },
+  {
+    "id": "tennessee-waiting-period-effects",
+    "title": "Lindo and Pineda-Torres, New Evidence on the Effects of Mandatory Waiting Periods for Abortion",
+    "url": "https://bpb-us-e1.wpmucdn.com/sites.gatech.edu/dist/f/3934/files/2023/12/MandatoryWaitingPeriods_LindoPinedaTorres.pdf"
+  },
+  {
+    "id": "north-carolina-interstate-care-dobbs",
+    "title": "JAMA Network Open, Out-of-State Travel for Abortion Care Before and After the Dobbs v Jackson Decision",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13499001/"
+  },
+  {
+    "id": "post-ban-us-births-2025",
+    "title": "Bell et al., US Abortion Bans and Fertility, JAMA 2025",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11826436/"
+  },
+  {
+    "id": "pregnancy-care-physician-interviews-2026",
+    "title": "JAMA Network Open, Abortion Bans and Pregnancy-Related Care Across Physician Specialties",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13288732/"
+  },
+  {
+    "id": "neonatal-infant-mortality-bans-2026",
+    "title": "Abraha et al., State Abortion Bans and Neonatal and Infant Mortality in the US, JAMA Network Open 2026",
+    "url": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2856963"
+  },
+  {
+    "id": "societal-costs-14-states-2026",
+    "title": "Platt et al., Societal Costs of Total Abortion Bans in 14 US States After Dobbs, AJPH 2026, PubMed abstract record",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=41785442&retmode=xml"
+  },
+  {
+    "id": "neonatal-infant-mortality-bans-2026-summary",
+    "title": "JAMA Network, publisher summary of State Abortion Bans and Neonatal and Infant Mortality in the US",
+    "url": "https://media.jamanetwork.com/media-releases/10.1001/jamanetworkopen.2026.45613"
   }
 ]
