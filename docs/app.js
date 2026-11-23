@@ -5,6 +5,7 @@ const METRICS = {
   rate: { label: "Per 1,000 women aged 15 to 49", bins: [15, 25, 35, 45], show: v => v.toFixed(0) },
   shareOfBirthsPlusAbortions: { label: "Abortions as % of births + abortions", bins: [15, 25, 35, 45], show: v => v.toFixed(0) + "%" },
 };
+const exact = n => n < 2e6 ? fmt(n) : short(n);
 const STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5"].map(v => `var(${v})`);
 const SOURCES = [
   ["WHO, Abortion fact sheet", "https://www.who.int/news-room/fact-sheets/detail/abortion"],
@@ -51,9 +52,19 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
   const STATE_BINS = { abortions: [3000, 10000, 25000, 60000], rate: [5, 10, 15, 20], shareOfBirthsPlusAbortions: [10, 15, 20, 25] };
-  const W = 1400, H = 720;
+  const W = Math.max(1000, document.querySelector(".map-scroll").clientWidth);
   const features = topojson.feature(world, world.objects.countries).features.filter(f => f.properties.name !== "Antarctica");
-  const projection = d3.geoNaturalEarth1().fitSize([W, H], { type: "FeatureCollection", features });
+  const france = features.find(f => +f.id === 250);
+  const isGuiana = poly => d3.geoCentroid({ type: "Polygon", coordinates: poly })[0] < 0;
+  const guiana = france.geometry.coordinates.filter(isGuiana);
+  france.geometry = { type: "MultiPolygon", coordinates: france.geometry.coordinates.filter(c => !isGuiana(c)) };
+  features.push({ type: "Feature", id: "254", properties: { name: "French Guiana" }, geometry: { type: "MultiPolygon", coordinates: guiana } });
+  const land = { type: "FeatureCollection", features };
+  const projection = d3.geoNaturalEarth1().rotate([-11, 0]).fitWidth(W, land);
+  const [[, top], [, bottom]] = d3.geoPath(projection).bounds(land);
+  const [tx, ty] = projection.translate();
+  projection.translate([tx, ty - top + 4]);
+  const H = Math.ceil(bottom - top) + 8;
   const path = d3.geoPath(projection);
   const svg = d3.select("#map").attr("viewBox", `0 0 ${W} ${H}`);
   const tip = d3.select("#tip");
@@ -74,7 +85,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     })
     .on("mouseleave", () => tip.attr("hidden", true))
     .on("click", (e, f) => { if (+f.id === 840) enterUS(); else if (rec(f)) select(rec(f)); });
-  const CHAR = 7.6, LINE = 15;
+  const CHAR = 8, LINE = 16;
   const shortName = d => ({ "United States": "USA", "United Kingdom": "UK", "DR Congo": "DR Congo", "Central African Republic": "CAR" })[d.name] || d.name;
   const labelData = features.filter(rec).sort((a, b) => rec(b).abortions - rec(a).abortions).map(f => {
     const d = rec(f), [[x0], [x1]] = path.bounds(f), [x, y] = labelPoint(f);
@@ -88,7 +99,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     labelData.forEach(l => {
       const [x, y] = t.apply([l.x, l.y]);
       l.text = l.span * t.k >= l.name.length * CHAR * 0.7 ? l.name : (l.d.iso3 || l.name);
-      const w = Math.max(l.text.length, 6) * CHAR + 4, box = { l: x - w / 2, r: x + w / 2, t: y - LINE, b: y + LINE };
+      const w = Math.max(l.text.length, 6) * CHAR + 12, box = { l: x - w / 2, r: x + w / 2, t: y - LINE, b: y + LINE };
       l.show = box.l >= 0 && box.r <= W && box.t >= 0 && box.b <= H && !placed.some(o => box.l < o.r && box.r > o.l && box.t < o.b && box.b > o.t);
       if (l.show) { placed.push(box); l.sx = x; l.sy = y; }
     });
@@ -97,7 +108,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     labelValues.filter(l => l.show).attr("x", l => l.sx);
   }
   const mapLayer = d3.select(shapes.node().parentNode);
-  const zoom = d3.zoom().scaleExtent([1, 12]).translateExtent([[0, 0], [W, H]]).extent([[0, 0], [W, H]])
+  const zoom = d3.zoom().clickDistance(4).scaleExtent([1, 12]).translateExtent([[0, 0], [W, H]]).extent([[0, 0], [W, H]])
     .filter(e => view === "world" && !e.button && !e.touches && e.type !== "wheel")
     .on("zoom", e => { mapLayer.attr("transform", e.transform); placeLabels(e.transform); });
   svg.call(zoom).on("wheel.zoom", null).on("dblclick.zoom", null).style("touch-action", "pan-x pan-y pinch-zoom");
@@ -111,7 +122,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     .on("mousemove", (e, f) => {
       const d = stateById.get(f.id), wrap = document.querySelector(".map-wrap"), [x, y] = d3.pointer(e, wrap);
       tip.attr("hidden", null).style("left", Math.min(x + 12, wrap.clientWidth - 200) + "px").style("top", y + 12 + "px")
-        .html(`<b>${d.name}</b><br>${METRICS[metric].label}: ${METRICS[metric].show(d[metric])} (${d.year})`);
+        .html(`<b>${d.name}</b><br>${metric === "rate" ? "Per 1,000 women aged 15 to 44" : METRICS[metric].label}: ${METRICS[metric].show(d[metric])} (${d.year}, by state of residence)`);
     })
     .on("mouseleave", () => tip.attr("hidden", true))
     .on("click", (e, f) => selectState(stateById.get(f.id)));
@@ -127,22 +138,24 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   }
   function crumbs() {
     const c = document.getElementById("crumbs");
-    const parts = [`<button data-go="world">World</button>`];
+    const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
     c.innerHTML = parts.join("");
     document.getElementById("zoom").hidden = view !== "world";
+    document.getElementById("state-pick").hidden = view === "world";
+    document.getElementById("state").value = activeState ? activeState.id : "";
     c.querySelectorAll("button").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
   }
   function usPanel() {
-    document.getElementById("panel").innerHTML = `<h3>United States</h3><span class="small">Guttmacher estimates</span><dl><dt>Abortions, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd><dt>Rate per 1,000 women</dt><dd>${usLatest.rate}</dd><dt>Recorded, 1973 to ${usLatest.year}</dt><dd>${short(usTotal)}</dd><dt>#WeCount, 2025</dt><dd>1,126,760</dd></dl><p class="small">Select a state on the map. Counts before 1973 are not included because abortion was largely illegal and unrecorded.</p>`;
+    document.getElementById("panel").innerHTML = `<h3>United States</h3><span class="small">Guttmacher estimates</span><dl><dt>Abortions, ${usLatest.year}</dt><dd>${fmt(usLatest.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${usLatest.rate}</dd><dt>Estimated, 1973 to ${usLatest.year}</dt><dd>${short(usTotal)}</dd><dt>#WeCount, 2025</dt><dd>1,126,760</dd></dl><p class="small">Select a state on the map. Counts before 1973 are not included because abortion was largely illegal and no comparable national series exists.</p>`;
   }
   function enterUS() {
     view = "us"; activeState = null; selected = byId.get(840);
     worldG.style("display", "none"); usG.style("display", null).attr("transform", null);
     stateLabels.style("display", null);
     document.getElementById("country").value = 840;
-    setBanner("United States", fmt(usLatest.abortions), `estimated in ${usLatest.year}. #WeCount estimated 1,126,760 in 2025.`, short(usTotal), `recorded from 1973 to ${usLatest.year}, the span of the national series`);
+    setBanner("United States", fmt(usLatest.abortions), `estimated in ${usLatest.year}. #WeCount estimated 1,126,760 in 2025.`, short(usTotal), `estimated from 1973 to ${usLatest.year}, the span of the national series`);
     usPanel(); crumbs(); paint();
   }
   function leaveUS() {
@@ -157,32 +170,41 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     usG.attr("transform", `translate(${W / 2 - k * (x0 + x1) / 2},${H / 2 - k * (y0 + y1) / 2}) scale(${k})`);
     stateLabels.style("display", "none");
     setBanner(d.name, fmt(d.abortions), `estimated in ${d.year}`, short(d.total2005to2020), "estimated from 2005 to 2020, the longest unbroken state series");
-    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.")}<p class="small">County figures are not shown. We found no national county dataset, and small-county counts can expose individual patients.</p>`;
+    document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Guttmacher estimate by state of residence, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.")}<p class="small">County figures are not shown. We found no national county dataset, and small-county counts can expose individual patients.</p>`;
     crumbs(); paint();
+    reveal(stateShapes.filter(x => x === f).node());
   }
 
+  function reveal(n) {
+    const s = document.querySelector(".map-scroll"), r = n.getBoundingClientRect(), v = s.getBoundingClientRect();
+    s.scrollLeft += (r.left + r.right - v.left - v.right) / 2;
+  }
   function labelPoint(f) {
     if (+f.id === 840) return projection([-99, 39]);
     if (+f.id === 124) return projection([-105, 57]);
     if (+f.id === 643) return projection([98, 62]);
+    if (+f.id === 250) return projection([2.5, 46.6]);
+    if (+f.id === 704) return projection([105.5, 20]);
     return path.centroid(f);
   }
   function paint() {
     shapes.filter(f => rec(f)).attr("fill", f => color(rec(f)[metric]));
     shapes.classed("sel", f => picked && rec(f) === selected);
+    shapes.filter(".sel").raise();
     stateShapes.attr("fill", f => color(stateById.get(f.id)[metric])).classed("sel", f => stateById.get(f.id) === activeState);
+    stateShapes.filter(".sel").raise();
     stateLabels.text(f => `${stateById.get(f.id).abbr} ${METRICS[metric].show(stateById.get(f.id)[metric])}`);
     labelValues.text(l => METRICS[metric].show(l.d[metric]));
     const b = bins(), s = METRICS[metric].show;
     const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1])}`), `${s(b[b.length - 1])} or more`];
     document.getElementById("legend").innerHTML = names.map((n, i) => `<span><i style="background:${STEPS[i]}"></i>${n}</span>`).join("") + `<span><i style="background:var(--nodata)"></i>no estimate</span>`;
   }
-  function spark(d, caption = "Officially reported counts, where complete. These may differ from modeled estimates.") {
-    if (d.reported.length < 3) return `<p class="small">Too few complete official annual counts to chart a trend for this country.</p>`;
+  function spark(d, caption = d.id === 840 ? "Guttmacher national estimates for the years in this series." : "Reported counts for the years in this series. Coverage varies, and these may differ from modeled estimates.") {
+    if (d.reported.length < 3) return `<p class="small">Too few annual counts to chart a trend for this country.</p>`;
     const x = d3.scaleLinear(d3.extent(d.reported, r => r[0]), [6, 262]), y = d3.scaleLinear([0, d3.max(d.reported, r => r[1])], [62, 8]);
     const line = d3.line(r => x(r[0]), r => y(r[1]));
     const [a, z] = [d.reported[0], d.reported[d.reported.length - 1]];
-    return `<svg viewBox="0 0 268 84" role="img" aria-label="Officially reported abortions, ${a[0]} ${fmt(a[1])} to ${z[0]} ${fmt(z[1])}"><path d="${line(d.reported)}" fill="none" stroke="var(--mark)" stroke-width="2"/><text x="2" y="80" font-size="11" fill="var(--ink2)">${a[0]}: ${short(a[1])}</text><text x="266" y="80" text-anchor="end" font-size="11" fill="var(--ink2)">${z[0]}: ${short(z[1])}</text></svg><p class="small">${caption}</p>`;
+    return `<svg viewBox="0 0 268 84" role="img" aria-label="Abortions, ${a[0]} ${fmt(a[1])} to ${z[0]} ${fmt(z[1])}"><path d="${line(d.reported)}" fill="none" stroke="var(--mark)" stroke-width="2"/><text x="2" y="80" font-size="11" fill="var(--ink2)">${a[0]}: ${short(a[1])}</text><text x="266" y="80" text-anchor="end" font-size="11" fill="var(--ink2)">${z[0]}: ${short(z[1])}</text></svg><p class="small">${caption}</p>`;
   }
   function select(d, keepBanner) {
     selected = d;
@@ -190,13 +212,13 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     picked = !keepBanner;
     if (!keepBanner) {
       const n = d.reported.length, sum = d3.sum(d.reported, r => r[1]);
-      setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `officially recorded across ${n} complete year${n > 1 ? "s" : ""} between ${d.reported[0][0]} and ${d.reported[n - 1][0]}. Other years are missing.` : "No complete official annual counts in the source dataset");
+      setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `reported across the ${n} year${n > 1 ? "s" : ""} in this series, between ${d.reported[0][0]} and ${d.reported[n - 1][0]}. Other years are missing.` : "No annual counts in the source dataset");
     }
     document.getElementById("country").value = d.id;
     const gdp = d.gdpPerCapita2023 ? d.abortions * d.gdpPerCapita2023 : null;
-    const money = v => v >= 1e12 ? "$" + (v / 1e12).toFixed(1) + "T" : "$" + Math.round(v / 1e9) + "B";
+    const money = v => v >= 1e12 ? "$" + (v / 1e12).toFixed(1) + "T" : v >= 1e9 ? "$" + Math.round(v / 1e9) + "B" : "$" + Math.round(v / 1e6) + "M";
     document.getElementById("panel").innerHTML = `<h3>${d.name}</h3><span class="small">Annual average, 2015 to 2019</span>
-      <dl><dt>Estimated abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Likely range</dt><dd>${short(d.abortionsLow)} to ${short(d.abortionsHigh)}</dd>
+      <dl><dt>Estimated abortions</dt><dd>${fmt(d.abortions)}</dd><dt>80% uncertainty interval</dt><dd>${exact(d.abortionsLow)} to ${exact(d.abortionsHigh)}</dd>
       <dt>Rate per 1,000 women</dt><dd>${d.rate}</dd><dt>Births per year</dt><dd>${fmt(d.births)}</dd>
       <dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd>
       ${d.shareUnintendedAborted != null ? `<dt>Unintended pregnancies aborted</dt><dd>${d.shareUnintendedAborted}%</dd>` : ""}
@@ -205,6 +227,11 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     const open = document.getElementById("open-us");
     if (open) open.onclick = enterUS;
     paint();
+    if (picked) {
+      const f = features.find(x => rec(x) === d);
+      if (d3.zoomTransform(svg.node()).k > 1) svg.call(zoom.translateTo, ...labelPoint(f));
+      reveal(shapes.filter(x => x === f).node());
+    }
   }
   document.querySelectorAll("[data-metric]").forEach(b => b.addEventListener("click", () => {
     metric = b.dataset.metric;
@@ -213,13 +240,19 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   }));
   const pick = document.getElementById("country");
   pick.innerHTML = [...data].sort((a, b) => a.name.localeCompare(b.name)).map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+  const statePick = document.getElementById("state");
+  statePick.innerHTML = `<option value="">All states</option>` + [...stateData].sort((a, b) => a.name.localeCompare(b.name)).map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+  statePick.addEventListener("change", () => statePick.value ? selectState(stateById.get(statePick.value)) : enterUS());
   pick.addEventListener("change", () => +pick.value === 840 ? enterUS() : select(byId.get(+pick.value)));
-  document.getElementById("table").innerHTML = `<thead><tr><th>Country</th><th>Abortions/yr</th><th>Likely range</th><th>Rate</th><th>Births/yr</th><th>Share</th></tr></thead><tbody>` +
-    [...data].sort((a, b) => b.abortions - a.abortions).map(d => `<tr><td>${d.name}</td><td>${fmt(d.abortions)}</td><td>${short(d.abortionsLow)} to ${short(d.abortionsHigh)}</td><td>${d.rate}</td><td>${fmt(d.births)}</td><td>${d.shareOfBirthsPlusAbortions}%</td></tr>`).join("") + `</tbody>`;
+  document.getElementById("table").innerHTML = `<thead><tr><th>Country</th><th>Abortions/yr</th><th>80% interval</th><th>Rate</th><th>Births/yr</th><th>Share</th></tr></thead><tbody>` +
+    [...data].sort((a, b) => b.abortions - a.abortions).map(d => `<tr><td>${d.name}</td><td>${fmt(d.abortions)}</td><td>${exact(d.abortionsLow)} to ${exact(d.abortionsHigh)}</td><td>${d.rate}</td><td>${fmt(d.births)}</td><td>${d.shareOfBirthsPlusAbortions}%</td></tr>`).join("") + `</tbody>`;
   select(selected, true);
   worldBanner();
   crumbs();
   usChart(us);
+}).catch(err => {
+  console.error(err);
+  document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";
 });
 
 function usChart(us) {
