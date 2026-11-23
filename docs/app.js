@@ -23,16 +23,17 @@ document.querySelectorAll(".waffle").forEach(w => {
   w.innerHTML = Array.from({ length: 100 }, (_, i) => `<i class="${i < n ? "f" : ""}"></i>`).join("");
 });
 Promise.all([
-  d3.json("data/countries.json"), d3.json("vendor/countries-110m.json"),
+  d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json"), d3.json("data/counties.json?v=municipalities"), d3.json("data/sources.json?v=municipalities"),
-]).then(([data, world, us, stateData, usMap, history, counties, bibliography]) => {
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=minnesota-history"),
+]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
   d3.select("#source-list").selectAll("li").data(bibliography).join("li")
     .attr("id", source => source.id).append("a").attr("href", source => source.url).text(source => source.title);
   const cite = (id, label) => sourceLink(sources.get(id), label);
   const newUS = history.recent.rows.at(-1);
+  let counties = {}, countyStatus = "loading", pendingStateOptions;
   let countyYear, countyMode, countyTransform, countyRows = new Map(), activeCounty, countyGeometry;
   const byId = new Map(data.map(d => [d.id, d]));
   let metric = Object.hasOwn(METRICS, params.get("metric")) ? params.get("metric") : "abortions";
@@ -145,6 +146,11 @@ Promise.all([
         url.searchParams.set("year", countyYear);
         if (activeCounty) url.searchParams.set("county", activeCounty);
       }
+      if (countyStatus === "loading" && pendingStateOptions) {
+        for (const [key, value] of Object.entries(pendingStateOptions)) {
+          if (value) url.searchParams.set(key, value);
+        }
+      }
       if (showMap) url.hash = "map";
     } else {
       if (view === "us") url.searchParams.set("view", "us");
@@ -158,11 +164,13 @@ Promise.all([
     const c = document.getElementById("crumbs");
     const countyView = view === "state" && !!counties[activeState.id];
     const stateTotal = document.getElementById("state-total");
+    const recent = history.recent.states?.[activeState?.abbr]?.at(-1);
     stateTotal.hidden = view !== "state";
     stateTotal.innerHTML = activeState
       ? `<strong>${activeState.name} <span>${fmt(activeState.abortions)}</span></strong>
         <span>Estimated abortions in ${activeState.year} by state of residence · <a href="#osf-us-pregnancy-csv">Source</a></span>
-        ${countyView ? "" : "<span>County counts unavailable in this tracker</span>"}`
+        ${recent ? `<span><b>${fmt(recent.abortions)}</b> clinician-provided in ${recent.year} by state of procedure or pill receipt · <a href="#guttmacher-full-year-2025-appendix">Source</a></span>` : ""}
+        ${countyStatus === "ready" && !countyView ? "<span>County counts unavailable in this tracker</span>" : ""}`
       : "";
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
@@ -204,6 +212,7 @@ Promise.all([
     worldBanner(); crumbs(); select(byId.get(840), true);
   }
   function selectState(d, { basis, year, county } = {}) {
+    pendingStateOptions = countyStatus === "loading" ? { basis, year, county } : undefined;
     view = "state"; activeState = d;
     activeCounty = county?.startsWith(d.id) && /^\d{5}$/.test(county) ? county : null;
     const reports = counties[d.id];
@@ -220,6 +229,7 @@ Promise.all([
     stateLabels.style("display", "none");
     setBanner(d.name, fmt(d.abortions), `estimated in ${d.year}`, short(d.total2005to2020), "estimated from 2005 to 2020, the longest unbroken state series");
     document.getElementById("panel").innerHTML = `<div id="county-panel"></div>
+      ${recentStateTable(history.recent.states?.[d.abbr])}
       <h3>${d.name} statewide estimates</h3><span class="small">Guttmacher estimate by state of residence, ${d.year}</span><dl><dt>Abortions</dt><dd>${fmt(d.abortions)}</dd><dt>Rate per 1,000 women 15 to 44</dt><dd>${d.rate}</dd><dt>Births</dt><dd>${fmt(d.births)}</dd><dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd></dl>
       ${spark(d, "Guttmacher state estimates. Years before 2005 are intermittent.", true)}
       <details><summary>View annual state estimates</summary><div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Estimated abortions</th></tr></thead><tbody>
@@ -229,7 +239,15 @@ Promise.all([
     crumbs(); paint();
     reveal(stateShapes.filter(x => x === f).node());
     showCounties(d);
-    saveView();
+    if (countyStatus === "ready" || !basis && !year && !county) saveView();
+  }
+
+  function recentStateTable(rows) {
+    if (!rows) return "";
+    return `<details><summary>View clinician-provided estimates, ${rows[0].year}–${rows.at(-1).year}</summary>
+      <p class="small">By state of procedure or pill receipt. ${history.recent.scope} ${cite("guttmacher-full-year-2025-appendix", "Source spreadsheet")}.</p>
+      <div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Estimated abortions</th><th scope="col">90% uncertainty interval</th></tr></thead><tbody>
+        ${[...rows].reverse().map(row => `<tr><th scope="row">${row.year}</th><td>${fmt(row.abortions)}</td><td>${fmt(row.low)} to ${fmt(row.high)}</td></tr>`).join("")}</tbody></table></div></details>`;
   }
 
   function statewideTable(report) {
@@ -252,7 +270,10 @@ Promise.all([
     const panel = document.getElementById("county-panel");
     const countyData = counties[state.id];
     if (!countyData) {
-      panel.innerHTML = "<h3>County counts</h3><p class='small'>County counts unavailable in this tracker.</p>";
+      const message = countyStatus === "loading" ? "Loading county counts…"
+        : countyStatus === "failed" ? "County data could not load. Refresh to try again."
+        : "County counts unavailable in this tracker.";
+      panel.innerHTML = `<h3>County counts</h3><p class="small" role="status">${message}</p>`;
       return;
     }
     panel.innerHTML = `<h3>Reported abortions by county</h3>
@@ -602,7 +623,7 @@ Promise.all([
     const line = d3.line(r => x(r[0]), r => y(r[1])).defined(r => r !== null);
     const points = showGaps ? d.reported.flatMap((r, index) =>
       index && r[0] > d.reported[index - 1][0] + 1 ? [null, r] : [r]) : d.reported;
-    const dots = showGaps ? d.reported.filter(r => r[0] < 2005)
+    const dots = showGaps ? d.reported
       .map(([yr, n]) => `<circle cx="${x(yr)}" cy="${y(n)}" r="1.8" fill="var(--mark)"/>`).join("") : "";
     const [a, z] = [d.reported[0], d.reported[d.reported.length - 1]];
     return `<svg viewBox="0 0 268 84" role="img" aria-label="Abortions, ${a[0]} ${fmt(a[1])} to ${z[0]} ${fmt(z[1])}"><path d="${line(points)}" fill="none" stroke="var(--mark)" stroke-width="2"/>${dots}<text x="2" y="80" font-size="11" fill="var(--ink2)">${a[0]}: ${short(a[1])}</text><text x="266" y="80" text-anchor="end" font-size="11" fill="var(--ink2)">${z[0]}: ${short(z[1])}</text></svg><p class="small">${caption}</p>`;
@@ -630,7 +651,15 @@ Promise.all([
       <dt>Abortions, % of births + abortions</dt><dd>${d.shareOfBirthsPlusAbortions}%</dd>
       ${d.shareUnintendedAborted != null ? `<dt>Unintended pregnancies aborted</dt><dd>${d.shareUnintendedAborted}%</dd>` : ""}
       ${gdp ? `<dt>Thought experiment: added annual output</dt><dd>${money(gdp)}</dd>` : ""}</dl>
-      ${gdp ? `<p class="small">One year's abortions times 2023 GDP per person. This is an illustration, not a forecast.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}${spark(d)}`;
+      ${gdp ? `<p class="small">One year's abortions times 2023 GDP per person. This is an illustration, not a forecast.</p>` : ""}${d.id === 840 ? `<button class="open" id="open-us">Open state map</button>` : ""}
+      ${spark(d, "Eligible official counts exclude spontaneous abortions and omit years with conflicting eligible values.", true)}
+      ${d.reported.length ? `<details id="country-reported"><summary>View annual reported counts and sources</summary>
+        <p class="small">Published in the ${cite("osf-global-incidence-csv", "incidence dataset")}.</p>
+        <div class="table-scroll"><table><thead><tr><th scope="col">Year</th><th scope="col">Reported abortions</th><th scope="col">Source in dataset</th></tr></thead><tbody></tbody></table></div></details>` : ""}`;
+    const reportedRows = d3.select("#country-reported tbody").selectAll("tr").data([...d.reported].reverse()).join("tr");
+    reportedRows.append("th").attr("scope", "row").text(([year]) => year);
+    reportedRows.append("td").text(([, count]) => fmt(count));
+    reportedRows.append("td").text(([year]) => d.reportedSources?.[year]?.join("; ") || "See dataset");
     const open = document.getElementById("open-us");
     if (open) open.onclick = enterUS;
     paint();
@@ -678,8 +707,20 @@ Promise.all([
     worldBanner();
     crumbs();
   }
-  renderCountyCoverage(stateData, counties);
   usChart(us, history);
+  d3.json("data/counties.json?v=minnesota-history").then(data => {
+    counties = data;
+    countyStatus = "ready";
+    renderCountyCoverage(stateData, counties);
+    if (view === "state") {
+      selectState(activeState, pendingStateOptions);
+      if (location.hash === "#county-panel") document.getElementById("county-panel").scrollIntoView();
+    }
+  }, () => {
+    countyStatus = "failed";
+    document.getElementById("county-coverage").textContent = "County data could not load. Refresh to try again.";
+    if (view === "state") showCounties(activeState);
+  });
 }).catch(err => {
   console.error(err);
   document.getElementById("banner").innerHTML = "<div><b>Map data failed to load</b><span>Please refresh the page.</span></div>";

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three in Ten</title>
 <meta name="description" content="A sourced philosophical inquiry into abortion, sacrifice, family and resilience, with country-level data.">
-<link rel="stylesheet" href="style.css?v=state-totals">
+<link rel="stylesheet" href="style.css?v=state-series">
 </head>
 <body>
 <section id="map-section" class="wide">
@@ -31,7 +31,7 @@
     </div>
     <aside id="panel" aria-live="polite"></aside>
   </div>
-  <p class="note">Choose the United States, then a state, to see its history and available county counts. The U.S. map uses <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. County tables use state health agency reports. Where a report provides both measures, select patient residence or procedure location. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
+  <p class="note">Choose the United States, then a state, to see its history and available county counts. State map colors use <a href="#osf-us-pregnancy-csv">Guttmacher’s 2020 estimates by state of residence</a>. Selected states also show <a href="#guttmacher-full-year-2025-appendix">2023–2025 estimates by state of procedure or pill receipt</a>. County tables use state health agency reports. Where a report provides both measures, select patient residence or procedure location. Coverage varies by source and year, especially for care across state lines or via telehealth. The world map shows modeled annual averages for 150 countries and territories for 2015 to 2019 from <a href="#bearak-2022-bmj-gh">Bearak et al.</a> Its share divides abortions by live births plus abortions. The global estimate covers all 195 countries and territories in the model. The <a href="#who-abortion-factsheet">WHO headline estimate</a> uses all pregnancies, including pregnancy losses.</p>
   <details><summary>View all countries as a table</summary><div class="table-scroll"><table id="table"></table></div></details>
   <details id="county-coverage-section"><summary>View U.S. county data coverage by state</summary><div id="county-coverage"></div></details>
 </section>
@@ -207,6 +207,6 @@
 <script src="vendor/d3.min.js"></script>
 <script src="vendor/topojson-client.min.js"></script>
 <script src="coverage.js?v=county-history"></script>
-<script src="app.js?v=state-totals"></script>
+<script src="app.js?v=state-series"></script>
 </body>
 </html>
