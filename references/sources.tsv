@@ -41,6 +41,11 @@ oh-abortion-counties-2025	private	Ohio Department of Health, Induced Abortions i
 pa-abortion-counties-2024	private	Pennsylvania Department of Health, Abortion Statistics 2024	https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/documents/pennsylvania_annual_abortion_report_2024_final.pdf
 mi-abortion-counties-2013-2023	private	Michigan DHHS, Abortions by County of Residence, 2013 to 2023	https://vitalstats.michigan.gov/osr/Abortion/AbortionNos.asp
 nc-abortion-counties-2023	private	North Carolina DHHS, Induced Abortions by County and Residence, 2023	https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2023/Table6-2023-AbortionCountyResidence.pdf
+mn-abortion-counties-2018	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2018, Table 7	https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2018abrpt.pdf
+mn-abortion-counties-2019	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2019, Table 7	https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2019abrpt.pdf
+mn-abortion-counties-2020	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2020, Table 7	https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2020abrpt.pdf
+mn-abortion-counties-2021	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2021, Table 7	https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2021abrpt.pdf
+mn-abortion-counties-2022	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2022, Table 7 (revised)	https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2022abrpt-revised.pdf
 mn-abortion-counties-2024	private	Minnesota Department of Health, Induced Abortions in Minnesota, 2024	https://www.health.state.mn.us/data/mchs/pubs/abrpt/docs/2024abrpt.pdf?download=1
 us-atlas	private	U.S. Atlas, Census Bureau cartographic boundaries and FIPS	https://github.com/topojson/us-atlas
 world-bank-gdp	private	World Bank, GDP per capita in current U.S. dollars (2023 API extract)	https://api.worldbank.org/v2/country/all/indicator/NY.GDP.PCAP.CD?date=2023&format=json&per_page=300

@@ -31,7 +31,8 @@ SERIES = [
      "Annual averages for 2015 to 2019. Rates per 1,000 women aged 15 to 49. "
      "Bounds are 80% uncertainty intervals.", "country"),
     ("country-reported", "Official reported country counts",
-     "Single-year official statistics marked complete in the incidence dataset. "
+     "Single-year official statistics marked complete and excluding spontaneous abortions. "
+     "Conflicting eligible counts are omitted. "
      "Definitions and coverage can vary across countries and years.", "country"),
     ("country-gdp", "World Bank GDP per capita",
      "GDP per capita in current U.S. dollars, rounded to a whole dollar.", "country"),
@@ -100,6 +101,12 @@ def insert_countries(db, countries, manifest):
         """INSERT INTO country_reported (country_id, series_id, year, abortions)
            VALUES (?, 'country-reported', ?, ?)""",
         ((r["id"], year, count) for r in countries for year, count in r["reported"]),
+    )
+    db.executemany(
+        """INSERT INTO country_reported_publisher (country_id, series_id, year, publisher)
+           VALUES (?, 'country-reported', ?, ?)""",
+        ((r["id"], int(year), publisher) for r in countries
+         for year, publishers in r.get("reportedSources", {}).items() for publisher in publishers),
     )
     db.executemany(
         """INSERT INTO country_gdp (country_id, series_id, year, gdp_per_capita_usd)
@@ -181,6 +188,25 @@ def insert_counties(db, states):
             insert_pennsylvania_statewide(db, fips, state["statewide"])
 
 
+def insert_recent_states(db, states, recent):
+    if "states" not in recent:
+        return
+    db.execute(
+        "INSERT INTO series (id, label, scope, geography) VALUES ('state-recent', ?, ?, 'state')",
+        (recent["label"], "By state of procedure or pill receipt. " + recent["scope"]),
+    )
+    db.executemany(
+        "INSERT INTO series_source (series_id, source_id) VALUES ('state-recent', ?)",
+        ((source["id"],) for source in recent["sources"]),
+    )
+    db.executemany(
+        """INSERT INTO state_observation (state_fips, series_id, year, abortions, abortions_low, abortions_high)
+           VALUES (?, 'state-recent', ?, ?, ?, ?)""",
+        ((state["id"], row["year"], row["abortions"], row["low"], row["high"])
+         for state in states for row in recent["states"][state["abbr"]]),
+    )
+
+
 def insert_pennsylvania_statewide(db, fips, report):
     for series_id, measure in (("pa-state-reported", "residence"), ("pa-state-occurrence", "occurrence")):
         db.executemany(
@@ -241,6 +267,7 @@ def populate(db, files):
         insert_countries(db, data["countries"], manifest)
         insert_us(db, data["us"], data["us-history"])
         insert_states(db, data["states"])
+        insert_recent_states(db, data["states"], data["us-history"]["recent"])
         insert_counties(db, data["counties"])
         if db.execute("PRAGMA foreign_key_check").fetchone():
             raise ValueError("SQLite foreign key check failed")

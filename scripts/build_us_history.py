@@ -97,22 +97,35 @@ def guttmacher_recent():
     workbook = openpyxl.load_workbook(path, read_only=True, data_only=True)
     try:
         sheet = workbook["Change_2023_2024_2025"]
-        header, national = sheet.iter_rows(min_row=3, max_row=4, max_col=7, values_only=True)
-        if national[0] != "US" or header[1:7:2] != (2023, 2024, 2025):
-            raise ValueError("Unexpected year headers or national row in Guttmacher appendix")
-        rows = []
-        for index in (1, 3, 5):
-            count = national[index]
-            low, high = map(number, re.findall(r"[\d,]+", national[index + 1]))
-            if not low <= count <= high:
-                raise ValueError(f"Invalid uncertainty interval for {header[index]}")
-            rows.append({"year": header[index], "abortions": count, "low": low, "high": high})
-        return rows
+        records = sheet.iter_rows(min_row=3, max_col=7, values_only=True)
+        header = next(records)
+        if header[1:7:2] != (2023, 2024, 2025):
+            raise ValueError("Unexpected year headers in Guttmacher appendix")
+        results = {}
+        for abbr, *values in records:
+            if not isinstance(abbr, str) or not re.fullmatch(r"[A-Z]{2}", abbr):
+                continue
+            if abbr in results:
+                raise ValueError(f"Duplicate Guttmacher appendix row for {abbr}")
+            rows = []
+            for index in (0, 2, 4):
+                year, count = header[index + 1], values[index]
+                low, high = map(number, re.findall(r"[\d,]+", values[index + 1]))
+                if not isinstance(count, int) or not 0 <= low <= count <= high:
+                    raise ValueError(f"Invalid uncertainty interval for {abbr} {year}")
+                rows.append({"year": year, "abortions": count, "low": low, "high": high})
+            results[abbr] = rows
+        national = results.pop("US")
+        expected = {row["abbr"] for row in json.loads((ROOT / "docs/data/states.json").read_text())}
+        if results.keys() != expected:
+            raise ValueError("Expected exactly 50 states and D.C. in Guttmacher appendix")
+        return national, results
     finally:
         workbook.close()
 
 
 def main():
+    national, states = guttmacher_recent()
     # The table 1 footnotes identify non-reporting areas out of 52: the states,
     # DC and NYC. In 2006 only CA and NH did not report in the revised figures.
     cdc = early_cdc() + [row for row in cdc_2005() if row["year"] >= 1973]
@@ -140,7 +153,8 @@ def main():
                 "Ranges are 90% uncertainty intervals."
             ),
             "sources": RECENT_SOURCES,
-            "rows": guttmacher_recent(),
+            "rows": national,
+            "states": states,
         },
     }
     output = ROOT / "docs/data/us-history.json"

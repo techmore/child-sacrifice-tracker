@@ -80,9 +80,9 @@ def archive_source(source, previous, refresh):
     prior = previous.get(source["id"])
     previous_paths = paths
     if prior and prior["url"] != source["url"]:
-        if prior["status"] == "saved":
-            paths = []
+        paths = []
         prior = None
+    expected_sha256 = (prior.get("sha256") or prior.get("expected_sha256")) if prior else None
     if len(paths) > 1:
         raise ValueError(f'Multiple local copies for {source["id"]}')
     saved = None
@@ -90,13 +90,12 @@ def archive_source(source, previous, refresh):
         path = paths[0]
         date = datetime.date.fromtimestamp(path.stat().st_mtime).isoformat()
         record = file_record(path, prior["retrieved"] if prior and prior["status"] == "saved" else date)
-        if not prior or prior["status"] != "saved" or prior["sha256"] == record["sha256"]:
+        if not expected_sha256 or expected_sha256 == record["sha256"]:
             saved = {**source, **record}
             if not refresh:
                 return saved
     try:
-        expected_sha256 = prior.get("sha256") if prior and not refresh else None
-        path = download(source, folder, expected_sha256)
+        path = download(source, folder, None if refresh else expected_sha256)
         for old_path in previous_paths:
             if old_path != path:
                 old_path.unlink()
@@ -104,14 +103,31 @@ def archive_source(source, previous, refresh):
     except (OSError, ValueError, zipfile.BadZipFile) as error:
         if saved:
             return {**saved, "refresh_error": str(error)}
-        return {**source, "retrieved": datetime.date.today().isoformat(), "status": "failed", "error": str(error)}
+        failure = {**source, "retrieved": datetime.date.today().isoformat(), "status": "failed", "error": str(error)}
+        if expected_sha256:
+            failure["expected_sha256"] = expected_sha256
+        return failure
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Redownload already archived sources")
     parser.add_argument("--index-only", action="store_true", help="Regenerate only the site's bibliography, without network access")
+    parser.add_argument("--verify", action="store_true", help="Verify the local archive without downloading or writing files")
     options = parser.parse_args()
+    manifest = ROOT / "manifest.json"
+    if options.verify:
+        entries = json.loads(manifest.read_text(encoding="utf8"))
+        invalid = []
+        for entry in entries:
+            path = ROOT / entry.get("file", "")
+            if (entry["status"] != "saved" or not path.is_file()
+                    or file_record(path, entry["retrieved"])["sha256"] != entry["sha256"]):
+                invalid.append(entry["id"])
+        print(f"{len(entries) - len(invalid)} of {len(entries)} archived source files verified")
+        if invalid:
+            parser.exit(1, "Missing or changed: " + ", ".join(invalid) + "\n")
+        return
     with (ROOT / "sources.tsv").open(encoding="utf8", newline="") as file:
         bibliography = list(csv.DictReader(file, delimiter="\t"))
     with (ROOT / "country-profiles.tsv").open(encoding="utf8", newline="") as file:
@@ -125,7 +141,6 @@ def main():
     )
     if options.index_only:
         return
-    manifest = ROOT / "manifest.json"
     previous = {entry["id"]: entry for entry in json.loads(manifest.read_text(encoding="utf8"))} if manifest.exists() else {}
     with ThreadPoolExecutor(max_workers=6) as pool:
         results = list(pool.map(lambda source: archive_source(source, previous, options.refresh), sources))
@@ -136,6 +151,8 @@ def main():
             print(result["id"], error)
     count = sum(entry["status"] == "saved" for entry in results)
     print(f"{count} of {len(results)} sources archived")
+    if count != len(results) or any(entry.get("refresh_error") for entry in results):
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

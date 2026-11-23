@@ -2,3 +2,5 @@ references/private/
 .DS_Store
 drafts/
 data/tracker.sqlite3
+__pycache__/
+node_modules/

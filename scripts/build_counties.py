@@ -143,12 +143,14 @@ def michigan_occurrence():
 
 
 def minnesota(source):
-    pages = pdf_text(source).split("\f")
     aliases = {"Mcleod": "McLeod", "Lac qui Parle": "Lac Qui Parle", "Saint Louis": "St. Louis"}
     result = {}
-    for year in (2023, 2024):
+    reports = {year: f"mn-abortion-counties-{year}" for year in range(2018, 2023)}
+    reports.update({2023: source, 2024: source})
+    pages = {report: pdf_text(report).split("\f") for report in dict.fromkeys(reports.values())}
+    for year, report in reports.items():
         title = f"Table 7. County of residence for women residing in Minnesota, {year}"
-        page, = (page for page in pages if re.search(rf"{re.escape(title)}\s*\n", page))
+        page, = (page for page in pages[report] if re.search(rf"{re.escape(title)}\s*\n", page, re.I))
         rows = []
         table = page.rsplit("Induced Abortions in Minnesota", 1)[0]
         for line in table.splitlines():
@@ -159,6 +161,9 @@ def minnesota(source):
                 if re.fullmatch(rf"{COUNT}|--", value):
                     rows.append((aliases.get(name, name), None if value == "--" else count(value)))
         result[year] = counties(rows, 87)
+    names = [row["name"] for row in result[2024]]
+    if any([row["name"] for row in rows] != names for rows in result.values()):
+        raise ValueError("Minnesota reports have inconsistent county names")
     return result
 
 
@@ -742,6 +747,8 @@ def main():
         data[fips] = {"source": source, "scope": scope, "years": years}
         if fips == "17":
             data[fips]["report"] = "il-abortion-county-archive"
+        if fips == "27":
+            data[fips]["sourceByYear"] = {year: f"mn-abortion-counties-{year}" for year in years if year <= 2022}
         if fips == "53":
             data[fips]["sourceByYear"] = {year: f"wa-abortion-counties-{year}" for year in years}
         print(f"{source}: {min(years)}–{max(years)}, {len(years[max(years)])} counties")

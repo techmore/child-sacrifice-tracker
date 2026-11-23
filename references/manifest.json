@@ -462,6 +462,61 @@
     "sha256": "27c5ae9e603f03c55e99c2213c1777d60cf412e401a66bc4dca798be1b726bb5"
   },
   {
+    "id": "mn-abortion-counties-2018",
+    "access": "private",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2018, Table 7",
+    "url": "https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2018abrpt.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/mn-abortion-counties-2018.pdf",
+    "bytes": 2995265,
+    "sha256": "e25e3f3b2e396748eb72f441b9d3a2746f259c96919dc27ff26de777f12a111e"
+  },
+  {
+    "id": "mn-abortion-counties-2019",
+    "access": "private",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2019, Table 7",
+    "url": "https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2019abrpt.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/mn-abortion-counties-2019.pdf",
+    "bytes": 2634124,
+    "sha256": "2497c6c315219bb543773a51ef8c78d0e2701752fa176933ceb266d4a9fe6ccd"
+  },
+  {
+    "id": "mn-abortion-counties-2020",
+    "access": "private",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2020, Table 7",
+    "url": "https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2020abrpt.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/mn-abortion-counties-2020.pdf",
+    "bytes": 2728201,
+    "sha256": "d09d270f9eff9b329ee86a225ed62e170a59e15f8db97a45c2939aad10a0221d"
+  },
+  {
+    "id": "mn-abortion-counties-2021",
+    "access": "private",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2021, Table 7",
+    "url": "https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2021abrpt.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/mn-abortion-counties-2021.pdf",
+    "bytes": 3129287,
+    "sha256": "395e6fd06bc646b1a32beea0840c19b340774ff39152509386a4b1f0ed9e953f"
+  },
+  {
+    "id": "mn-abortion-counties-2022",
+    "access": "private",
+    "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2022, Table 7 (revised)",
+    "url": "https://www2cdn.web.health.state.mn.us/data/mchs/pubs/abrpt/docs/2022abrpt-revised.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/mn-abortion-counties-2022.pdf",
+    "bytes": 2760174,
+    "sha256": "d227b10b93766d9a19644455300e1f608fc801e2fd435e08574382f069f628f8"
+  },
+  {
     "id": "mn-abortion-counties-2024",
     "access": "private",
     "title": "Minnesota Department of Health, Induced Abortions in Minnesota, 2024",

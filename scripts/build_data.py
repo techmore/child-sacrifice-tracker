@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build docs/data/countries.json from the archived sources."""
 import csv, json, pathlib, re, subprocess, unicodedata
+from collections import defaultdict
 import openpyxl
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -48,15 +49,30 @@ profiles = {key(p.stem): p for p in (REF / "country-profiles").glob("*.pdf")}
 meta = {int(c["ccn3"]): c for c in json.load(open(RAW / "world-countries.json", encoding="utf8")) if c.get("ccn3")}
 gdp = {r["countryiso3code"]: r["value"] for r in json.load(open(RAW / "wb-gdp-per-capita-2023.json"))[1] if r["value"]}
 
-reported = {}
-for r in csv.DictReader(open(ROOT / "references/private/osf-global-incidence-csv.csv", encoding="latin-1")):
-    if r["yearstart"] != r["yearend"] or r["datatype"] != "Official Statistics" or r["complete"] != "Complete":
-        continue
-    if r["numberofabortions"] and r["marriedonly"] in ("", "No"):
-        try:
-            reported.setdefault(int(r["iso"]), {})[int(r["yearstart"])] = int(float(r["numberofabortions"]))
-        except ValueError:
-            pass
+def reported_counts(path):
+    candidates = defaultdict(lambda: defaultdict(set))
+    with path.open(encoding="latin-1", newline="") as source:
+        for row in csv.DictReader(source):
+            if (row["yearstart"] != row["yearend"] or row["datatype"] != "Official Statistics"
+                    or row["complete"] != "Complete" or row["spontaneous"] != "No"
+                    or row["marriedonly"] not in ("", "No") or not row["numberofabortions"]):
+                continue
+            try:
+                country, year = int(row["iso"]), int(row["yearstart"])
+                count = int(row["numberofabortions"])
+            except ValueError:
+                continue
+            candidates[country, year][count].add(row["datasource"])
+    reported, sources = defaultdict(dict), defaultdict(dict)
+    for (country, year), counts in candidates.items():
+        if len(counts) == 1:
+            count, publishers = next(iter(counts.items()))
+            reported[country][year] = count
+            sources[country][year] = sorted(publisher for publisher in publishers if publisher)
+    return reported, sources
+
+
+reported, reported_sources = reported_counts(REF / "osf-global-incidence-csv.csv")
 
 countries, unmatched = [], []
 SUMMARY_ROWS = {"first quartile", "median country", "population average", "third quartile"}
@@ -85,6 +101,7 @@ for name, (rate, lo, hi) in sorted(rates.items()):
         "shareUnintendedAborted": round(share[name][0], 1) if name in share else None,
         "gdpPerCapita2023": round(g) if g else None,
         "reported": sorted(reported.get(code, {}).items()),
+        "reportedSources": dict(sorted(reported_sources.get(code, {}).items())),
     })
 
 (ROOT / "docs/data/countries.json").write_text(json.dumps(countries, ensure_ascii=False, separators=(",", ":")))

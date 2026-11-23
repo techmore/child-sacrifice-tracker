@@ -86,6 +86,15 @@ CREATE TABLE country_reported (
     PRIMARY KEY (country_id, series_id, year)
 ) WITHOUT ROWID;
 
+CREATE TABLE country_reported_publisher (
+    country_id INTEGER NOT NULL,
+    series_id TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    publisher TEXT NOT NULL,
+    PRIMARY KEY (country_id, series_id, year, publisher),
+    FOREIGN KEY (country_id, series_id, year) REFERENCES country_reported(country_id, series_id, year)
+) WITHOUT ROWID;
+
 CREATE TABLE us_observation (
     series_id TEXT NOT NULL REFERENCES series(id),
     year INTEGER NOT NULL,
@@ -109,10 +118,15 @@ CREATE TABLE state_observation (
     series_id TEXT NOT NULL REFERENCES series(id),
     year INTEGER NOT NULL,
     abortions INTEGER NOT NULL CHECK (abortions >= 0),
+    abortions_low INTEGER,
+    abortions_high INTEGER,
     rate REAL CHECK (rate >= 0),
     births INTEGER CHECK (births >= 0),
     share_of_births_plus_abortions REAL CHECK (share_of_births_plus_abortions BETWEEN 0 AND 100),
-    PRIMARY KEY (state_fips, series_id, year)
+    PRIMARY KEY (state_fips, series_id, year),
+    CHECK ((abortions_low IS NULL AND abortions_high IS NULL) OR
+           (abortions_low IS NOT NULL AND abortions_high IS NOT NULL
+            AND abortions_low BETWEEN 0 AND abortions AND abortions_high >= abortions))
 ) WITHOUT ROWID;
 
 CREATE TABLE county (
