@@ -25,6 +25,23 @@ function revealHashTarget() {
 }
 
 window.addEventListener("hashchange", revealHashTarget);
+document.addEventListener("click", event => {
+  const citation = event.target.closest('a[href^="#"]');
+  if (!citation) return;
+  const passage = citation.closest("[id]");
+  const source = document.getElementById(citation.getAttribute("href").slice(1));
+  if (!passage || !source?.closest("#source-list")) return;
+  document.querySelector(".source-return")?.remove();
+  const back = document.createElement("a");
+  back.className = "source-return";
+  back.href = `#${passage.id}`;
+  back.textContent = "Back to passage";
+  back.addEventListener("click", () => {
+    if (!passage.hasAttribute("tabindex")) passage.tabIndex = -1;
+    passage.focus({ preventScroll: true });
+  });
+  source.querySelector(".source-archive").append(back);
+});
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById(location.hash.slice(1))?.closest("details")) revealHashTarget();
 });
@@ -42,15 +59,35 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=investigation-files"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=archive-status"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
+  const arrivalHash = location.hash;
+  const arrival = new AbortController();
+  for (const event of ["keydown", "pointerdown", "wheel"]) {
+    window.addEventListener(event, () => arrival.abort(), { signal: arrival.signal, passive: true });
+  }
   const sources = new Map(bibliography.map(source => [source.id, source]));
-  d3.select("#source-list").selectAll("li").data(bibliography).join("li")
-    .attr("id", source => source.id).append("a").attr("href", source => source.url).text(source => source.title);
+  const sourceEntries = d3.select("#source-list").selectAll("li").data(bibliography).join("li")
+    .attr("id", source => source.id);
+  sourceEntries.append("a").attr("href", source => source.url).text(source => source.title);
+  const archiveDetails = sourceEntries.append("small").attr("class", "source-archive");
+  const archiveStates = { public: "Public archive", local: "Local archive only", unavailable: "No archived copy" };
+  archiveDetails.append("span").text(({ archive }) => {
+    const date = archive.date ? ` · ${archive.status === "unavailable" ? "Checked" : "Retrieved"} ${archive.date}` : "";
+    return archiveStates[archive.status] + date;
+  });
+  archiveDetails.filter(({ archive }) => archive.status === "public").append("a")
+    .attr("href", ({ archive }) => `https://github.com/techmore/child-sacrifice-tracker/blob/main/${archive.path}`)
+    .attr("aria-label", source => `Archived copy of ${source.title}`)
+    .text("Archived copy");
+  archiveDetails.filter(({ archive }) => archive.sha256).append("code")
+    .attr("title", ({ archive }) => `SHA-256 ${archive.sha256}`)
+    .text(({ archive }) => `SHA-256 ${archive.sha256.slice(0, 12)}…`);
   const cite = (id, label) => sourceLink(sources.get(id), label);
-  d3.json("data/material-payments.json").then(records => {
-    const rows = d3.select("#material-payment-rows").selectAll("tr").data(records).join("tr");
+  const paymentsReady = d3.json("data/material-payments.json").then(records => {
+    const rows = d3.select("#material-payment-rows").selectAll("tr").data(records).join("tr")
+      .attr("id", record => `payment-${record.id}`);
     rows.append("th").attr("scope", "row").text(record => record.period);
     const parties = rows.append("td");
     parties.append("div").text(record => `From ${record.payer}`);
@@ -62,6 +99,7 @@ Promise.all([
     scope.append("ul").attr("class", "sources").selectAll("li")
       .data(record => record.sources.map(id => sources.get(id))).join("li")
       .append("a").attr("href", source => source.url).text(source => source.title);
+    if (location.hash.startsWith("#payment-")) revealHashTarget();
   }).catch(() => {
     d3.select("#material-payment-rows").append("tr").append("td").attr("colspan", 4)
       .text("Payment records could not be loaded. Reload the page to retry.");
@@ -168,7 +206,7 @@ Promise.all([
       return `translate(${x},${y})`;
     });
   }
-  d3.json("data/evidence-records.json").then(records => {
+  const evidenceReady = d3.json("data/evidence-records.json").then(records => {
     const entries = d3.select("#evidence-list").selectAll("li").data(records).join("li");
     entries.append("h3").attr("id", record => `evidence-${record.id}`).attr("tabindex", -1).text(record => record.title);
     entries.append("p").attr("class", "evidence-meta").text(record => `${record.place} · ${record.year} · ${record.status}`);
@@ -868,7 +906,7 @@ Promise.all([
   if (document.getElementById(location.hash.slice(1))?.closest("#source-list, #us-total-breakdown")) {
     revealHashTarget();
   }
-  d3.json("data/international-history.json").then(
+  const historyReady = d3.json("data/international-history.json").then(
     archive => {
       archivedPlaces = new Set(archive.rows.map(row => row.geography));
       d3.select("#country-history-link").property("hidden", !archivedPlaces.has(selected.iso3));
@@ -876,7 +914,7 @@ Promise.all([
     },
     () => d3.select("#international-coverage").text("Historical data could not load. Refresh to try again."),
   );
-  d3.json("data/counties.json?v=indiana-history").then(data => {
+  const countiesReady = d3.json("data/counties.json?v=indiana-history").then(data => {
     counties = data;
     countyStatus = "ready";
     renderCountyCoverage(stateData, counties);
@@ -888,6 +926,10 @@ Promise.all([
     countyStatus = "failed";
     document.getElementById("county-coverage").textContent = "County data could not load. Refresh to try again.";
     if (view === "state") showCounties(activeState);
+  });
+  Promise.allSettled([paymentsReady, evidenceReady, historyReady, countiesReady]).then(() => {
+    if (arrivalHash && location.hash === arrivalHash && !arrival.signal.aborted) revealHashTarget();
+    arrival.abort();
   });
 }).catch(err => {
   console.error(err);

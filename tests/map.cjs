@@ -210,3 +210,30 @@ test("research navigation opens the market and keeps deep-linked sources visible
     assert.equal(await page.locator("#county-coverage-section").evaluate(el => el.open), true);
   });
 });
+
+
+test("source records disclose archive availability without publishing private paths", async () => {
+  await checkMap({ width: 390, height: 850 }, async page => {
+    await page.goto(origin + "/#cdc-abortion-2022");
+    const publicSource = page.locator("#cdc-abortion-2022");
+    const copy = publicSource.getByRole("link", { name: /^Archived copy/ });
+    await copy.waitFor();
+    assert.match(await publicSource.innerText(), /Public archive.*Retrieved/s);
+    assert.match(await copy.getAttribute("href"), /\/references\/open\/cdc-abortion-2022\.html$/);
+    const localSource = page.locator("#who-abortion-factsheet");
+    assert.match(await localSource.innerText(), /Local archive only/);
+    assert.equal(await localSource.getByRole("link").count(), 1);
+    const unavailable = page.locator("#neonatal-infant-mortality-bans-2026");
+    assert.match(await unavailable.innerText(), /No archived copy/);
+    assert.equal(await unavailable.getByRole("link").count(), 1);
+
+    await page.goto(origin + "/#merck-10k-2025");
+    await page.getByText("This source link was retired", { exact: false }).waitFor();
+    await page.goto(origin + "/#nygard-records");
+    assert.equal(await page.locator("#investigation-files #nygard-records").count(), 1);
+    await page.locator("#investigation-liveyon").getByRole("link", { name: "Initial report" }).click();
+    await page.locator("#cdc-cord-blood-outbreak-2018").getByRole("link", { name: "Back to passage" }).press("Enter");
+    assert.equal(new URL(page.url()).hash, "#investigation-liveyon");
+    assert.equal(await page.evaluate(() => document.activeElement.id), "investigation-liveyon");
+  });
+});

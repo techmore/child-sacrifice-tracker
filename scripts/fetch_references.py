@@ -136,6 +136,31 @@ def archive_source(source, previous, refresh):
         return failure
 
 
+def write_site_bibliography(bibliography, manifest):
+    records = []
+    for source in bibliography:
+        record = {key: source[key] for key in ("id", "title", "url")}
+        capture = manifest.get(source["id"], {})
+        if capture.get("url") != source["url"]:
+            capture = {}
+        archive = {"status": "unavailable"}
+        if capture.get("retrieved"):
+            archive["date"] = capture["retrieved"]
+        if capture.get("status") == "saved":
+            archive["status"] = "local"
+            archive["sha256"] = capture["sha256"]
+            path = pathlib.PurePosixPath(capture["file"])
+            if (source["access"] == capture["access"] == "open"
+                    and path.parts[:1] == ("open",) and ".." not in path.parts):
+                archive["status"] = "public"
+                archive["path"] = urllib.parse.quote(f"references/{path}")
+        record["archive"] = archive
+        records.append(record)
+    (REPO / "docs/data/sources.json").write_text(
+        json.dumps(records, ensure_ascii=False, indent=2) + "\n", encoding="utf8",
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--refresh", action="store_true", help="Redownload already archived sources")
@@ -173,13 +198,10 @@ def main():
     missing = selected_ids - ids
     if missing:
         parser.error("Unknown source IDs: " + ", ".join(sorted(missing)))
-    (REPO / "docs/data/sources.json").write_text(
-        json.dumps([{k: s[k] for k in ("id", "title", "url")} for s in bibliography], ensure_ascii=False, indent=2) + "\n",
-        encoding="utf8",
-    )
-    if options.index_only:
-        return
     previous = {entry["id"]: entry for entry in json.loads(manifest.read_text(encoding="utf8"))} if manifest.exists() else {}
+    if options.index_only:
+        write_site_bibliography(bibliography, previous)
+        return
     if selected_ids:
         sources = [source for source in sources if source["id"] in selected_ids]
     with ThreadPoolExecutor(max_workers=6) as pool:
@@ -189,6 +211,7 @@ def main():
         previous.update((entry["id"], entry) for entry in results)
         archived = list(previous.values())
     manifest.write_text(json.dumps(archived, indent=2, ensure_ascii=False) + "\n", encoding="utf8")
+    write_site_bibliography(bibliography, {entry["id"]: entry for entry in archived})
     for result in results:
         error = result.get("refresh_error") or result.get("error")
         if error:

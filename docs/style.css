@@ -184,3 +184,8 @@ html { scroll-padding-top: calc(var(--site-header-height) + 0.75rem); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+.source-archive { display: flex; flex-wrap: wrap; gap: 0.1rem 0.6rem; padding-bottom: 0.4rem; color: var(--ink2); font: 12px/1.45 system-ui, sans-serif; }
+.retired-source { display: none; }
+.retired-source:target { display: block; }
+#source-list li:not(:target) .source-return { display: none; }
