@@ -2008,5 +2008,75 @@
     "id": "ohio-disposal-litigation-2015",
     "title": "U.S. District Court, Planned Parenthood Southwest Ohio Region v. Hodges (docket mirror)",
     "url": "https://www.plainsite.org/courts/ohio-southern-district-court/planned-parenthood-southwest-ohio-region-v-hodges/2owpe99et/"
+  },
+  {
+    "id": "fec-pp-federal-pac-2024",
+    "title": "Federal Election Commission, Planned Parenthood Federal PAC 2023–2024 totals",
+    "url": "https://api.open.fec.gov/v1/committee/C00314617/totals/?cycle=2024&api_key=DEMO_KEY"
+  },
+  {
+    "id": "fec-pp-dscc-2024",
+    "title": "Federal Election Commission, Schedule B contribution to DSCC, August 2, 2024",
+    "url": "https://api.open.fec.gov/v1/schedules/schedule_b/?committee_id=C00314617&recipient_name=DSCC&min_date=2024-08-02&max_date=2024-08-02&two_year_transaction_period=2024&api_key=DEMO_KEY"
+  },
+  {
+    "id": "lda-ppfa-2024-q1",
+    "title": "Lobbying Disclosure Act, Planned Parenthood Federation of America quarterly report, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/fd5ca4f3-4099-4b46-90ae-53d37bacd45e/"
+  },
+  {
+    "id": "lda-capitol-counsel-ppfa-2024-q1",
+    "title": "Lobbying Disclosure Act, Capitol Counsel filing for Planned Parenthood Federation of America, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/c6e845f1-5ffd-4b9e-bacd-b079b1c15d9d/"
+  },
+  {
+    "id": "lda-keefe-ppfa-2024-q1",
+    "title": "Lobbying Disclosure Act, Keefe Strategies filing for Planned Parenthood Federation of America, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/46470690-3a9c-4485-95d8-f47642b37f77/"
+  },
+  {
+    "id": "hr1723-status-118",
+    "title": "U.S. Congress, H.R. 1723 legislative status and actions, 118th Congress",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr1723.xml"
+  },
+  {
+    "id": "nih-revitalization-act-1993",
+    "title": "Public Law 103-43, NIH Revitalization Act of 1993, § 112, pp. 131–132",
+    "url": "https://www.govinfo.gov/content/pkg/STATUTE-107/pdf/STATUTE-107-Pg122.pdf#page=10"
+  },
+  {
+    "id": "uscode-bribery-201",
+    "title": "U.S. Code, 18 U.S.C. § 201, bribery of public officials",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/pdf/USCODE-2024-title18-partI-chap11-sec201.pdf"
+  },
+  {
+    "id": "nas-abortion-long-term-outcomes",
+    "title": "National Academies, The Safety and Quality of Abortion Care in the United States, chapter 4",
+    "url": "https://www.nationalacademies.org/read/24950/chapter/6"
+  },
+  {
+    "id": "biggs-turnaway-mental-health-2017",
+    "title": "Biggs et al., five-year mental health study, indexed abstract (JAMA Psychiatry, 2017)",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:27973641&format=json&resultType=core"
+  },
+  {
+    "id": "canadian-press-nygard-affidavit-2021",
+    "title": "The Canadian Press, January 2021 account of Nygård’s bail affidavit",
+    "url": "https://www.cjme.com/2021/01/06/canadian-fashion-mogul-peter-nygard-to-apply-for-bail-in-winnipeg/"
+  },
+  {
+    "id": "fda-regenerative-medicine-warning",
+    "title": "FDA, Consumer Information About Regenerative Medicine Therapies",
+    "url": "https://www.fda.gov/vaccines-blood-biologics/consumers-biologics/important-patient-and-consumer-information-about-regenerative-medicine-therapies"
+  },
+  {
+    "id": "lda-sba-2024-q1",
+    "title": "Lobbying Disclosure Act, Susan B. Anthony List quarterly report, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/fe058a1d-1cc9-44ac-a632-f983351730f4/"
+  },
+  {
+    "id": "hr7270-status-118",
+    "title": "U.S. Congress, H.R. 7270 legislative status and actions, 118th Congress",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7270.xml"
   }
 ]

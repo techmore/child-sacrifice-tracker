@@ -55,6 +55,7 @@ def download(source, folder, expected_sha256):
         "ocda-fetal-tissue-judgment-2017": "52-58",
         "fda-abr-order-2018": "28-36,161,166",
         "doj-trafficking-report-fy2006": "90",
+        "nih-revitalization-act-1993": "10-11",
     }
     if identifier in excerpt_pages:
         # Retain the cited records from the longer source.

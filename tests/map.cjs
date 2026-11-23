@@ -178,5 +178,10 @@ test("evidence markers open sourced records and persist on the world map", async
     assert.match(await payments.getByText(/\$15,900 original obligation/).locator("../..").innerText(),
       /Disbursements require invoice and payment records/);
     assert.equal(await page.getByRole("heading", { name: "Further reading and investigations" }).count(), 1);
+    const spending = page.getByRole("region", { name: "Federal campaign and lobbying records" });
+    assert.match(await spending.getByRole("row", { name: /Federal PAC spending/ }).innerText(), /\$10,000 contribution/);
+    const filing = page.locator("#lda-ppfa-2024-q1 a");
+    assert.match(await filing.getAttribute("href"), /^https:\/\/lda\.gov\//);
+    assert.match(await page.locator("#measured-outcomes").innerText(), /0\.46 deaths/);
   });
 });

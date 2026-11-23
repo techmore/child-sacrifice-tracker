@@ -6218,5 +6218,159 @@
     "file": "private/ohio-disposal-litigation-2015.html",
     "bytes": 127683,
     "sha256": "4925a9012fc8858a45a6df3d1b1025168e8052dbbafe7f6fb0a92615c9f36de5"
+  },
+  {
+    "id": "fec-pp-federal-pac-2024",
+    "access": "open",
+    "title": "Federal Election Commission, Planned Parenthood Federal PAC 2023–2024 totals",
+    "url": "https://api.open.fec.gov/v1/committee/C00314617/totals/?cycle=2024&api_key=DEMO_KEY",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fec-pp-federal-pac-2024.json",
+    "bytes": 3417,
+    "sha256": "e9b3c69ec959c8f4612df4a1fa0c4cc87c53cf9ce01942ebc73aa43f8b6029f6"
+  },
+  {
+    "id": "fec-pp-dscc-2024",
+    "access": "open",
+    "title": "Federal Election Commission, Schedule B contribution to DSCC, August 2, 2024",
+    "url": "https://api.open.fec.gov/v1/schedules/schedule_b/?committee_id=C00314617&recipient_name=DSCC&min_date=2024-08-02&max_date=2024-08-02&two_year_transaction_period=2024&api_key=DEMO_KEY",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fec-pp-dscc-2024.json",
+    "bytes": 5869,
+    "sha256": "08b54961dfcf87503563caffd271d40de43336038dfaa8b614cda02e3806243f"
+  },
+  {
+    "id": "lda-ppfa-2024-q1",
+    "access": "private",
+    "title": "Lobbying Disclosure Act, Planned Parenthood Federation of America quarterly report, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/fd5ca4f3-4099-4b46-90ae-53d37bacd45e/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/lda-ppfa-2024-q1.json",
+    "bytes": 10710,
+    "sha256": "ac4d5c408cf7ca2f036fe76b64d1e0d218fde4a72beac382dd91825b90a11651"
+  },
+  {
+    "id": "lda-capitol-counsel-ppfa-2024-q1",
+    "access": "private",
+    "title": "Lobbying Disclosure Act, Capitol Counsel filing for Planned Parenthood Federation of America, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/c6e845f1-5ffd-4b9e-bacd-b079b1c15d9d/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/lda-capitol-counsel-ppfa-2024-q1.json",
+    "bytes": 6911,
+    "sha256": "5ac5f0a926dd4d77e753f248d417af44d8ca8e8541eb3d7bb78e9a2afc2fdfad"
+  },
+  {
+    "id": "lda-keefe-ppfa-2024-q1",
+    "access": "private",
+    "title": "Lobbying Disclosure Act, Keefe Strategies filing for Planned Parenthood Federation of America, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/46470690-3a9c-4485-95d8-f47642b37f77/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/lda-keefe-ppfa-2024-q1.json",
+    "bytes": 2872,
+    "sha256": "39bf1b39075c2771124c32ad81b5988d1ffd2f6e480a7fc0ef177e019a76845c"
+  },
+  {
+    "id": "hr1723-status-118",
+    "access": "open",
+    "title": "U.S. Congress, H.R. 1723 legislative status and actions, 118th Congress",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr1723.xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/hr1723-status-118.xml",
+    "bytes": 73735,
+    "sha256": "389d71291a06c66830e43c34349666ba65877c2c77899433aa5f358d4db9a702"
+  },
+  {
+    "id": "nih-revitalization-act-1993",
+    "access": "open",
+    "title": "Public Law 103-43, NIH Revitalization Act of 1993, § 112, pp. 131–132",
+    "url": "https://www.govinfo.gov/content/pkg/STATUTE-107/pdf/STATUTE-107-Pg122.pdf#page=10",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/nih-revitalization-act-1993.pdf",
+    "bytes": 362762,
+    "sha256": "642d8e7b316023a83ea30bd189b1961cbe3f47dc0f6d6ff234c47b40373b82c4"
+  },
+  {
+    "id": "uscode-bribery-201",
+    "access": "open",
+    "title": "U.S. Code, 18 U.S.C. § 201, bribery of public officials",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/pdf/USCODE-2024-title18-partI-chap11-sec201.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/uscode-bribery-201.pdf",
+    "bytes": 179611,
+    "sha256": "518444596b9aa557f142964e90297b34119b500056986465b6cf70441431a56a"
+  },
+  {
+    "id": "nas-abortion-long-term-outcomes",
+    "access": "private",
+    "title": "National Academies, The Safety and Quality of Abortion Care in the United States, chapter 4",
+    "url": "https://www.nationalacademies.org/read/24950/chapter/6",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/nas-abortion-long-term-outcomes.html",
+    "bytes": 833277,
+    "sha256": "4c051459cc82bc7c0baf25c7b34b3de77bd57304ac674e66998c14a039a47edf"
+  },
+  {
+    "id": "biggs-turnaway-mental-health-2017",
+    "access": "private",
+    "title": "Biggs et al., five-year mental health study, indexed abstract (JAMA Psychiatry, 2017)",
+    "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=EXT_ID:27973641&format=json&resultType=core",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/biggs-turnaway-mental-health-2017.json",
+    "bytes": 8270,
+    "sha256": "9665d0d2647f8f38b07da957e576bfeb02101b38ae4712049ec972ba003b55d2"
+  },
+  {
+    "id": "canadian-press-nygard-affidavit-2021",
+    "access": "private",
+    "title": "The Canadian Press, January 2021 account of Nygård’s bail affidavit",
+    "url": "https://www.cjme.com/2021/01/06/canadian-fashion-mogul-peter-nygard-to-apply-for-bail-in-winnipeg/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/canadian-press-nygard-affidavit-2021.html",
+    "bytes": 86991,
+    "sha256": "91b8232f02c292023c08e8727ce4ee911264f9dc90bbaccf201de94d7f623202"
+  },
+  {
+    "id": "fda-regenerative-medicine-warning",
+    "access": "open",
+    "title": "FDA, Consumer Information About Regenerative Medicine Therapies",
+    "url": "https://www.fda.gov/vaccines-blood-biologics/consumers-biologics/important-patient-and-consumer-information-about-regenerative-medicine-therapies",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/fda-regenerative-medicine-warning.html",
+    "bytes": 42442,
+    "sha256": "182c1251d3f297107cd1d35a591b803a5adc1f3d76c85f2d9022222ad0ad3a11"
+  },
+  {
+    "id": "lda-sba-2024-q1",
+    "access": "private",
+    "title": "Lobbying Disclosure Act, Susan B. Anthony List quarterly report, Q1 2024",
+    "url": "https://lda.gov/api/v1/filings/fe058a1d-1cc9-44ac-a632-f983351730f4/",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/lda-sba-2024-q1.json",
+    "bytes": 38522,
+    "sha256": "17e89d78ff1f6b452855509936253beae91a5e6ac94ac4746ce6da78d4d22987"
+  },
+  {
+    "id": "hr7270-status-118",
+    "access": "open",
+    "title": "U.S. Congress, H.R. 7270 legislative status and actions, 118th Congress",
+    "url": "https://www.govinfo.gov/bulkdata/BILLSTATUS/118/hr/BILLSTATUS-118hr7270.xml",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/hr7270-status-118.xml",
+    "bytes": 9765,
+    "sha256": "fae5768e4c1ed45c7009548b9e0c013c818c20a6983e7fa3129e21be061a6a4c"
   }
 ]
