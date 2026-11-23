@@ -1368,5 +1368,50 @@
     "id": "miller-wherry-foster-economics",
     "title": "Miller, Wherry and Foster, The Economic Consequences of Being Denied an Abortion",
     "url": "https://www.nber.org/system/files/working_papers/w26662/w26662.pdf"
+  },
+  {
+    "id": "lederer-wetzel-trafficking-2014",
+    "title": "Lederer and Wetzel, The Health Consequences of Sex Trafficking (2014)",
+    "url": "https://www.icmec.org/wp-content/uploads/2015/10/Health-Consequences-of-Sex-Trafficking-and-Implications-for-Identifying-Victims-Lederer.pdf"
+  },
+  {
+    "id": "uscode-sex-trafficking-1591",
+    "title": "U.S. Code, 18 U.S.C. § 1591, sex trafficking",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/pdf/USCODE-2024-title18-partI-chap77-sec1591.pdf"
+  },
+  {
+    "id": "gao-child-trafficking-2024",
+    "title": "GAO-24-106038, Child Trafficking",
+    "url": "https://www.gao.gov/assets/d24106038.pdf"
+  },
+  {
+    "id": "bjs-trafficking-data-2024",
+    "title": "Bureau of Justice Statistics, Human Trafficking Data Collection Activities, 2024",
+    "url": "https://bjs.ojp.gov/document/htdca24-rev_0.pdf"
+  },
+  {
+    "id": "uk-parliament-fetal-remains-2014",
+    "title": "UK Parliament, written answers on fetal remains, April 8, 2014",
+    "url": "https://publications.parliament.uk/pa/ld201314/ldhansrd/text/140408w0001.htm"
+  },
+  {
+    "id": "fda-mmr-ii-label",
+    "title": "FDA, M-M-R II prescribing information",
+    "url": "https://www.fda.gov/media/75191/download"
+  },
+  {
+    "id": "fda-varivax-label",
+    "title": "FDA, Varivax prescribing information",
+    "url": "https://www.fda.gov/media/76000/download"
+  },
+  {
+    "id": "ca-school-vaccine-regulations",
+    "title": "California Code of Regulations, school immunization requirements",
+    "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/Immunization/IMM-1080.pdf"
+  },
+  {
+    "id": "uk-channel-4-pregnancy-remains-2014",
+    "title": "Channel 4 Dispatches, records on pregnancy remains deposited with UK Parliament",
+    "url": "https://data.parliament.uk/DepositedPapers/Files/DEP2014-0569/PQ194504_-_Library_Doc_-_Report.pdf"
   }
 ]

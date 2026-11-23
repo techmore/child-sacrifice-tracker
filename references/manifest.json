@@ -4808,5 +4808,100 @@
     "file": "private/miller-wherry-foster-economics.pdf",
     "bytes": 900581,
     "sha256": "faa4833abd3976dd5ac7e0bde28e13b40a187ca142b6380e798fae671211549d"
+  },
+  {
+    "id": "lederer-wetzel-trafficking-2014",
+    "access": "private",
+    "title": "Lederer and Wetzel, The Health Consequences of Sex Trafficking (2014)",
+    "url": "https://www.icmec.org/wp-content/uploads/2015/10/Health-Consequences-of-Sex-Trafficking-and-Implications-for-Identifying-Victims-Lederer.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/lederer-wetzel-trafficking-2014.pdf",
+    "bytes": 577803,
+    "sha256": "c55dbb4c8ea7abbf7c33f560103cae646ff9f51e557f27ef08a219043bc62435"
+  },
+  {
+    "id": "uscode-sex-trafficking-1591",
+    "access": "open",
+    "title": "U.S. Code, 18 U.S.C. § 1591, sex trafficking",
+    "url": "https://www.govinfo.gov/content/pkg/USCODE-2024-title18/pdf/USCODE-2024-title18-partI-chap77-sec1591.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/uscode-sex-trafficking-1591.pdf",
+    "bytes": 142770,
+    "sha256": "cb01817fae4b8af9f348b310cea202d4c83bbb2e628351a1edbe58ca925fc713"
+  },
+  {
+    "id": "gao-child-trafficking-2024",
+    "access": "open",
+    "title": "GAO-24-106038, Child Trafficking",
+    "url": "https://www.gao.gov/assets/d24106038.pdf",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "bjs-trafficking-data-2024",
+    "access": "open",
+    "title": "Bureau of Justice Statistics, Human Trafficking Data Collection Activities, 2024",
+    "url": "https://bjs.ojp.gov/document/htdca24-rev_0.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "open/bjs-trafficking-data-2024.pdf",
+    "bytes": 454114,
+    "sha256": "7901251e75e9b6257ae2c062018e0932ae7fd4cc8e8062d708853612b54a61e0"
+  },
+  {
+    "id": "uk-parliament-fetal-remains-2014",
+    "access": "private",
+    "title": "UK Parliament, written answers on fetal remains, April 8, 2014",
+    "url": "https://publications.parliament.uk/pa/ld201314/ldhansrd/text/140408w0001.htm",
+    "retrieved": "2026-11-23",
+    "status": "failed",
+    "error": "HTTP Error 403: Forbidden"
+  },
+  {
+    "id": "fda-mmr-ii-label",
+    "access": "private",
+    "title": "FDA, M-M-R II prescribing information",
+    "url": "https://www.fda.gov/media/75191/download",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/fda-mmr-ii-label.pdf",
+    "bytes": 425496,
+    "sha256": "8bad583620887c34664e853c69498849d5121621b96f675acfe3e10ddb52ca5e"
+  },
+  {
+    "id": "fda-varivax-label",
+    "access": "private",
+    "title": "FDA, Varivax prescribing information",
+    "url": "https://www.fda.gov/media/76000/download",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/fda-varivax-label.pdf",
+    "bytes": 448488,
+    "sha256": "788b7b753f39689b0dea251bc99a17e579906a4384382a05c5b504c5616e5faa"
+  },
+  {
+    "id": "ca-school-vaccine-regulations",
+    "access": "private",
+    "title": "California Code of Regulations, school immunization requirements",
+    "url": "https://www.cdph.ca.gov/Programs/CID/DCDC/CDPH%20Document%20Library/Immunization/IMM-1080.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/ca-school-vaccine-regulations.pdf",
+    "bytes": 294901,
+    "sha256": "52b4762ed0545c4e7854873d9f66d4d1a29f9688342f57f7683495a9ac993e25"
+  },
+  {
+    "id": "uk-channel-4-pregnancy-remains-2014",
+    "access": "private",
+    "title": "Channel 4 Dispatches, records on pregnancy remains deposited with UK Parliament",
+    "url": "https://data.parliament.uk/DepositedPapers/Files/DEP2014-0569/PQ194504_-_Library_Doc_-_Report.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/uk-channel-4-pregnancy-remains-2014.pdf",
+    "bytes": 10106178,
+    "sha256": "a8a15ca39ddab5a9f22b2bfe2dda9bc7d756dfc6b32ca58b60e9fa16bf45e703"
   }
 ]
