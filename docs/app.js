@@ -6,7 +6,6 @@ const METRICS = {
   shareOfBirthsPlusAbortions: { label: "Abortions as % of births + abortions", bins: [15, 25, 35, 45], show: v => v.toFixed(0) + "%" },
 };
 const STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5"].map(v => `var(${v})`);
-const LABELED = [840, 156, 356, 76, 643, 586, 360, 566, 124, 36, 180, 710];
 const SOURCES = [
   ["WHO, Abortion fact sheet", "https://www.who.int/news-room/fact-sheets/detail/abortion"],
   ["Bearak et al. 2022, BMJ Global Health, country estimates", "https://pmc.ncbi.nlm.nih.gov/articles/PMC8943721/"],
@@ -47,11 +46,11 @@ document.getElementById("source-list").innerHTML = SOURCES.map(([t, u]) => `<li>
 
 Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json"), d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json")]).then(([data, world, us, stateData, usMap]) => {
   const byId = new Map(data.map(d => [d.id, d]));
-  let metric = "abortions", selected = byId.get(840), view = "world", activeState = null;
+  let metric = "abortions", selected = byId.get(840), view = "world", activeState = null, picked = false;
   const stateById = new Map(stateData.map(d => [d.id, d]));
   const usTotal = d3.sum(us, d => d.abortions), usLatest = us[us.length - 1];
   const STATE_BINS = { abortions: [3000, 10000, 25000, 60000], rate: [5, 10, 15, 20], shareOfBirthsPlusAbortions: [10, 15, 20, 25] };
-  const W = 960, H = 490;
+  const W = 1400, H = 720;
   const features = topojson.feature(world, world.objects.countries).features.filter(f => f.properties.name !== "Antarctica");
   const projection = d3.geoNaturalEarth1().fitSize([W, H], { type: "FeatureCollection", features });
   const path = d3.geoPath(projection);
@@ -74,8 +73,38 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     })
     .on("mouseleave", () => tip.attr("hidden", true))
     .on("click", (e, f) => { if (+f.id === 840) enterUS(); else if (rec(f)) select(rec(f)); });
-  const labels = worldG.append("g").selectAll("text").data(features.filter(f => LABELED.includes(+f.id) && rec(f))).join("text")
-    .attr("class", "map-label").attr("x", f => labelPoint(f)[0]).attr("y", f => labelPoint(f)[1]);
+  const CHAR = 7.6, LINE = 15;
+  const shortName = d => ({ "United States": "USA", "United Kingdom": "UK", "DR Congo": "DR Congo", "Central African Republic": "CAR" })[d.name] || d.name;
+  const labelData = features.filter(rec).sort((a, b) => rec(b).abortions - rec(a).abortions).map(f => {
+    const d = rec(f), [[x0], [x1]] = path.bounds(f), [x, y] = labelPoint(f);
+    return { f, d, x, y, span: x1 - x0, name: shortName(d) };
+  }).filter(l => Number.isFinite(l.x));
+  const labels = worldG.append("g").selectAll("text").data(labelData).join("text").attr("class", "map-label");
+  const labelNames = labels.append("tspan").attr("class", "n").attr("dy", -2);
+  const labelValues = labels.append("tspan").attr("class", "v").attr("dy", LINE);
+  function placeLabels(t) {
+    const placed = [];
+    labelData.forEach(l => {
+      const [x, y] = t.apply([l.x, l.y]);
+      l.text = l.span * t.k >= l.name.length * CHAR * 0.7 ? l.name : (l.d.iso3 || l.name);
+      const w = Math.max(l.text.length, 6) * CHAR + 4, box = { l: x - w / 2, r: x + w / 2, t: y - LINE, b: y + LINE };
+      l.show = box.l >= 0 && box.r <= W && box.t >= 0 && box.b <= H && !placed.some(o => box.l < o.r && box.r > o.l && box.t < o.b && box.b > o.t);
+      if (l.show) { placed.push(box); l.sx = x; l.sy = y; }
+    });
+    labels.style("display", l => l.show ? null : "none").filter(l => l.show).attr("x", l => l.sx).attr("y", l => l.sy);
+    labelNames.filter(l => l.show).attr("x", l => l.sx).text(l => l.text);
+    labelValues.filter(l => l.show).attr("x", l => l.sx);
+  }
+  const mapLayer = d3.select(shapes.node().parentNode);
+  const zoom = d3.zoom().scaleExtent([1, 12]).translateExtent([[0, 0], [W, H]]).extent([[0, 0], [W, H]])
+    .filter(e => view === "world" && !e.button && !e.touches && e.type !== "wheel")
+    .on("zoom", e => { mapLayer.attr("transform", e.transform); placeLabels(e.transform); });
+  svg.call(zoom).on("wheel.zoom", null).on("dblclick.zoom", null).style("touch-action", "pan-x pan-y pinch-zoom");
+  document.querySelectorAll("#zoom button").forEach(b => b.addEventListener("click", () => {
+    if (b.dataset.z === "reset") svg.call(zoom.transform, d3.zoomIdentity);
+    else svg.call(zoom.scaleBy, b.dataset.z === "in" ? 1.7 : 1 / 1.7);
+  }));
+  placeLabels(d3.zoomIdentity);
 
   const stateShapes = usG.append("g").selectAll("path").data(stateFeatures).join("path").attr("class", "state").attr("d", usPath)
     .on("mousemove", (e, f) => {
@@ -101,6 +130,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
     c.innerHTML = parts.join("");
+    document.getElementById("zoom").hidden = view !== "world";
     c.querySelectorAll("button").forEach(b => b.onclick = () => b.dataset.go === "world" ? leaveUS() : enterUS());
   }
   function usPanel() {
@@ -138,10 +168,10 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   }
   function paint() {
     shapes.filter(f => rec(f)).attr("fill", f => color(rec(f)[metric]));
-    shapes.classed("sel", f => rec(f) === selected);
+    shapes.classed("sel", f => picked && rec(f) === selected);
     stateShapes.attr("fill", f => color(stateById.get(f.id)[metric])).classed("sel", f => stateById.get(f.id) === activeState);
     stateLabels.text(f => `${stateById.get(f.id).abbr} ${METRICS[metric].show(stateById.get(f.id)[metric])}`);
-    labels.text(f => `${rec(f).name === "United States" ? "USA" : rec(f).name} ${METRICS[metric].show(rec(f)[metric])}`);
+    labelValues.text(l => METRICS[metric].show(l.d[metric]));
     const b = bins(), s = METRICS[metric].show;
     const names = [`under ${s(b[0])}`, ...b.slice(0, -1).map((v, i) => `${s(v)} to ${s(b[i + 1])}`), `${s(b[b.length - 1])} or more`];
     document.getElementById("legend").innerHTML = names.map((n, i) => `<span><i style="background:${STEPS[i]}"></i>${n}</span>`).join("") + `<span><i style="background:var(--nodata)"></i>no estimate</span>`;
@@ -156,6 +186,7 @@ Promise.all([d3.json("data/countries.json"), d3.json("vendor/countries-110m.json
   function select(d, keepBanner) {
     selected = d;
     if (view !== "world") { view = "world"; activeState = null; usG.style("display", "none"); worldG.style("display", null); crumbs(); }
+    picked = !keepBanner;
     if (!keepBanner) {
       const n = d.reported.length, sum = d3.sum(d.reported, r => r[1]);
       setBanner(d.name, fmt(d.abortions), "estimated per year, 2015 to 2019", n ? short(sum) : "Not available", n ? `officially recorded across ${n} complete year${n > 1 ? "s" : ""} between ${d.reported[0][0]} and ${d.reported[n - 1][0]}. Other years are missing.` : "No complete official annual counts in the source dataset");
