@@ -9,6 +9,9 @@ const exact = n => n < 2e6 ? fmt(n) : short(n);
 const STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5"].map(v => `var(${v})`);
 const sourceLink = (source, label = source.title) => `<a href="${source.url}">${label}</a>`;
 const countyKey = name => name.toLowerCase().replace(/[^a-z]/g, "");
+const countyFeatureName = feature => feature.id.startsWith("51")
+  ? `${feature.properties.name} ${Number(feature.id.slice(-3)) >= 500 ? "City" : "County"}`
+  : feature.properties.name;
 const COUNTY_BINS = [10, 50, 250, 1000];
 const mapWrap = document.querySelector(".map-wrap");
 
@@ -25,7 +28,7 @@ document.querySelectorAll(".waffle").forEach(w => {
 Promise.all([
   d3.json("data/countries.json?v=reported-sources"), d3.json("vendor/countries-110m.json"),
   d3.json("data/us.json"), d3.json("data/states.json"), d3.json("vendor/states-10m.json"),
-  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=minnesota-history"),
+  d3.json("data/us-history.json?v=state-series"), d3.json("data/sources.json?v=county-backlog"),
 ]).then(([data, world, us, stateData, usMap, history, bibliography]) => {
   const params = new URLSearchParams(location.search);
   const sources = new Map(bibliography.map(source => [source.id, source]));
@@ -175,6 +178,9 @@ Promise.all([
         ${recent ? `<span><b>${fmt(recent.abortions)}</b> clinician-provided in ${recent.year} by state of procedure or pill receipt · <a href="#guttmacher-full-year-2025-appendix">Source</a></span>` : ""}
         ${countyStatus === "ready" && !countyView ? '<span>County boundaries only · <a href="#county-coverage-section">Check data coverage</a></span>' : ""}`
       : "";
+    stateTotal.querySelector('a[href="#county-coverage-section"]')?.addEventListener("click", () => {
+      document.getElementById("county-coverage-section").open = true;
+    });
     const parts = [view === "world" ? `<strong aria-current="page">World</strong>` : `<button data-go="world">World</button>`];
     if (view !== "world") parts.push(`<span>/</span><button data-go="us">United States</button>`);
     if (view === "state") parts.push(`<span>/</span><strong>${activeState.name}</strong>`);
@@ -323,8 +329,8 @@ Promise.all([
     const countyFeatures = new Map();
     let pendingCounty;
     if (modePick) modePick.value = countyMode;
-    const rowFor = feature => countyRows.get(countyKey(feature.properties.name));
-    const description = feature => `${rowFor(feature)?.name ?? feature.properties.name}, ${countyYear}: ${countyCount(rowFor(feature))}`;
+    const rowFor = feature => countyRows.get(countyKey(countyFeatureName(feature)));
+    const description = feature => `${countyFeatureName(feature)}, ${countyYear}: ${countyCount(rowFor(feature))}`;
     const series = () => countyMode === "occurrence" ? countyData.occurrence : countyData;
     const showCountyDetail = () => {
       const feature = countyG.selectAll("path").data().find(f => f.id === activeCounty);
@@ -338,7 +344,7 @@ Promise.all([
       activeCounty = feature?.id ?? null;
       reset.hidden = !feature;
       focusedCountyLabel.hidden = !feature;
-      focusedCountyLabel.textContent = feature?.properties.name ?? "";
+      focusedCountyLabel.textContent = feature ? countyFeatureName(feature) : "";
       frameStateMap(feature ?? stateShapeById.get(state.id).__data__, feature ? 40 : 7);
       reveal(feature
         ? countyG.selectAll("path").filter(f => f.id === feature.id).node()
@@ -405,7 +411,7 @@ Promise.all([
     countyBoundaries().then(features => {
       if (view !== "state" || state !== activeState || !panel.isConnected) return;
       const stateCounties = features.filter(f => f.id.startsWith(state.id));
-      stateCounties.forEach(feature => countyFeatures.set(countyKey(feature.properties.name), feature));
+      stateCounties.forEach(feature => countyFeatures.set(countyKey(countyFeatureName(feature)), feature));
       countyG.style("display", null).selectAll("path")
         .data(stateCounties).join("path")
         .attr("class", "county").attr("d", usPath).attr("tabindex", 0).attr("role", "button")
@@ -515,7 +521,7 @@ Promise.all([
       return;
     }
     const wasOpen = !!container.querySelector("details[open]");
-    const name = feature.properties.name;
+    const name = countyFeatureName(feature);
     const key = countyKey(name);
     const years = Object.keys(report.years).map(Number).sort((a, b) => a - b);
     const first = years[0], last = years.at(-1);
@@ -657,11 +663,11 @@ Promise.all([
     const focusTotal = view === "state" && !countyView ? history.recent.states?.[activeState.abbr]?.at(-1) ?? activeState : null;
     stateFocusLabel.text(focusTotal ? `${activeState.abbr} ${fmt(focusTotal.abortions)} · ${focusTotal.year}` : "");
     if (countyView) {
-      const rowFor = f => countyRows.get(countyKey(f.properties.name));
+      const rowFor = f => countyRows.get(countyKey(countyFeatureName(f)));
       const countyShapes = countyG.selectAll("path").attr("fill", f => {
         const n = rowFor(f)?.count;
         return n == null ? "var(--nodata)" : STEPS[d3.bisect(COUNTY_BINS, n)];
-      }).attr("aria-label", f => `${f.properties.name}, ${countyYear}: ${countyCount(rowFor(f))}`)
+      }).attr("aria-label", f => `${countyFeatureName(f)}, ${countyYear}: ${countyCount(rowFor(f))}`)
         .classed("sel", f => f.id === activeCounty);
       countyShapes.filter(".sel").raise();
       paintCountyLabels(countyShapes, rowFor);

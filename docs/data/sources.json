@@ -1043,5 +1043,170 @@
     "id": "census-pa-county-subdivisions-2025",
     "title": "U.S. Census Bureau, Pennsylvania county subdivision boundaries, 2025",
     "url": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_42_cousub_500k.zip"
+  },
+  {
+    "id": "va-abortion-counties-1995",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1995",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP95.pdf"
+  },
+  {
+    "id": "va-abortion-counties-1996",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1996",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP96.pdf"
+  },
+  {
+    "id": "va-abortion-counties-1997",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1997",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP97.pdf"
+  },
+  {
+    "id": "va-abortion-counties-1998",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1998",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP98.pdf"
+  },
+  {
+    "id": "va-abortion-counties-1999",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1999",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP99.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2000",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2000",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP00.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2001",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2001",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP01.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2002",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2002",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP02.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2003",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2003",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP03.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2004",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2004",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP04.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2005",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2005",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP05.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2006",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2006",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP06.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2007",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2007",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP07.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2008",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2008",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP08.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2009",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2009",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP09.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2010",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2010",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP10.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2011",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2011",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP11.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2012",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2012",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP12.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2013",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2013",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP13.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2014",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2014",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP14.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2015",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2015",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2016",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2016",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/2016/2016-itop_1-2.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2017",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2017",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/2017/itop_1-2.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2018",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2018",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2018.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2019",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2019",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2019.pdf"
+  },
+  {
+    "id": "va-abortion-counties-2020",
+    "title": "Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2020",
+    "url": "https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2020.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-1998",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 1998",
+    "url": "https://www.dhs.wisconsin.gov/publications/p4/p45360-98.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2003",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2003",
+    "url": "https://www.dhs.wisconsin.gov/publications/p4/p45360-03.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2008",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2008",
+    "url": "https://www.dhs.wisconsin.gov/publications/p4/p45360-08.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2013",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2013",
+    "url": "https://www.dhs.wisconsin.gov/publications/p4/p45360-13.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2018",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2018",
+    "url": "https://www.dhs.wisconsin.gov/publications/p45360-18.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2022",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2022",
+    "url": "https://www.dhs.wisconsin.gov/publications/p45360-22.pdf"
+  },
+  {
+    "id": "wi-abortion-counties-2023",
+    "title": "Wisconsin Department of Health Services, Reported Induced Abortions, 2023",
+    "url": "https://www.dhs.wisconsin.gov/publications/p45360-23.pdf"
   }
 ]

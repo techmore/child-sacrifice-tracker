@@ -4,6 +4,7 @@ const path = require("node:path");
 const { chromium } = require("playwright");
 const states = require("../docs/data/states.json");
 const history = require("../docs/data/us-history.json");
+const countyReports = require("../docs/data/counties.json");
 const docs = path.resolve(__dirname, "../docs");
 const origin = "https://tracker.test";
 
@@ -37,11 +38,22 @@ for (const width of [1280, 390]) {
       const index = await california.evaluateAll(nodes => nodes.findIndex(node => node.__data__.id === "06"));
       await california.nth(index).click();
       const summary = page.locator("#state-total");
+      await page.locator(".county-outlines path").first().waitFor();
+      assert.match(await page.locator(".state-focus-label").textContent(), /CA 187,560 · 2025/);
       for (const state of states) {
         await page.selectOption("#state", state.id);
         const recent = history.recent.states[state.abbr].at(-1);
         assert.equal(await summary.locator("strong").innerText(), `${state.name} ${state.abortions.toLocaleString("en-US")}`);
         assert.match(await summary.innerText(), new RegExp(`${recent.abortions.toLocaleString("en-US")} clinician-provided in 2025`));
+        const report = countyReports[state.id];
+        const years = report?.years ?? report?.occurrence?.years;
+        if (years) {
+          await page.locator("path.county").first().waitFor();
+          assert.equal(await page.locator("#county-table tbody tr").count(), years[Math.max(...Object.keys(years))].length);
+        } else {
+          await page.locator(".county-outlines path").first().waitFor();
+          assert.match(await summary.innerText(), /County boundaries only/);
+        }
       }
       await page.goto(origin + "/?state=PA&basis=occurrence&year=2024#county-panel");
       await page.getByRole("button", { name: "Bucks, 2024: 1,014" }).waitFor();
@@ -64,6 +76,16 @@ for (const width of [1280, 390]) {
       assert.match(await page.getByRole("link", { name: "Source report" }).getAttribute("href"), /2022abrpt-revised\.pdf$/);
       await page.selectOption("#county-year", "2018");
       assert.match(await page.getByRole("link", { name: "Source report" }).getAttribute("href"), /2018abrpt\.pdf$/);
+
+      await page.goto(origin + "/?state=VA&year=2020#county-panel");
+      await page.getByRole("button", { name: /^Fairfax County, 2020:/ }).waitFor();
+      assert.equal(await page.getByRole("button", { name: /^Fairfax City, 2020:/ }).count(), 1);
+      await page.getByRole("button", { name: "Fairfax City", exact: true }).click();
+      assert.equal(new URL(page.url()).searchParams.get("county"), "51600");
+      await page.goto(origin + "/?state=WI&year=1994#county-panel");
+      await page.getByRole("button", { name: "Adams, 1994: 28" }).waitFor();
+      assert.equal(await page.locator("#county-table tbody tr").count(), 72);
+      assert.match(await page.getByRole("link", { name: "Source report" }).getAttribute("href"), /p45360-98\.pdf$/);
     });
   });
 }

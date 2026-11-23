@@ -208,3 +208,36 @@ nc-abortion-counties-2011	private	North Carolina DHHS, Induced Abortions by Coun
 nc-abortion-counties-2012	private	North Carolina DHHS, Induced Abortions by County of Occurrence and Residence, 2012	https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2012/reportedabortionscounty.pdf
 nc-abortion-coverage-notes	private	North Carolina DHHS, reported pregnancy data coverage notes	https://schs.dph.ncdhhs.gov/data/vital/pregnancies/2017/rates.pdf
 census-pa-county-subdivisions-2025	open	U.S. Census Bureau, Pennsylvania county subdivision boundaries, 2025	https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_42_cousub_500k.zip
+va-abortion-counties-1995	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1995	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP95.pdf
+va-abortion-counties-1996	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1996	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP96.pdf
+va-abortion-counties-1997	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1997	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP97.pdf
+va-abortion-counties-1998	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1998	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP98.pdf
+va-abortion-counties-1999	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 1999	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP99.pdf
+va-abortion-counties-2000	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2000	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP00.pdf
+va-abortion-counties-2001	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2001	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP01.pdf
+va-abortion-counties-2002	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2002	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP02.pdf
+va-abortion-counties-2003	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2003	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP03.pdf
+va-abortion-counties-2004	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2004	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP04.pdf
+va-abortion-counties-2005	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2005	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP05.pdf
+va-abortion-counties-2006	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2006	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP06.pdf
+va-abortion-counties-2007	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2007	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP07.pdf
+va-abortion-counties-2008	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2008	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP08.pdf
+va-abortion-counties-2009	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2009	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP09.pdf
+va-abortion-counties-2010	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2010	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP10.pdf
+va-abortion-counties-2011	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2011	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP11.pdf
+va-abortion-counties-2012	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2012	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP12.pdf
+va-abortion-counties-2013	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2013	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP13.pdf
+va-abortion-counties-2014	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2014	https://apps.vdh.virginia.gov/HealthStats/documents/2010/pdfs/ITOP14.pdf
+va-abortion-counties-2015	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2015	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2.pdf
+va-abortion-counties-2016	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2016	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/2016/2016-itop_1-2.pdf
+va-abortion-counties-2017	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2017	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/2017/itop_1-2.pdf
+va-abortion-counties-2018	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2018	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2018.pdf
+va-abortion-counties-2019	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2019	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2019.pdf
+va-abortion-counties-2020	private	Virginia Department of Health, Resident Induced Terminations of Pregnancy, 2020	https://apps.vdh.virginia.gov/HealthStats/documents/pdf/itop_1-2_2020.pdf
+wi-abortion-counties-1998	private	Wisconsin Department of Health Services, Reported Induced Abortions, 1998	https://www.dhs.wisconsin.gov/publications/p4/p45360-98.pdf
+wi-abortion-counties-2003	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2003	https://www.dhs.wisconsin.gov/publications/p4/p45360-03.pdf
+wi-abortion-counties-2008	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2008	https://www.dhs.wisconsin.gov/publications/p4/p45360-08.pdf
+wi-abortion-counties-2013	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2013	https://www.dhs.wisconsin.gov/publications/p4/p45360-13.pdf
+wi-abortion-counties-2018	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2018	https://www.dhs.wisconsin.gov/publications/p45360-18.pdf
+wi-abortion-counties-2022	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2022	https://www.dhs.wisconsin.gov/publications/p45360-22.pdf
+wi-abortion-counties-2023	private	Wisconsin Department of Health Services, Reported Induced Abortions, 2023	https://www.dhs.wisconsin.gov/publications/p45360-23.pdf

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+from collections import Counter
 
 from openpyxl import load_workbook
 
@@ -688,6 +689,133 @@ def nebraska_occurrence():
     }
 
 
+def locality_key(name):
+    return re.sub("[^a-z]", "", name.lower())
+
+
+def geography():
+    path = ROOT / "docs/vendor/counties-10m.json"
+    return json.loads(path.read_text())["objects"]["counties"]["geometries"]
+
+
+def wisconsin():
+    names = sorted(
+        (f["properties"]["name"] for f in geography() if f["id"].startswith("55")),
+        key=lambda name: locality_key(name).replace("stcroix", "saintcroix"),
+    )
+    years, sources = {}, {}
+    for edition in (1998, 2003, 2008, 2013, 2018, 2022, 2023):
+        source = f"wi-abortion-counties-{edition}"
+        parts = re.split(
+            r"^ *Table 1[89]\. +Number and Rate of Reported Induced [^\n]+by County of Residence,?",
+            pdf_text(source), flags=re.M,
+        )
+        body = "".join(p for p in parts[1:] if any(
+            re.match(r"^ *County +(?:Number|N)\b", line) for line in p.splitlines()[:8]
+        ))
+        body = re.split(r"^ *Table (?:19|20)\. +Three-Year Annual", body, maxsplit=1, flags=re.M)[0]
+        labels, values = [], []
+        for line in body.splitlines():
+            row = re.match(r"^ *([A-Za-z. ]+?) {2,}(?=[\d<n*])", line)
+            if not row:
+                continue
+            label = row[1].strip()
+            cells = list(re.finditer(r"(?<!\S)(?:\d+(?:,\d{3})*|<\s*5|ns|\*)(?!\S)", line))
+            if label == "Total":
+                anchors = [cell.end() for cell in cells]
+                totals = [count(cell[0]) for cell in cells]
+                continue
+            if not label or not any(locality_key(name).startswith(locality_key(label)) for name in names):
+                continue
+            if len(cells) > 5:
+                # Some 2023 rate columns display a literal zero. Select the cells aligned with the count columns.
+                cells = [min(cells, key=lambda cell: abs(cell.end() - col)) for col in anchors]
+            if len(cells) != 5 or len({cell.start() for cell in cells}) != 5:
+                raise ValueError(f"Cannot identify five Wisconsin counts for {edition} {label}")
+            labels.append(label)
+            values.append([count(cell[0]) if re.fullmatch(COUNT, cell[0]) else None for cell in cells])
+        if len(labels) != len(names) or not all(
+            locality_key(name).startswith(locality_key(label)) for name, label in zip(names, labels)
+        ):
+            raise ValueError(f"Wisconsin {edition} table does not match the 72 counties")
+        for i, year in enumerate(range(edition - 4, edition + 1)):
+            if (edition == 2022 and year < 2019) or (edition == 2023 and year < 2023):
+                continue
+            rows = [(name, row[i]) for name, row in zip(names, values)]
+            published = sum(value for _, value in rows if value is not None)
+            suppressed = sum(value is None for _, value in rows)
+            if not published <= totals[i] <= published + 4 * suppressed:
+                raise ValueError(f"Wisconsin {year} county counts do not reconcile to the published total")
+            years[year] = counties(rows, 72)
+            sources[year] = source
+    return {
+        "source": sources[max(years)], "sourceByYear": sources, "years": years,
+        "scope": ("Wisconsin residents with induced abortions reported in Wisconsin. Annual county totals from "
+                  "Tables 18 and 19. Source suppression is preserved. Wisconsin DHS notes interrupted "
+                  "in-state provision in 2022 and 2023. The figures do not measure all abortions obtained out of state."),
+    }
+
+
+def virginia():
+    names = {}
+    for feature in geography():
+        if feature["id"].startswith("51"):
+            suffix = "City" if int(feature["id"][-3:]) >= 500 else "County"
+            name = f'{feature["properties"]["name"]} {suffix}'
+            names[locality_key(name)] = name
+    current = set(names.values())
+    for name in ("Bedford City", "Clifton Forge City", "South Boston City"):
+        names[locality_key(name)] = name
+    years, sources = {}, {}
+    for year in range(1995, 2021):
+        source = f"va-abortion-counties-{year}"
+        rows, total, unknown = {}, None, 0
+        column = 1 if year < 2003 else 0
+        for page in pdf_text(source).split("\f"):
+            if "INDUCED TERMINATIONS" not in page:
+                continue
+            lines = page.splitlines()
+            header = next(line for line in lines if re.match(r"^ *CITY */ *COUNTY +TOTAL", line))
+            approximate_end = list(re.finditer(r"\bTOTAL\b", header))[column].end()
+            cells = re.compile(r"(?<!\S)[\d,]+(?!\S)")
+            # Published numbers are right-aligned. District totals locate the column on each page.
+            ends = Counter(
+                cell.end() for line in lines if line.startswith("PLANNING DISTRICT ")
+                for cell in cells.finditer(line) if cell.start() >= 21 and abs(cell.end() - approximate_end) <= 11
+            )
+            right_edge = ends.most_common(1)[0][0]
+            for line in lines:
+                label = re.split(r" {2,}", line.strip(), maxsplit=1)[0]
+                if label in {"STATE OF VIRGINIA", "COMMONWEALTH OF VIRGINIA"} and total is None:
+                    total = count(cells.findall(line)[4 * column])
+                locality = names.get(locality_key(label))
+                if not locality and label not in {"UNKNOWN VIRGINIA", "UNKNOWN VA CITY OR COUNTY"}:
+                    continue
+                matches = [cell[0] for cell in cells.finditer(line) if abs(cell.end() - right_edge) <= 1]
+                if len(matches) > 1:
+                    raise ValueError(f"Ambiguous Virginia count for {year} {label}")
+                value = count(matches[0]) if matches else 0
+                if locality:
+                    if locality in rows:
+                        raise ValueError(f"Duplicate Virginia locality for {year}: {locality}")
+                    rows[locality] = value
+                else:
+                    unknown += value
+        # The 2002 city/county rows sum to one fewer than the printed statewide total.
+        if total is None or sum(rows.values()) + unknown != total - (year == 2002):
+            raise ValueError(f"Virginia {year} city/county counts do not reconcile to the statewide total")
+        if not current.issubset(rows):
+            raise ValueError(f"Virginia {year} is missing locality rows: {current - rows.keys()}")
+        years[year] = counties(list(rows.items()), len(rows))
+        sources[year] = source
+    return {
+        "source": sources[max(years)], "sourceByYear": sources, "years": years,
+        "scope": ("Virginia Department of Health annual resident counts by county and independent city. "
+                  "Unknown residence is excluded. Former independent cities remain in historical tables. "
+                  "In 2002 the published locality counts sum to one fewer than the statewide total."),
+    }
+
+
 SOURCES = {
     "04": (
         "az-abortion-counties-2024", arizona,
@@ -755,6 +883,8 @@ def main():
     data["36"] = new_york_city()
     data["37"] = north_carolina()
     data["42"] = pennsylvania()
+    data["51"] = virginia()
+    data["55"] = wisconsin()
     occurrence_sources = {
         "04": arizona_occurrence,
         "12": florida_occurrence,
