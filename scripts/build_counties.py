@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build county-of-residence counts from locally archived state reports."""
+"""Build reported county counts from locally archived state reports."""
 import html
 import json
 from pathlib import Path
@@ -216,6 +216,37 @@ def pennsylvania(source):
     return {2024: counties(rows, 67)}
 
 
+def pennsylvania_occurrence():
+    years = {}
+    source_by_year = {}
+    for year in range(2015, 2025):
+        source = f"pa-abortion-occurrence-{year}"
+        heading = rf"Table D-7\s+Induced Abortions by County of Procedure\s+Pennsylvania Occurrences, {year}"
+        page, = (page for page in pdf_text(source).split("\f") if re.search(heading, page))
+        table = page.split("Pennsylvania Department of Health --", 1)[0]
+        rows = []
+        for line in table.splitlines():
+            # The report presents two side-by-side pairs of county and count columns.
+            cells = re.split(r" {2,}", line.strip())
+            rows.extend(
+                (name, count(value))
+                for name, value in zip(cells[::2], cells[1::2])
+                if re.fullmatch(COUNT, value)
+            )
+        state_total, = (total for name, total in rows if name == "Pennsylvania")
+        rows = [(name, value) for name, value in rows if name != "Pennsylvania"]
+        verify_total(rows, state_total)
+        years[year] = counties(rows, 67)
+        source_by_year[year] = source
+        print(f"{source}: {len(rows)} counties, {state_total:,} reported procedures")
+    return {
+        "source": source_by_year[max(source_by_year)],
+        "sourceByYear": source_by_year,
+        "scope": "Induced abortions reported in Pennsylvania, grouped by county where the procedure occurred, including patients who lived outside Pennsylvania. Pennsylvania Vital Statistics, Table D-7.",
+        "years": years,
+    }
+
+
 def washington(source):
     years = {}
     for year, expected in ((2002, 25446 - 10), (2005, 24162 - 8)):
@@ -297,6 +328,7 @@ def main():
         if fips == "53":
             data[fips]["sourceByYear"] = {year: f"wa-abortion-counties-{year}" for year in years}
         print(f"{source}: {min(years)}–{max(years)}, {len(years[max(years)])} counties")
+    data["42"]["occurrence"] = pennsylvania_occurrence()
     (ROOT / "docs" / "data" / "counties.json").write_text(
         json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8"
     )

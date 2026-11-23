@@ -990,6 +990,116 @@
     "sha256": "2305fb8ef77521030c78c797ee6fa13591636d2411b9f7b3179a389e8c8d743f"
   },
   {
+    "id": "pa-abortion-occurrence-2015",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2015 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2015.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2015.pdf",
+    "bytes": 56688,
+    "sha256": "700d7f91ce8af20aa1bff36a97dfd315c41bcd88086b93198daf12599bdd6602"
+  },
+  {
+    "id": "pa-abortion-occurrence-2016",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2016 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2016.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2016.pdf",
+    "bytes": 136210,
+    "sha256": "89c0287421e080f47034593ba36dc637edc26bec72f149591de9de81d8dcfabf"
+  },
+  {
+    "id": "pa-abortion-occurrence-2017",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2017 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2017.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2017.pdf",
+    "bytes": 144437,
+    "sha256": "aeb00428c6b744a7c5ddf46e4b510da4d2f4f1bc1e419f8707206932a472784a"
+  },
+  {
+    "id": "pa-abortion-occurrence-2018",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2018 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2018.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2018.pdf",
+    "bytes": 156195,
+    "sha256": "9a89fb5bad018c93a2ba12f4c5c3380d1430b591cdfdfdf3a8f165c9e06dda85"
+  },
+  {
+    "id": "pa-abortion-occurrence-2019",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2019 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2019.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2019.pdf",
+    "bytes": 153264,
+    "sha256": "a106e5248ee8d75efa84e9351dc9865ff1e21ed614cfcdf36ae29d9e9f1616a3"
+  },
+  {
+    "id": "pa-abortion-occurrence-2020",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2020 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2020.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2020.pdf",
+    "bytes": 153859,
+    "sha256": "388938eb62a70533913bdba3d651f9cd6476c697c01a145a208e7735c6b38eab"
+  },
+  {
+    "id": "pa-abortion-occurrence-2021",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2021 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/PA_Vital_Statistics_Abortion_2021.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2021.pdf",
+    "bytes": 440835,
+    "sha256": "1183c87f76948fd7b8b40f86f1ca631333450d271bcbc7ed3aef2453f250b5b5"
+  },
+  {
+    "id": "pa-abortion-occurrence-2022",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2022 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/pa_vital_statistics_abortion_2022.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2022.pdf",
+    "bytes": 432504,
+    "sha256": "ba7faae9efdbf8547d4960965e1edad6fba6759576a58fcc788f946fc7047cf5"
+  },
+  {
+    "id": "pa-abortion-occurrence-2023",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2023 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/pa_vital_statistics_abortion_2023.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2023.pdf",
+    "bytes": 256215,
+    "sha256": "171ed749f1adeaccf18d7d9306753a165e76f7615d3b74ee9cd67f399f01c087"
+  },
+  {
+    "id": "pa-abortion-occurrence-2024",
+    "access": "private",
+    "title": "Pennsylvania Department of Health, 2024 Vital Statistics, Table D-7",
+    "url": "https://www.pa.gov/content/dam/copapwp-pagov/en/health/documents/topics/healthstatistics/vitalstatistics/pavitalstatistics/documents/pa_vital_statistics_abortion_2024.pdf",
+    "retrieved": "2026-11-23",
+    "status": "saved",
+    "file": "private/pa-abortion-occurrence-2024.pdf",
+    "bytes": 190000,
+    "sha256": "e604ae4b2c9b5107eef972faa24b42643a336ccde30dad9f3e68df8cf4e063b8"
+  },
+  {
     "id": "osf-country-profile-albania",
     "access": "private",
     "title": "Guttmacher and WHO, country data profile for Albania",

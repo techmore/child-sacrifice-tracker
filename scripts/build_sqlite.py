@@ -43,6 +43,9 @@ SERIES = [
     ("county-reported", "Reported county counts by residence",
      "Public aggregate counts by patient county of residence. See each release for "
      "coverage. A suppressed value has a NULL count. A missing county has no row.", "county"),
+    ("county-occurrence", "Reported county counts by procedure location",
+     "Public aggregate counts by county where the procedure was reported. See each "
+     "release for coverage. A suppressed value has a NULL count. A missing county has no row.", "county"),
 ]
 
 
@@ -160,29 +163,36 @@ def insert_states(db, states):
 
 def insert_counties(db, states):
     for fips, state in sorted(states.items()):
-        years = state["years"]
-        names = {r["name"] for rows in years.values() for r in rows}
+        reports = {"county-reported": state}
+        if "occurrence" in state:
+            reports["county-occurrence"] = state["occurrence"]
+        names = {row["name"] for report in reports.values() for rows in report["years"].values() for row in rows}
         db.executemany(
             "INSERT INTO county (state_fips, name) VALUES (?, ?)",
             ((fips, name) for name in sorted(names)),
         )
-        source_by_year = state.get("sourceByYear", {})
-        for year, rows in sorted(years.items()):
-            source_id = source_by_year.get(year, state.get("source"))
-            db.execute(
-                """INSERT INTO county_release (state_fips, year, series_id, source_id, scope)
-                   VALUES (?, ?, 'county-reported', ?, ?)""",
-                (fips, int(year), source_id, state["scope"]),
-            )
-            db.executemany(
-                """INSERT INTO county_observation (state_fips, county_name, year, abortions, status)
-                   VALUES (?, ?, ?, ?, ?)""",
-                (
-                    (fips, r["name"], int(year), r["count"],
-                     "suppressed" if r["count"] is None else "reported")
-                    for r in rows
-                ),
-            )
+        for series_id, report in reports.items():
+            insert_county_report(db, fips, series_id, report)
+
+
+def insert_county_report(db, fips, series_id, report):
+    source_by_year = report.get("sourceByYear", {})
+    for year, rows in sorted(report["years"].items()):
+        source_id = source_by_year.get(year, report.get("source"))
+        db.execute(
+            """INSERT INTO county_series_release (state_fips, year, series_id, source_id, scope)
+               VALUES (?, ?, ?, ?, ?)""",
+            (fips, int(year), series_id, source_id, report["scope"]),
+        )
+        db.executemany(
+            """INSERT INTO county_series_observation (state_fips, county_name, year, series_id, abortions, status)
+               VALUES (?, ?, ?, ?, ?, ?)""",
+            (
+                (fips, row["name"], int(year), series_id, row["count"],
+                 "suppressed" if row["count"] is None else "reported")
+                for row in rows
+            ),
+        )
 
 
 def populate(db, files):

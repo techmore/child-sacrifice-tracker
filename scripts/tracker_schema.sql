@@ -1,4 +1,4 @@
-PRAGMA user_version = 1;
+PRAGMA user_version = 2;
 
 CREATE TABLE build_input (
     path TEXT PRIMARY KEY NOT NULL,
@@ -121,25 +121,36 @@ CREATE TABLE county (
     PRIMARY KEY (state_fips, name)
 ) WITHOUT ROWID;
 
-CREATE TABLE county_release (
+CREATE TABLE county_series_release (
     state_fips TEXT NOT NULL REFERENCES state(fips),
     year INTEGER NOT NULL,
     series_id TEXT NOT NULL REFERENCES series(id),
     source_id TEXT NOT NULL REFERENCES source(id),
     scope TEXT NOT NULL,
-    PRIMARY KEY (state_fips, year)
+    PRIMARY KEY (state_fips, year, series_id)
 ) WITHOUT ROWID;
 
-CREATE TABLE county_observation (
+CREATE TABLE county_series_observation (
     state_fips TEXT NOT NULL,
     county_name TEXT NOT NULL,
     year INTEGER NOT NULL,
+    series_id TEXT NOT NULL,
     abortions INTEGER CHECK (abortions >= 0),
     status TEXT NOT NULL CHECK (status IN ('reported', 'suppressed')),
-    PRIMARY KEY (state_fips, county_name, year),
+    PRIMARY KEY (state_fips, county_name, year, series_id),
     FOREIGN KEY (state_fips, county_name) REFERENCES county(state_fips, name),
-    FOREIGN KEY (state_fips, year) REFERENCES county_release(state_fips, year),
+    FOREIGN KEY (state_fips, year, series_id) REFERENCES county_series_release(state_fips, year, series_id),
     CHECK ((status = 'suppressed') = (abortions IS NULL))
 ) WITHOUT ROWID;
 
-CREATE INDEX county_observation_by_release ON county_observation (state_fips, year);
+CREATE INDEX county_observation_by_release ON county_series_observation (state_fips, year, series_id);
+
+CREATE VIEW county_release AS
+SELECT state_fips, year, series_id, source_id, scope
+FROM county_series_release
+WHERE series_id = 'county-reported';
+
+CREATE VIEW county_observation AS
+SELECT state_fips, county_name, year, abortions, status
+FROM county_series_observation
+WHERE series_id = 'county-reported';
